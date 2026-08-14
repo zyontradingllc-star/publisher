@@ -14,7 +14,6 @@ import {
   portfolio,
   blog,
   testimonials,
-  testimonialsSection,
   brandMessages,
 } from "@/content/site";
 
@@ -323,32 +322,24 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="border-y border-sand bg-ivory py-14 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
-                {testimonialsSection.title}
-              </h2>
-            </div>
-            <p className="mt-3 max-w-2xl text-sm text-charcoal sm:text-base">
-              {testimonialsSection.description}
-            </p>
-          </FadeIn>
-          {testimonials.length > 0 ? (
-            <FadeIn className="mt-10">
-              <TestimonialCarousel items={testimonials} />
-            </FadeIn>
-          ) : (
-            <FadeIn className="mt-8 max-w-xl">
-              <p className="text-sm text-charcoal">
-                Genuine client experiences will appear here as authors share their
-                journeys.
-              </p>
-            </FadeIn>
-          )}
-        </div>
+      {/* Testimonials banner */}
+      <section className="bg-cream leading-none">
+        <FadeIn>
+          <Image
+            src="/testimonials-banner.png"
+            alt="The Stories Behind the Stories — Author Forges client journeys"
+            width={5953}
+            height={937}
+            sizes="100vw"
+            className="block h-auto w-full"
+            quality={95}
+          />
+        </FadeIn>
+        {testimonials.length > 0 && (
+          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+            <TestimonialCarousel items={testimonials} />
+          </div>
+        )}
       </section>
 
       {/* Blog — BookChimp blog row */}

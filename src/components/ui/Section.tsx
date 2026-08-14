@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/motion/FadeIn";
 
@@ -72,9 +73,16 @@ export function CtaBanner({ title, description, cta }: CtaBannerProps) {
 type PageHeroProps = {
   title: string;
   description: string;
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
-export function PageHero({ title, description }: PageHeroProps) {
+export function PageHero({
+  title,
+  description,
+  imageSrc,
+  imageAlt = "",
+}: PageHeroProps) {
   return (
     <FadeIn>
       <header className="mx-auto max-w-3xl pt-10 text-center sm:pt-14">
@@ -84,6 +92,18 @@ export function PageHero({ title, description }: PageHeroProps) {
         <p className="mt-5 text-base leading-relaxed text-charcoal sm:text-lg">
           {description}
         </p>
+        {imageSrc && (
+          <div className="relative mx-auto mt-8 aspect-[16/9] w-full overflow-hidden rounded-soft shadow-soft sm:mt-10">
+            <Image
+              src={imageSrc}
+              alt={imageAlt || title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover object-center"
+              priority
+            />
+          </div>
+        )}
       </header>
     </FadeIn>
   );

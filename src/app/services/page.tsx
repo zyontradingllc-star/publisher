@@ -28,6 +28,8 @@ export default function ServicesPage() {
       <PageHero
         title={services.hero.title}
         description={services.hero.description}
+        imageSrc="/services/hero-books.png"
+        imageAlt="collection-of-books-author-forges-services"
       />
 
       <FadeIn className="mt-10 rounded-soft border border-sand bg-cream px-6 py-8 sm:px-8">
@@ -59,79 +61,78 @@ export default function ServicesPage() {
         </div>
       </FadeIn>
 
-      <div className="relative mt-14 [perspective:1400px] sm:mt-16">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-10 -z-10 h-72 bg-[radial-gradient(ellipse_at_center,_rgba(29,94,219,0.08)_0%,_transparent_70%)]"
-        />
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-          {services.items.map((service, i) => {
-            const href = dedicated.has(service.slug)
-              ? `/${service.slug}`
-              : `/services#${service.slug}`;
-            const imageSrc = services.images[service.slug];
+      <div className="mt-14 grid gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        {services.items.map((service, i) => {
+          const href = dedicated.has(service.slug)
+            ? `/${service.slug}`
+            : `/services#${service.slug}`;
+          const imageSrc = services.images[service.slug];
 
-            return (
-              <FadeIn key={service.slug} delay={Math.min(i * 0.06, 0.36)}>
-                <article
-                  id={service.slug}
-                  className="floating-card group flex h-full scroll-mt-24 flex-col overflow-hidden"
-                >
-                  <div className="relative aspect-[5/4] w-full shrink-0 overflow-hidden">
-                    <div className="absolute inset-3 z-10 rounded-xl ring-1 ring-white/40" />
-                    {imageSrc ? (
-                      <Image
-                        src={imageSrc}
-                        alt={service.imageAlt}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-center transition duration-700 ease-out group-hover:scale-[1.04]"
-                      />
-                    ) : (
-                      <PlaceholderImage
-                        alt={service.imageAlt}
-                        className="h-full w-full"
-                        label={service.title}
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent opacity-60" />
-                  </div>
+          return (
+            <FadeIn key={service.slug} delay={Math.min(i * 0.04, 0.24)}>
+              <article
+                id={service.slug}
+                className="flex h-full scroll-mt-24 flex-col overflow-hidden rounded-2xl border border-sand bg-cream shadow-soft transition hover:-translate-y-1 hover:border-coral/30 hover:shadow-lift"
+              >
+                <Link href={href} className="relative block aspect-[5/6] w-full shrink-0 overflow-hidden bg-ivory">
+                  {imageSrc ? (
+                    <Image
+                      src={imageSrc}
+                      alt={service.imageAlt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover object-center"
+                    />
+                  ) : (
+                    <PlaceholderImage
+                      alt={service.imageAlt}
+                      className="h-full w-full"
+                      label={service.title}
+                    />
+                  )}
+                </Link>
 
-                  <div className="flex flex-1 flex-col px-6 pb-7 pt-6">
-                    <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-coral">
+                  <div className="flex min-h-[168px] flex-col items-center p-5 text-center">
+                    <p className="font-sans text-sm font-bold uppercase tracking-[0.12em] text-coral">
                       {service.title}
                     </p>
-                    <h2 className="mt-3 font-display text-2xl font-semibold leading-[1.2] tracking-tight text-ink">
-                      <Link href={href} className="transition hover:text-coral-deep">
+                    <h2 className="mt-2 line-clamp-2 font-display text-xl font-bold leading-snug text-ink">
+                      <Link href={href} className="hover:text-coral-deep">
                         {service.heading}
                       </Link>
                     </h2>
-                    <p className="mt-4 line-clamp-3 flex-1 font-sans text-sm leading-relaxed text-charcoal">
+                    <p className="mt-2 line-clamp-2 flex-1 font-sans text-sm leading-relaxed text-charcoal">
                       {service.summary}
                     </p>
-                    <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-sand/80 pt-5">
+                    <div className="mt-4 flex w-full justify-center">
                       <Button
                         href={service.cta.href}
-                        className="!rounded-full !px-5 !py-2.5 !text-xs !tracking-[0.08em]"
+                        className="!px-4 !py-2.5 !text-xs"
                       >
                         {service.cta.label}
                       </Button>
-                      <Link
-                        href={href}
-                        className="font-sans text-sm font-medium text-ink underline-offset-4 transition hover:text-coral hover:underline"
-                      >
-                        Learn more
-                      </Link>
                     </div>
                   </div>
-                </article>
-              </FadeIn>
-            );
-          })}
-        </div>
+              </article>
+            </FadeIn>
+          );
+        })}
       </div>
 
-      <div className="mt-20">
+      <FadeIn className="mt-16 text-center sm:mt-20">
+        <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+          Ready to forge your book?
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl font-sans text-base text-charcoal">
+          One conversation can start the full journey — writing, design, audio,
+          and publishing.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Button href="/contact">Forge My Story</Button>
+        </div>
+      </FadeIn>
+
+      <div className="mt-14">
         <FadeIn>
           <div className="overflow-hidden rounded-soft leading-none">
             <Image
