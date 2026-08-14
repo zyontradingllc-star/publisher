@@ -4,24 +4,95 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --primary: #1d5edb;
+  --accent: #4b82f0;
+  --muted: #6b7280;
+  --border: #d1d5db;
+  --surface: #e5e7eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(29, 94, 219, 0.28);
+  color: #1a1a1a;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  .organic-blob {
+    border-radius: 42% 58% 52% 48% / 48% 42% 58% 52%;
+  }
+
+  .hand-underline {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' fill='none'%3E%3Cpath d='M2 8c20-6 40-8 60-4s38 6 56 2' stroke='%231D5EDB' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 10px;
+    padding-bottom: 0.35rem;
+  }
+
+  .book-spine {
+    box-shadow:
+      inset 3px 0 6px rgba(0, 0, 0, 0.08),
+      0 12px 24px -8px rgba(26, 26, 26, 0.2);
+  }
+
+  .floating-card {
+    border: 1px solid rgba(209, 213, 219, 0.9);
+    border-radius: 1.5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9) inset,
+      0 20px 40px -24px rgba(26, 26, 26, 0.35),
+      0 40px 80px -40px rgba(29, 94, 219, 0.22);
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.5s ease;
+    transform-style: preserve-3d;
+    animation: none;
+  }
+
+  .floating-card:hover {
+    transform: translateY(-12px) rotateX(3deg) scale(1.01);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 1) inset,
+      0 28px 50px -20px rgba(26, 26, 26, 0.4),
+      0 50px 90px -36px rgba(29, 94, 219, 0.28);
+  }
+
+  .floating-card:active {
+    transform: translateY(-4px) rotateX(1deg) scale(1.005);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-card {
+    animation: none;
   }
 }
