@@ -41,9 +41,13 @@ export function Footer() {
           </div>
           <Link
             href={footer.cta.href}
-            className="inline-flex rounded-md bg-coral px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-coral-deep"
+            className="group relative inline-flex overflow-hidden rounded-md bg-[#032bb8] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-cta transition duration-300 hover:-translate-y-0.5 hover:bg-[#02208f] hover:shadow-cta-lg"
           >
-            {footer.cta.link}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[400%] motion-reduce:hidden"
+            />
+            <span className="relative">{footer.cta.link}</span>
           </Link>
         </div>
       </div>

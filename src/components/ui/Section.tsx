@@ -83,7 +83,7 @@ export function PageHero({
   description,
   imageSrc,
   imageAlt = "",
-  titleClassName = "text-coral",
+  titleClassName = "text-ink",
 }: PageHeroProps) {
   return (
     <FadeIn>

@@ -22,7 +22,7 @@ export function PlaceholderImage({
         className="absolute inset-0 opacity-40"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 30% 40%, rgba(29,94,219,0.22), transparent 45%), radial-gradient(circle at 70% 70%, rgba(26,26,26,0.06), transparent 40%)",
+            "radial-gradient(circle at 30% 40%, rgba(27,59,111,0.22), transparent 45%), radial-gradient(circle at 70% 70%, rgba(26,26,26,0.06), transparent 40%)",
         }}
       />
       <span

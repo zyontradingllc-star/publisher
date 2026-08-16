@@ -33,17 +33,20 @@ export function Navbar() {
 
   return (
     <>
-      <div className="bg-ink px-4 py-2 text-center text-xs text-linen sm:text-sm">
+      <div className="relative z-50 bg-ink/[0.06] px-4 py-2 text-center text-xs text-ink/75 backdrop-blur-sm sm:text-sm">
         Forge Your Story. Publish Your Legacy.{" "}
-        <Link href="/contact" className="font-medium text-coral-soft underline-offset-2 hover:underline">
+        <Link
+          href="/contact"
+          className="font-medium text-coral underline-offset-2 hover:underline"
+        >
           Start a conversation →
         </Link>
       </div>
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "border-b border-sand bg-cream/95 shadow-soft backdrop-blur-md"
-            : "bg-cream"
+          scrolled || open
+            ? "border-b border-white/50 bg-[#ECECEC]/60 shadow-soft backdrop-blur-md"
+            : "bg-transparent"
         }`}
       >
         <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
@@ -122,7 +125,7 @@ export function Navbar() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden border-t border-sand bg-cream lg:hidden"
+              className="overflow-hidden border-t border-white/50 bg-[#ECECEC]/85 backdrop-blur-md lg:hidden"
             >
               <ul className="flex flex-col gap-1 px-4 py-4">
                 {navLinks.map((link) => (

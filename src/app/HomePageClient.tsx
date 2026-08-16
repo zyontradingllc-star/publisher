@@ -10,6 +10,8 @@ import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
 import { LogoMarquee } from "@/components/ui/LogoMarquee";
 import { BookShowcase } from "@/components/ui/BookShowcase";
 import { HeroBookFan } from "@/components/ui/HeroBookFan";
+import { CoversInMotion } from "@/components/ui/CoversInMotion";
+import { ComeToLife } from "@/components/ui/ComeToLife";
 import {
   brand,
   home,
@@ -48,13 +50,14 @@ export default function HomePageClient() {
   return (
     <>
       {/* Hero — BookChimp style: text left, book stack right */}
-      <section className="relative overflow-hidden bg-warm-wash">
-        <div className="relative mx-auto grid max-w-6xl items-start gap-10 px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 lg:grid-cols-2 lg:gap-12 lg:px-8">
+      {/* Pulled up behind the transparent navbar so the band runs to the top. */}
+      <section className="relative -mt-[108px] overflow-hidden bg-warm-wash pt-[108px] sm:-mt-[116px] sm:pt-[116px]">
+        <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-10 px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 lg:grid-cols-2 lg:gap-12 lg:px-8">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[20px] font-medium uppercase tracking-[0.16em] text-coral"
+              className="text-[20px] font-medium uppercase tracking-[0.16em] text-coral-deep"
             >
               {brand.name}
             </motion.p>
@@ -107,14 +110,14 @@ export default function HomePageClient() {
       <section className="relative bg-cream py-14 sm:py-16">
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-[380px] bg-coral-deep sm:h-[420px] lg:h-[440px]"
+          className="absolute inset-x-0 top-0 h-[380px] bg-cta-wash sm:h-[420px] lg:h-[440px]"
         />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="flex items-end justify-between gap-4">
               <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
                 Featured Ways We{" "}
-                <span className="text-[#E85D04]">Forge</span>
+                <span className="text-coral-soft">Forge</span>
               </h2>
               <Link
                 href="/services"
@@ -133,7 +136,7 @@ export default function HomePageClient() {
                   <div className="group relative h-full">
                     <span
                       aria-hidden="true"
-                      className="absolute bottom-6 right-[-8px] top-1/2 w-3 rounded-r-lg bg-[#E85D04]"
+                      className="absolute bottom-6 right-[-8px] top-1/2 w-3 rounded-r-lg bg-coral"
                     />
                     <div className="relative flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-soft transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
                       <div className="relative aspect-[7/6] w-full shrink-0 overflow-hidden bg-ivory">
@@ -152,7 +155,7 @@ export default function HomePageClient() {
                             label={service.title}
                           />
                         )}
-                        <span className="absolute -bottom-1 left-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#E85D04] text-white shadow-soft">
+                        <span className="absolute -bottom-1 left-4 flex h-12 w-12 items-center justify-center rounded-lg bg-coral text-white shadow-soft">
                           <svg
                             viewBox="0 0 24 24"
                             aria-hidden="true"
@@ -169,8 +172,8 @@ export default function HomePageClient() {
                         </span>
                       </div>
                       <div className="flex flex-1 flex-col px-4 pb-5 pt-6 text-center">
-                        <h3 className="font-display text-lg font-bold text-coral-deep">
-                          <Link href={href} className="hover:text-coral">
+                        <h3 className="font-display text-lg font-bold text-ink">
+                          <Link href={href} className="hover:text-coral-deep">
                             {service.title}
                           </Link>
                         </h3>
@@ -179,10 +182,10 @@ export default function HomePageClient() {
                         </p>
                         <Link
                           href={href}
-                          className="mt-4 inline-flex items-center gap-2 self-center rounded-md bg-coral-deep py-2 pl-4 pr-2 text-[13px] font-semibold text-white transition hover:bg-coral"
+                          className="mt-4 inline-flex items-center gap-2 self-center rounded-md bg-ink py-2 pl-4 pr-2 text-[13px] font-semibold text-white transition hover:bg-slate"
                         >
                           Read More
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-coral-deep">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-coral text-white">
                             <svg
                               viewBox="0 0 24 24"
                               aria-hidden="true"
@@ -208,6 +211,12 @@ export default function HomePageClient() {
 
       {/* Recommended books strip */}
       <BookShowcase />
+
+      {/* Covers in motion — 3D ring */}
+      <CoversInMotion />
+
+      {/* Watch it come to life */}
+      <ComeToLife />
 
       {/* Portfolio — collection strip */}
       <section className="bg-ivory py-14 sm:py-16">

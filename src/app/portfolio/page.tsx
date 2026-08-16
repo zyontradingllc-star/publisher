@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { portfolio } from "@/content/site";
 import { PageHero } from "@/components/ui/Section";
 import { PortfolioGrid } from "@/components/portfolio/PortfolioGrid";
+import { AmazonBestsellers } from "@/components/portfolio/AmazonBestsellers";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 
@@ -19,6 +20,9 @@ export default function PortfolioPage() {
       />
       <FadeIn className="mt-8 flex justify-center">
         <Button href="/contact">Start a Conversation</Button>
+      </FadeIn>
+      <FadeIn className="mt-12 sm:mt-14">
+        <AmazonBestsellers />
       </FadeIn>
       <FadeIn className="mt-12 sm:mt-14">
         <PortfolioGrid />

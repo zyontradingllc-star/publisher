@@ -21,7 +21,7 @@ export function Card({
           ? {
               y: -4,
               scale: 1.01,
-              boxShadow: "0 18px 40px -14px rgba(29,94,219,0.28)",
+              boxShadow: "0 18px 40px -14px rgba(27,59,111,0.28)",
             }
           : undefined
       }

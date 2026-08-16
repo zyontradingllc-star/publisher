@@ -56,7 +56,7 @@ export function SupportPromo() {
     <FadeIn className="mt-12 sm:mt-14">
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div>
-          <h2 className="font-display text-3xl font-semibold leading-tight text-coral sm:text-4xl">
+          <h2 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
             24/7 Support Available
           </h2>
           <p className="mt-4 font-sans text-base font-semibold text-ink">

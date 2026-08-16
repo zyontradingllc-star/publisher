@@ -74,7 +74,7 @@ export function HeroBookFan() {
     <div className="relative aspect-[4/3] w-full sm:aspect-[5/4]">
       <div
         aria-hidden="true"
-        className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(29,94,219,0.10),transparent)]"
+        className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(27,59,111,0.16),transparent)]"
       />
       <div
         className="absolute inset-0 flex items-center justify-center"

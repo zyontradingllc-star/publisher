@@ -16,7 +16,7 @@ export function LogoMarquee() {
   return (
     <section className="border-y border-sand/70 bg-white py-8 sm:py-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <p className="text-center font-sans text-xs font-bold uppercase tracking-[0.22em] text-coral">
+        <p className="text-center font-sans text-xs font-bold uppercase tracking-[0.22em] text-coral-deep">
           Your book, published everywhere
         </p>
       </div>

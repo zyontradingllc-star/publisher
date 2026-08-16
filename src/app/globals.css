@@ -4,12 +4,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1a1a1a;
-  --primary: #1d5edb;
-  --accent: #4b82f0;
-  --muted: #6b7280;
-  --border: #d1d5db;
-  --surface: #e5e7eb;
+  --foreground: #212121;
+  --primary: #1b3b6f;
+  --accent: #4e7fc1;
+  --muted: #6b6b6b;
+  --border: #d4d4d4;
+  --surface: #ececec;
 }
 
 html {
@@ -24,8 +24,8 @@ body {
 }
 
 ::selection {
-  background: rgba(29, 94, 219, 0.28);
-  color: #1a1a1a;
+  background: rgba(78, 127, 193, 0.35);
+  color: #212121;
 }
 
 @layer utilities {
@@ -40,7 +40,7 @@ body {
   }
 
   .hand-underline {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' fill='none'%3E%3Cpath d='M2 8c20-6 40-8 60-4s38 6 56 2' stroke='%231D5EDB' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' fill='none'%3E%3Cpath d='M2 8c20-6 40-8 60-4s38 6 56 2' stroke='%231B3B6F' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: 100% 10px;
