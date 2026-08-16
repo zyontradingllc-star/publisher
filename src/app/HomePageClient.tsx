@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/Button";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
+import { LogoMarquee } from "@/components/ui/LogoMarquee";
+import { BookShowcase } from "@/components/ui/BookShowcase";
+import { HeroBookFan } from "@/components/ui/HeroBookFan";
 import {
   brand,
   home,
@@ -30,6 +33,14 @@ const dedicated = new Set([
 function serviceHref(slug: string) {
   return dedicated.has(slug) ? `/${slug}` : `/services#${slug}`;
 }
+
+const portfolioTiles = [
+  "/books/book3.jpg",
+  "/books/book9.jpg",
+  "/books/book10.jpg",
+  "/books/book5.jpg",
+  "/books/book11.jpg",
+];
 
 export default function HomePageClient() {
   const featured = services.items.slice(0, 8);
@@ -84,74 +95,110 @@ export default function HomePageClient() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="relative mx-auto mt-0 w-full max-w-lg sm:max-w-xl lg:max-w-none"
           >
-            <div className="relative aspect-[4/3] w-full sm:aspect-[5/4]">
-              <Image
-                src="/hero-bg.png"
-                alt={home.hero.imageAlt}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-contain object-top"
-              />
-            </div>
+            <HeroBookFan />
           </motion.div>
         </div>
       </section>
 
+      {/* Retailer logos */}
+      <LogoMarquee />
+
       {/* Featured services */}
-      <section className="bg-cream py-14 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-cream py-14 sm:py-16">
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-[380px] bg-coral-deep sm:h-[420px] lg:h-[440px]"
+        />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="flex items-end justify-between gap-4">
-              <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
-                Featured Ways We Forge
+              <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
+                Featured Ways We{" "}
+                <span className="text-[#E85D04]">Forge</span>
               </h2>
               <Link
                 href="/services"
-                className="shrink-0 text-[14px] font-medium text-coral hover:text-coral-deep"
+                className="shrink-0 rounded-full border border-white/50 px-4 py-2 text-[14px] font-medium text-white transition hover:bg-white hover:text-coral-deep"
               >
                 view all
               </Link>
             </div>
           </FadeIn>
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((service, i) => {
               const imageSrc = services.images[service.slug];
+              const href = serviceHref(service.slug);
               return (
                 <FadeIn key={service.slug} delay={i * 0.04}>
-                  <Link
-                    href={serviceHref(service.slug)}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-sand bg-cream shadow-soft transition hover:-translate-y-1 hover:border-coral/30 hover:shadow-lift"
-                  >
-                    <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-ivory">
-                      {imageSrc ? (
-                        <Image
-                          src={imageSrc}
-                          alt={service.imageAlt}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 240px"
-                          className="object-cover object-center transition duration-300 group-hover:scale-105"
-                        />
-                      ) : (
-                        <PlaceholderImage
-                          alt={service.imageAlt}
-                          className="h-full w-full"
-                          label={service.title}
-                        />
-                      )}
+                  <div className="group relative h-full">
+                    <span
+                      aria-hidden="true"
+                      className="absolute bottom-6 right-[-8px] top-1/2 w-3 rounded-r-lg bg-[#E85D04]"
+                    />
+                    <div className="relative flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-soft transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
+                      <div className="relative aspect-[7/6] w-full shrink-0 overflow-hidden bg-ivory">
+                        {imageSrc ? (
+                          <Image
+                            src={imageSrc}
+                            alt={service.imageAlt}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 240px"
+                            className="object-cover object-center transition duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <PlaceholderImage
+                            alt={service.imageAlt}
+                            className="h-full w-full"
+                            label={service.title}
+                          />
+                        )}
+                        <span className="absolute -bottom-1 left-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#E85D04] text-white shadow-soft">
+                          <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                            className="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 15.5z" />
+                            <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5z" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div className="flex flex-1 flex-col px-4 pb-5 pt-6 text-center">
+                        <h3 className="font-display text-lg font-bold text-coral-deep">
+                          <Link href={href} className="hover:text-coral">
+                            {service.title}
+                          </Link>
+                        </h3>
+                        <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal">
+                          {service.heading}
+                        </p>
+                        <Link
+                          href={href}
+                          className="mt-4 inline-flex items-center gap-2 self-center rounded-md bg-coral-deep py-2 pl-4 pr-2 text-[13px] font-semibold text-white transition hover:bg-coral"
+                        >
+                          Read More
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-coral-deep">
+                            <svg
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                              className="h-3 w-3"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                            >
+                              <path d="M12 5v14M5 12h14" />
+                            </svg>
+                          </span>
+                        </Link>
+                      </div>
                     </div>
-                    <div className="flex flex-1 flex-col p-4">
-                      <h3 className="font-display text-lg font-semibold text-ink">
-                        {service.title}
-                      </h3>
-                      <p className="mt-1.5 flex-1 text-sm leading-relaxed text-charcoal">
-                        {service.heading}
-                      </p>
-                      <span className="mt-3 text-[14px] font-medium text-coral transition group-hover:text-coral-deep">
-                        Explore →
-                      </span>
-                    </div>
-                  </Link>
+                  </div>
                 </FadeIn>
               );
             })}
@@ -159,95 +206,8 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Audiobook promo — BookChimp light panel */}
-      <section className="bg-warm-wash py-14 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[1.75rem] bg-ivory/80 p-6 sm:p-10 lg:p-12">
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-              <FadeIn>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-charcoal">
-                  Audiobook
-                </p>
-                <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl lg:text-5xl">
-                  Try our new feature Audiobook here for{" "}
-                  <span className="text-[#E85D04]">Free!</span>
-                </h2>
-                <p className="mt-4 max-w-md text-sm leading-relaxed text-charcoal sm:text-base">
-                  Turn your manuscript or PDF into a listening experience — voice,
-                  pacing, and production built for real audiences.
-                </p>
-                <Link
-                  href="/audiobook-production"
-                  className="mt-8 inline-flex items-center justify-center rounded-md bg-coral px-6 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-coral-deep"
-                >
-                  View All Audiobook
-                </Link>
-              </FadeIn>
-
-              <FadeIn delay={0.08}>
-                <div className="flex flex-col gap-4">
-                  {[
-                    {
-                      title: "Audiobook Production",
-                      desc: "Narration and sound that give your book a second life.",
-                      href: "/audiobook-production",
-                      image: services.images["book-cover-design"],
-                      alt: "promo-audiobook-production",
-                    },
-                    {
-                      title: "PDF to Audio",
-                      desc: "Already have the PDF? Convert it into listenable audio.",
-                      href: "/pdf-to-audio",
-                      image: services.images["book-editing"],
-                      alt: "promo-pdf-to-audio",
-                    },
-                  ].map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="group flex overflow-hidden rounded-xl bg-cream shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
-                    >
-                      <div className="relative w-28 shrink-0 self-stretch sm:w-36">
-                        {item.image ? (
-                          <Image
-                            src={item.image}
-                            alt={item.alt}
-                            fill
-                            sizes="144px"
-                            className="object-cover"
-                          />
-                        ) : (
-                          <PlaceholderImage
-                            alt={item.alt}
-                            className="h-full min-h-[8rem] w-full"
-                          />
-                        )}
-                      </div>
-                      <div className="flex flex-1 flex-col justify-center p-4 sm:p-5">
-                        <span className="inline-flex w-fit rounded bg-[#E85D04] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                          Free
-                        </span>
-                        <h3 className="mt-2 font-display text-lg font-semibold text-ink sm:text-xl">
-                          {item.title}
-                        </h3>
-                        <p className="mt-1 line-clamp-2 text-xs text-charcoal sm:text-sm">
-                          {item.desc}
-                        </p>
-                        <span className="mt-3 inline-flex items-center gap-1.5 text-[20px] font-semibold uppercase tracking-wide text-coral">
-                          <span aria-hidden className="text-[10px]">
-                            ▶
-                          </span>
-                          Play Audiobook
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Recommended books strip */}
+      <BookShowcase />
 
       {/* Portfolio — collection strip */}
       <section className="bg-ivory py-14 sm:py-16">
@@ -270,22 +230,40 @@ export default function HomePageClient() {
               </Link>
             </div>
           </FadeIn>
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {portfolio.items.slice(0, 4).map((item, i) => (
-              <FadeIn key={item.id} delay={i * 0.05}>
-                <Link href="/portfolio" className="group block">
-                  <PlaceholderImage
+          <FadeIn className="mt-8">
+            <div className="grid grid-cols-1 overflow-hidden rounded-soft sm:grid-cols-3">
+              {portfolio.items.slice(0, 5).map((item, i) => (
+                <Link
+                  key={item.id}
+                  href="/portfolio"
+                  className={`group relative block h-56 overflow-hidden sm:h-64 ${
+                    i === 1 ? "sm:col-span-2" : ""
+                  }`}
+                >
+                  <Image
+                    src={portfolioTiles[i]}
                     alt={item.imageAlt}
-                    className="aspect-[3/4] w-full rounded-soft shadow-book transition group-hover:-translate-y-1"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px"
+                    className="object-cover object-center transition duration-500 group-hover:scale-105"
                   />
-                  <h3 className="mt-3 font-display text-base font-semibold text-ink">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-charcoal">{item.genre}</p>
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 block p-5 sm:p-6">
+                    <span className="block font-sans text-xl font-bold text-white sm:text-2xl">
+                      {item.title}
+                    </span>
+                    <span className="mt-2 inline-flex items-center gap-2 font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 transition group-hover:text-white">
+                      View Project
+                      <span aria-hidden="true">›</span>
+                    </span>
+                  </span>
                 </Link>
-              </FadeIn>
-            ))}
-          </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 

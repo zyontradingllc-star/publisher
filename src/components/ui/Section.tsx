@@ -75,6 +75,7 @@ type PageHeroProps = {
   description: string;
   imageSrc?: string;
   imageAlt?: string;
+  titleClassName?: string;
 };
 
 export function PageHero({
@@ -82,11 +83,14 @@ export function PageHero({
   description,
   imageSrc,
   imageAlt = "",
+  titleClassName = "text-coral",
 }: PageHeroProps) {
   return (
     <FadeIn>
       <header className="mx-auto max-w-3xl pt-10 text-center sm:pt-14">
-        <h1 className="font-display text-4xl font-medium tracking-tight text-forest text-balance sm:text-5xl sm:font-semibold">
+        <h1
+          className={`font-display text-4xl font-medium tracking-tight text-balance sm:text-5xl sm:font-semibold ${titleClassName}`}
+        >
           {title}
         </h1>
         <p className="mt-5 text-base leading-relaxed text-charcoal sm:text-lg">

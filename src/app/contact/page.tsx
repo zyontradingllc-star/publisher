@@ -4,6 +4,7 @@ import { PageHero, SectionHeading } from "@/components/ui/Section";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Accordion } from "@/components/ui/Accordion";
+import { SupportPromo } from "@/components/contact/SupportPromo";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -18,7 +19,12 @@ export default function ContactPage() {
         description={contact.hero.description}
       />
 
-      <div className="mt-12 grid gap-12 lg:mt-14 lg:grid-cols-5 lg:gap-14">
+      <SupportPromo />
+
+      <div
+        id="contact-form"
+        className="mt-12 grid scroll-mt-24 gap-12 lg:mt-14 lg:grid-cols-5 lg:gap-14"
+      >
         <FadeIn className="lg:col-span-3">
           <div className="rounded-soft border border-sand bg-cream p-6 sm:p-8">
             <ContactForm />
