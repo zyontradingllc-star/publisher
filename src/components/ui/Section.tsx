@@ -22,11 +22,11 @@ export function SectionHeading({
       className={`${align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl text-left"} ${className}`}
     >
       {eyebrow && (
-        <p className="mb-3 text-[20px] font-semibold uppercase tracking-[0.14em] text-coral">
+        <p className="mb-3 font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
           {eyebrow}
         </p>
       )}
-      <h2 className="font-display text-3xl font-semibold tracking-tight text-forest text-balance sm:text-4xl">
+      <h2 className="heading-section text-forest text-balance">
         {title}
       </h2>
       {description && (
@@ -53,16 +53,14 @@ export function CtaBanner({ title, description, cta }: CtaBannerProps) {
           className="organic-blob absolute -bottom-16 -right-10 h-48 w-48 bg-coral/20 blur-2xl"
         />
         <div className="relative mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-semibold text-balance sm:text-4xl">
+          <p className="heading-section text-balance text-linen">
             {title}
-          </h2>
+          </p>
           <p className="mt-4 text-base leading-relaxed text-charcoal sm:text-lg">
             {description}
           </p>
           <div className="mt-8 flex justify-center">
-            <Button href={cta.href} variant="inverse">
-              {cta.label}
-            </Button>
+            <Button href={cta.href}>{cta.label}</Button>
           </div>
         </div>
       </section>
@@ -89,7 +87,7 @@ export function PageHero({
     <FadeIn>
       <header className="mx-auto max-w-3xl pt-10 text-center sm:pt-14">
         <h1
-          className={`font-display text-4xl font-medium tracking-tight text-balance sm:text-5xl sm:font-semibold ${titleClassName}`}
+          className={`heading-hero sm:text-[3.2rem] lg:text-[3.5rem] text-balance ${titleClassName}`}
         >
           {title}
         </h1>
@@ -97,13 +95,13 @@ export function PageHero({
           {description}
         </p>
         {imageSrc && (
-          <div className="relative mx-auto mt-8 aspect-[16/9] w-full overflow-hidden rounded-soft shadow-soft sm:mt-10">
+          <div className="image-float-xy relative mx-auto mt-8 aspect-[16/9] w-full overflow-hidden rounded-soft shadow-soft sm:mt-10">
             <Image
               src={imageSrc}
               alt={imageAlt || title}
               fill
               sizes="(max-width: 768px) 100vw, 768px"
-              className="object-cover object-center"
+              className="image-ken-burns object-cover object-center"
               priority
             />
           </div>

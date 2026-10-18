@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   motion,
   useAnimationFrame,
@@ -11,10 +10,13 @@ import {
 } from "framer-motion";
 import { FadeIn } from "@/components/motion/FadeIn";
 
-const covers = Array.from({ length: 11 }, (_, i) => `/books/book${i + 1}.jpg`);
+const covers = Array.from(
+  { length: 9 },
+  (_, i) => `/covers-in-motion/cover-${i + 1}.webp`,
+);
 
-const CARD_WIDTH = 176;
-const CARD_HEIGHT = 264;
+const CARD_WIDTH = 220;
+const CARD_HEIGHT = 330;
 const ANGLE = 360 / covers.length;
 /** Radius that spaces the covers evenly around the ring without overlap. */
 const RADIUS = Math.round(
@@ -41,30 +43,30 @@ export function CoversInMotion() {
   });
 
   return (
-    <section className="border-y border-sand bg-ivory py-14 sm:py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-cta-wash py-14 sm:py-16">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-16 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[#273E2B]/40 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-1/3 h-64 w-64 rounded-full bg-[#273E2B]/15 blur-3xl"
+      />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="font-sans text-xs font-bold uppercase tracking-[0.22em] text-coral-deep">
-                Covers In Motion
-              </p>
-              <h2 className="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl">
-                Stand Out on Every Shelf
-              </h2>
-            </div>
-            <Link
-              href="/portfolio"
-              className="text-[14px] font-medium text-coral-deep hover:text-coral"
-            >
-              Browse the full portfolio →
-            </Link>
+          <div>
+            <span className="badge-pill bg-white/15 text-white">
+              Covers In Motion
+            </span>
+            <p className="mt-3 heading-section text-white">
+              Stand Out on Every Shelf
+            </p>
           </div>
         </FadeIn>
       </div>
 
       <div
-        className="mt-10 cursor-grab touch-pan-y select-none active:cursor-grabbing sm:mt-12"
+        className="relative mt-10 cursor-grab touch-pan-y select-none active:cursor-grabbing sm:mt-12"
         onPointerDown={(event) => {
           dragging.current = true;
           dragStartX.current = event.clientX;
@@ -84,8 +86,8 @@ export function CoversInMotion() {
         }}
       >
         <div
-          className="relative mx-auto h-[300px] w-full max-w-3xl scale-[0.62] sm:h-[340px] sm:scale-90 lg:scale-100"
-          style={{ perspective: "1500px" }}
+          className="relative mx-auto h-[380px] w-full max-w-4xl scale-[0.72] sm:h-[440px] sm:scale-95 lg:scale-110"
+          style={{ perspective: "1600px" }}
         >
           <motion.div
             className="absolute left-1/2 top-1/2 h-0 w-0"
@@ -104,17 +106,18 @@ export function CoversInMotion() {
               >
                 <Image
                   src={src}
-                  alt=""
-                  fill
-                  sizes="176px"
-                  className="object-cover object-center"
+                  alt={`Authors Pilot book cover ${i + 1}`}
+                  width={CARD_WIDTH}
+                  height={CARD_HEIGHT}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center"
                 />
               </div>
             ))}
           </motion.div>
         </div>
 
-        <p className="mt-2 text-center font-sans text-xs text-charcoal sm:mt-4">
+        <p className="mt-2 text-center font-sans text-xs text-white/55 sm:mt-4">
           ↔ drag to spin · auto-rotates on its own
         </p>
       </div>

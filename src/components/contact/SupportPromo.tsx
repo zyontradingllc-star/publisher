@@ -36,7 +36,7 @@ function HeadsetIcon() {
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className="mr-2 h-4 w-4"
+      className="h-3.5 w-3.5 shrink-0"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.9"
@@ -56,8 +56,8 @@ export function SupportPromo() {
     <FadeIn className="mt-12 sm:mt-14">
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div>
-          <h2 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-            24/7 Support Available
+          <h2 className="heading-section">
+            Book a Free Consultation
           </h2>
           <p className="mt-4 font-sans text-base font-semibold text-ink">
             We&rsquo;re here for you 24/7, ready to assist whenever you need.
@@ -73,7 +73,7 @@ export function SupportPromo() {
             ))}
           </ul>
           <div className="mt-8">
-            <Button href="#contact-form">
+            <Button href="#contact-form" className="!gap-1.5 !px-5 !py-2 !text-xs">
               <HeadsetIcon />
               Get Support
             </Button>
@@ -92,7 +92,7 @@ export function SupportPromo() {
               </span>
               <div>
                 <p className="font-sans text-sm font-semibold text-ink">
-                  Author Forges Support
+                  Authors Pilot Support
                 </p>
                 <p className="flex items-center gap-1.5 font-sans text-xs text-charcoal">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-500" />

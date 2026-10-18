@@ -6,10 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "images:webp": "node scripts/convert-images-to-webp.mjs",
+    "images:optimize": "node scripts/optimize-public-images.mjs",
+    "images:cleanup": "node scripts/cleanup-raster-duplicates.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",
+    "lucide-react": "^1.59.0",
     "next": "^16.2.12",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
@@ -21,6 +25,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.2.12",
     "postcss": "^8",
+    "sharp": "^0.35.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

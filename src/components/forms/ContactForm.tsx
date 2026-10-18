@@ -3,6 +3,8 @@
 import { FormEvent, useState } from "react";
 import { contact } from "@/content/site";
 import { Button } from "@/components/ui/Button";
+import { FORM_EMAIL } from "@/lib/email/formsubmit";
+import { submitToInbox } from "@/lib/email/client-submit";
 
 type FormState = {
   name: string;
@@ -37,7 +39,8 @@ function validate(values: FormState): FormErrors {
     errors.alreadyHave = "Select what you already have.";
   }
   if (!values.message.trim() || values.message.trim().length < 20) {
-    errors.message = "Tell us a bit more about your project (at least 20 characters).";
+    errors.message =
+      "Tell us a bit more about your project (at least 20 characters).";
   }
   return errors;
 }
@@ -46,17 +49,43 @@ export function ContactForm() {
   const [values, setValues] = useState<FormState>(initial);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
     setErrors((prev) => ({ ...prev, [key]: undefined }));
+    setSubmitError(null);
   }
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
+
+    setSending(true);
+    setSubmitError(null);
+
+    const result = await submitToInbox({
+      name: values.name.trim(),
+      email: values.email.trim(),
+      creating: values.creating,
+      alreadyHave: values.alreadyHave,
+      _subject: `Project Inquiry — ${values.creating}`,
+      _replyto: values.email.trim(),
+      message: values.message.trim(),
+    });
+
+    setSending(false);
+
+    if (!result.success) {
+      setSubmitError(
+        result.message || `Could not send right now. Email us at ${FORM_EMAIL}.`,
+      );
+      return;
+    }
+
     setSubmitted(true);
     setValues(initial);
   }
@@ -71,11 +100,18 @@ export function ContactForm() {
           Project received
         </h3>
         <p className="mt-3 text-charcoal">
-          Thanks for sharing your idea. We&apos;ll take it from here and reply soon.
+          Thanks for sharing your idea. We&apos;ll reply soon at{" "}
+          <a
+            href={`mailto:${FORM_EMAIL}`}
+            className="font-semibold text-[#273E2B] underline-offset-2 hover:underline"
+          >
+            {FORM_EMAIL}
+          </a>
+          .
         </p>
         <button
           type="button"
-          className="mt-6 text-[20px] font-medium text-coral hover:text-coral-soft"
+          className="mt-6 text-[20px] font-medium text-[#273E2B] hover:underline"
           onClick={() => setSubmitted(false)}
         >
           Send another project
@@ -85,7 +121,7 @@ export function ContactForm() {
   }
 
   const fieldClass =
-    "mt-1.5 w-full rounded-soft border border-sand bg-ivory px-4 py-3 text-sm text-ink outline-none ring-coral transition focus:border-coral focus:ring-2";
+    "mt-1.5 w-full rounded-soft border border-sand bg-ivory px-4 py-3 text-sm text-ink outline-none ring-coral transition focus:border-[#273E2B] focus:ring-2 focus:ring-[#273E2B]/25";
   const labelClass = "block text-sm font-medium text-ink";
   const errorClass = "mt-1.5 text-xs text-coral-soft";
 
@@ -190,8 +226,10 @@ export function ContactForm() {
         {errors.message && <p className={errorClass}>{errors.message}</p>}
       </div>
 
-      <Button type="submit" className="w-full sm:w-auto">
-        Send My Project
+      {submitError && <p className={errorClass}>{submitError}</p>}
+
+      <Button type="submit" className="w-full sm:w-auto" disabled={sending}>
+        {sending ? "Sending…" : "Get My Free Quote"}
       </Button>
       <p className="text-sm text-charcoal">{contact.hero.reassurance}</p>
     </form>

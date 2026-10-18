@@ -1,11 +1,5 @@
-import type { Metadata } from "next";
-import {
-  ServiceLanding,
-  servicePageMetadata,
-} from "@/components/services/ServiceLanding";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = servicePageMetadata("book-publishing");
-
-export default function Page() {
-  return <ServiceLanding pageKey="book-publishing" />;
+export default function BookPublishingLegacyRedirect() {
+  redirect("/book-publishing-services-for-authors");
 }

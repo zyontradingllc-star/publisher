@@ -11,14 +11,6 @@ import { BrandLogo } from "@/components/layout/BrandLogo";
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -31,48 +23,64 @@ export function Navbar() {
     };
   }, [open]);
 
+  const normalizePath = (path: string) => {
+    const base = path.split("#")[0] || path;
+    if (base === "/") return "/";
+    return base.replace(/\/$/, "");
+  };
+
+  const isActive = (href: string) =>
+    normalizePath(pathname) === normalizePath(href);
+
+  const handleNavClick = (href: string) => {
+    if (isActive(href)) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
-      <div className="relative z-50 bg-ink/[0.06] px-4 py-2 text-center text-xs text-ink/75 backdrop-blur-sm sm:text-sm">
-        Forge Your Story. Publish Your Legacy.{" "}
+      <div className="relative z-50 bg-cta-wash px-4 py-2 text-center text-xs text-white/80 sm:text-sm">
         <Link
-          href="/contact"
-          className="font-medium text-coral underline-offset-2 hover:underline"
+          href="/book-publishing-author-website-design-agency"
+          onClick={() => handleNavClick("/book-publishing-author-website-design-agency")}
+          className="transition hover:text-white"
+        >
+          {brand.tagline}
+        </Link>{" "}
+        <Link
+          href="/contact-author-website-design-agency"
+          className="font-medium text-[#273E2B] underline-offset-2 hover:underline"
         >
           Start a conversation →
         </Link>
       </div>
-      <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled || open
-            ? "border-b border-white/50 bg-[#ECECEC]/60 shadow-soft backdrop-blur-md"
-            : "bg-transparent"
-        }`}
-      >
-        <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <header className="relative sticky top-0 z-50 border-b border-sand/40 bg-white/85 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80">
+        <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-1 sm:gap-4 sm:px-6 lg:px-8">
           <Link
-            href="/"
-            className="group inline-flex items-center text-ink"
+            href="/book-publishing-author-website-design-agency"
+            className="group inline-flex min-w-0 items-center text-ink"
             aria-label={`${brand.name} home`}
           >
             <BrandLogo
               priority
-              size="md"
+              size="lg"
               className="transition-transform group-hover:scale-[1.02]"
             />
           </Link>
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => {
-              const active = pathname === link.href;
+              const active = isActive(link.href);
               return (
-                <li key={link.href}>
+                <li key={`${link.href}-${link.label}`}>
                   <Link
                     href={link.href}
-                    className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
+                    onClick={() => handleNavClick(link.href)}
+                    className={`rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors ${
                       active
-                        ? "bg-ivory text-ink"
-                        : "text-charcoal hover:bg-ivory hover:text-ink"
+                        ? "font-semibold text-[#E08A2A]"
+                        : "text-charcoal hover:bg-sand/40 hover:text-[#E08A2A]"
                     }`}
                   >
                     {link.label}
@@ -82,15 +90,15 @@ export function Navbar() {
             })}
           </ul>
 
-          <div className="hidden lg:block">
-            <Button href="/contact" variant="primary" className="!px-5 !py-2.5">
-              Forge My Book
+          <div className="hidden items-center lg:flex">
+            <Button href="/contact-author-website-design-agency" variant="primary" className="cta-blink !px-4 !py-2 !text-xs">
+              Free Author Website Mockup
             </Button>
           </div>
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-sand text-ink lg:hidden"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-sand text-ink lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -125,25 +133,36 @@ export function Navbar() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden border-t border-white/50 bg-[#ECECEC]/85 backdrop-blur-md lg:hidden"
+              className="overflow-hidden border-t border-sand/40 bg-white lg:hidden"
             >
-              <ul className="flex flex-col gap-1 px-4 py-4">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="block rounded-soft px-4 py-3 font-medium text-ink hover:bg-ivory"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-                <li className="pt-2">
-                  <Button href="/contact" className="w-full">
-                    Forge My Book
+              <div className="px-4 py-4">
+                <ul className="grid grid-cols-3 gap-x-2 gap-y-1">
+                  {navLinks.map((link) => {
+                    const active = isActive(link.href);
+                    return (
+                      <li key={`${link.href}-${link.label}`}>
+                        <Link
+                          href={link.href}
+                          className={`block rounded-soft px-3 py-3 text-center font-medium transition-colors hover:bg-ivory ${
+                            active ? "font-semibold text-[#E08A2A]" : "text-ink"
+                          }`}
+                          onClick={() => {
+                            handleNavClick(link.href);
+                            setOpen(false);
+                          }}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className="flex justify-center pt-4">
+                  <Button href="/contact-author-website-design-agency" className="cta-blink">
+                    Free Author Website Mockup
                   </Button>
-                </li>
-              </ul>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

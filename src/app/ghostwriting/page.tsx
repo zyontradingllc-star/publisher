@@ -1,11 +1,5 @@
-import type { Metadata } from "next";
-import {
-  ServiceLanding,
-  servicePageMetadata,
-} from "@/components/services/ServiceLanding";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = servicePageMetadata("ghostwriting");
-
-export default function Page() {
-  return <ServiceLanding pageKey="ghostwriting" />;
+export default function GhostwritingLegacyRedirect() {
+  redirect("/ghostwriting-services-for-authors");
 }

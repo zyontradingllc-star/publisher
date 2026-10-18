@@ -1,28 +1,272 @@
 /**
- * Author Forges — complete website copy.
+ * Authors Pilot — complete website copy.
  */
 
 export const brand = {
-  name: "Author Forges",
-  tagline: "Forge Your Story. Publish Your Legacy.",
-  email: "hello@authorforges.com",
-  phone: "(555) 014-2873",
+  name: "Authors Pilot",
+  tagline: "Pilot Your Story. Self-Publishing Story System.",
+  email: "hello@authorspilot.com",
+  phone: "+1 (364) 421-2554",
+  phoneAlt: "+1 (437) 889-4563",
 };
 
+export const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/authorspilot",
+    icon: "facebook",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/authorspilot",
+    icon: "instagram",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/authorspilot",
+    icon: "linkedin",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@authorspilot",
+    icon: "youtube",
+  },
+] as const;
+
 export const navLinks = [
-  { href: "/services", label: "Services" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Library" },
-  { href: "/contact", label: "Contact" },
+  { href: "/book-publishing-author-website-design-agency", label: "Home" },
+  { href: "/book-writing-services-for-authors", label: "Write" },
+  { href: "/self-publishing-agency-services", label: "Prepare" },
+  { href: "/book-publishing-services-for-authors", label: "Publish" },
+  { href: "/audiobook-production-services-for-authors", label: "Audiobooks" },
+  { href: "/book-marketing-services-for-authors", label: "Promote" },
+  { href: "/author-website-design-agency-usa", label: "Website" },
+  { href: "/contact-author-website-design-agency", label: "Contact" },
+] as const;
+
+/** Shared hero copy for main journey nav pages. */
+export const journeyPageHero = {
+  write: {
+    eyebrow: "Write",
+    h1: "Book Writing Services for Authors",
+  },
+  prepare: {
+    eyebrow: "Prepare",
+    h1: "Self-Publishing Agency Services"
+  },
+  publish: {
+    eyebrow: "Publish",
+    h1: "Book Publishing Services for Authors",
+  },
+  audiobooks: {
+    eyebrow: "Audiobooks",
+    h1: "Audiobook Production Services for Authors",
+  },
+  promote: {
+    eyebrow: "Promote",
+    h1: "Book Marketing Services for Authors",
+  },
+} as const;
+
+export const ebookWritingBanner = {
+  body: "A great book starts with more than an idea. From book writing services and ghostwriting services to manuscript development, Authors Pilot helps you turn your vision into a book readers want to keep reading—and prepare for self publishing.",
+  closing: "Have an idea? Let's turn it into a book.",
+  image: "/services/ebook-writing.webp",
+  imageAlt: "Author working on a book manuscript",
+} as const;
+
+export const ebookWritingSections = [
+  {
+    id: "start-with-idea",
+    eyebrow: "Start With Your Idea",
+    heading: "Self-Publishing Starts With Strong Book Writing Services.",
+    body: "Every great book starts with an idea—but turning that idea into a complete manuscript takes structure, planning, and the right writing approach. Authors Pilot provides book writing services and self-publishing services that help you develop your concept and create a clear direction for your book.",
+    listTitle: "We help with:",
+    items: [
+      "Book Concept",
+      "Story Development",
+      "Research",
+      "Book Outline",
+      "Chapter Planning",
+    ],
+    pipeline: null as string | null,
+  },
+  {
+    id: "turn-ideas-into-words",
+    eyebrow: "Turn Ideas Into Words",
+    heading: "Ghostwriting Services That Sound Like You.",
+    body: "Whether you're writing fiction, nonfiction, memoir, business, or an inspirational book, our ghostwriting services and manuscript writing team help transform your ideas into engaging, well-structured content that sounds authentic to your voice—ideal for self published authors ready to grow.",
+    listTitle: "Our services include:",
+    items: [
+      {
+        tag: "Ghostwriting",
+        title: "Professional Ghostwriting",
+        description:
+          "Hire a ghostwriter to turn your ideas into a complete book manuscript written in your voice—confidential, and fully yours.",
+      },
+      {
+        tag: "Manuscript",
+        title: "Manuscript Writing Services",
+        description:
+          "Get a structured, reader-focused manuscript written from outline to draft, ready for editing and professional publishing.",
+      },
+      {
+        tag: "Chapters",
+        title: "Chapter Development",
+        description:
+          "Develop strong chapters with clear structure, pacing, and narrative flow that keep readers turning the page.",
+      },
+      {
+        tag: "Content",
+        title: "Book Content Writing",
+        description:
+          "Write clear, engaging book content for business books, self-help, memoirs, and educational digital books.",
+      },
+      {
+        tag: "Voice",
+        title: "Author Voice Matching",
+        description:
+          "Capture your speaking style and expertise so every chapter sounds authentic and consistent with your author brand.",
+      },
+    ],
+    pipeline: null as string | null,
+  },
+  {
+    id: "draft-to-manuscript",
+    eyebrow: "From Draft to Book-Ready Manuscript",
+    heading: "Your First Draft Is Just the Beginning.",
+    body: "We refine your manuscript so your story is clear, consistent, engaging, and ready for the next stage of publishing. From the first idea to the finished manuscript, Authors Pilot helps you move forward with confidence.",
+    listTitle: "",
+    items: [] as (
+      | string
+      | { tag: string; title: string; description: string }
+    )[],
+    pipeline: null as string | null,
+    closingPrompt: "Ready for self-publishing services that start with a strong manuscript?",
+  },
+] as const;
+
+export const ebookWritingCta = {
+  label: "Start Writing",
+  href: "/contact-author-website-design-agency",
+} as const;
+
+export const serviceMenu = [
+  {
+    heading: "Cover & Design",
+    items: [
+      {
+        title: "Book Cover Design",
+        blurb: "Our flagship, covers that sell",
+        flagship: true,
+        href: "/self-publishing-agency-services#book-cover-design",
+      },
+      {
+        title: "eBook Cover Designing",
+        blurb: "Scroll-stopping digital covers",
+        flagship: true,
+        href: "/self-publishing-agency-services#book-cover-design",
+      },
+      {
+        title: "Book Illustration",
+        blurb: "Custom art & character design",
+        href: "/self-publishing-agency-services#book-cover-design",
+      },
+    ],
+  },
+  {
+    heading: "Publishing",
+    items: [
+      {
+        title: "Book Publishing",
+        blurb: "From manuscript to market",
+        href: "/book-publishing-services-for-authors",
+      },
+      {
+        title: "Children Book Publishing",
+        blurb: "Picture books that delight",
+        href: "/book-publishing-services-for-authors",
+      },
+      {
+        title: "eBook Writing & Publishing",
+        blurb: "Ghostwritten & published",
+        href: "/book-writing-services-for-authors",
+      },
+      {
+        title: "Self Publishing",
+        blurb: "Keep 100% of your rights",
+        href: "/contact-author-website-design-agency",
+      },
+      {
+        title: "Global Publishing",
+        blurb: "Reach readers worldwide",
+        href: "/contact-author-website-design-agency",
+      },
+    ],
+  },
+  {
+    heading: "Marketing",
+    items: [
+      {
+        title: "Book Marketing",
+        blurb: "Launch to best-seller lists",
+        href: "/book-marketing-services-for-authors",
+      },
+      {
+        title: "Content Marketing",
+        blurb: "Authority-building content",
+        href: "/book-marketing-services-for-authors",
+      },
+      {
+        title: "Social Media Marketing",
+        blurb: "Grow a loyal readership",
+        href: "/book-marketing-services-for-authors",
+      },
+      {
+        title: "Digital Marketing",
+        blurb: "Ads, funnels & SEO",
+        href: "/book-marketing-services-for-authors",
+      },
+    ],
+  },
+  {
+    heading: "Production & More",
+    items: [
+      {
+        title: "Audiobook Production",
+        blurb: "Narration to publishing",
+        href: "/audiobook-production-services-for-authors",
+      },
+      {
+        title: "Book Printing",
+        blurb: "Premium print & binding",
+        href: "/book-publishing-services-for-authors",
+      },
+      {
+        title: "Author Website Development",
+        blurb: "A home for your brand",
+        href: "/contact-author-website-design-agency",
+      },
+      {
+        title: "Book Editing & Proofreading",
+        blurb: "Flawless every page",
+        href: "/self-publishing-agency-services#book-editing",
+      },
+      {
+        title: "Book Formatting",
+        blurb: "Print & eBook ready",
+        href: "/self-publishing-agency-services#book-formatting",
+      },
+    ],
+  },
 ];
 
 export const home = {
   hero: {
-    headline: "Your Idea Is a Book Waiting to Be Forged.",
+    headline:
+      "Your Story Deserves A Premium Publishing Experience",
     subhead:
-      "From the first thought to the final published page, Author Forges helps turn ideas, knowledge, and stories into professionally written books, audiobooks, visual experiences, and published works.",
+      "If you believe you have a story worth telling, one that people will love, Let's bring it to life. All we need is your story to convert into a Book the world can discover.",
     supporting: [
       "Maybe you've been thinking about writing a book for years.",
       "Maybe you already have 50 pages sitting on your laptop.",
@@ -30,8 +274,8 @@ export const home = {
       "Wherever you are in the journey, you don't have to figure out everything alone.",
       "We help shape the idea, write the story, refine the manuscript, design the book, create the audio experience, prepare it for publication, and help bring it to its audience.",
     ],
-    primaryCta: { label: "Forge My Book", href: "/contact" },
-    secondaryCta: { label: "Tell Us Your Idea", href: "/contact" },
+    primaryCta: { label: "Free Author Website Mockup", href: "/contact-author-website-design-agency" },
+    secondaryCta: { label: "Tell Us Your Idea", href: "/contact-author-website-design-agency" },
     imageAlt: "hero-illustration-book-forged",
   },
   trustBar: {
@@ -61,10 +305,10 @@ export const home = {
       "It needs structure.",
       "It needs words.",
       "It needs editing, design, direction, and a path to the reader.",
-      "That's where Author Forges comes in.",
-      "We take what exists in your head, your notes, your recordings, your research, or your unfinished manuscript — and help forge it into something people can read, hear, watch, and remember.",
+      "That's where Authors Pilot comes in.",
+      "We take what exists in your head, your notes, your recordings, your research, or your unfinished manuscript — and help shape it into something people can read, hear, watch, and remember.",
     ],
-    cta: { label: "Start With the Idea", href: "/contact" },
+    cta: { label: "Start With the Idea", href: "/contact-author-website-design-agency" },
   },
   servicesIntro: {
     title: "One Story. More Ways to Experience It.",
@@ -75,15 +319,15 @@ export const home = {
       "Your story can become an animated experience.",
       "Your knowledge can become a published authority.",
       "And your book can become the foundation of a larger personal or business brand.",
-      "Author Forges brings these possibilities together under one creative roof.",
+      "Authors Pilot brings these possibilities together under one creative roof.",
     ],
-    cta: { label: "Explore Services", href: "/services" },
+    cta: { label: "Explore Services", href: "/self-publishing-agency-services" },
   },
   ctaBanner: {
     title: "The Book You've Been Thinking About Deserves a Beginning.",
     description:
-      "Bring us the idea. We'll help you forge the story. You don't need to have everything figured out.",
-    cta: { label: "Forge My Story", href: "/contact" },
+      "Bring us the idea. We'll help you publish the story. You don't need to have everything figured out.",
+    cta: { label: "Pilot My Story", href: "/contact-author-website-design-agency" },
   },
 };
 
@@ -91,45 +335,35 @@ export const services = {
   hero: {
     title: "One Story. More Ways to Experience It.",
     description:
-      "Author Forges brings writing, editing, design, audio, animation, publishing, and author branding together under one creative roof.",
+      "Authors Pilot brings writing, editing, design, audio, animation, publishing, and author branding together under one creative roof.",
   },
   /** Local assets matched by service heading/slug from ebook images folder */
   images: {
-    "ebook-writing": "/services/ebook-writing.png",
-    ghostwriting: "/services/ghostwriting.jpg",
-    "book-editing": "/services/book-editing.png",
-    "book-formatting": "/services/book-formatting.jpg",
-    "book-cover-design": "/services/book-cover-design.png",
-    "audiobook-production": "/services/audiobook-production.png",
-    "pdf-to-audio": "/services/pdf-to-audio.png",
-    "audio-narration": "/services/audio-narration.png",
-    "book-publishing": "/services/book-publishing.jpg",
+    "ebook-writing": "/services/ebook-writing.webp",
+    ghostwriting: "/services/ghostwriting.webp",
+    "book-editing": "/services/book-editing.webp",
+    "book-formatting": "/services/book-formatting.webp",
+    "book-cover-design": "/services/book-cover-design.webp",
+    "audiobook-production": "/services/audiobook-books-banner.webp",
+    "pdf-to-audio": "/services/pdf-to-audio.webp",
+    "audio-narration": "/services/audio-narration.webp",
+    "book-publishing": "/services/book-publishing-banner.webp",
+    "author-website-design": "/author-insights.webp",
   } as Record<string, string>,
   items: [
     {
       slug: "ebook-writing",
       title: "eBook Writing",
-      heading: "You Bring the Knowledge. We Find the Words.",
+      heading: "Before You Start Writing Your Book, Know This",
       summary:
-        "You don't need to be a professional writer to become an author. You might be an entrepreneur with years of experience, a coach with a method worth teaching, a professional with knowledge to share, or simply someone carrying a story that deserves to be heard.",
+        "A great book starts with more than an idea. Authors Pilot helps you structure your story, develop your voice, and create a manuscript readers want to keep reading.",
       body: [
-        "Our eBook writing service turns those ideas into structured, engaging, reader-focused content.",
-        "We develop the concept, organize the chapters, shape the narrative, and create a manuscript designed around your audience and purpose.",
+        "A great book starts with more than an idea. From structuring your story and developing your voice to creating a clear, engaging manuscript, Authors Pilot helps you turn your vision into a book readers want to keep reading.",
+        "Have an idea? Let's turn it into a book.",
       ],
-      listTitle: "What We Can Help With",
-      details: [
-        "eBook concept development",
-        "Book outlines",
-        "Chapter writing",
-        "Research-based content",
-        "Non-fiction books",
-        "Self-help books",
-        "Business books",
-        "Educational books",
-        "Guides and digital books",
-        "Manuscript development",
-      ],
-      cta: { label: "Turn My Idea Into a Book", href: "/contact" },
+      listTitle: "",
+      details: [] as string[],
+      cta: { label: "Turn My Idea Into a Book", href: "/contact-author-website-design-agency" },
       imageAlt: "service-ebook-writing",
     },
     {
@@ -156,7 +390,7 @@ export const services = {
         "Editing and refinement",
         "Revision support",
       ],
-      cta: { label: "Tell Us Your Story", href: "/contact" },
+      cta: { label: "Tell Us Your Story", href: "/contact-author-website-design-agency" },
       imageAlt: "service-ghostwriting",
     },
     {
@@ -179,7 +413,7 @@ export const services = {
         "Clarity and readability",
         "Chapter consistency",
       ],
-      cta: { label: "Polish My Manuscript", href: "/contact" },
+      cta: { label: "Polish My Manuscript", href: "/contact-author-website-design-agency" },
       imageAlt: "service-book-editing",
     },
     {
@@ -194,7 +428,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Prepare My Book for Publication", href: "/contact" },
+      cta: { label: "Prepare My Book for Publication", href: "/contact-author-website-design-agency" },
       imageAlt: "service-book-formatting",
     },
     {
@@ -212,7 +446,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Design My Book Cover", href: "/contact" },
+      cta: { label: "Design My Book Cover", href: "/contact-author-website-design-agency" },
       imageAlt: "service-book-cover-design",
     },
     {
@@ -227,7 +461,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Turn My Book Into an Audiobook", href: "/contact" },
+      cta: { label: "Turn My Book Into an Audiobook", href: "/contact-author-website-design-agency" },
       imageAlt: "service-audiobook-production",
     },
     {
@@ -242,7 +476,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Convert My PDF to Audio", href: "/contact" },
+      cta: { label: "Convert My PDF to Audio", href: "/contact-author-website-design-agency" },
       imageAlt: "service-pdf-to-audio",
     },
     {
@@ -256,7 +490,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Create My Audio Experience", href: "/contact" },
+      cta: { label: "Create My Audio Experience", href: "/contact-author-website-design-agency" },
       imageAlt: "service-audio-narration",
     },
     {
@@ -272,7 +506,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Animate My Story", href: "/contact" },
+      cta: { label: "Animate My Story", href: "/contact-author-website-design-agency" },
       imageAlt: "service-book-animation",
     },
     {
@@ -285,19 +519,9 @@ export const services = {
         "Formatting. File preparation. Metadata. Publishing requirements. Digital editions. Print considerations. Distribution.",
         "We help prepare your book for the publishing stage and guide you through the steps needed to move from finished manuscript toward a published work.",
       ],
-      listTitle: "Publishing Support",
-      details: [
-        "eBook publishing preparation",
-        "Print book preparation",
-        "Digital formatting",
-        "Kindle-ready files",
-        "Publishing platform preparation",
-        "Metadata assistance",
-        "ISBN guidance",
-        "Cover preparation",
-        "Final file preparation",
-      ],
-      cta: { label: "Take My Book to Publication", href: "/contact" },
+      listTitle: "",
+      details: [] as string[],
+      cta: { label: "Take My Book to Publication", href: "/contact-author-website-design-agency" },
       imageAlt: "service-book-publishing",
     },
     {
@@ -314,8 +538,29 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Build My Author Brand", href: "/contact" },
+      cta: { label: "Build My Author Brand", href: "/contact-author-website-design-agency" },
       imageAlt: "service-author-branding",
+    },
+    {
+      slug: "author-website-design",
+      title: "Author Website Design",
+      heading: "Your Book Needs a Home Readers Can Find.",
+      summary:
+        "A professional author website helps USA readers, agents, and media take you seriously.",
+      body: [
+        "We design author websites that showcase your books, bio, press, and next release — with a clear path to buy.",
+        "Start with a free author website mockup, then we build a site that matches your brand.",
+      ],
+      listTitle: "Website Design Includes",
+      details: [
+        "Custom author homepage",
+        "Book and series pages",
+        "About and press kit",
+        "Contact and mailing list",
+        "Mobile-ready design",
+      ],
+      cta: { label: "Free Author Website Mockup", href: "/contact-author-website-design-agency" },
+      imageAlt: "Author website design for USA authors",
     },
     {
       slug: "book-marketing",
@@ -329,7 +574,7 @@ export const services = {
       ],
       listTitle: "",
       details: [],
-      cta: { label: "Promote My Book", href: "/contact" },
+      cta: { label: "Promote My Book", href: "/contact-author-website-design-agency" },
       imageAlt: "service-book-marketing",
     },
   ],
@@ -410,7 +655,7 @@ export const howItWorks = {
     title: "Your Job Is to Bring the Story. We'll Help Navigate the Rest.",
     description:
       "Bring what you have — an idea, a draft, a PDF, a voice recording, or a collection of notes. We'll help identify the next step.",
-    cta: { label: "Start With What I Have", href: "/contact" },
+    cta: { label: "Start With What I Have", href: "/contact-author-website-design-agency" },
   },
 };
 
@@ -419,7 +664,7 @@ export const portfolio = {
     title: "Ideas We've Helped Take Shape.",
     description:
       "Every finished project started somewhere. A blank document. A rough draft. A collection of notes. A business idea. A story someone couldn't stop thinking about. Explore selected work across writing, design, audio, publishing, and digital storytelling.",
-    cta: { label: "Explore Our Work", href: "/portfolio" },
+    cta: { label: "Explore Our Work", href: "/contact-author-website-design-agency" },
   },
   genres: ["All", "Fiction", "Memoir", "Business", "Self-Help"] as const,
   items: [
@@ -428,7 +673,7 @@ export const portfolio = {
       title: "The Quiet Midpoint",
       genre: "Fiction" as const,
       blurb:
-        "A literary novel forged from a personal outline into intimate, emotionally clear prose.",
+        "A literary novel shaped from a personal outline into intimate, emotionally clear prose.",
       imageAlt: "portfolio-fiction-quiet-midpoint",
     },
     {
@@ -468,7 +713,7 @@ export const portfolio = {
       title: "What We Carried Home",
       genre: "Memoir" as const,
       blurb:
-        "An immigrant family story forged through interviews into a manuscript readers remember.",
+        "An immigrant family story shaped through interviews into a manuscript readers remember.",
       imageAlt: "portfolio-memoir-what-we-carried",
     },
     {
@@ -492,26 +737,26 @@ export const portfolio = {
 
 export const about = {
   hero: {
-    title: "About Author Forges",
+    title: "About Authors Pilot",
     description:
-      "We don't just finish books. We forge them — from a rough idea into a concept, a manuscript, a published work, and a lasting voice.",
+      "Authors Pilot began with a simple belief: every author deserves a publishing experience worthy of the story they carry. Ten years and 500+ books later, that belief still leads everything we do.",
   },
   story: {
-    title: "We Don't Just Finish Books. We Forge Them.",
+    title: "We Don't Just Finish Books. We Publish Them.",
     paragraphs: [
-      "The word forge represents craftsmanship. It means taking something with potential and shaping it with intention.",
-      "That's exactly how we see the publishing process.",
+      "Publishing with intention means taking something with potential and shaping it with craft.",
+      "That's exactly how we see the process.",
       "A rough idea becomes a concept. A concept becomes a manuscript. A manuscript becomes a book. A book becomes a voice. And a voice can become a legacy.",
-      "That's the Author Forges philosophy.",
+      "That's the Authors Pilot philosophy.",
     ],
-    imageAlt: "about-team-authorforges-studio",
+    imageAlt: "about-team-authorspilot-studio",
   },
   difference: {
     title: "You Don't Need Five Companies to Create One Book.",
     paragraphs: [
       "Writing with one company. Editing with another. Finding an audiobook producer somewhere else. Searching for a formatter. Then trying to figure out publishing on your own.",
       "The process can become fragmented quickly.",
-      "Author Forges brings the major stages of the journey together so your project has continuity from beginning to end.",
+      "Authors Pilot brings the major stages of the journey together so your project has continuity from beginning to end.",
     ],
     pillars: [
       "One Vision.",
@@ -529,7 +774,7 @@ export const about = {
       "Bring what you have. An idea. A draft. A PDF. A voice recording. A collection of notes. Or simply a story you know needs to be told.",
       "We'll help identify the next step.",
     ],
-    cta: { label: "Start With What I Have", href: "/contact" },
+    cta: { label: "Start With What I Have", href: "/contact-author-website-design-agency" },
   },
   quality: {
     title: "The Details Are Part of the Story.",
@@ -542,225 +787,17 @@ export const about = {
   },
 };
 
-export const blog = {
-  hero: {
-    title: "The Author Forges Library",
-    description:
-      "The publishing world can feel complicated when you're experiencing it for the first time. Our resource library answers practical questions about writing, ghostwriting, editing, audiobooks, publishing, marketing, and building an author brand.",
-  },
-  posts: [
-    {
-      slug: "how-to-turn-an-idea-into-an-ebook",
-      title: "How to Turn an Idea Into an eBook: A Step-by-Step Guide",
-      excerpt:
-        "From the first thought to a structured manuscript — a practical path for turning an idea into an eBook.",
-      date: "2026-07-20",
-      category: "Writing",
-      imageAlt: "blog-turn-idea-into-ebook",
-      related: ["/ebook-writing", "/ghostwriting"],
-    },
-    {
-      slug: "how-much-does-it-cost-to-write-an-ebook",
-      title: "How Much Does It Cost to Write an eBook?",
-      excerpt:
-        "What shapes the investment in eBook writing — scope, research, length, and the journey from idea to finished pages.",
-      date: "2026-07-18",
-      category: "Writing",
-      imageAlt: "blog-ebook-writing-cost",
-      related: ["/ebook-writing"],
-    },
-    {
-      slug: "ghostwriting-vs-writing-your-own-book",
-      title: "Ghostwriting vs. Writing Your Own Book: Which Is Right for You?",
-      excerpt:
-        "When collaboration makes sense, when writing solo fits better, and how to choose with clarity.",
-      date: "2026-07-15",
-      category: "Ghostwriting",
-      imageAlt: "blog-ghostwriting-vs-writing",
-      related: ["/ghostwriting", "/ebook-writing"],
-    },
-    {
-      slug: "how-to-turn-a-pdf-into-an-audiobook",
-      title: "How to Turn a PDF Into an Audiobook",
-      excerpt:
-        "Suitable documents, narration choices, and how written content becomes something people can listen to.",
-      date: "2026-07-12",
-      category: "Audio",
-      imageAlt: "blog-pdf-to-audiobook",
-      related: ["/pdf-to-audio", "/audiobook-production"],
-    },
-    {
-      slug: "how-does-audiobook-production-work",
-      title: "How Does Audiobook Production Actually Work?",
-      excerpt:
-        "Voice, pacing, sound, and the steps that turn a manuscript into an audiobook experience.",
-      date: "2026-07-10",
-      category: "Audio",
-      imageAlt: "blog-audiobook-production",
-      related: ["/audiobook-production"],
-    },
-    {
-      slug: "how-to-prepare-a-manuscript-for-publishing",
-      title: "How to Prepare a Manuscript for Publishing",
-      excerpt:
-        "Editing, formatting, files, and the details that move a manuscript closer to publication.",
-      date: "2026-07-08",
-      category: "Publishing",
-      imageAlt: "blog-prepare-manuscript",
-      related: ["/book-publishing", "/services#book-editing"],
-    },
-    {
-      slug: "ebook-vs-audiobook-which-first",
-      title: "eBook vs. Audiobook: Which Should You Create First?",
-      excerpt:
-        "How to decide whether the page or the voice should lead — and how one can support the other.",
-      date: "2026-07-05",
-      category: "Strategy",
-      imageAlt: "blog-ebook-vs-audiobook",
-      related: ["/ebook-writing", "/audiobook-production"],
-    },
-    {
-      slug: "what-does-a-professional-ghostwriter-do",
-      title: "What Does a Professional Ghostwriter Actually Do?",
-      excerpt:
-        "Concept, research, voice matching, and the craft behind books written under your name.",
-      date: "2026-07-02",
-      category: "Ghostwriting",
-      imageAlt: "blog-what-ghostwriter-does",
-      related: ["/ghostwriting"],
-    },
-    {
-      slug: "how-long-does-it-take-to-write-a-book",
-      title: "How Long Does It Take to Write a Book?",
-      excerpt:
-        "Timelines shaped by length, research, collaboration, and how refined the idea already is.",
-      date: "2026-06-28",
-      category: "Writing",
-      imageAlt: "blog-how-long-to-write",
-      related: ["/ebook-writing", "/how-it-works"],
-    },
-    {
-      slug: "what-makes-a-good-book-cover",
-      title: "What Makes a Good Book Cover?",
-      excerpt:
-        "Curiosity, genre cues, and the promise of the book — what readers notice before the first page.",
-      date: "2026-06-25",
-      category: "Design",
-      imageAlt: "blog-good-book-cover",
-      related: ["/services#book-cover-design"],
-    },
-    {
-      slug: "how-to-publish-an-ebook-first-time",
-      title: "How to Publish an eBook for the First Time",
-      excerpt:
-        "Platforms, files, metadata, and a calm path through first-time eBook publishing.",
-      date: "2026-06-22",
-      category: "Publishing",
-      imageAlt: "blog-publish-ebook-first-time",
-      related: ["/book-publishing"],
-    },
-    {
-      slug: "before-hiring-a-ghostwriter",
-      title: "What Authors Should Know Before Hiring a Ghostwriter",
-      excerpt:
-        "Voice, ownership, process, and the questions worth asking before the writing begins.",
-      date: "2026-06-18",
-      category: "Ghostwriting",
-      imageAlt: "blog-before-hiring-ghostwriter",
-      related: ["/ghostwriting", "/contact"],
-    },
-    {
-      slug: "turn-one-book-into-multiple-digital-products",
-      title: "How to Turn One Book Into Multiple Digital Products",
-      excerpt:
-        "eBooks, audio, animation, and branded content — extending one story across formats.",
-      date: "2026-06-15",
-      category: "Strategy",
-      imageAlt: "blog-book-into-products",
-      related: ["/book-animation", "/audiobook-production", "/book-marketing"],
-    },
-    {
-      slug: "book-audiobook-and-animated-content",
-      title: "Can a Book Become an Audiobook and Animated Content?",
-      excerpt:
-        "Yes — and here's how selected chapters and ideas can live as sound and motion.",
-      date: "2026-06-12",
-      category: "Experience",
-      imageAlt: "blog-book-audio-animation",
-      related: ["/audiobook-production", "/book-animation"],
-    },
-    {
-      slug: "build-author-brand-around-first-book",
-      title: "How to Build an Author Brand Around Your First Book",
-      excerpt:
-        "Your first book can introduce you. A clear author brand helps the journey continue.",
-      date: "2026-06-08",
-      category: "Branding",
-      imageAlt: "blog-author-brand-first-book",
-      related: ["/services#author-branding", "/book-marketing"],
-    },
-    {
-      slug: "market-a-new-book-before-launch",
-      title: "How to Market a New Book Before Launch",
-      excerpt:
-        "Promotional content, positioning, and early visibility so readers can discover the work.",
-      date: "2026-06-05",
-      category: "Marketing",
-      imageAlt: "blog-market-before-launch",
-      related: ["/book-marketing"],
-    },
-    {
-      slug: "editing-vs-proofreading",
-      title: "What Is the Difference Between Editing and Proofreading?",
-      excerpt:
-        "Structure, clarity, and polish — how each stage prepares a manuscript differently.",
-      date: "2026-06-01",
-      category: "Editing",
-      imageAlt: "blog-editing-vs-proofreading",
-      related: ["/services#book-editing"],
-    },
-    {
-      slug: "convert-written-content-into-audio",
-      title: "How to Convert Written Content Into Audio Content",
-      excerpt:
-        "From manuscript or PDF to narration — opening another way for your audience to listen.",
-      date: "2026-05-28",
-      category: "Audio",
-      imageAlt: "blog-written-to-audio",
-      related: ["/pdf-to-audio", "/audiobook-production"],
-    },
-    {
-      slug: "what-to-include-in-a-book-publishing-plan",
-      title: "What Should You Include in a Book Publishing Plan?",
-      excerpt:
-        "Format, files, platforms, cover, and audience — the pieces of a clear publishing plan.",
-      date: "2026-05-22",
-      category: "Publishing",
-      imageAlt: "blog-publishing-plan",
-      related: ["/book-publishing", "/how-it-works"],
-    },
-    {
-      slug: "from-first-idea-to-published-book",
-      title: "From First Idea to Published Book: The Complete Author Journey",
-      excerpt:
-        "Idea, blueprint, manuscript, refinement, design, voice, publication, and audience — the full path.",
-      date: "2026-05-15",
-      category: "Journey",
-      imageAlt: "blog-complete-author-journey",
-      related: ["/how-it-works", "/book-publishing", "/contact"],
-    },
-  ],
-};
-
 export const contact = {
   hero: {
-    title: "Tell Us What You're Building.",
+    title: "Contact Our Author Website Design Agency",
     description:
       "You don't need to write a perfect brief. Just tell us what you have, what you're trying to create, and where you want it to go. We'll take it from there.",
     reassurance: "No perfect brief required. Just start with the idea.",
   },
   form: {
     creating: [
+      "Free Website Mockup",
+      "Free Book Cover Mockup",
       "eBook",
       "Book",
       "Ghostwritten Book",
@@ -843,7 +880,7 @@ export const contact = {
 export const testimonialsSection = {
   title: "The Stories Behind the Stories.",
   description:
-    "The finished book matters. But so does the journey it took to get there. Here you'll find genuine experiences from authors and clients who trusted Author Forges with their ideas.",
+    "The finished book matters. But so does the journey it took to get there. Here you'll find genuine experiences from authors and clients who trusted Authors Pilot with their ideas.",
 };
 
 export const testimonials: {
@@ -854,26 +891,26 @@ export const testimonials: {
 
 export const finalCta = {
   title: "You bring the idea.",
-  subtitle: "We'll help forge what comes next.",
+  subtitle: "We'll help shape what comes next.",
   paragraphs: [
     "This isn't about buying a service.",
     "It's about finding a partner for something you've been wanting to create.",
     "I have an idea → they understand it → they can build it → they handle the complicated parts → the book becomes real → I want to start.",
   ],
-  primaryCta: { label: "Forge My Story", href: "/contact" },
-  secondaryCta: { label: "Start a Conversation", href: "/contact" },
-  closing: "Author Forges — Forge Your Story. Publish Your Legacy.",
+  primaryCta: { label: "Pilot My Story", href: "/contact-author-website-design-agency" },
+  secondaryCta: { label: "Start a Conversation", href: "/contact-author-website-design-agency" },
+  closing: "Authors Pilot — Pilot Your Story. Self-Publishing Story System.",
 };
 
 export const brandMessages = {
   short:
-    "Author Forges helps turn ideas into books, books into experiences, and experiences into lasting stories.",
+    "Authors Pilot helps turn ideas into books, books into experiences, and experiences into lasting stories.",
   medium:
-    "From eBook writing and ghostwriting to audiobook production, animation, and publishing, Author Forges helps creators take an idea from the first sentence to the final audience.",
-  oneLine: "Forge Your Story. Publish Your Legacy.",
+    "From eBook writing and ghostwriting to audiobook production, animation, and publishing, Authors Pilot helps creators take an idea from the first sentence to the final audience.",
+  oneLine: "Pilot Your Story. Self-Publishing Story System.",
   voice: ["Human", "Confident", "Premium", "Story-driven", "Helpful"] as const,
   coreLanguage: [
-    "Forge",
+    "Pilot",
     "Shape",
     "Craft",
     "Voice",
@@ -892,162 +929,241 @@ export const serviceRelatedLinks: Record<
   string,
   { href: string; label: string }[]
 > = {
-  "ebook-writing": [
-    { href: "/services#book-editing", label: "Editing" },
-    { href: "/services#book-formatting", label: "Formatting" },
-    { href: "/services#book-cover-design", label: "Cover Design" },
-    { href: "/book-publishing", label: "Publishing" },
-    { href: "/audiobook-production", label: "Audiobook" },
-  ],
-  ghostwriting: [
-    { href: "/ebook-writing", label: "eBook Writing" },
-    { href: "/services#book-editing", label: "Editing" },
-    { href: "/book-publishing", label: "Publishing" },
-    { href: "/audiobook-production", label: "Audiobook" },
-  ],
-  "audiobook-production": [
-    { href: "/ebook-writing", label: "eBook Writing" },
-    { href: "/pdf-to-audio", label: "PDF to Audio" },
-    { href: "/book-marketing", label: "Marketing" },
-  ],
-  "pdf-to-audio": [
-    { href: "/audiobook-production", label: "Audiobook Production" },
-    { href: "/ebook-writing", label: "eBook Writing" },
-  ],
-  "book-publishing": [
-    { href: "/services#book-formatting", label: "Formatting" },
-    { href: "/services#book-cover-design", label: "Cover Design" },
-    { href: "/book-marketing", label: "Marketing" },
-    { href: "/services#author-branding", label: "Author Branding" },
-  ],
-  "book-animation": [
-    { href: "/book-marketing", label: "Marketing" },
-    { href: "/services#author-branding", label: "Author Branding" },
-    { href: "/ebook-writing", label: "eBook Writing" },
-  ],
-  "book-marketing": [
-    { href: "/book-animation", label: "Animation" },
-    { href: "/services#author-branding", label: "Author Branding" },
-    { href: "/book-publishing", label: "Publishing" },
-  ],
+  "ebook-writing": [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
+  ghostwriting: [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
+  "audiobook-production": [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
+  "pdf-to-audio": [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
+  "book-publishing": [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
+  "book-animation": [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
+  "book-marketing": [{ href: "/contact-author-website-design-agency", label: "Contact Us" }],
 };
 
 export const journeyChains = [
   {
     title: "Write → Refine → Publish",
     links: [
-      { href: "/ebook-writing", label: "eBook Writing" },
-      { href: "/services#book-editing", label: "Editing" },
-      { href: "/services#book-formatting", label: "Formatting" },
-      { href: "/services#book-cover-design", label: "Cover Design" },
-      { href: "/book-publishing", label: "Publishing" },
+      { href: "/book-writing-services-for-authors", label: "eBook Writing" },
+      { href: "/self-publishing-agency-services#book-editing", label: "Editing" },
+      { href: "/self-publishing-agency-services#book-formatting", label: "Formatting" },
+      { href: "/self-publishing-agency-services#book-cover-design", label: "Cover Design" },
+      { href: "/book-publishing-services-for-authors", label: "Publishing" },
     ],
   },
   {
     title: "Page → Voice",
     links: [
-      { href: "/ebook-writing", label: "eBook" },
-      { href: "/audiobook-production", label: "Audiobook" },
-      { href: "/pdf-to-audio", label: "PDF to Audio" },
+      { href: "/book-writing-services-for-authors", label: "eBook" },
+      { href: "/audiobook-production-services-for-authors", label: "Audiobook" },
+      { href: "/pdf-to-audio-conversion-service", label: "PDF to Audio" },
     ],
   },
   {
     title: "Story → Audience",
     links: [
-      { href: "/ebook-writing", label: "Book" },
-      { href: "/book-animation", label: "Animation" },
-      { href: "/book-marketing", label: "Marketing" },
-      { href: "/services#author-branding", label: "Author Branding" },
+      { href: "/book-writing-services-for-authors", label: "Book" },
+      { href: "/book-animation-video-services", label: "Animation" },
+      { href: "/book-marketing-services-for-authors", label: "Marketing" },
+      { href: "/self-publishing-agency-services#author-branding", label: "Author Branding" },
     ],
   },
 ];
 
 export const footer = {
-  tagline: "Forge Your Story. Publish Your Legacy.",
+  tagline: "Pilot Your Story. Self-Publishing Story System.",
   blurb:
-    "Author Forges helps turn ideas into books, books into experiences, and experiences into lasting stories.",
-  medium:
-    "From eBook writing and ghostwriting to audiobook production, animation, and publishing, Author Forges helps creators take an idea from the first sentence to the final audience.",
-  cta: { label: "Have a Story to Tell?", link: "Start Your Journey →", href: "/contact" },
+    "A premium book & eBook cover design studio and full-service publisher. From manuscript to marketplace, we help authors publish with craft.",
+  cta: {
+    headline: "Ready to pilot your story?",
+    subhead: "Join the authors who chose to publish with craft.",
+    label: "Start Publishing",
+    href: "/contact-author-website-design-agency",
+  },
   columns: [
     {
-      title: "Create",
+      title: "Services",
       links: [
-        { href: "/ebook-writing", label: "eBook Writing" },
-        { href: "/ghostwriting", label: "Ghostwriting" },
-        { href: "/services#book-editing", label: "Editing" },
-        { href: "/services#book-formatting", label: "Book Formatting" },
-        { href: "/services#book-cover-design", label: "Cover Design" },
+        { href: "/book-writing-services-for-authors", label: "Write" },
+        { href: "/self-publishing-agency-services", label: "Prepare" },
+        { href: "/book-publishing-services-for-authors", label: "Publish" },
+        { href: "/audiobook-production-services-for-authors", label: "Audiobooks" },
+        { href: "/book-marketing-services-for-authors", label: "Promote" },
+        { href: "https://dezyonstudio.com/", label: "Author Website" },
+        {
+          href: "https://freeimagecompressor.live/#bg-remover",
+          label: "Image Tool",
+        },
       ],
     },
     {
-      title: "Experience",
+      title: "Company",
       links: [
-        { href: "/audiobook-production", label: "Audiobook Production" },
-        { href: "/pdf-to-audio", label: "PDF to Audio" },
-        { href: "/book-animation", label: "Book Animation" },
+        { href: "/about-authorspilot-publishing-agency", label: "About Us" },
+        { href: "/author-publishing-website-price", label: "Packages" },
+        { href: "/blog/author-publishing-blog-resources", label: "Blog" },
+        { href: "https://app.authorspilot.com/", label: "Publishing Platform" },
+        { href: "/contact-author-website-design-agency", label: "Contact Us" },
       ],
     },
-    {
-      title: "Publish",
-      links: [
-        { href: "/book-publishing", label: "Book Publishing" },
-        { href: "/services#author-branding", label: "Author Branding" },
-        { href: "/book-marketing", label: "Book Marketing" },
-      ],
-    },
-    {
-      title: "Explore",
-      links: [
-        { href: "/portfolio", label: "Portfolio" },
-        { href: "/about", label: "About" },
-        { href: "/contact#faq", label: "FAQs" },
-        { href: "/blog", label: "Library" },
-        { href: "/contact", label: "Contact" },
-      ],
-    },
-  ],
-  social: [
-    { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
-    { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
-    { label: "X", href: "https://x.com", icon: "x" },
   ],
 };
+
+export const bookMarketingSections = [
+  {
+    id: "author-brand",
+    eyebrow: "Build Your Author Brand",
+    heading: "Our Marketing Approach",
+    body: "Create a professional author identity that makes you recognizable across Instagram, Facebook, TikTok, LinkedIn, and other platforms.",
+    listTitle: "What we do:",
+    items: [
+      "Social Media Promotion",
+      "Email & Launch Campaigns",
+      "Reviews & Influencer Outreach",
+    ],
+  },
+  {
+    id: "book-content",
+    eyebrow: "Turn Your Book Into Content",
+    heading: "Why Marketing Matters for Self-Published Authors",
+    body: "We transform your book, ideas, and expertise into engaging social content designed to attract readers and build your audience.",
+    listTitle: "Content includes:",
+    items: [
+      "Book Promotion Posts",
+      "Reels & Short Videos",
+      "Quotes & Storytelling Posts",
+      "Educational & Behind-the-Scenes Content",
+      "Reader Engagement Content",
+    ],
+  },
+  {
+    id: "build-audience",
+    eyebrow: "Build Your Audience",
+    heading: "Don't Just Publish. Get Discovered.",
+    body: "We create a consistent social media strategy to help your author brand reach the right readers and turn attention into a growing community.",
+    listTitle: "Strategy includes:",
+    items: [
+      "Content Strategy",
+      "Platform-Specific Planning",
+      "Hashtag & Keyword Strategy",
+      "Engagement Strategy",
+      "Book Launch Campaigns",
+    ],
+  },
+  {
+    id: "author-brand-closing",
+    eyebrow: "Become More Than a Published Author",
+    heading: "Become a Recognizable Author Brand.",
+    body: "Your book may introduce you to readers—but your brand keeps them connected. Authors Pilot helps you build a professional online presence that supports your current book and every book that comes next.",
+    listTitle: "",
+    items: [] as string[],
+  },
+] as const;
+
+export const bookMarketingCta = {
+  label: "Build Your Author Brand",
+  href: "/contact-author-website-design-agency",
+} as const;
+
+export const audiobookProductionSections = [
+  {
+    id: "turn-into-audiobook",
+    eyebrow: "Turn Your Book Into an Audiobook",
+    heading: "How We Produce Your Audiobook",
+    body: "Give your readers another way to experience your book. Authors Pilot helps transform your manuscript into a professionally produced audiobook—ready for today's audio-first audience.",
+    listTitle: "We help with:",
+    items: [
+      "Audiobook Production",
+      "Professional Narration",
+      "Voice Selection",
+      "Audio Editing & Mastering",
+      "Audiobook Cover",
+      "Publishing Preparation",
+    ],
+    pipeline: null as string | null,
+  },
+  {
+    id: "publish-listeners",
+    eyebrow: "Publish Where Listeners Are",
+    heading: "Narration & Distribution Options",
+    body: "Get your audiobook prepared for distribution across major audiobook marketplaces and listening platforms, helping your story reach readers wherever they prefer to listen.",
+    listTitle: "Distribution support can include:",
+    items: [
+      "Audible",
+      "Amazon",
+      "Apple Books",
+      "Spotify",
+      "Audiobook Retailers",
+      "Library & Distribution Networks",
+    ],
+    pipeline: null as string | null,
+  },
+  {
+    id: "manuscript-to-listener",
+    eyebrow: "From Manuscript to Listener",
+    heading: "Pricing & Turnaround",
+    body: "From choosing the right voice to preparing your final audio files and getting your audiobook distribution-ready, Authors Pilot simplifies the process for independent authors.",
+    listTitle: "Our Process",
+    items: [] as string[],
+    pipeline:
+      "MANUSCRIPT → NARRATION → PRODUCTION → MASTERING → PUBLISH → DISTRIBUTE",
+  },
+  {
+    id: "let-story-be-heard",
+    eyebrow: "Let Your Story Be Heard",
+    heading: "Let Your Story Be Heard",
+    body: "Whether you're publishing your first audiobook or expanding an existing book catalog, Authors Pilot helps you turn your written work into an audio experience designed for modern listeners.",
+    listTitle: "",
+    items: [] as string[],
+    pipeline: null as string | null,
+    closingPrompt: "Ready to turn your book into an audiobook?",
+  },
+] as const;
+
+export const audiobookProductionCta = {
+  label: "Start Your Audiobook",
+  href: "/contact-author-website-design-agency",
+} as const;
 
 /** Dedicated SEO service landing pages (section 29). */
 export const servicePages = {
   "ebook-writing": {
     slug: "ebook-writing",
     serviceSlug: "ebook-writing",
-    seoTitle: "eBook Writing Services | Professional eBook Writers | Author Forges",
+    seoTitle: "Self-Publishing & Book Writing Services | Authors Pilot",
     metaDescription:
-      "Professional eBook writing services from Author Forges. Custom eBook writers who turn your ideas into structured, reader-focused books.",
-    h1: "Your Idea Deserves More Than a Blank Document.",
+      "Turn your book idea into a published book with Authors Pilot. Get professional book writing, ghostwriting, manuscript development, and self-publishing services.",
+    h1: "Book Writing Services for Authors",
     keywords:
-      "eBook writing services, professional eBook writers, custom eBook writing, book writing services",
+      "self publishing, self publishing services, book writing services, ghostwriting services, manuscript writing, book publishing, self published authors, book writers, author services",
+    ogDescription:
+      "From your first idea to a published book, Authors Pilot helps authors with writing, manuscript development, and self-publishing.",
+    path: "/book-writing-services-for-authors",
+    canonical: "https://authorspilot.com/book-writing-services-for-authors/",
   },
   ghostwriting: {
     slug: "ghostwriting",
+    path: "/ghostwriting-services-for-authors",
     serviceSlug: "ghostwriting",
-    seoTitle: "Professional Ghostwriting Services | Book Ghostwriters | Author Forges",
+    seoTitle: "Ghostwriting Services for Authors | Authors Pilot",
     metaDescription:
-      "Professional ghostwriting services for books and nonfiction. Your story, your name, our words — crafted around your voice.",
-    h1: "Your Story. Your Name. Our Words.",
+      "Professional ghostwriting services for authors. Your story, your name — a ghostwriter crafts the manuscript around your voice.",
+    h1: "Ghostwriting Services for Authors",
     keywords:
       "ghostwriting services, book ghostwriting, professional ghostwriters, nonfiction ghostwriting",
   },
   "audiobook-production": {
     slug: "audiobook-production",
+    path: "/audiobook-production-services-for-authors",
     serviceSlug: "audiobook-production",
-    seoTitle: "Audiobook Production Services | Professional Book Narration",
+    seoTitle: "Audiobook Production Services for Authors | Authors Pilot",
     metaDescription:
-      "Audiobook production and professional book narration. Turn your manuscript into an engaging listening experience.",
-    h1: "Give Your Book a Voice.",
+      "Audiobook production services for authors: professional narration, studio production, and files ready for Audible, ACX, and major audio platforms.",
+    h1: "Audiobook Production Services for Authors",
     keywords:
       "audiobook production, audiobook narration, eBook to audiobook, book narration services",
   },
   "pdf-to-audio": {
     slug: "pdf-to-audio",
+    path: "/pdf-to-audio-conversion-service",
     serviceSlug: "pdf-to-audio",
     seoTitle: "PDF to Audio Conversion | Turn Your PDF Into an Audiobook",
     metaDescription:
@@ -1058,16 +1174,18 @@ export const servicePages = {
   },
   "book-publishing": {
     slug: "book-publishing",
+    path: "/book-publishing-services-for-authors",
     serviceSlug: "book-publishing",
-    seoTitle: "Book Publishing Services | eBook & Print Publishing Support",
+    seoTitle: "Book Publishing Services for Authors | Authors Pilot",
     metaDescription:
-      "Book publishing services and self-publishing support. From finished manuscript to eBook, Kindle, and print preparation.",
-    h1: "From Finished Manuscript to Published Book.",
+      "Book publishing services for authors — eBook, Kindle, and print. We take a finished manuscript through files, metadata, and launch-ready distribution.",
+    h1: "Book Publishing Services for Authors",
     keywords:
       "book publishing services, self-publishing services, eBook publishing, Kindle publishing, publishing support",
   },
   "book-animation": {
     slug: "book-animation",
+    path: "/book-animation-video-services",
     serviceSlug: "book-animation",
     seoTitle: "Book Animation Services | Turn Stories Into Animated Content",
     metaDescription:
@@ -1078,19 +1196,19 @@ export const servicePages = {
   },
   "book-marketing": {
     slug: "book-marketing",
+    path: "/book-marketing-services-for-authors",
     serviceSlug: "book-marketing",
-    seoTitle: "Book Marketing Services | Author & Book Promotion",
+    seoTitle: "Book Marketing Services for Authors | Authors Pilot",
     metaDescription:
-      "Book marketing and author promotion services. Help your published book get discovered by the right audience.",
-    h1: "Publishing Gets You Out There. Marketing Helps People Find You.",
+      "Book marketing services for authors: launch plans, Amazon visibility, social content, and promotion that helps readers find your book.",
+    h1: "Book Marketing Services for Authors",
     keywords:
       "book marketing, book promotion, author marketing, book launch marketing",
   },
 } as const;
 
 export const homeSeo = {
-  title:
-    "Author Forges | eBook Writing, Ghostwriting, Audiobooks & Book Publishing",
+  title: "Book Publishing & Author Website Design Agency | Authors Pilot",
   description:
-    "Author Forges helps turn ideas into books, books into experiences, and experiences into lasting stories — with ghostwriting, editing, audiobooks, animation, and publishing.",
+    "Authors Pilot is a book publishing and author website design agency. We help authors write, design, publish, and build a professional online home for their books.",
 };

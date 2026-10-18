@@ -5,38 +5,32 @@ type BrandLogoProps = {
   className?: string;
   priority?: boolean;
   size?: "sm" | "md" | "lg";
+  /** @deprecated Wordmark already includes the brand name */
   showName?: boolean;
 };
 
+/** Full eagle lockup (~1.06:1) — keep navbar compact but readable. */
 const box = {
-  sm: "h-9 w-9",
-  md: "h-11 w-11 sm:h-12 sm:w-12",
-  lg: "h-14 w-14 sm:h-16 sm:w-16",
+  sm: "h-14 w-[59px]",
+  md: "h-16 w-[68px] sm:h-[4.25rem] sm:w-[72px]",
+  lg: "h-16 w-[68px] sm:h-[4.75rem] sm:w-[80px]",
 } as const;
 
 export function BrandLogo({
   className = "",
   priority = false,
   size = "md",
-  showName = true,
 }: BrandLogoProps) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <span className={`relative shrink-0 overflow-hidden ${box[size]}`}>
-        <Image
-          src="/logo2.png"
-          alt={brand.name}
-          fill
-          sizes="64px"
-          priority={priority}
-          className="object-contain"
-        />
-      </span>
-      {showName && (
-        <span className="font-display text-xl font-semibold tracking-tight text-inherit sm:text-2xl">
-          {brand.name}
-        </span>
-      )}
+    <span className={`relative inline-block shrink-0 ${box[size]} ${className}`}>
+      <Image
+        src="/logo-authors-pilot.webp?v=2"
+        alt={brand.name}
+        width={400}
+        height={400}
+        priority={priority}
+        className="h-full w-full object-contain object-left"
+      />
     </span>
   );
 }

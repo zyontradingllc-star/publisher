@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 export const AMAZON_BESTSELLERS_URL =
-  "https://www.amazon.com/amz-books/seeMore/?_encoding=UTF8&pd_rd_w=nVrdE&content-id=amzn1.sym.95730076-16c1-4582-9e78-d83b7b0ef9af&pf_rd_p=95730076-16c1-4582-9e78-d83b7b0ef9af&pf_rd_r=TJXK0EM4CY5ZR069Y4JE&pd_rd_wg=RhYte&pd_rd_r=81e5dd57-a826-4e7c-8d49-6d2c0deddb54&ref_=apubzg&widgetId=desktop-books-storefront_APubBestSellers_0&title=Best+sellers+in+Amazon+Original+books&ref_=books_amz-books_desktop_mfs_apubzg&sourceType=RECS&page=1";
+  "https://www.amazon.com/gp/bestsellers/books";
 
 type BestSeller = {
   title: string;
@@ -21,7 +21,7 @@ const books: BestSeller[] = [
   {
     title: "Death Row",
     author: "Freida McFadden",
-    src: "/amazon-books/cover1.jpg",
+    src: "/amazon-books/cover1.webp",
     rating: 3.8,
     reviews: "127,876",
     price: "$1.99",
@@ -30,7 +30,7 @@ const books: BestSeller[] = [
   {
     title: "The Friend of the Family",
     author: "Dean Koontz",
-    src: "/amazon-books/cover2.jpg",
+    src: "/amazon-books/cover2.webp",
     rating: 4.5,
     reviews: "16,285",
     price: "$9.99",
@@ -39,7 +39,7 @@ const books: BestSeller[] = [
   {
     title: "If You Tell",
     author: "Gregg Olsen",
-    src: "/amazon-books/cover3.jpg",
+    src: "/amazon-books/cover3.webp",
     rating: 4.2,
     reviews: "184,925",
     price: "$2.49",
@@ -50,7 +50,7 @@ const books: BestSeller[] = [
   {
     title: "The Last Letter of Rachel Ellsworth",
     author: "Barbara O'Neal",
-    src: "/amazon-books/cover4.jpg",
+    src: "/amazon-books/cover4.webp",
     rating: 4.5,
     reviews: "17,354",
     price: "$2.49",
@@ -61,7 +61,7 @@ const books: BestSeller[] = [
   {
     title: "The Price of Honey",
     author: "Liane Moriarty",
-    src: "/amazon-books/cover5.jpg",
+    src: "/amazon-books/cover5.webp",
     rating: 3.7,
     reviews: "30,893",
     price: "$1.99",
@@ -70,7 +70,7 @@ const books: BestSeller[] = [
   {
     title: "No One Knew",
     author: "Kendra Elliot",
-    src: "/amazon-books/cover6.jpg",
+    src: "/amazon-books/cover6.webp",
     rating: 4.5,
     reviews: "23,920",
     price: "$6.99",
@@ -79,7 +79,7 @@ const books: BestSeller[] = [
   {
     title: "S'more of You",
     author: "Tessa Bailey",
-    src: "/amazon-books/cover7.jpg",
+    src: "/amazon-books/cover7.webp",
     rating: 3.6,
     reviews: "8,180",
     price: "$1.99",
@@ -88,7 +88,7 @@ const books: BestSeller[] = [
   {
     title: "Woman Down",
     author: "Colleen Hoover",
-    src: "/amazon-books/cover8.jpg",
+    src: "/amazon-books/cover8.webp",
     rating: 4.0,
     reviews: "77,086",
     price: "$5.99",
@@ -96,7 +96,7 @@ const books: BestSeller[] = [
   {
     title: "The Stopover",
     author: "T L Swan",
-    src: "/amazon-books/cover9.jpg",
+    src: "/amazon-books/cover9.webp",
     rating: 4.4,
     reviews: "101,407",
     price: "$3.99",
@@ -104,7 +104,7 @@ const books: BestSeller[] = [
   {
     title: "The Wild Card",
     author: "Carolyn Brown",
-    src: "/amazon-books/cover10.jpg",
+    src: "/amazon-books/cover10.webp",
     rating: 4.4,
     reviews: "8,611",
     price: "$4.99",
@@ -112,7 +112,7 @@ const books: BestSeller[] = [
   {
     title: "In the Likely Event",
     author: "Rebecca Yarros",
-    src: "/amazon-books/cover11.jpg",
+    src: "/amazon-books/cover11.webp",
     rating: 4.5,
     reviews: "131,388",
     price: "$4.99",
@@ -120,7 +120,7 @@ const books: BestSeller[] = [
   {
     title: "What She Saw",
     author: "Mary Burton",
-    src: "/amazon-books/cover12.jpg",
+    src: "/amazon-books/cover12.webp",
     rating: 4.3,
     reviews: "43,896",
     price: "$5.99",
@@ -129,7 +129,7 @@ const books: BestSeller[] = [
   {
     title: "Reminders of Him",
     author: "Colleen Hoover",
-    src: "/amazon-books/cover13.jpg",
+    src: "/amazon-books/cover13.webp",
     rating: 4.7,
     reviews: "408,224",
     price: "$5.99",
@@ -138,7 +138,7 @@ const books: BestSeller[] = [
   {
     title: "The Perfect Child",
     author: "Lucinda Berry",
-    src: "/amazon-books/cover14.jpg",
+    src: "/amazon-books/cover14.webp",
     rating: 4.2,
     reviews: "104,122",
     price: "$4.99",
@@ -146,7 +146,7 @@ const books: BestSeller[] = [
   },
   {
     title: "Every Time I Die",
-    src: "/books/book1.jpg",
+    src: "/books/book1.webp",
     rating: 4.1,
     reviews: "21,430",
     price: "$2.99",
@@ -187,7 +187,7 @@ export function AmazonBestsellers() {
             href={AMAZON_BESTSELLERS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-sans text-sm font-semibold text-[#032bb8] underline-offset-2 transition hover:underline"
+            className="font-sans text-sm font-semibold text-coral underline-offset-2 transition hover:underline"
           >
             See all on Amazon →
           </Link>
@@ -203,13 +203,13 @@ export function AmazonBestsellers() {
               rel="noopener noreferrer"
               className="group flex flex-col"
             >
-              <div className="relative mx-auto w-[86%]">
+              <div className="relative w-full">
                 {book.bestSeller && (
                   <span className="absolute left-0 top-0 z-10 rounded-sm bg-[#C45500] px-1.5 py-0.5 font-sans text-[10px] font-bold uppercase tracking-wide text-white">
                     Best Seller
                   </span>
                 )}
-                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-sm border-8 border-slate shadow-book transition group-hover:shadow-lift">
+                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-sm border-[10px] border-slate shadow-book transition group-hover:shadow-lift">
                   <Image
                     src={book.src}
                     alt={book.author ? `${book.title} by ${book.author}` : book.title}
@@ -225,7 +225,7 @@ export function AmazonBestsellers() {
                   {book.rating.toFixed(1)}
                 </span>
                 <Stars rating={book.rating} />
-                <span className="font-sans text-xs text-[#032bb8]">
+                <span className="font-sans text-xs text-coral">
                   {book.reviews}
                 </span>
               </div>

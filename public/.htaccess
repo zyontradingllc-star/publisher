@@ -1,0 +1,102 @@
+Options -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+
+# Canonical service URLs — 301 old slugs before file/SPA fallback
+RewriteRule ^about/?$ /about-authorspilot-publishing-agency/ [R=301,L]
+RewriteRule ^contact/?$ /contact-author-website-design-agency/ [R=301,L]
+RewriteRule ^packages/?$ /author-publishing-website-price/ [R=301,L]
+RewriteRule ^services/?$ /self-publishing-agency-services/ [R=301,L]
+RewriteRule ^blog/write/?$ /blog/writing-resources-for-authors/ [R=301,L]
+RewriteRule ^blog/?$ /blog/author-publishing-blog-resources/ [R=301,L]
+RewriteRule ^privacy/?$ /privacy-policy/ [R=301,L]
+RewriteRule ^terms/?$ /terms-and-conditions/ [R=301,L]
+RewriteRule ^writing/?$ /book-writing-services-for-authors/ [R=301,L]
+RewriteRule ^ebook-writing/?$ /book-writing-services-for-authors/ [R=301,L]
+RewriteRule ^book-writing/?$ /book-writing-services-for-authors/ [R=301,L]
+RewriteRule ^book-publishing/?$ /book-publishing-services-for-authors/ [R=301,L]
+RewriteRule ^self-publishing/?$ /self-publishing-services-for-authors/ [R=301,L]
+RewriteRule ^audiobook-production/?$ /audiobook-production-services-for-authors/ [R=301,L]
+RewriteRule ^audiobook/?$ /audiobook-publishing-services/ [R=301,L]
+RewriteRule ^book-marketing/?$ /book-marketing-services-for-authors/ [R=301,L]
+RewriteRule ^book-cover-design/?$ /book-cover-design-services/ [R=301,L]
+RewriteRule ^book-editing/?$ /professional-book-editing-services/ [R=301,L]
+RewriteRule ^book-formatting/?$ /book-formatting-services-for-authors/ [R=301,L]
+RewriteRule ^amazon-kdp-publishing/?$ /amazon-kdp-publishing-services/ [R=301,L]
+RewriteRule ^ghostwriting/?$ /ghostwriting-services-for-authors/ [R=301,L]
+RewriteRule ^author-website-design-usa/?$ /author-website-design-agency-usa/ [R=301,L]
+RewriteRule ^pdf-to-audio/?$ /pdf-to-audio-conversion-service/ [R=301,L]
+RewriteRule ^book-animation/?$ /book-animation-video-services/ [R=301,L]
+
+# Force HTTPS (works behind proxies / Cloudflare as well)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
+
+# Force apex host (www → non-www)
+RewriteCond %{HTTP_HOST} ^www\.authorspilot\.com$ [NC]
+RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
+
+# Trailing slash for routes — skip real files (index.html, CSS, JS, images)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !\.(html?|css|js|mjs|map|json|xml|txt|webp|png|jpe?g|gif|svg|ico|woff2?|ttf|eot)$ [NC]
+RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+# Generated bookstore pages share the preview shell on static hosting
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^store/([^/]+)/?$ /store/preview/index.html [L]
+
+# Existing React / static-export fallback
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [QSA,L]
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 7 days"
+  ExpiresByType text/html "access plus 10 minutes"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/json "access plus 1 hour"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:css|js|mjs|webp|png|jpe?g|gif|svg|ico|woff2|woff)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(?:html)$">
+    Header set Cache-Control "public, max-age=600"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType application/javascript .js .mjs
+  AddType text/css .css
+  AddType application/json .json
+  AddType application/xml .xml
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+</IfModule>

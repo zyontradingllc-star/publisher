@@ -2,9 +2,15 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useAnimationFrame, useMotionValue, useTransform } from "framer-motion";
+import {
+  motion,
+  useAnimationFrame,
+  useInView,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 
-const covers = Array.from({ length: 8 }, (_, i) => `/books/book${i + 1}.jpg`);
+const covers = Array.from({ length: 8 }, (_, i) => `/books/book${i + 1}.webp`);
 
 const WIDTH = 260;
 const HEIGHT = 390;
@@ -13,6 +19,8 @@ const DEPTH = 34;
 const SPEED = 0.05;
 
 export function RotatingBook() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(rootRef, { amount: 0.4, once: false });
   const rotation = useMotionValue(0);
   const transform = useTransform(
     rotation,
@@ -23,6 +31,7 @@ export function RotatingBook() {
   const swaps = useRef(0);
 
   useAnimationFrame((_, delta) => {
+    if (!inView) return;
     if (
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -42,7 +51,7 @@ export function RotatingBook() {
   });
 
   return (
-    <div className="relative mx-auto flex w-full justify-center">
+    <div ref={rootRef} className="relative mx-auto flex w-full justify-center">
       <div
         aria-hidden="true"
         className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-coral/10 blur-2xl"
@@ -69,10 +78,9 @@ export function RotatingBook() {
           >
             <Image
               src={covers[index]}
-              alt="Book published by Author Forges"
+              alt="Book published by Authors Pilot"
               fill
               sizes="260px"
-              priority
               className="object-cover object-center"
             />
           </div>
@@ -88,7 +96,7 @@ export function RotatingBook() {
             <div className="flex h-full flex-col items-center justify-center gap-3 px-8 text-center">
               <span className="h-10 w-10 rounded-full border border-coral/50" />
               <span className="font-display text-sm tracking-[0.2em] text-white/45">
-                AUTHOR FORGES
+                AUTHORS PILOT
               </span>
             </div>
           </div>

@@ -3,71 +3,73 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
+import { Button } from "@/components/ui/Button";
 import { LogoMarquee } from "@/components/ui/LogoMarquee";
-import { BookShowcase } from "@/components/ui/BookShowcase";
+import { VideoInsights } from "@/components/ui/VideoInsights";
+import { AmazonSpotlight } from "@/components/ui/AmazonSpotlight";
+import { BookFairMoments } from "@/components/ui/BookFairMoments";
+import { CoversThatSell } from "@/components/ui/CoversThatSell";
+import { BookFairHighlights } from "@/components/ui/BookFairHighlights";
+import { BestSellerCta } from "@/components/ui/BestSellerCta";
+import { HomeFaq } from "@/components/ui/HomeFaq";
+import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
+import { FreeCoverOffer } from "@/components/ui/FreeCoverOffer";
+import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
+import { RoyalPackages } from "@/components/ui/RoyalPackages";
+import { PublishingJourney } from "@/components/ui/PublishingJourney";
 import { HeroBookFan } from "@/components/ui/HeroBookFan";
 import { CoversInMotion } from "@/components/ui/CoversInMotion";
 import { ComeToLife } from "@/components/ui/ComeToLife";
-import {
-  brand,
-  home,
-  services,
-  portfolio,
-  blog,
-  testimonials,
-  brandMessages,
-} from "@/content/site";
-
-const dedicated = new Set([
-  "ebook-writing",
-  "ghostwriting",
-  "audiobook-production",
-  "pdf-to-audio",
-  "book-publishing",
-  "book-animation",
-  "book-marketing",
-]);
-
-function serviceHref(slug: string) {
-  return dedicated.has(slug) ? `/${slug}` : `/services#${slug}`;
-}
+import { ForgeNumbers } from "@/components/ui/ForgeNumbers";
+import { ReliabilityAcrossBorders } from "@/components/ui/ReliabilityAcrossBorders";
+import { HomeServiceLinks } from "@/components/ui/HomeServiceLinks";
+import { HomeWhatWeDo } from "@/components/ui/HomeWhatWeDo";
+import { GoogleReviews } from "@/components/ui/GoogleReviews";
+import { home, portfolio } from "@/content/site";
 
 const portfolioTiles = [
-  "/books/book3.jpg",
-  "/books/book9.jpg",
-  "/books/book10.jpg",
-  "/books/book5.jpg",
-  "/books/book11.jpg",
+  "/books/book3.webp",
+  "/books/book9.webp",
+  "/books/book10.webp",
+  "/books/book5.webp",
+  "/books/book11.webp",
 ];
 
 export default function HomePageClient() {
-  const featured = services.items.slice(0, 8);
-
   return (
     <>
       {/* Hero — BookChimp style: text left, book stack right */}
-      {/* Pulled up behind the transparent navbar so the band runs to the top. */}
-      <section className="relative -mt-[108px] overflow-hidden bg-warm-wash pt-[108px] sm:-mt-[116px] sm:pt-[116px]">
-        <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-10 px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 lg:grid-cols-2 lg:gap-12 lg:px-8">
+      <section className="relative overflow-hidden bg-warm-wash">
+        <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-8 px-4 pb-14 pt-6 sm:gap-10 sm:px-6 sm:pb-16 sm:pt-8 lg:grid-cols-2 lg:gap-12 lg:px-8">
           <div>
-            <motion.p
+            <motion.span
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[20px] font-medium uppercase tracking-[0.16em] text-coral-deep"
+              className="badge-pill"
             >
-              {brand.name}
-            </motion.p>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="h-3.5 w-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 16 7.5 8l4.5 5 4.5-5L21 16H4z" />
+                <path d="M6 16h12v2.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 18.5V16z" />
+              </svg>
+              Flagship eBook &amp; Book Cover Design
+            </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.06 }}
-              className="mt-3 font-display text-4xl font-semibold leading-[1.12] tracking-tight text-ink sm:text-5xl lg:text-6xl"
+              className="mt-3 heading-hero"
             >
-              {home.hero.headline}
+              Book Publishing &amp; Author Website Design Agency
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 18 }}
@@ -81,14 +83,48 @@ export default function HomePageClient() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.18 }}
-              className="mt-8 flex flex-wrap gap-3"
+              className="mt-8"
             >
-              <Button href={home.hero.primaryCta.href}>
-                {home.hero.primaryCta.label}
-              </Button>
-              <Button href={home.hero.secondaryCta.href} variant="ghost">
-                {home.hero.secondaryCta.label}
-              </Button>
+              <div className="flex flex-wrap justify-center gap-3 md:justify-start">
+                <Button href="/create-free-account">Create A Free Account</Button>
+                <Button href="#covers" variant="ghost">
+                  See Our Covers
+                </Button>
+              </div>
+              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-charcoal">
+                <span className="inline-flex items-center gap-2">
+                  <span className="inline-flex text-[#E08A2A]" aria-hidden="true">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg key={i} viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
+                        <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.27 5.06 16.7l.94-5.5-4-3.9 5.53-.8L10 1.5z" />
+                      </svg>
+                    ))}
+                  </span>
+                  4.9/5 average rating
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 text-[#E08A2A]"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 3l7 3v6c0 4.5-2.8 7.6-7 9-4.2-1.4-7-4.5-7-9V6z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12l2 2 4-4"
+                    />
+                  </svg>
+                  100% rights &amp; royalties stay yours
+                </span>
+              </div>
             </motion.div>
           </div>
 
@@ -103,117 +139,45 @@ export default function HomePageClient() {
         </div>
       </section>
 
+      {/* Covers in motion — 3D ring */}
+      <CoversInMotion />
+
       {/* Retailer logos */}
       <LogoMarquee />
 
-      {/* Featured services */}
-      <section className="relative bg-cream py-14 sm:py-16">
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-[380px] bg-cta-wash sm:h-[420px] lg:h-[440px]"
-        />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <HomeWhatWeDo />
+
+      {/* Behind the pages / author insights */}
+      <VideoInsights />
+
+      {/* Amazon spotlight — covers slide left to right */}
+      <AmazonSpotlight />
+
+      {/* Book fair moments */}
+      <BookFairMoments />
+
+      <PublishingJourney />
+
+      <section className="bg-warm-wash py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
-                Featured Ways We{" "}
-                <span className="text-coral-soft">Forge</span>
-              </h2>
-              <Link
-                href="/services"
-                className="shrink-0 rounded-full border border-white/50 px-4 py-2 text-[14px] font-medium text-white transition hover:bg-white hover:text-coral-deep"
-              >
-                view all
-              </Link>
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="badge-pill">Author Love</span>
+              <h2 className="mt-4 heading-section">What Our Authors Say</h2>
             </div>
           </FadeIn>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((service, i) => {
-              const imageSrc = services.images[service.slug];
-              const href = serviceHref(service.slug);
-              return (
-                <FadeIn key={service.slug} delay={i * 0.04}>
-                  <div className="group relative h-full">
-                    <span
-                      aria-hidden="true"
-                      className="absolute bottom-6 right-[-8px] top-1/2 w-3 rounded-r-lg bg-coral"
-                    />
-                    <div className="relative flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-soft transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lift">
-                      <div className="relative aspect-[7/6] w-full shrink-0 overflow-hidden bg-ivory">
-                        {imageSrc ? (
-                          <Image
-                            src={imageSrc}
-                            alt={service.imageAlt}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 240px"
-                            className="object-cover object-center transition duration-300 group-hover:scale-105"
-                          />
-                        ) : (
-                          <PlaceholderImage
-                            alt={service.imageAlt}
-                            className="h-full w-full"
-                            label={service.title}
-                          />
-                        )}
-                        <span className="absolute -bottom-1 left-4 flex h-12 w-12 items-center justify-center rounded-lg bg-coral text-white shadow-soft">
-                          <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                            className="h-6 w-6"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 15.5z" />
-                            <path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5z" />
-                          </svg>
-                        </span>
-                      </div>
-                      <div className="flex flex-1 flex-col px-4 pb-5 pt-6 text-center">
-                        <h3 className="font-display text-lg font-bold text-ink">
-                          <Link href={href} className="hover:text-coral-deep">
-                            {service.title}
-                          </Link>
-                        </h3>
-                        <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal">
-                          {service.heading}
-                        </p>
-                        <Link
-                          href={href}
-                          className="mt-4 inline-flex items-center gap-2 self-center rounded-md bg-ink py-2 pl-4 pr-2 text-[13px] font-semibold text-white transition hover:bg-slate"
-                        >
-                          Read More
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-coral text-white">
-                            <svg
-                              viewBox="0 0 24 24"
-                              aria-hidden="true"
-                              className="h-3 w-3"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                            >
-                              <path d="M12 5v14M5 12h14" />
-                            </svg>
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </FadeIn>
-              );
-            })}
-          </div>
+          <GoogleReviews />
         </div>
       </section>
 
-      {/* Recommended books strip */}
-      <BookShowcase />
+      {/* Covers that sell */}
+      <CoversThatSell />
 
-      {/* Covers in motion — 3D ring */}
-      <CoversInMotion />
+      {/* Numbers / proof */}
+      <ForgeNumbers />
+
+      {/* Reliability across borders */}
+      <ReliabilityAcrossBorders />
 
       {/* Watch it come to life */}
       <ComeToLife />
@@ -224,19 +188,13 @@ export default function HomePageClient() {
           <FadeIn>
             <div className="flex items-end justify-between gap-4">
               <div>
-                <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+                <p className="heading-section">
                   {portfolio.hero.title}
-                </h2>
+                </p>
                 <p className="mt-3 max-w-2xl text-sm text-charcoal sm:text-base">
                   {portfolio.hero.description}
                 </p>
               </div>
-              <Link
-                href="/portfolio"
-                className="shrink-0 text-[14px] font-medium text-coral hover:text-coral-deep"
-              >
-                view all
-              </Link>
             </div>
           </FadeIn>
           <FadeIn className="mt-8">
@@ -244,7 +202,7 @@ export default function HomePageClient() {
               {portfolio.items.slice(0, 5).map((item, i) => (
                 <Link
                   key={item.id}
-                  href="/portfolio"
+                  href="/contact-author-website-design-agency"
                   className={`group relative block h-56 overflow-hidden sm:h-64 ${
                     i === 1 ? "sm:col-span-2" : ""
                   }`}
@@ -276,108 +234,29 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Author spotlight — BookChimp author block */}
-      <section className="bg-cream py-14 sm:py-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:px-8">
-          <FadeIn>
-            <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-full shadow-lift sm:aspect-[4/5] sm:rounded-soft">
-              <Image
-                src="/about-team.png"
-                alt="about-team-authorforges-studio"
-                fill
-                sizes="(max-width: 1024px) 90vw, 448px"
-                className="object-cover"
-              />
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <p className="text-[20px] font-medium uppercase tracking-[0.14em] text-coral">
-              Why Author Forges
-            </p>
-            <h2 className="mt-2 font-display text-3xl font-semibold text-ink sm:text-4xl">
-              We don&apos;t just finish books. We forge them.
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-charcoal">
-              {brandMessages.medium}
-            </p>
-            <div className="mt-8">
-              <Button href="/about" variant="secondary">
-                About the forge
-              </Button>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      {/* Pricing Fit For Royalty */}
+      <RoyalPackages showHeading={false} />
 
-      {/* Testimonials banner */}
-      <section className="bg-cream leading-none">
-        <FadeIn>
-          <Image
-            src="/testimonials-banner.png"
-            alt="The Stories Behind the Stories — Author Forges client journeys"
-            width={5953}
-            height={937}
-            sizes="100vw"
-            className="block h-auto w-full"
-            quality={95}
-          />
-        </FadeIn>
-        {testimonials.length > 0 && (
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-            <TestimonialCarousel items={testimonials} />
-          </div>
-        )}
-      </section>
+      {/* SEO service links */}
+      <HomeServiceLinks />
 
-      {/* Blog — BookChimp blog row */}
-      <section className="bg-cream py-14 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
-                The Author Forges Library
-              </h2>
-              <Link
-                href="/blog"
-                className="text-[14px] font-medium text-coral hover:text-coral-deep"
-              >
-                view all
-              </Link>
-            </div>
-          </FadeIn>
-          <div className="mt-8 grid gap-6 sm:grid-cols-3">
-            {blog.posts.slice(0, 3).map((post, i) => (
-              <FadeIn key={post.slug} delay={i * 0.06}>
-                <Link href={`/blog#${post.slug}`} className="group block">
-                  <PlaceholderImage
-                    alt={post.imageAlt}
-                    className="aspect-[16/10] w-full rounded-soft"
-                  />
-                  <p className="mt-3 text-[20px] font-medium uppercase tracking-wider text-coral">
-                    {post.category}
-                  </p>
-                  <h3 className="mt-1 font-display text-xl font-semibold text-ink transition group-hover:text-coral-deep">
-                    {post.title}
-                  </h3>
-                </Link>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Authors Pilot Book Fair Highlights */}
+      <BookFairHighlights />
 
-      {/* Newsletter / final CTA */}
-      <section className="relative block leading-none">
-        <Image
-          src="/banner.png"
-          alt=""
-          width={1905}
-          height={227}
-          sizes="100vw"
-          className="block h-auto w-full"
-          priority={false}
-        />
-      </section>
+      {/* Best-seller CTA */}
+      <BestSellerCta />
+
+      {/* Free cover mockup */}
+      <FreeCoverOffer />
+
+      {/* Free author consultation */}
+      <AuthorConsultation />
+
+      {/* FAQ */}
+      <HomeFaq />
+
+      {/* Newsletter */}
+      <NewsletterSignup />
     </>
   );
 }

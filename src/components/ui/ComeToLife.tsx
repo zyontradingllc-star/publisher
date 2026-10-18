@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { RotatingBook } from "@/components/ui/RotatingBook";
+import { Button } from "@/components/ui/Button";
 import { howItWorks } from "@/content/site";
 
 export function ComeToLife() {
@@ -19,14 +19,14 @@ export function ComeToLife() {
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8">
         <FadeIn>
-          <span className="inline-flex items-center gap-2 rounded-full border border-coral/40 px-3 py-1 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-coral-soft">
+          <span className="badge-pill">
             Watch It Come To Life
           </span>
 
-          <h2 className="mt-5 font-display text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
+          <p className="mt-5 heading-section text-white">
             From a Quiet Manuscript to a Book That{" "}
-            <span className="text-coral-soft">Opens the World</span>
-          </h2>
+            <span className="text-[#F2C14D]">Opens the World</span>
+          </p>
 
           <p className="mt-5 max-w-xl font-sans text-sm leading-relaxed text-white/70 sm:text-base">
             Every stage reveals a little more of the book you set out to write.
@@ -53,22 +53,7 @@ export function ComeToLife() {
           </ol>
 
           <div className="mt-10">
-            <Link
-              href="/contact"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#032bb8] px-7 py-3.5 font-sans text-sm font-bold uppercase tracking-wide text-white shadow-cta transition duration-300 hover:-translate-y-0.5 hover:bg-[#02208f] hover:shadow-cta-lg"
-            >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[400%] motion-reduce:hidden"
-              />
-              <span className="relative">Start My Book</span>
-              <span
-                aria-hidden="true"
-                className="relative transition-transform duration-300 group-hover:translate-x-1"
-              >
-                →
-              </span>
-            </Link>
+            <Button href="/contact-author-website-design-agency">Start My Book</Button>
           </div>
         </FadeIn>
 

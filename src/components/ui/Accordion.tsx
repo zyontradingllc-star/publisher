@@ -10,10 +10,12 @@ type AccordionItem = {
 
 type AccordionProps = {
   items: AccordionItem[];
+  variant?: "default" | "gold";
 };
 
-export function Accordion({ items }: AccordionProps) {
+export function Accordion({ items, variant = "default" }: AccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const gold = variant === "gold";
 
   return (
     <div className="space-y-3">
@@ -22,11 +24,15 @@ export function Accordion({ items }: AccordionProps) {
         return (
           <div
             key={item.question}
-            className="overflow-hidden rounded-soft border border-sand bg-cream"
+            className={`overflow-hidden rounded-2xl border bg-white ${
+              gold && open
+                ? "border-[#273E2B]/45 shadow-soft"
+                : "border-sand"
+            }`}
           >
             <button
               type="button"
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
               aria-expanded={open}
               onClick={() => setOpenIndex(open ? null : index)}
             >
@@ -34,12 +40,26 @@ export function Accordion({ items }: AccordionProps) {
                 {item.question}
               </span>
               <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-coral/15 text-coral transition-transform ${
-                  open ? "rotate-45" : ""
-                }`}
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform ${
+                  gold
+                    ? "bg-[#273E2B] text-white"
+                    : "bg-coral/15 text-coral"
+                } ${open ? (gold ? "rotate-180" : "rotate-45") : ""}`}
                 aria-hidden
               >
-                +
+                {gold ? (
+                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none">
+                    <path
+                      d="M5 7.5 10 12.5 15 7.5"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : (
+                  "+"
+                )}
               </span>
             </button>
             <AnimatePresence initial={false}>

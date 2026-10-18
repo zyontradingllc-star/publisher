@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const covers = Array.from({ length: 10 }, (_, i) => `/books/book${i + 1}.jpg`);
+const covers = Array.from({ length: 10 }, (_, i) => `/books/book${i + 1}.webp`);
 
 type Placement = {
   x: string;
@@ -65,16 +65,16 @@ export function HeroBookFan() {
 
     const id = window.setInterval(() => {
       setLead((prev) => (prev + 1) % covers.length);
-    }, 1400);
+    }, 1100);
 
     return () => window.clearInterval(id);
   }, []);
 
   return (
-    <div className="relative aspect-[4/3] w-full sm:aspect-[5/4]">
+    <div className="image-bob relative aspect-[4/3] w-full sm:aspect-[5/4]">
       <div
         aria-hidden="true"
-        className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(27,59,111,0.16),transparent)]"
+        className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(39,62,43,0.16),transparent)]"
       />
       <div
         className="absolute inset-0 flex items-center justify-center"
@@ -85,6 +85,7 @@ export function HeroBookFan() {
             (i - lead + covers.length) % covers.length,
             covers.length,
           );
+          if (spot.opacity === 0) return null;
 
           return (
             <motion.div
@@ -105,13 +106,13 @@ export function HeroBookFan() {
             >
               <Image
                 src={src}
-                alt=""
+                alt={`Featured book cover ${i + 1}`}
                 fill
                 sizes="(max-width: 1024px) 45vw, 320px"
-                priority={i < 5}
-                loading={i < 5 ? undefined : "eager"}
+                priority={i === 0}
+                loading={i === 0 ? undefined : "lazy"}
                 onLoad={() => setLoaded((prev) => ({ ...prev, [src]: true }))}
-                className="object-cover object-center"
+                className="image-ken-burns object-cover object-center"
               />
             </motion.div>
           );

@@ -1,103 +1,182 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { brand, footer } from "@/content/site";
-import { BrandLogo } from "@/components/layout/BrandLogo";
+import { Button } from "@/components/ui/Button";
 
-function SocialIcon({ icon }: { icon: string }) {
-  if (icon === "instagram") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
-        <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.75" />
-        <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.75" />
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-      </svg>
-    );
-  }
-  if (icon === "linkedin") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
-        <path d="M6.5 9.5H3.75V20.25H6.5V9.5ZM5.12 4.5a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5ZM20.25 20.25h-2.75v-5.35c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.81v5.44H10.94V9.5h2.64v1.47h.04c.37-.7 1.27-1.44 2.61-1.44 2.79 0 3.3 1.84 3.3 4.22v6.5Z" />
-      </svg>
-    );
-  }
+const telHref = `tel:${brand.phone.replace(/[^\d+]/g, "")}`;
+const telAltHref = `tel:${brand.phoneAlt.replace(/[^\d+]/g, "")}`;
+
+function PhoneIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
-      <path d="M3 4.5h4.2l4.05 5.7L16.8 4.5H21l-6.75 8.1L21.3 19.5h-4.2l-4.35-6.15L7.2 19.5H3l7.05-8.55L3 4.5Z" />
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6.5 4.5h2.2l1 4.2-1.7 1.1a12.5 12.5 0 0 0 6.2 6.2l1.1-1.7 4.2 1v2.2c0 .8-.7 1.5-1.5 1.5C9.6 19 5 14.4 5 6c0-.8.7-1.5 1.5-1.5z"
+      />
+    </svg>
+  );
+}
+
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+      <path d="M4 7.5 12 13l8-5.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="relative mt-auto bg-ink text-linen">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-start justify-between gap-6 rounded-soft bg-slate px-6 py-8 sm:flex-row sm:items-center sm:px-8">
-          <div>
-            <h3 className="font-display text-2xl font-semibold text-linen">
-              {footer.cta.label}
-            </h3>
-            <p className="mt-1 text-sm text-charcoal">{brand.tagline}</p>
+    <footer className="relative mt-auto bg-cta-wash text-linen">
+      <div className="border-b border-sand bg-ivory">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div className="max-w-xl">
+            <p className="heading-section">
+              {footer.cta.headline}
+            </p>
+            <p className="mt-2 font-sans text-sm text-charcoal sm:text-base">
+              {footer.cta.subhead}
+            </p>
           </div>
-          <Link
-            href={footer.cta.href}
-            className="group relative inline-flex overflow-hidden rounded-md bg-[#032bb8] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-cta transition duration-300 hover:-translate-y-0.5 hover:bg-[#02208f] hover:shadow-cta-lg"
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[400%] motion-reduce:hidden"
-            />
-            <span className="relative">{footer.cta.link}</span>
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-end">
+            <Button href={footer.cta.href}>{footer.cta.label}</Button>
+            <a
+              href={telHref}
+              className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-5 py-3 font-sans text-sm font-semibold text-ink shadow-soft transition hover:border-coral/40 hover:text-[#273E2B]"
+            >
+              <PhoneIcon className="h-4 w-4" />
+              {brand.phone}
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-14 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
-        <div className="lg:col-span-4">
-          <Link href="/" className="inline-flex items-center text-linen">
-            <BrandLogo size="lg" />
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 pt-14 pb-0 text-center sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:px-8">
+        <div className="flex flex-col items-center">
+          <Link
+            href="/book-publishing-author-website-design-agency"
+            className="inline-flex flex-col items-center"
+            aria-label={`${brand.name} home`}
+          >
+            <Image
+              src="/logo-authors-pilot.webp?v=2"
+              alt={brand.name}
+              width={200}
+              height={190}
+              className="h-auto w-44 sm:w-56"
+            />
           </Link>
-          <p className="mt-3 font-display text-[20px] text-coral-soft">{footer.tagline}</p>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-charcoal">
+          <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-white/75">
             {footer.blurb}
           </p>
-          <div className="mt-6 flex gap-3">
-            {footer.social.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={item.label}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-linen transition hover:border-coral hover:bg-coral hover:text-white"
-              >
-                <SocialIcon icon={item.icon} />
-              </a>
-            ))}
-          </div>
         </div>
 
         {footer.columns.map((column) => (
-          <div key={column.title} className="lg:col-span-2">
-            <h3 className="font-display text-lg font-semibold">{column.title}</h3>
+          <div key={column.title}>
+            <h3 className="font-sans text-sm font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
+              {column.title}
+            </h3>
             <ul className="mt-4 space-y-2.5">
-              {column.links.map((link) => (
-                <li key={link.href + link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-charcoal transition hover:text-coral-soft"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {column.links.map((link) => {
+                const external = /^https?:\/\//i.test(link.href);
+                return (
+                  <li key={`${link.href}-${link.label}`}>
+                    {external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-sans text-sm text-white/75 transition hover:text-[#273E2B]"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="font-sans text-sm text-white/75 transition hover:text-[#273E2B]"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}
+
+        <div>
+          <h3 className="font-sans text-sm font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
+            Get In Touch
+          </h3>
+          <ul className="mt-4 inline-flex flex-col items-center space-y-3.5">
+            <li>
+              <a
+                href={telHref}
+                className="flex items-center justify-center gap-2.5 font-sans text-sm text-white/75 transition hover:text-[#273E2B]"
+              >
+                <PhoneIcon className="h-4 w-4 shrink-0" />
+                {brand.phone}
+              </a>
+            </li>
+            <li>
+              <a
+                href={telAltHref}
+                className="flex items-center justify-center gap-2.5 font-sans text-sm text-white/75 transition hover:text-[#273E2B]"
+              >
+                <PhoneIcon className="h-4 w-4 shrink-0" />
+                {brand.phoneAlt}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${brand.email}`}
+                className="flex items-center justify-center gap-2.5 font-sans text-sm text-white/75 transition hover:text-[#273E2B]"
+              >
+                <MailIcon className="h-4 w-4 shrink-0" />
+                hello@AuthorsPilot.com
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-charcoal sm:px-6">
-        © {new Date().getFullYear()} {brand.name}. All rights reserved.
+      <div className="border-t border-white/10 bg-black/20">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-5 text-center text-xs text-white/60 sm:flex-row sm:justify-between sm:px-6 sm:text-left lg:px-8">
+          <p>
+            © {year} {brand.name}. All rights reserved. Authors keep 100% of
+            their rights & royalties.
+          </p>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-end">
+            <Link href="/privacy-policy" className="transition hover:text-[#273E2B]">
+              Privacy
+            </Link>
+            <span aria-hidden>·</span>
+            <Link href="/terms-and-conditions" className="transition hover:text-[#273E2B]">
+              Terms
+            </Link>
+          </p>
+        </div>
       </div>
     </footer>
   );
