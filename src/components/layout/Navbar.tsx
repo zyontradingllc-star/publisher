@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { brand, navLinks } from "@/content/site";
+import { brand, homeHref, navLinks } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { BrandLogo } from "@/components/layout/BrandLogo";
 
@@ -29,8 +29,10 @@ export function Navbar() {
     return base.replace(/\/$/, "");
   };
 
+  const isExternal = (href: string) => /^https?:\/\//i.test(href);
+
   const isActive = (href: string) =>
-    normalizePath(pathname) === normalizePath(href);
+    !isExternal(href) && normalizePath(pathname) === normalizePath(href);
 
   const handleNavClick = (href: string) => {
     if (isActive(href)) {
@@ -38,12 +40,23 @@ export function Navbar() {
     }
   };
 
+  const linkClass = (active: boolean, mobile = false) =>
+    mobile
+      ? `block rounded-soft px-3 py-3 text-center font-medium transition-colors hover:bg-ivory ${
+          active ? "font-semibold text-[#E08A2A]" : "text-ink"
+        }`
+      : `rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors ${
+          active
+            ? "font-semibold text-[#E08A2A]"
+            : "text-charcoal hover:bg-sand/40 hover:text-[#E08A2A]"
+        }`;
+
   return (
     <>
       <div className="relative z-50 bg-cta-wash px-4 py-2 text-center text-xs text-white/80 sm:text-sm">
         <Link
-          href="/book-publishing-author-website-design-agency"
-          onClick={() => handleNavClick("/book-publishing-author-website-design-agency")}
+          href={homeHref}
+          onClick={() => handleNavClick(homeHref)}
           className="transition hover:text-white"
         >
           {brand.tagline}
@@ -57,34 +70,31 @@ export function Navbar() {
       </div>
       <header className="relative sticky top-0 z-50 border-b border-sand/40 bg-white/85 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80">
         <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-1 sm:gap-4 sm:px-6 lg:px-8">
-          <Link
-            href="/book-publishing-author-website-design-agency"
-            className="group inline-flex min-w-0 items-center text-ink"
-            aria-label={`${brand.name} home`}
-          >
-            <BrandLogo
-              priority
-              size="lg"
-              className="transition-transform group-hover:scale-[1.02]"
-            />
-          </Link>
+          <BrandLogo
+            priority
+            size="lg"
+            onClick={() => handleNavClick(homeHref)}
+          />
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => {
               const active = isActive(link.href);
+              const className = linkClass(active);
               return (
                 <li key={`${link.href}-${link.label}`}>
-                  <Link
-                    href={link.href}
-                    onClick={() => handleNavClick(link.href)}
-                    className={`rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors ${
-                      active
-                        ? "font-semibold text-[#E08A2A]"
-                        : "text-charcoal hover:bg-sand/40 hover:text-[#E08A2A]"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
+                  {isExternal(link.href) ? (
+                    <a href={link.href} className={className}>
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => handleNavClick(link.href)}
+                      className={className}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               );
             })}
@@ -139,20 +149,29 @@ export function Navbar() {
                 <ul className="grid grid-cols-3 gap-x-2 gap-y-1">
                   {navLinks.map((link) => {
                     const active = isActive(link.href);
+                    const className = linkClass(active, true);
                     return (
                       <li key={`${link.href}-${link.label}`}>
-                        <Link
-                          href={link.href}
-                          className={`block rounded-soft px-3 py-3 text-center font-medium transition-colors hover:bg-ivory ${
-                            active ? "font-semibold text-[#E08A2A]" : "text-ink"
-                          }`}
-                          onClick={() => {
-                            handleNavClick(link.href);
-                            setOpen(false);
-                          }}
-                        >
-                          {link.label}
-                        </Link>
+                        {isExternal(link.href) ? (
+                          <a
+                            href={link.href}
+                            className={className}
+                            onClick={() => setOpen(false)}
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className={className}
+                            onClick={() => {
+                              handleNavClick(link.href);
+                              setOpen(false);
+                            }}
+                          >
+                            {link.label}
+                          </Link>
+                        )}
                       </li>
                     );
                   })}

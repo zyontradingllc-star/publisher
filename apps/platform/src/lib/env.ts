@@ -12,7 +12,7 @@ export function getAppUrl(): string {
   return (
     read("NEXT_PUBLIC_APP_URL") ||
     read("NEXT_PUBLIC_SITE_URL") ||
-    "http://localhost:3001"
+    "http://localhost:3000"
   );
 }
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { brand } from "@/content/site";
+import Link from "next/link";
+import { brand, homeHref } from "@/content/site";
 
 type BrandLogoProps = {
   className?: string;
@@ -7,6 +8,7 @@ type BrandLogoProps = {
   size?: "sm" | "md" | "lg";
   /** @deprecated Wordmark already includes the brand name */
   showName?: boolean;
+  onClick?: () => void;
 };
 
 /** Full eagle lockup (~1.06:1) — keep navbar compact but readable. */
@@ -20,17 +22,25 @@ export function BrandLogo({
   className = "",
   priority = false,
   size = "md",
+  onClick,
 }: BrandLogoProps) {
   return (
-    <span className={`relative inline-block shrink-0 ${box[size]} ${className}`}>
-      <Image
-        src="/logo-authors-pilot.webp?v=2"
-        alt={brand.name}
-        width={400}
-        height={400}
-        priority={priority}
-        className="h-full w-full object-contain object-left"
-      />
-    </span>
+    <Link
+      href={homeHref}
+      onClick={onClick}
+      className={`group inline-flex min-w-0 items-center text-ink ${className}`}
+      aria-label={`${brand.name} home`}
+    >
+      <span className={`relative inline-block shrink-0 ${box[size]}`}>
+        <Image
+          src="/logo-authors-pilot.webp?v=2"
+          alt={brand.name}
+          width={400}
+          height={400}
+          priority={priority}
+          className="h-full w-full object-contain object-left transition-transform group-hover:scale-[1.02]"
+        />
+      </span>
+    </Link>
   );
 }

@@ -1,5 +1,8 @@
 import { Resend } from "resend";
 import { getAppUrl, getEmailFrom } from "@/lib/env";
+import { withTimeout } from "@/lib/with-timeout";
+
+const EMAIL_TIMEOUT_MS = 6000;
 
 type SendEmailInput = {
   to: string | string[];
@@ -35,12 +38,15 @@ export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult>
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { error } = await resend.emails.send({
-      from: getEmailFrom()!,
-      to: input.to,
-      subject: input.subject,
-      html: input.html,
-    });
+    const { error } = await withTimeout(
+      resend.emails.send({
+        from: getEmailFrom()!,
+        to: input.to,
+        subject: input.subject,
+        html: input.html,
+      }),
+      EMAIL_TIMEOUT_MS
+    );
     if (error) {
       console.warn("[email] provider error:", error.message);
       return { ok: false, error: error.message };
@@ -71,11 +77,12 @@ export async function notifyAuthorSubmissionReceived(opts: {
     subject: `Authors Pilot — request received: ${opts.title}`,
     html: `
       <p>Hello,</p>
-      <p>Your request has been submitted successfully.</p>
-      <p>Your book <strong>${escapeHtml(opts.title)}</strong> is now in
-      <strong>Pending Review</strong>. After our team finishes under review,
-      your book will be listed (Published).</p>
-      <p>You will get another automated email from
+      <p><strong>Request successfully submitted</strong></p>
+      <p>Your request has been submitted successfully. Pending Review shows
+      <strong>1</strong>. After we finish under review, your book
+      <strong>${escapeHtml(opts.title)}</strong> will be listed and Published
+      will become <strong>1</strong>.</p>
+      <p>You will receive another automated email from
       no-reply@authorspilot.com when the status changes.</p>
       <p><a href="${getAppUrl()}/dashboard">Open your dashboard</a></p>
       <p>— Authors Pilot</p>

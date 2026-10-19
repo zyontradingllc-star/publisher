@@ -11,13 +11,13 @@ const initialState: ActionState = { ok: false };
 type Props = {
   bookId?: string | null;
   bookTitle?: string;
-  leadMode?: boolean;
+  submissionId?: string | null;
 };
 
 export function PublishBookContentForm({
   bookId,
   bookTitle = "Your book",
-  leadMode = false,
+  submissionId,
 }: Props) {
   const [state, formAction, pending] = useActionState(
     savePublishContentAction,
@@ -26,6 +26,8 @@ export function PublishBookContentForm({
   const [manuscriptName, setManuscriptName] = useState<string | null>(null);
   const [coverName, setCoverName] = useState<string | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
+  const [avatarName, setAvatarName] = useState<string | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
@@ -33,17 +35,11 @@ export function PublishBookContentForm({
         <Alert variant={state.ok ? "success" : "error"}>{state.message}</Alert>
       ) : null}
 
-      {leadMode ? (
-        <Alert variant="info">
-          Your book details were sent to{" "}
-          <strong>no-reply@authorspilot.com</strong>. Selected file names and
-          content answers are emailed on save. Cloud storage unlocks fully when
-          Supabase is connected.
-        </Alert>
-      ) : null}
-
       <form action={formAction} className="space-y-5" encType="multipart/form-data">
         {bookId ? <input type="hidden" name="book_id" value={bookId} /> : null}
+        {submissionId ? (
+          <input type="hidden" name="submission_id" value={submissionId} />
+        ) : null}
         <input type="hidden" name="book_title" value={bookTitle} />
 
         {/* Manuscript */}
@@ -141,7 +137,7 @@ export function PublishBookContentForm({
               )}
               <div>
                 <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
-                  Upload your cover file
+                  Upload Book Cover
                   <input
                     type="file"
                     name="cover"
@@ -164,6 +160,59 @@ export function PublishBookContentForm({
                     Cover &quot;{coverName}&quot; selected
                   </div>
                 ) : null}
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* Profile picture */}
+        <Section title="Profile picture">
+          <p className="mb-4 text-sm text-forest-muted">
+            Upload a photo for your author page (JPEG, PNG, or WebP). Shown
+            separately from the book cover.
+          </p>
+          <div className="rounded-xl border border-sand bg-ivory/40 p-4">
+            <div className="flex flex-wrap items-start gap-4">
+              {avatarPreview ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={avatarPreview}
+                  alt="Profile preview"
+                  className="h-28 w-28 rounded-full object-cover shadow-soft"
+                />
+              ) : (
+                <div className="flex h-28 w-28 items-center justify-center rounded-full bg-sand text-xs text-forest-muted">
+                  Preview
+                </div>
+              )}
+              <div>
+                <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
+                  Upload profile picture
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp"
+                    className="sr-only"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      setAvatarName(f ? f.name : null);
+                      if (f) {
+                        setAvatarPreview(URL.createObjectURL(f));
+                      } else {
+                        setAvatarPreview(null);
+                      }
+                    }}
+                  />
+                </label>
+                {avatarName ? (
+                  <div className="mt-3 rounded-xl border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-900">
+                    Profile picture &quot;{avatarName}&quot; selected
+                  </div>
+                ) : (
+                  <p className="mt-3 text-xs text-forest-muted">
+                    Optional — you can add this later from your profile.
+                  </p>
+                )}
               </div>
             </div>
           </div>

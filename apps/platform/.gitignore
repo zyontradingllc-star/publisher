@@ -1,6 +1,7 @@
 node_modules
 .next
 out
+media
 .env
 .env.local
 .env*.local

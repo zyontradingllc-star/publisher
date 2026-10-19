@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:platform": "npm run dev --prefix apps/platform",
+    "dev:all": "npx --yes concurrently -n web,app -c cyan,magenta \"npm run dev\" \"npm run dev --prefix apps/platform\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

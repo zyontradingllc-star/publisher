@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { brand, footer } from "@/content/site";
+import { brand, footer, homeHref } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 
 const telHref = `tel:${brand.phone.replace(/[^\d+]/g, "")}`;
@@ -74,7 +74,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 pt-14 pb-0 text-center sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:px-8">
         <div className="flex flex-col items-center">
           <Link
-            href="/book-publishing-author-website-design-agency"
+            href={homeHref}
             className="inline-flex flex-col items-center"
             aria-label={`${brand.name} home`}
           >

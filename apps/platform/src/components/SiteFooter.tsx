@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MARKETING_URL } from "@/lib/utils";
+import { MARKETING_HOME_URL } from "@/lib/utils";
 
 const links = [
   { href: "/about", label: "About" },
@@ -41,12 +41,7 @@ export function SiteFooter() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={MARKETING_URL}
-              className="text-charcoal hover:text-coral"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={MARKETING_HOME_URL} className="text-charcoal hover:text-coral">
               authorspilot.com
             </a>
           </div>

@@ -86,8 +86,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col bg-cream font-sans font-normal text-ink antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className="flex min-h-screen flex-col bg-cream font-sans font-normal text-ink antialiased"
+        suppressHydrationWarning
+      >
         <JsonLd
           data={{
             "@context": "https://schema.org",

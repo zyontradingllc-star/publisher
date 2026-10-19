@@ -2,6 +2,8 @@
  * Authors Pilot — complete website copy.
  */
 
+import { platformHref } from "@/lib/platform";
+
 export const brand = {
   name: "Authors Pilot",
   tagline: "Pilot Your Story. Self-Publishing Story System.",
@@ -33,11 +35,16 @@ export const socialLinks = [
   },
 ] as const;
 
+export const homeHref = "/book-publishing-author-website-design-agency";
+
+/** Platform guest publish flow (Book Details → Content → Sales) */
+export const publishHref = platformHref("/publish");
+
 export const navLinks = [
-  { href: "/book-publishing-author-website-design-agency", label: "Home" },
+  { href: homeHref, label: "Home" },
   { href: "/book-writing-services-for-authors", label: "Write" },
   { href: "/self-publishing-agency-services", label: "Prepare" },
-  { href: "/book-publishing-services-for-authors", label: "Publish" },
+  { href: publishHref, label: "Publish" },
   { href: "/audiobook-production-services-for-authors", label: "Audiobooks" },
   { href: "/book-marketing-services-for-authors", label: "Promote" },
   { href: "/author-website-design-agency-usa", label: "Website" },
@@ -984,7 +991,7 @@ export const footer = {
       links: [
         { href: "/book-writing-services-for-authors", label: "Write" },
         { href: "/self-publishing-agency-services", label: "Prepare" },
-        { href: "/book-publishing-services-for-authors", label: "Publish" },
+        { href: publishHref, label: "Publish" },
         { href: "/audiobook-production-services-for-authors", label: "Audiobooks" },
         { href: "/book-marketing-services-for-authors", label: "Promote" },
         { href: "https://dezyonstudio.com/", label: "Author Website" },
@@ -1000,7 +1007,7 @@ export const footer = {
         { href: "/about-authorspilot-publishing-agency", label: "About Us" },
         { href: "/author-publishing-website-price", label: "Packages" },
         { href: "/blog/author-publishing-blog-resources", label: "Blog" },
-        { href: "https://app.authorspilot.com/", label: "Publishing Platform" },
+        { href: publishHref, label: "Publishing Platform" },
         { href: "/contact-author-website-design-agency", label: "Contact Us" },
       ],
     },

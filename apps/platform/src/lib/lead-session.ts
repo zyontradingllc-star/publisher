@@ -41,6 +41,37 @@ export async function clearAuthorLeadCookie() {
   store.delete(LEAD_COOKIE);
 }
 
+/** Start guest publish (no signup) so /dashboard/books/new is reachable. */
+export async function ensureGuestPublishLead() {
+  const existing = await getAuthorLead();
+  if (existing) return existing;
+  const lead: AuthorLead = {
+    email: "pending@authorspilot.guest",
+    displayName: "Author",
+    createdAt: new Date().toISOString(),
+  };
+  await setAuthorLeadCookie(lead);
+  return lead;
+}
+
+/** Update lead contact details from the book details form. */
+export async function updateAuthorLeadContact(input: {
+  email: string;
+  displayName: string;
+}) {
+  const existing = await getAuthorLead();
+  const next: AuthorLead = {
+    email: input.email,
+    displayName: input.displayName,
+    createdAt: existing?.createdAt ?? new Date().toISOString(),
+    pendingCount: existing?.pendingCount,
+    publishedCount: existing?.publishedCount,
+    lastBookTitle: existing?.lastBookTitle,
+  };
+  await setAuthorLeadCookie(next);
+  return next;
+}
+
 /** Mark a successful Publish Your Book submission in lead session. */
 export async function recordLeadPublishSubmission(bookTitle: string) {
   const existing = await getAuthorLead();

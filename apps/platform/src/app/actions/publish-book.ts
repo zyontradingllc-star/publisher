@@ -1,5 +1,6 @@
 "use server";
 
+import { after } from "next/server";
 import { redirect } from "next/navigation";
 import { isLeadOnlySession, requireProfile } from "@/lib/auth";
 import { isFirebaseConfigured } from "@/lib/firebase/config";
@@ -9,10 +10,15 @@ import {
   updateBook,
   uploadAuthorFile,
 } from "@/lib/firebase/books";
-import { dropInfoToInbox } from "@/lib/notify-inbox";
-import { notifyAuthorSubmissionReceived } from "@/lib/email";
-import { recordLeadPublishSubmission } from "@/lib/lead-session";
-import { slugify } from "@/lib/utils";
+import {
+  notifyAdminNewSubmission,
+  notifyAuthorSubmissionReceived,
+} from "@/lib/email";
+import {
+  recordLeadPublishSubmission,
+  updateAuthorLeadContact,
+} from "@/lib/lead-session";
+import { getPayloadClient, isPayloadConfigured } from "@/lib/payload";
 import type { ActionState } from "@/app/actions/auth";
 
 function keywordsFromForm(formData: FormData): string[] {
@@ -41,6 +47,7 @@ export async function savePublishDetailsAction(
   const edition = String(formData.get("edition_number") || "").trim();
   const authorFirst = String(formData.get("author_first") || "").trim();
   const authorLast = String(formData.get("author_last") || "").trim();
+  const authorEmail = String(formData.get("author_email") || "").trim();
   const contributorRole = String(formData.get("contributor_role") || "").trim();
   const contributorFirst = String(formData.get("contributor_first") || "").trim();
   const contributorLast = String(formData.get("contributor_last") || "").trim();
@@ -56,13 +63,15 @@ export async function savePublishDetailsAction(
   const contentPolicy = formData.get("content_policy_accepted") === "on";
   const keywords = keywordsFromForm(formData);
   const authorDisplayName = `${authorFirst} ${authorLast}`.trim();
-  const slugInput = String(formData.get("slug") || title);
 
   if (!title || title.length < 1) {
     return { ok: false, message: "Book title is required." };
   }
   if (!authorFirst || !authorLast) {
     return { ok: false, message: "Author first and last name are required." };
+  }
+  if (!authorEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(authorEmail)) {
+    return { ok: false, message: "A valid author email is required." };
   }
   if (description.length < 40) {
     return {
@@ -82,41 +91,93 @@ export async function savePublishDetailsAction(
 
   const rightsConfirmed = publishingRights === "own_copyright";
 
-  const detailLines = [
-    "Publish Book — Details step (Authors Pilot)",
-    "",
-    `Author account: ${profile.display_name ?? ""} <${profile.email ?? ""}>`,
-    `Title: ${title}`,
-    `Subtitle: ${subtitle || "—"}`,
-    `Slug: ${slugify(slugInput)}`,
-    `Language: ${language}`,
-    `Series: ${seriesName || "—"}`,
-    `Edition: ${edition || "—"}`,
-    `Author: ${authorDisplayName}`,
-    `Contributor: ${
-      contributorFirst || contributorLast
-        ? `${contributorRole} — ${contributorFirst} ${contributorLast}`.trim()
-        : "—"
-    }`,
-    `Publishing rights: ${publishingRights}`,
-    `Explicit content: ${explicitContent}`,
-    `Reading age: ${ageMin || "—"} – ${ageMax || "—"}`,
-    `Primary sales channel: ${primaryMarketplace}`,
-    `Category / genre id: ${genreId}`,
-    `Keywords: ${keywords.length ? keywords.join("; ") : "—"}`,
-    "",
-    "Description:",
-    description,
-    "",
-    `Submitted at: ${new Date().toISOString()}`,
-    `Intent: ${intent}`,
-  ];
-
-  // Always notify inbox
-  const inbox = await dropInfoToInbox({
-    subject: `Publish Book details — ${title}`,
-    lines: detailLines,
+  // No email on this step — confirmation is sent only after final Publish
+  // (Pending Review on the dashboard).
+  await updateAuthorLeadContact({
+    email: authorEmail,
+    displayName: authorDisplayName,
   });
+
+  // Primary path: Payload BookSubmissions (MongoDB)
+  if (isPayloadConfigured()) {
+    try {
+      const payload = await getPayloadClient();
+      const contributors =
+        contributorFirst || contributorLast
+          ? [
+              {
+                role: contributorRole || "editor",
+                firstName: contributorFirst || undefined,
+                lastName: contributorLast || undefined,
+              },
+            ]
+          : [];
+
+      const created = await payload.create({
+        collection: "book-submissions",
+        data: {
+          language,
+          title,
+          subtitle: subtitle || undefined,
+          seriesName: seriesName || undefined,
+          editionNumber: edition || undefined,
+          author: {
+            firstName: authorFirst,
+            lastName: authorLast,
+            email: authorEmail,
+          },
+          authorDisplay: authorDisplayName,
+          authorEmail,
+          contributors,
+          description,
+          publishingRights:
+            publishingRights === "public_domain"
+              ? "public_domain"
+              : "own_copyright",
+          primaryAudience: explicitContent || "no",
+          readingAgeMin: ageMin ? Number(ageMin) : undefined,
+          readingAgeMax: ageMax ? Number(ageMax) : undefined,
+          primarySalesChannel: primaryMarketplace,
+          genreId: genreId || undefined,
+          keywords: keywords.map((value) => ({ value })),
+          status: "pending",
+        },
+        overrideAccess: true,
+      });
+
+      if (intent === "continue") {
+        redirect(
+          `/dashboard/books/new/content?submission=${encodeURIComponent(String(created.id))}`
+        );
+      }
+
+      return {
+        ok: true,
+        message:
+          "Book details saved. Click Save and Continue for the Content step.",
+      };
+    } catch (err) {
+      if (
+        err &&
+        typeof err === "object" &&
+        "digest" in err &&
+        String((err as { digest?: string }).digest).startsWith("NEXT_REDIRECT")
+      ) {
+        throw err;
+      }
+      console.warn(
+        "[publish-details][payload]",
+        err instanceof Error ? err.message : err
+      );
+      return {
+        ok: false,
+        message:
+          err instanceof Error
+            ? err.message
+            : "Could not save submission to Payload. Check MongoDB / PAYLOAD_SECRET.",
+      };
+    }
+  }
 
   const leadOnly =
     (await isLeadOnlySession()) ||
@@ -124,21 +185,13 @@ export async function savePublishDetailsAction(
     profile.id === "lead-session";
 
   if (leadOnly) {
-    if (!inbox.ok) {
-      return {
-        ok: false,
-        message:
-          inbox.error ||
-          "Could not send details to no-reply@authorspilot.com. Try again.",
-      };
-    }
     if (intent === "continue") {
       redirect("/dashboard/books/new/content?lead=1");
     }
     return {
       ok: true,
       message:
-        "Draft details sent to no-reply@authorspilot.com. Click Save and Continue for the Content step.",
+        "Draft details saved. Click Save and Continue for the Content step. (Configure DATABASE_URL + PAYLOAD_SECRET to store submissions in Payload.)",
     };
   }
 
@@ -191,7 +244,7 @@ export async function savePublishDetailsAction(
 }
 
 /**
- * KDP-style Book Content step — manuscript/cover metadata + disclosures → inbox / storage.
+ * KDP-style Book Content step — manuscript/cover/avatar (no email; email on final Publish only).
  */
 export async function savePublishContentAction(
   _prev: ActionState,
@@ -200,51 +253,107 @@ export async function savePublishContentAction(
   const profile = await requireProfile("/dashboard/books/new/content");
   const intent = String(formData.get("intent") || "draft") as "draft" | "continue";
   const bookId = String(formData.get("book_id") || "").trim();
+  const submissionId = String(formData.get("submission_id") || "").trim();
   const bookTitle = String(formData.get("book_title") || "Untitled").trim();
-  const drm = String(formData.get("drm") || "no");
-  const aiUsed = String(formData.get("ai_used") || "no");
-  const isbn = String(formData.get("isbn") || "").trim();
-  const publisher = String(formData.get("publisher") || "").trim();
-  const imageAccessibility = String(
-    formData.get("image_accessibility") || "none"
-  );
-  const coverSource = String(formData.get("cover_source") || "upload");
 
   const manuscript = formData.get("manuscript");
   const cover = formData.get("cover");
+  const avatar = formData.get("avatar");
   const manuscriptFile =
     manuscript && typeof manuscript !== "string" && manuscript.size > 0
       ? manuscript
       : null;
   const coverFile =
     cover && typeof cover !== "string" && cover.size > 0 ? cover : null;
+  const avatarFile =
+    avatar && typeof avatar !== "string" && avatar.size > 0 ? avatar : null;
 
-  const lines = [
-    "Publish Book — Content step (Authors Pilot)",
-    "",
-    `Author: ${profile.display_name ?? ""} <${profile.email ?? ""}>`,
-    `Book title: ${bookTitle}`,
-    `Book id: ${bookId || "(lead / not saved to DB yet)"}`,
-    `Manuscript file: ${manuscriptFile?.name ?? "—"} (${manuscriptFile ? `${Math.round(manuscriptFile.size / 1024)} KB` : "n/a"})`,
-    `Cover file: ${coverFile?.name ?? "—"} (${coverFile ? `${Math.round(coverFile.size / 1024)} KB` : "n/a"})`,
-    `Cover source: ${coverSource}`,
-    `DRM preference: ${drm}`,
-    `AI tools used: ${aiUsed}`,
-    `ISBN: ${isbn || "—"}`,
-    `Publisher: ${publisher || "—"}`,
-    `Image accessibility: ${imageAccessibility}`,
-    "",
-    `Submitted at: ${new Date().toISOString()}`,
-    `Intent: ${intent}`,
-    "",
-    "Note: Binary files are uploaded to Firebase Storage when configured;",
-    "otherwise this email records the author's content-step answers and file names.",
-  ];
+  // Payload: attach cover + avatar to Book Submission (shown after admin approve)
+  if (
+    isPayloadConfigured() &&
+    (coverFile || avatarFile) &&
+    (submissionId || profile.email)
+  ) {
+    try {
+      const payload = await getPayloadClient();
 
-  const inbox = await dropInfoToInbox({
-    subject: `Publish Book content — ${bookTitle}`,
-    lines,
-  });
+      let targetSubmissionId = submissionId;
+      if (!targetSubmissionId && profile.email) {
+        const found = await payload.find({
+          collection: "book-submissions",
+          where: {
+            and: [
+              { "author.email": { equals: profile.email } },
+              { status: { in: ["pending", "under_review", "changes_requested"] } },
+            ],
+          },
+          sort: "-createdAt",
+          limit: 1,
+          overrideAccess: true,
+        });
+        targetSubmissionId = found.docs[0] ? String(found.docs[0].id) : "";
+      }
+
+      const patch: Record<string, string | number> = {};
+
+      const uploadMedia = async (
+        file: File,
+        alt: string,
+        fallbackName: string
+      ) => {
+        const bytes = Buffer.from(await file.arrayBuffer());
+        return payload.create({
+          collection: "media",
+          data: { alt },
+          file: {
+            data: bytes,
+            mimetype: file.type || "image/jpeg",
+            name: file.name.replace(/[^a-zA-Z0-9._-]/g, "_") || fallbackName,
+            size: bytes.length,
+          },
+          overrideAccess: true,
+        });
+      };
+
+      // Upload cover + avatar in parallel (image resize is the slow part)
+      const [coverMedia, avatarMedia] = await Promise.all([
+        coverFile
+          ? uploadMedia(coverFile, `${bookTitle} cover`, "cover.jpg")
+          : Promise.resolve(null),
+        avatarFile
+          ? uploadMedia(
+              avatarFile,
+              `${profile.display_name || "Author"} profile picture`,
+              "avatar.jpg"
+            )
+          : Promise.resolve(null),
+      ]);
+      if (coverMedia) patch.cover = coverMedia.id;
+      if (avatarMedia) patch.avatar = avatarMedia.id;
+
+      if (targetSubmissionId && Object.keys(patch).length) {
+        await payload.update({
+          collection: "book-submissions",
+          id: targetSubmissionId,
+          data: patch,
+          overrideAccess: true,
+          context: { skipApproveHook: true },
+        });
+      }
+    } catch (err) {
+      console.warn(
+        "[publish-content][payload-media]",
+        err instanceof Error ? err.message : err
+      );
+      return {
+        ok: false,
+        message:
+          err instanceof Error
+            ? err.message
+            : "Could not upload images to Payload media.",
+      };
+    }
+  }
 
   if (bookId && isFirebaseConfigured() && profile.id !== "lead-session") {
     try {
@@ -282,15 +391,6 @@ export async function savePublishContentAction(
     }
   }
 
-  if (!inbox.ok && (await isLeadOnlySession())) {
-    return {
-      ok: false,
-      message:
-        inbox.error ||
-        "Could not send content step to no-reply@authorspilot.com.",
-    };
-  }
-
   if (intent === "continue") {
     if (bookId) {
       redirect(`/dashboard/books/${bookId}`);
@@ -298,11 +398,17 @@ export async function savePublishContentAction(
     redirect("/dashboard/books/new/sales");
   }
 
+  const savedBits = [
+    coverFile ? "cover" : null,
+    avatarFile ? "profile picture" : null,
+    manuscriptFile ? "manuscript" : null,
+  ].filter(Boolean);
+
   return {
     ok: true,
-    message: inbox.ok
-      ? "Content step saved — details sent to no-reply@authorspilot.com."
-      : "Content answers saved locally for this session. Inbox notify skipped or failed.",
+    message: savedBits.length
+      ? `${savedBits.join(", ")} saved. Continue to Sales Links when ready.`
+      : "Content step saved. Continue to Sales Links when ready.",
   };
 }
 
@@ -318,7 +424,6 @@ export async function savePublishPricingAction(
   const bookId = String(formData.get("book_id") || "").trim();
   const bookTitle = String(formData.get("book_title") || "Untitled").trim();
   const catalogEnroll = formData.get("catalog_enroll") === "on";
-  const territories = String(formData.get("territories") || "worldwide");
   const primaryMarketplace = String(
     formData.get("primary_marketplace") || "author_website"
   );
@@ -358,33 +463,6 @@ export async function savePublishPricingAction(
       return { ok: false, message: `Invalid URL: ${url}` };
     }
   }
-
-  const lines = [
-    "Publish Book — Pricing / Sales step (Authors Pilot)",
-    "",
-    `Author: ${profile.display_name ?? ""} <${profile.email ?? ""}>`,
-    `Book title: ${bookTitle}`,
-    `Book id: ${bookId || "(lead / not in DB yet)"}`,
-    `Catalog enrollment: ${catalogEnroll ? "yes" : "no"}`,
-    `Territories: ${territories}`,
-    `Primary channel: ${primaryMarketplace}`,
-    `Author website link: ${linkAuthor || "—"}`,
-    `Amazon link: ${linkAmazon || "—"}`,
-    `Other link: ${linkOther || "—"}`,
-    `Terms accepted: ${termsAccepted ? "yes" : "no"}`,
-    "",
-    "NOTE: Authors Pilot takes 0% royalty. No checkout on platform.",
-    `Submitted at: ${new Date().toISOString()}`,
-    `Intent: ${intent}`,
-  ];
-
-  const inbox = await dropInfoToInbox({
-    subject:
-      intent === "publish"
-        ? `Publish request — ${bookTitle}`
-        : `Sales/pricing draft — ${bookTitle}`,
-    lines,
-  });
 
   // Persist sales links + pending status in Firestore when configured
   if (bookId && isFirebaseConfigured() && profile.id !== "lead-session") {
@@ -440,62 +518,38 @@ export async function savePublishPricingAction(
     }
   }
 
-  if (!inbox.ok && intent === "publish") {
+  // Draft save: no email
+  if (intent !== "publish") {
     return {
-      ok: false,
-      message:
-        inbox.error ||
-        "Could not send publish request to no-reply@authorspilot.com.",
+      ok: true,
+      message: "Draft sales/pricing saved. Publish when you are ready.",
     };
   }
 
-  if (intent === "publish") {
-    await recordLeadPublishSubmission(bookTitle);
+  // Final step: mark Pending Review, then redirect immediately.
+  // Emails run after the response so Publish is not blocked by Resend.
+  await recordLeadPublishSubmission(bookTitle);
 
-    const authorEmail = profile.email;
-    if (authorEmail) {
-      const mail = await notifyAuthorSubmissionReceived({
-        email: authorEmail,
-        title: bookTitle || "Your book",
-      });
-      // Fallback confirmation via FormSubmit when Resend is unset
-      if (mail.skipped) {
-        try {
-          await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(authorEmail)}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify({
-              _subject: `Authors Pilot — request received: ${bookTitle}`,
-              from: "no-reply@authorspilot.com",
-              message: [
-                "Your request has been submitted successfully.",
-                "",
-                `Book: ${bookTitle}`,
-                "Status: Pending Review (1).",
-                "After under review, your book will be listed (Published).",
-                "You will receive an automated email from no-reply@authorspilot.com when the status changes.",
-                "",
-                "— Authors Pilot",
-              ].join("\n"),
-            }),
-            signal: AbortSignal.timeout(3000),
-          });
-        } catch {
-          // non-blocking
-        }
-      }
-    }
+  const authorEmail =
+    profile.email && !profile.email.endsWith("@authorspilot.guest")
+      ? profile.email
+      : null;
+  const title = bookTitle || "Your book";
+  const authorName = profile.display_name || authorEmail || "Author";
+  const notifyBookId = bookId || "submission";
 
-    redirect("/dashboard?submitted=1");
-  }
+  after(async () => {
+    await Promise.allSettled([
+      notifyAdminNewSubmission({
+        title,
+        authorName,
+        bookId: notifyBookId,
+      }),
+      authorEmail
+        ? notifyAuthorSubmissionReceived({ email: authorEmail, title })
+        : Promise.resolve(),
+    ]);
+  });
 
-  return {
-    ok: true,
-    message: inbox.ok
-      ? "Draft sales/pricing saved — emailed to no-reply@authorspilot.com."
-      : "Draft saved for this session.",
-  };
+  redirect("/dashboard?submitted=1");
 }

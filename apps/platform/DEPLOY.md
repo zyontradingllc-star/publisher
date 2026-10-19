@@ -53,7 +53,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...   # server only — never expose to the browser
 RESEND_API_KEY=...              # optional in Phase 1
 RESEND_FROM_EMAIL=Authors Pilot <noreply@your-verified-domain>
-ADMIN_NOTIFICATION_EMAIL=admin@authorspilot.com
+ADMIN_NOTIFICATION_EMAIL=hello@authorspilot.com
 MAX_COVER_BYTES=5242880
 MAX_MANUSCRIPT_BYTES=26214400
 ```

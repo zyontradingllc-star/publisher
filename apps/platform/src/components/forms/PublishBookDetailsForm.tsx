@@ -21,6 +21,7 @@ type Props = {
 export function PublishBookDetailsForm({
   genres,
   defaultAuthorName = "",
+  authorEmail = "",
 }: Props) {
   const [state, formAction, pending] = useActionState(
     savePublishDetailsAction,
@@ -30,8 +31,16 @@ export function PublishBookDetailsForm({
   const [description, setDescription] = useState("");
 
   const nameParts = defaultAuthorName.trim().split(/\s+/);
-  const defaultFirst = nameParts[0] ?? "";
-  const defaultLast = nameParts.slice(1).join(" ") || "";
+  const defaultFirst =
+    defaultAuthorName.trim().toLowerCase() === "author" ? "" : (nameParts[0] ?? "");
+  const defaultLast =
+    defaultAuthorName.trim().toLowerCase() === "author"
+      ? ""
+      : nameParts.slice(1).join(" ") || "";
+  const defaultEmail =
+    authorEmail && !authorEmail.endsWith("@authorspilot.guest")
+      ? authorEmail
+      : "";
 
   const remaining = Math.max(0, 4000 - description.length);
   const slugHint = useMemo(() => slugify(title), [title]);
@@ -150,6 +159,23 @@ export function PublishBookDetailsForm({
                 required
                 defaultValue={defaultLast}
               />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="label-field" htmlFor="author_email">
+                Email <span className="text-red-600">*</span>
+              </label>
+              <input
+                id="author_email"
+                name="author_email"
+                type="email"
+                className="input-field max-w-md"
+                required
+                defaultValue={defaultEmail}
+                placeholder="you@example.com"
+              />
+              <p className="mt-1.5 text-xs text-forest-muted">
+                We use this to follow up after review — no account signup required.
+              </p>
             </div>
           </div>
         </Section>

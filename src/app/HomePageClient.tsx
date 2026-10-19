@@ -27,6 +27,7 @@ import { HomeServiceLinks } from "@/components/ui/HomeServiceLinks";
 import { HomeWhatWeDo } from "@/components/ui/HomeWhatWeDo";
 import { GoogleReviews } from "@/components/ui/GoogleReviews";
 import { home, portfolio } from "@/content/site";
+import { platformHref } from "@/lib/platform";
 
 const portfolioTiles = [
   "/books/book3.webp",
@@ -86,7 +87,7 @@ export default function HomePageClient() {
               className="mt-8"
             >
               <div className="flex flex-wrap justify-center gap-3 md:justify-start">
-                <Button href="/create-free-account">Create A Free Account</Button>
+                <Button href={platformHref("/publish")}>Submit Your Book</Button>
                 <Button href="#covers" variant="ghost">
                   See Our Covers
                 </Button>
