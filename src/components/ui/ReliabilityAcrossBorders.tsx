@@ -118,7 +118,7 @@ export function ReliabilityAcrossBorders() {
           <p className="mt-4 max-w-xl font-sans text-sm leading-relaxed text-charcoal sm:text-base">
             Authors on both sides of the Atlantic choose Authors Pilot because we
             combine boutique, author-first care with the reach of a global house.
-            Wherever you write from, your book gets the same standard — and a
+            Wherever you write from, your book gets the same standard - and a
             team that actually answers.
           </p>
 

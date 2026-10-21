@@ -149,8 +149,6 @@ export function TermsView() {
               >
                 {brand.email}
               </a>
-              <br />
-              Phone: {brand.phone}
             </p>
           </section>
         </FadeIn>

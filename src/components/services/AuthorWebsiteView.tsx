@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { LogoMarquee } from "@/components/ui/LogoMarquee";
 import { Accordion } from "@/components/ui/Accordion";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { HeroBookFan } from "@/components/ui/HeroBookFan";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
+import { HeroBookFan, WEBSITE_MOCKUPS } from "@/components/ui/HeroBookFan";
 import { seoPages } from "@/content/seo-pages";
 import { serviceFaqs } from "@/content/service-faqs";
 
@@ -88,42 +87,53 @@ const related = [
 ];
 
 const whyPoints = [
-  "Readers look you up after they finish a book — give them a professional place to land.",
+  "Readers look you up after they finish a book - give them a professional place to land.",
   "Your books, bio, and buy links live together so people can discover and purchase your work.",
   "Reviews, media, and achievements sit on a site you control, not a retailer page you do not.",
   "A clear email signup and contact path helps you grow an audience beyond one launch.",
 ];
 
+
 const pricing = [
   {
-    title: "Author Launch Site",
+    title: "Author Junior",
     body: "A focused website for a first book or a clean author debut.",
+    priceLabel: "New Author",
+    price: "$150",
     items: [
       "Homepage built around your book",
       "Author bio and book page",
       "Retailer and bookstore links",
       "Contact form",
+      "Payment Gateway Integration",
     ],
   },
   {
-    title: "Author Brand Site",
+    title: "Author Senior",
     body: "A fuller home for writers who want credibility and list growth.",
     featured: true,
+    priceLabel: "Existing Author",
+    price: "$299",
     items: [
       "Custom design around your genre",
       "Multiple book or series pages",
       "Reviews, press, and testimonials",
       "Email list signup",
+      "SEO foundations for search",
+      "Payment Gateway Integration",
     ],
   },
   {
-    title: "Custom Author Website",
+    title: "Author Executive",
     body: "A tailored build for series, imprints, or a growing catalog.",
+    priceLabel: "Author as a Business",
+    price: "$399",
     items: [
       "Extra pages as your career grows",
       "Custom layout and brand details",
-      "SEO foundations for search",
+      "SEO AEO and GEO with Backlinks",
       "Review the site before you pay",
+      "Payment Gateway Integration",
     ],
   },
 ];
@@ -268,7 +278,13 @@ export function AuthorWebsiteView() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="relative mx-auto mt-0 w-full max-w-lg sm:max-w-xl lg:max-w-none"
           >
-            <HeroBookFan />
+            <HeroBookFan
+              covers={WEBSITE_MOCKUPS}
+              imageAlt="Business website mockup"
+            />
+            <h2 className="-mt-2 text-center font-display text-xl font-bold text-ink sm:-mt-4 sm:text-2xl">
+              Business Website Development
+            </h2>
           </motion.div>
         </div>
       </section>
@@ -283,17 +299,16 @@ export function AuthorWebsiteView() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
           <FadeIn>
             <span className="badge-pill">Custom Author Website Design</span>
-            <p className="mt-5 heading-section text-balance text-white">
-              Why authors need a{" "}
-              <span className="text-[#F2C14D]">professional website</span>
-            </p>
+            <h2 className="mt-5 heading-section text-balance text-white">
+              Why Authors Need a{" "}
+              <span className="text-[#F2C14D]">Professional Website</span>
+            </h2>
             <p className="mt-5 max-w-xl font-sans text-sm leading-relaxed text-white/70 sm:text-base">
-              Your website shouldn&apos;t look like everyone else&apos;s. We
-              design it around your{" "}
+              We design it around your{" "}
               <strong className="font-semibold text-white">
                 books, genre, personality, and audience
-              </strong>
-              — whether you&apos;re a first-time author or an established
+              </strong>{" "}
+              - whether you&apos;re a first-time author or an established
               writer.
             </p>
             <ul className="mt-6 space-y-3">
@@ -424,18 +439,32 @@ export function AuthorWebsiteView() {
                     </span>
                   )}
                   <h3
-                    className={`font-display text-xl font-semibold not-italic ${
+                    className={`text-center font-display text-xl font-bold not-italic ${
                       plan.featured ? "text-white" : "text-ink"
                     }`}
                   >
                     {plan.title}
                   </h3>
                   <p
-                    className={`mt-2 font-sans text-sm leading-relaxed ${
+                    className={`mt-2 text-center font-sans text-sm leading-relaxed ${
                       plan.featured ? "text-white/70" : "text-charcoal"
                     }`}
                   >
                     {plan.body}
+                  </p>
+                  <p
+                    className={`mt-4 text-center font-sans text-sm font-bold ${
+                      plan.featured ? "text-[#F2C14D]" : "text-[#273E2B]"
+                    }`}
+                  >
+                    {plan.priceLabel}{" "}
+                    <span
+                      className={`font-display text-2xl font-bold tracking-tight ${
+                        plan.featured ? "text-white" : "text-ink"
+                      }`}
+                    >
+                      {plan.price}
+                    </span>
                   </p>
                   <ul className="mt-5 flex-1 space-y-2.5">
                     {plan.items.map((item) => (
@@ -460,15 +489,8 @@ export function AuthorWebsiteView() {
                       </li>
                     ))}
                   </ul>
-                  <p
-                    className={`mt-6 font-sans text-sm font-semibold ${
-                      plan.featured ? "text-[#F2C14D]" : "text-[#273E2B]"
-                    }`}
-                  >
-                    Custom quote
-                  </p>
                   <div className="mt-4">
-                    <Button href="/contact-author-website-design-agency">Get a Quote</Button>
+                    <Button href="/contact-author-website-design-agency">Signup</Button>
                   </div>
                 </article>
               </FadeIn>
@@ -482,14 +504,28 @@ export function AuthorWebsiteView() {
           <FadeIn>
             <div className="text-center">
               <span className="badge-pill">Questions &amp; Answers</span>
-              <p className="mt-5 heading-section text-balance">
-                Author Website{" "}
-                <span className="text-[#E08A2A]">FAQs</span>
-              </p>
+              <h2 className="mt-5 heading-section text-balance">
+                Frequently Asked Questions About{" "}
+                <span className="text-[#E08A2A]">Author Websites</span>
+              </h2>
             </div>
           </FadeIn>
           <FadeIn delay={0.08} className="mt-10">
             <Accordion items={faqs} variant="gold" />
+          </FadeIn>
+          <FadeIn delay={0.12} className="mt-12 text-center">
+            <p className="font-display text-xl font-bold text-ink sm:text-2xl">
+              Ready to Build Your Author Brand?
+            </p>
+            <p className="mx-auto mt-3 max-w-xl text-charcoal">
+              Get a professional author website designed around your books,
+              your readers, and your long-term publishing goals.
+            </p>
+            <div className="mt-6 flex justify-center">
+              <Button href="/contact-author-website-design-agency">
+                Get Your Author Website
+              </Button>
+            </div>
           </FadeIn>
         </div>
       </section>
@@ -505,7 +541,7 @@ export function AuthorWebsiteView() {
                 <div className="mt-5 space-y-3 font-sans text-sm leading-relaxed text-white/70 sm:text-base">
                   <p>
                     We design and develop professional websites for businesses of
-                    every kind — from authors to e-commerce brands. Designed to
+                    every kind - from authors to e-commerce brands. Designed to
                     turn visitors into customers, not just look good.
                   </p>
                   <p>
@@ -513,7 +549,7 @@ export function AuthorWebsiteView() {
                     SEO-optimized from the ground up.
                   </p>
                   <p>
-                    From concept to launch to ongoing support — we handle it
+                    From concept to launch to ongoing support - we handle it
                     all, so you can focus on running your business.
                   </p>
                 </div>
@@ -548,7 +584,6 @@ export function AuthorWebsiteView() {
         </div>
       </section>
 
-      <AuthorConsultation />
     </>
   );
 }

@@ -14,7 +14,7 @@ export function ToolWorkspace({ slug }: { slug: LiveToolSlug }) {
   const output = useMemo(() => {
     const text = input.trim() || "your book";
     if (slug === "blurb-writer") {
-      return `In ${text}, readers get a clear promise, a lived-in voice, and a reason to keep turning pages. This is the story they recommend — not the one they forget in the store.`;
+      return `In ${text}, readers get a clear promise, a lived-in voice, and a reason to keep turning pages. This is the story they recommend - not the one they forget in the store.`;
     }
     if (slug === "keyword-researcher") {
       const words = text.toLowerCase().split(/\s+/).filter(Boolean);

@@ -37,14 +37,7 @@ export function Button({
   const classes = `group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap px-6 py-3 font-sans text-sm font-bold tracking-wide transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:opacity-60 ${variants[variant]} ${className}`;
 
   const content = (
-    <>
-      <span className="relative inline-flex items-center gap-2">{children}</span>
-      {(variant === "primary" || variant === "inverse") && (
-        <span aria-hidden="true" className="relative">
-          →
-        </span>
-      )}
-    </>
+    <span className="relative inline-flex items-center gap-2">{children}</span>
   );
 
   if (href) {

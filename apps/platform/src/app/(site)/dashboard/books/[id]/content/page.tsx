@@ -4,7 +4,7 @@ import { requireProfile } from "@/lib/auth";
 import { getMyBook } from "@/lib/books";
 import { PublishBookContentForm } from "@/components/forms/PublishBookContentForm";
 
-export const metadata = { title: "Publish Book — Content" };
+export const metadata = { title: "Publish Book - Content" };
 
 export default async function BookContentStepPage({
   params,

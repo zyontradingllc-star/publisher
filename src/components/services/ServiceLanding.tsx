@@ -13,7 +13,6 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { Button } from "@/components/ui/Button";
 import { CtaBanner } from "@/components/ui/Section";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import { AmazonSpotlight } from "@/components/ui/AmazonSpotlight";
 import { ServicePageHero } from "@/components/services/ServicePageHero";
 import { journeyPageHero } from "@/content/site";
@@ -170,7 +169,7 @@ export function ServiceLanding({ pageKey }: Props) {
               <p className="mt-4 text-base leading-relaxed text-charcoal">
                 Traditional publishing means pitching, contracts, and a house
                 timeline. Self-publishing means you keep the rights, royalties,
-                and launch date. Authors Pilot supports both paths — preparing
+                and launch date. Authors Pilot supports both paths - preparing
                 files, metadata, and distribution so the route you choose is
                 executed professionally.
               </p>
@@ -231,8 +230,6 @@ export function ServiceLanding({ pageKey }: Props) {
       )}
 
       </div>
-
-      {pageKey === "book-publishing" && <AuthorConsultation />}
 
       <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
       <div className="mt-20">

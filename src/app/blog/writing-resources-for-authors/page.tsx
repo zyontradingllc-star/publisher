@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: "Writing Resources for Authors | Authors Pilot",
   description:
-    "Writing resources for authors — tips, tools, and guides on how to write a book, plus a place to submit your own publishing insight.",
+    "Writing resources for authors - tips, tools, and guides on how to write a book, plus a place to submit your own publishing insight.",
   path: "/blog/writing-resources-for-authors",
   keywords: "writing resources for authors, how to write a book, author writing guides",
 });

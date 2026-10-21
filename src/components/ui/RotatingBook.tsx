@@ -15,7 +15,7 @@ const covers = Array.from({ length: 8 }, (_, i) => `/books/book${i + 1}.webp`);
 const WIDTH = 260;
 const HEIGHT = 390;
 const DEPTH = 34;
-/** Degrees per millisecond — one full turn takes about seven seconds. */
+/** Degrees per millisecond - one full turn takes about seven seconds. */
 const SPEED = 0.05;
 
 export function RotatingBook() {
@@ -85,7 +85,7 @@ export function RotatingBook() {
             />
           </div>
 
-          {/* Back cover — plain dark grey */}
+          {/* Back cover - plain dark grey */}
           <div
             className="absolute inset-0 rounded-l-md rounded-r-sm bg-slate ring-1 ring-white/10"
             style={{

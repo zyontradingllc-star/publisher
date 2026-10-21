@@ -10,7 +10,7 @@ export default function TermsPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="heading-section">Terms of service (draft)</h1>
       <p className="mt-4 text-sm text-forest-muted">
-        Draft terms for review — not legal advice. By using Authors Pilot you agree to these
+        Draft terms for review - not legal advice. By using Authors Pilot you agree to these
         general conditions once finalized.
       </p>
 

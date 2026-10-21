@@ -116,7 +116,7 @@ export const MARKETING_URL = (
     : "http://localhost:3000")
 ).replace(/\/$/, "");
 
-/** Marketing home (logo back-link) — old website on :3000 locally */
+/** Marketing home (logo back-link) - old website on :3000 locally */
 export const MARKETING_HOME_URL = `${MARKETING_URL}/book-publishing-author-website-design-agency/`;
 
 export const SITE_URL =

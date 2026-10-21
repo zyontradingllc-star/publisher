@@ -14,8 +14,8 @@ export default function AboutPage() {
       <div className="mt-8 space-y-4 text-charcoal leading-relaxed">
         <p>
           Authors Pilot is a publishing platform for independent authors who want readers to discover
-          their books without giving up control of sales. We host curated listings — cover,
-          description, genre, and outbound purchase links — while purchases happen on your website,
+          their books without giving up control of sales. We host curated listings - cover,
+          description, genre, and outbound purchase links - while purchases happen on your website,
           Amazon, or other channels you choose.
         </p>
         <p>

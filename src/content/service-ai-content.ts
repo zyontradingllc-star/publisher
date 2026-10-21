@@ -244,7 +244,7 @@ export const serviceAiContent: Record<ServiceSeoSlug, ServiceAiContent> = {
   audiobook: {
     h1: "Audiobook Publishing Services",
     shortAnswer:
-      "Audiobook publishing is how a finished book reaches listeners on Audible, Apple Books, and other audio platforms — from rights and files to listing and distribution.",
+      "Audiobook publishing is how a finished book reaches listeners on Audible, Apple Books, and other audio platforms - from rights and files to listing and distribution.",
     whatWeOffer: {
       heading: "What Is Audiobook Publishing?",
       items: [
@@ -373,9 +373,9 @@ export const serviceAiContent: Record<ServiceSeoSlug, ServiceAiContent> = {
     imageAlt: "Professional ghostwriting services",
   },
   "author-website-design-usa": {
-    h1: "Author Branding — Websites Built to Sell Your Books",
+    h1: "Author Branding - Websites Built to Sell Your Books",
     shortAnswer:
-      "Authors Pilot designs professional author websites for writers in the United States — including a free website mockup, book pages, and a clear path for readers to find and buy your work.",
+      "Authors Pilot designs professional author websites for writers in the United States - including a free website mockup, book pages, and a clear path for readers to find and buy your work.",
     whatWeOffer: {
       heading: "What's Included in Your Author Website",
       items: [

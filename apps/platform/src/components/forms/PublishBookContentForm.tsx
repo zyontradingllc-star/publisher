@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 import { savePublishContentAction } from "@/app/actions/publish-book";
 import type { ActionState } from "@/app/actions/auth";
@@ -23,11 +23,18 @@ export function PublishBookContentForm({
     savePublishContentAction,
     initialState
   );
+  const [submitIntent, setSubmitIntent] = useState<"draft" | "continue" | null>(
+    null
+  );
   const [manuscriptName, setManuscriptName] = useState<string | null>(null);
   const [coverName, setCoverName] = useState<string | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [avatarName, setAvatarName] = useState<string | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!pending) setSubmitIntent(null);
+  }, [pending]);
 
   return (
     <div className="space-y-6">
@@ -46,7 +53,7 @@ export function PublishBookContentForm({
         <Section title="Manuscript">
           <p className="mb-4 text-sm text-forest-muted">
             Upload your manuscript for private admin review (PDF, EPUB, or DOCX).
-            This file is never sold through Authors Pilot — readers buy on your
+            This file is never sold through Authors Pilot - readers buy on your
             own website or retailer.
           </p>
           <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
@@ -79,7 +86,7 @@ export function PublishBookContentForm({
             <p className="label-field">Digital Rights Management (DRM)</p>
             <p className="mb-3 text-sm text-forest-muted">
               DRM is controlled by your sales channel (Amazon, your store, etc.).
-              Authors Pilot listings only link out — we do not wrap your files.
+              Authors Pilot listings only link out - we do not wrap your files.
             </p>
             <div className="space-y-2 rounded-xl border border-sand bg-ivory/40 p-4">
               <label className="flex cursor-pointer items-start gap-3 text-sm">
@@ -89,7 +96,7 @@ export function PublishBookContentForm({
                   value="yes"
                   className="mt-1"
                 />
-                Yes — I will apply DRM on my sales channel where available
+                Yes - I will apply DRM on my sales channel where available
               </label>
               <label className="flex cursor-pointer items-start gap-3 text-sm">
                 <input
@@ -99,7 +106,7 @@ export function PublishBookContentForm({
                   defaultChecked
                   className="mt-1"
                 />
-                No — do not apply DRM (or not applicable)
+                No - do not apply DRM (or not applicable)
               </label>
             </div>
           </div>
@@ -210,7 +217,7 @@ export function PublishBookContentForm({
                   </div>
                 ) : (
                   <p className="mt-3 text-xs text-forest-muted">
-                    Optional — you can add this later from your profile.
+                    Optional - you can add this later from your profile.
                   </p>
                 )}
               </div>
@@ -222,7 +229,7 @@ export function PublishBookContentForm({
         <Section title="AI-generated content">
           <p className="mb-3 text-sm text-forest-muted">
             Tell us if AI tools helped create text, images, or translations in
-            this book. This is for transparency — it does not block publishing
+            this book. This is for transparency - it does not block publishing
             on Authors Pilot by itself.
           </p>
           <div className="space-y-2 rounded-xl border border-sand bg-ivory/40 p-4">
@@ -347,19 +354,22 @@ export function PublishBookContentForm({
               name="intent"
               value="draft"
               disabled={pending}
+              onClick={() => setSubmitIntent("draft")}
               className="rounded-full border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
             >
-              {pending ? "Saving…" : "Save as Draft"}
+              {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
             </button>
             <button
               type="submit"
               name="intent"
               value="continue"
               disabled={pending}
+              onClick={() => setSubmitIntent("continue")}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
             >
-              {pending ? "Saving…" : "Save and Continue"}
-              <span aria-hidden="true">→</span>
+              {pending && submitIntent === "continue"
+                ? "Saving…"
+                : "Save and Continue"}
             </button>
           </div>
         </div>

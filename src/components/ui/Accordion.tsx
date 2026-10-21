@@ -70,9 +70,16 @@ export function Accordion({ items, variant = "default" }: AccordionProps) {
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <p className="border-t border-sand px-5 pb-5 pt-3 text-sm leading-relaxed text-charcoal sm:text-base">
-                    {item.answer}
-                  </p>
+                  <div className="space-y-3 border-t border-sand px-5 pb-5 pt-3 sm:px-6">
+                    {item.answer.split(/\n\n+/).map((paragraph) => (
+                      <p
+                        key={paragraph.slice(0, 48)}
+                        className="text-sm leading-relaxed text-charcoal sm:text-base"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -62,7 +62,7 @@ export function SocialShare({ title, path }: SocialShareProps) {
         </button>
       </div>
       <p className="mt-2 text-xs text-forest-muted">
-        Instagram sharing opens in the Instagram app on mobile — copy the link
+        Instagram sharing opens in the Instagram app on mobile - copy the link
         to paste into a story or post.
       </p>
     </div>

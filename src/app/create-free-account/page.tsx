@@ -29,7 +29,7 @@ export default function CreateFreeAccountPage() {
           Create A Free Account
         </h1>
         <p className="mt-3 text-sm text-forest-muted">
-          Free during launch. One click — no form fields, no captcha.
+          Free during launch. One click - no form fields, no captcha.
         </p>
 
         <CreateFreeAccountClick />

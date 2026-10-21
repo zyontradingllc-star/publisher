@@ -48,7 +48,7 @@ export function assertServerSecretsPresent(): {
 
   if (!read("RESEND_API_KEY") || !getEmailFrom()) {
     warnings.push(
-      "Email provider unset — transactional emails will be skipped (not claimed as delivered)"
+      "Email provider unset - transactional emails will be skipped (not claimed as delivered)"
     );
   }
 

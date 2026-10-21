@@ -17,7 +17,7 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  // Lightweight title only — avoid a second full Payload depth fetch on every request
+  // Lightweight title only - avoid a second full Payload depth fetch on every request
   return { title: slug.replace(/-/g, " ") };
 }
 

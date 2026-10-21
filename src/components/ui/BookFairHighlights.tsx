@@ -76,7 +76,7 @@ export function BookFairHighlights() {
               <span className="text-[#E08A2A]">Highlights</span>
             </p>
             <p className="mx-auto mt-3 max-w-xl font-sans text-sm leading-relaxed text-charcoal sm:text-base">
-              From London to Frankfurt, real moments from Authors Pilot booths —
+              From London to Frankfurt, real moments from Authors Pilot booths -
               authors, editors, and readers, together.
             </p>
           </div>
@@ -117,7 +117,7 @@ export function BookFairHighlights() {
           <FadeIn delay={0.08}>
             <p className="font-sans text-sm leading-relaxed text-charcoal">
               Three stops on the calendar where our authors meet their readers.
-              Choose a fair — photos keep rotating on their own.
+              Choose a fair - photos keep rotating on their own.
             </p>
             <ul className="mt-5 space-y-3">
               {fairs.map((fair) => {

@@ -56,7 +56,7 @@ export async function signupAction(
   const { email, password, displayName } = parsed.data;
 
   const inbox = await dropInfoToInbox({
-    subject: `Signup As Author — ${displayName}`,
+    subject: `Signup As Author - ${displayName}`,
     lines: [
       "New author signup (Authors Pilot platform)",
       "",
@@ -118,7 +118,7 @@ export async function signupAction(
     await clearAuthorLeadCookie().catch(() => undefined);
     redirect("/dashboard/books/new");
   } catch (err) {
-    // NEXT_REDIRECT is thrown by redirect() — rethrow
+    // NEXT_REDIRECT is thrown by redirect() - rethrow
     if (
       err &&
       typeof err === "object" &&

@@ -10,7 +10,7 @@ export default function CommunityPolicyPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="heading-section">Community policy (draft)</h1>
       <p className="mt-4 text-sm text-forest-muted">
-        Draft standards for public listings and reader reports — not legal advice.
+        Draft standards for public listings and reader reports - not legal advice.
       </p>
 
       <div className="mt-8 space-y-6 text-charcoal leading-relaxed">

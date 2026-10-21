@@ -31,7 +31,7 @@ function keywordsFromForm(formData: FormData): string[] {
 }
 
 /**
- * KDP-style Book Details step — saves draft (DB or inbox) then optionally continues.
+ * KDP-style Book Details step - saves draft (DB or inbox) then optionally continues.
  */
 export async function savePublishDetailsAction(
   _prev: ActionState,
@@ -91,7 +91,7 @@ export async function savePublishDetailsAction(
 
   const rightsConfirmed = publishingRights === "own_copyright";
 
-  // No email on this step — confirmation is sent only after final Publish
+  // No email on this step - confirmation is sent only after final Publish
   // (Pending Review on the dashboard).
   await updateAuthorLeadContact({
     email: authorEmail,
@@ -244,7 +244,7 @@ export async function savePublishDetailsAction(
 }
 
 /**
- * KDP-style Book Content step — manuscript/cover/avatar (no email; email on final Publish only).
+ * KDP-style Book Content step - manuscript/cover/avatar (no email; email on final Publish only).
  */
 export async function savePublishContentAction(
   _prev: ActionState,
@@ -413,7 +413,7 @@ export async function savePublishContentAction(
 }
 
 /**
- * Step 3 — Pricing / sales links / publish request (no platform checkout or royalty cut).
+ * Step 3 - Pricing / sales links / publish request (no platform checkout or royalty cut).
  */
 export async function savePublishPricingAction(
   _prev: ActionState,

@@ -14,14 +14,14 @@ const logos = [
 
 export function LogoMarquee() {
   return (
-    <section className="border-y border-sand/70 bg-warm-wash py-8 sm:py-10">
+    <section className="border-y border-sand/70 bg-white py-4 sm:py-5">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <p className="text-center font-sans text-xs font-bold uppercase tracking-[0.22em] text-[#E08A2A]">
           Your book, published everywhere
         </p>
       </div>
 
-      <div className="marquee mt-6 sm:mt-8">
+      <div className="marquee mt-3 sm:mt-4">
         <div className="marquee-track">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>

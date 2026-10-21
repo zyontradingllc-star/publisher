@@ -29,13 +29,13 @@ const steps = [
     number: "03",
     title: "Cover Design",
     description:
-      "A market-ready cover that belongs on the shelf — typography, imagery, and genre cues working together.",
+      "A market-ready cover that belongs on the shelf - typography, imagery, and genre cues working together.",
   },
   {
     number: "04",
     title: "Formatting",
     description:
-      "Print and ebook interiors laid out for comfortable reading — margins, type, and chapter flow done properly.",
+      "Print and ebook interiors laid out for comfortable reading - margins, type, and chapter flow done properly.",
   },
   {
     number: "05",
@@ -47,7 +47,7 @@ const steps = [
     number: "06",
     title: "Launch & Marketing",
     description:
-      "A launch plan, author brand, and promotion so the finished book has somewhere — and someone — to go.",
+      "A launch plan, author brand, and promotion so the finished book has somewhere - and someone - to go.",
   },
 ];
 
@@ -98,7 +98,7 @@ export function PublishingJourney() {
                 <div>
                   <Icon />
                   <p className="mt-3 font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
-                    — Step {step.number}
+                    - Step {step.number}
                   </p>
                   <h3 className="mt-1.5 font-display text-lg font-semibold leading-snug text-ink">
                     {step.title}

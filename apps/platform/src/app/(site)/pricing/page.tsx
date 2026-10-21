@@ -10,7 +10,7 @@ export default function PricingPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="heading-section">Pricing</h1>
       <p className="mt-4 text-sm text-forest-muted">
-        Draft pricing overview — not a binding offer. We will announce changes before any paid plans
+        Draft pricing overview - not a binding offer. We will announce changes before any paid plans
         take effect.
       </p>
 
@@ -38,7 +38,7 @@ export default function PricingPage() {
           <p className="mt-3 text-charcoal">
             Authors keep 100% of book royalties from sales on their own websites and external
             retailers. Authors Pilot does not take a commission on those sales. Platform fees, if
-            introduced later, would apply to use of Authors Pilot services — not to redirecting readers
+            introduced later, would apply to use of Authors Pilot services - not to redirecting readers
             to your checkout elsewhere.
           </p>
         </section>

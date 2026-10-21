@@ -1,5 +1,5 @@
 /**
- * Authors Pilot — complete website copy.
+ * Authors Pilot - complete website copy.
  */
 
 import { platformHref } from "@/lib/platform";
@@ -8,8 +8,6 @@ export const brand = {
   name: "Authors Pilot",
   tagline: "Pilot Your Story. Self-Publishing Story System.",
   email: "hello@authorspilot.com",
-  phone: "+1 (364) 421-2554",
-  phoneAlt: "+1 (437) 889-4563",
 };
 
 export const socialLinks = [
@@ -40,13 +38,21 @@ export const homeHref = "/book-publishing-author-website-design-agency";
 /** Platform guest publish flow (Book Details → Content → Sales) */
 export const publishHref = platformHref("/publish");
 
-export const navLinks = [
-  { href: homeHref, label: "Home" },
+export const servicesNavChildren = [
   { href: "/book-writing-services-for-authors", label: "Write" },
   { href: "/self-publishing-agency-services", label: "Prepare" },
-  { href: publishHref, label: "Publish" },
   { href: "/audiobook-production-services-for-authors", label: "Audiobooks" },
   { href: "/book-marketing-services-for-authors", label: "Promote" },
+] as const;
+
+export const navLinks = [
+  { href: publishHref, label: "Publish" },
+  { href: platformHref("/bookstore"), label: "BookStore" },
+  {
+    href: homeHref,
+    label: "Services",
+    children: servicesNavChildren,
+  },
   { href: "/author-website-design-agency-usa", label: "Website" },
   { href: "/contact-author-website-design-agency", label: "Contact" },
 ] as const;
@@ -76,7 +82,7 @@ export const journeyPageHero = {
 } as const;
 
 export const ebookWritingBanner = {
-  body: "A great book starts with more than an idea. From book writing services and ghostwriting services to manuscript development, Authors Pilot helps you turn your vision into a book readers want to keep reading—and prepare for self publishing.",
+  body: "A great book starts with more than an idea. From book writing services and ghostwriting services to manuscript development, Authors Pilot helps you turn your vision into a book readers want to keep reading-and prepare for self publishing.",
   closing: "Have an idea? Let's turn it into a book.",
   image: "/services/ebook-writing.webp",
   imageAlt: "Author working on a book manuscript",
@@ -87,7 +93,7 @@ export const ebookWritingSections = [
     id: "start-with-idea",
     eyebrow: "Start With Your Idea",
     heading: "Self-Publishing Starts With Strong Book Writing Services.",
-    body: "Every great book starts with an idea—but turning that idea into a complete manuscript takes structure, planning, and the right writing approach. Authors Pilot provides book writing services and self-publishing services that help you develop your concept and create a clear direction for your book.",
+    body: "Every great book starts with an idea-but turning that idea into a complete manuscript takes structure, planning, and the right writing approach. Authors Pilot provides book writing services and self-publishing services that help you develop your concept and create a clear direction for your book.",
     listTitle: "We help with:",
     items: [
       "Book Concept",
@@ -102,14 +108,14 @@ export const ebookWritingSections = [
     id: "turn-ideas-into-words",
     eyebrow: "Turn Ideas Into Words",
     heading: "Ghostwriting Services That Sound Like You.",
-    body: "Whether you're writing fiction, nonfiction, memoir, business, or an inspirational book, our ghostwriting services and manuscript writing team help transform your ideas into engaging, well-structured content that sounds authentic to your voice—ideal for self published authors ready to grow.",
+    body: "Whether you're writing fiction, nonfiction, memoir, business, or an inspirational book, our ghostwriting services and manuscript writing team help transform your ideas into engaging, well-structured content that sounds authentic to your voice-ideal for self published authors ready to grow.",
     listTitle: "Our services include:",
     items: [
       {
         tag: "Ghostwriting",
         title: "Professional Ghostwriting",
         description:
-          "Hire a ghostwriter to turn your ideas into a complete book manuscript written in your voice—confidential, and fully yours.",
+          "Hire a ghostwriter to turn your ideas into a complete book manuscript written in your voice-confidential, and fully yours.",
       },
       {
         tag: "Manuscript",
@@ -313,7 +319,7 @@ export const home = {
       "It needs words.",
       "It needs editing, design, direction, and a path to the reader.",
       "That's where Authors Pilot comes in.",
-      "We take what exists in your head, your notes, your recordings, your research, or your unfinished manuscript — and help shape it into something people can read, hear, watch, and remember.",
+      "We take what exists in your head, your notes, your recordings, your research, or your unfinished manuscript - and help shape it into something people can read, hear, watch, and remember.",
     ],
     cta: { label: "Start With the Idea", href: "/contact-author-website-design-agency" },
   },
@@ -463,7 +469,7 @@ export const services = {
       summary: "Some people read books.",
       body: [
         "Others listen to them while driving, walking, working, exercising, or relaxing.",
-        "Audiobook production gives your written work another life — one built around voice, pacing, emotion, clarity, and sound.",
+        "Audiobook production gives your written work another life - one built around voice, pacing, emotion, clarity, and sound.",
         "We help transform your manuscript into an engaging audiobook experience with narration and professional audio production.",
       ],
       listTitle: "",
@@ -493,7 +499,7 @@ export const services = {
       summary: "Audiobooks aren't simply documents being read aloud.",
       body: [
         "Voice, pacing, pronunciation, pauses, emotion, and audio quality all shape the listener's experience.",
-        "We help create narration that matches the personality and purpose of your book — whether your project calls for professional human narration or an appropriately produced AI-assisted voice experience.",
+        "We help create narration that matches the personality and purpose of your book - whether your project calls for professional human narration or an appropriately produced AI-assisted voice experience.",
       ],
       listTitle: "",
       details: [],
@@ -555,7 +561,7 @@ export const services = {
       summary:
         "A professional author website helps USA readers, agents, and media take you seriously.",
       body: [
-        "We design author websites that showcase your books, bio, press, and next release — with a clear path to buy.",
+        "We design author websites that showcase your books, bio, press, and next release - with a clear path to buy.",
         "Start with a free author website mockup, then we build a site that matches your brand.",
       ],
       listTitle: "Website Design Includes",
@@ -661,7 +667,7 @@ export const howItWorks = {
   closing: {
     title: "Your Job Is to Bring the Story. We'll Help Navigate the Rest.",
     description:
-      "Bring what you have — an idea, a draft, a PDF, a voice recording, or a collection of notes. We'll help identify the next step.",
+      "Bring what you have - an idea, a draft, a PDF, a voice recording, or a collection of notes. We'll help identify the next step.",
     cta: { label: "Start With What I Have", href: "/contact-author-website-design-agency" },
   },
 };
@@ -736,7 +742,7 @@ export const portfolio = {
       title: "Permission to Pause",
       genre: "Self-Help" as const,
       blurb:
-        "A short restorative read on boundaries and rest — designed for busy readers.",
+        "A short restorative read on boundaries and rest - designed for busy readers.",
       imageAlt: "portfolio-selfhelp-permission-pause",
     },
   ],
@@ -883,7 +889,7 @@ export const contact = {
   },
 };
 
-/** Genuine client testimonials only — leave empty until real reviews are available. */
+/** Genuine client testimonials only - leave empty until real reviews are available. */
 export const testimonialsSection = {
   title: "The Stories Behind the Stories.",
   description:
@@ -906,7 +912,7 @@ export const finalCta = {
   ],
   primaryCta: { label: "Pilot My Story", href: "/contact-author-website-design-agency" },
   secondaryCta: { label: "Start a Conversation", href: "/contact-author-website-design-agency" },
-  closing: "Authors Pilot — Pilot Your Story. Self-Publishing Story System.",
+  closing: "Authors Pilot - Pilot Your Story. Self-Publishing Story System.",
 };
 
 export const brandMessages = {
@@ -931,7 +937,7 @@ export const brandMessages = {
   ] as const,
 };
 
-/** Internal SEO linking — related next steps for each dedicated service page. */
+/** Internal SEO linking - related next steps for each dedicated service page. */
 export const serviceRelatedLinks: Record<
   string,
   { href: string; label: string }[]
@@ -1059,7 +1065,7 @@ export const bookMarketingSections = [
     id: "author-brand-closing",
     eyebrow: "Become More Than a Published Author",
     heading: "Become a Recognizable Author Brand.",
-    body: "Your book may introduce you to readers—but your brand keeps them connected. Authors Pilot helps you build a professional online presence that supports your current book and every book that comes next.",
+    body: "Your book may introduce you to readers-but your brand keeps them connected. Authors Pilot helps you build a professional online presence that supports your current book and every book that comes next.",
     listTitle: "",
     items: [] as string[],
   },
@@ -1075,7 +1081,7 @@ export const audiobookProductionSections = [
     id: "turn-into-audiobook",
     eyebrow: "Turn Your Book Into an Audiobook",
     heading: "How We Produce Your Audiobook",
-    body: "Give your readers another way to experience your book. Authors Pilot helps transform your manuscript into a professionally produced audiobook—ready for today's audio-first audience.",
+    body: "Give your readers another way to experience your book. Authors Pilot helps transform your manuscript into a professionally produced audiobook-ready for today's audio-first audience.",
     listTitle: "We help with:",
     items: [
       "Audiobook Production",
@@ -1152,7 +1158,7 @@ export const servicePages = {
     serviceSlug: "ghostwriting",
     seoTitle: "Ghostwriting Services for Authors | Authors Pilot",
     metaDescription:
-      "Professional ghostwriting services for authors. Your story, your name — a ghostwriter crafts the manuscript around your voice.",
+      "Professional ghostwriting services for authors. Your story, your name - a ghostwriter crafts the manuscript around your voice.",
     h1: "Ghostwriting Services for Authors",
     keywords:
       "ghostwriting services, book ghostwriting, professional ghostwriters, nonfiction ghostwriting",
@@ -1185,7 +1191,7 @@ export const servicePages = {
     serviceSlug: "book-publishing",
     seoTitle: "Book Publishing Services for Authors | Authors Pilot",
     metaDescription:
-      "Book publishing services for authors — eBook, Kindle, and print. We take a finished manuscript through files, metadata, and launch-ready distribution.",
+      "Book publishing services for authors - eBook, Kindle, and print. We take a finished manuscript through files, metadata, and launch-ready distribution.",
     h1: "Book Publishing Services for Authors",
     keywords:
       "book publishing services, self-publishing services, eBook publishing, Kindle publishing, publishing support",

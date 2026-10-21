@@ -21,10 +21,15 @@ html {
 body {
   overflow-x: clip;
   color: var(--foreground);
-  background: var(--background);
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+    var(--font-site),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 }
 
 ::selection {
@@ -35,6 +40,45 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Explicit washes — Tailwind config HMR often skips backgroundImage keys */
+  .bg-page-wash {
+    background-image: linear-gradient(
+      165deg,
+      #e8eee9 0%,
+      #d5dfd7 42%,
+      #c5d1c8 100%
+    );
+  }
+
+  .bg-warm-wash {
+    background-image: linear-gradient(
+      165deg,
+      #f4f7f5 0%,
+      #e8eee9 45%,
+      #d5dfd7 100%
+    );
+  }
+
+  .bg-forest-wash {
+    background-color: #2a412e;
+    background-image: linear-gradient(
+      165deg,
+      #304935 0%,
+      #2a412e 48%,
+      #253b29 100%
+    );
+  }
+
+  .bg-cta-wash {
+    background-color: #273e2b;
+    background-image: linear-gradient(
+      135deg,
+      #1a2b1d 0%,
+      #273e2b 45%,
+      #3a5640 100%
+    );
   }
 }
 

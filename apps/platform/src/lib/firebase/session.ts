@@ -5,7 +5,7 @@ import { SESSION_COOKIE } from "@/lib/firebase/constants";
 
 export { SESSION_COOKIE };
 
-/** 5 days in ms — Firebase session cookie max is 14 days */
+/** 5 days in ms - Firebase session cookie max is 14 days */
 const SESSION_EXPIRES_MS = 60 * 60 * 24 * 5 * 1000;
 
 export async function createSessionCookie(idToken: string) {

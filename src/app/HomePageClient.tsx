@@ -13,13 +13,10 @@ import { CoversThatSell } from "@/components/ui/CoversThatSell";
 import { BookFairHighlights } from "@/components/ui/BookFairHighlights";
 import { BestSellerCta } from "@/components/ui/BestSellerCta";
 import { HomeFaq } from "@/components/ui/HomeFaq";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import { FreeCoverOffer } from "@/components/ui/FreeCoverOffer";
-import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
 import { RoyalPackages } from "@/components/ui/RoyalPackages";
 import { PublishingJourney } from "@/components/ui/PublishingJourney";
 import { HeroBookFan } from "@/components/ui/HeroBookFan";
-import { CoversInMotion } from "@/components/ui/CoversInMotion";
 import { ComeToLife } from "@/components/ui/ComeToLife";
 import { ForgeNumbers } from "@/components/ui/ForgeNumbers";
 import { ReliabilityAcrossBorders } from "@/components/ui/ReliabilityAcrossBorders";
@@ -40,7 +37,7 @@ const portfolioTiles = [
 export default function HomePageClient() {
   return (
     <>
-      {/* Hero — BookChimp style: text left, book stack right */}
+      {/* Hero - BookChimp style: text left, book stack right */}
       <section className="relative overflow-hidden bg-warm-wash">
         <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-8 px-4 pb-14 pt-6 sm:gap-10 sm:px-6 sm:pb-16 sm:pt-8 lg:grid-cols-2 lg:gap-12 lg:px-8">
           <div>
@@ -88,9 +85,6 @@ export default function HomePageClient() {
             >
               <div className="flex flex-wrap justify-center gap-3 md:justify-start">
                 <Button href={platformHref("/publish")}>Submit Your Book</Button>
-                <Button href="#covers" variant="ghost">
-                  See Our Covers
-                </Button>
               </div>
               <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-charcoal">
                 <span className="inline-flex items-center gap-2">
@@ -140,9 +134,6 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Covers in motion — 3D ring */}
-      <CoversInMotion />
-
       {/* Retailer logos */}
       <LogoMarquee />
 
@@ -151,7 +142,7 @@ export default function HomePageClient() {
       {/* Behind the pages / author insights */}
       <VideoInsights />
 
-      {/* Amazon spotlight — covers slide left to right */}
+      {/* Amazon spotlight - covers slide left to right */}
       <AmazonSpotlight />
 
       {/* Book fair moments */}
@@ -183,7 +174,7 @@ export default function HomePageClient() {
       {/* Watch it come to life */}
       <ComeToLife />
 
-      {/* Portfolio — collection strip */}
+      {/* Portfolio - collection strip */}
       <section className="bg-ivory py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
@@ -250,14 +241,8 @@ export default function HomePageClient() {
       {/* Free cover mockup */}
       <FreeCoverOffer />
 
-      {/* Free author consultation */}
-      <AuthorConsultation />
-
       {/* FAQ */}
       <HomeFaq />
-
-      {/* Newsletter */}
-      <NewsletterSignup />
     </>
   );
 }

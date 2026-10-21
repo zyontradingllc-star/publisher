@@ -82,11 +82,11 @@ export function WriteBlogView() {
       <FadeIn>
         <span className="badge-pill">Writing Resources</span>
         <h1 className="mt-4 heading-section">
-          Writing Resources for Authors — Tips, Tools &amp; Guides
+          Writing Resources for Authors - Tips, Tools &amp; Guides
         </h1>
         <p className="mt-4 font-sans text-base leading-relaxed text-charcoal">
           Start with the writing craft, then submit your own insight if you want
-          to contribute. These guides stay focused on writing — publishing steps
+          to contribute. These guides stay focused on writing - publishing steps
           live on their own pages.
         </p>
         <h2 className="mt-8 font-display text-2xl font-semibold text-forest">
@@ -105,21 +105,21 @@ export function WriteBlogView() {
               How to Write a Book: A Beginner&apos;s Step-by-Step Guide
             </Link>
             {" "}
-            — idea, outline, draft, and a finished manuscript.
+            - idea, outline, draft, and a finished manuscript.
           </li>
           <li>
             <Link href="/blog/how-to-find-a-ghostwriter" className="font-semibold text-[#E08A2A] hover:underline">
               How to Find a Ghostwriter
             </Link>
             {" "}
-            — if you want a writing partner instead of drafting alone.
+            - if you want a writing partner instead of drafting alone.
           </li>
           <li>
             <Link href="/blog/how-to-publish-a-book" className="font-semibold text-[#E08A2A] hover:underline">
               How to Publish a Book
             </Link>
             {" "}
-            — after the manuscript is finished.
+            - after the manuscript is finished.
           </li>
         </ul>
         <p className="mt-6 font-sans text-base leading-relaxed text-charcoal">
@@ -135,7 +135,7 @@ export function WriteBlogView() {
               Draft received
             </p>
             <p className="mt-3 font-sans text-sm leading-relaxed text-charcoal sm:text-base">
-              Thank you — we received your blog draft. Our editorial team will
+              Thank you - we received your blog draft. Our editorial team will
               review it and email you at{" "}
               <span className="font-semibold text-ink">{email}</span> within a
               few business days.
@@ -153,7 +153,7 @@ export function WriteBlogView() {
               Submit your article
             </h3>
             <p className="mt-2 font-sans text-sm text-charcoal">
-              Your draft goes straight to hello@authorspilot.com — no verification
+              Your draft goes straight to hello@authorspilot.com - no verification
               code.
             </p>
 

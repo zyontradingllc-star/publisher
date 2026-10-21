@@ -19,7 +19,7 @@ export default function HowPublishingWorksPage() {
         {[
           {
             title: "Share your author story",
-            body: "Once approved, you receive a dedicated public page — a separate link for your profile and books, in a simple blog-style layout.",
+            body: "Once approved, you receive a dedicated public page - a separate link for your profile and books, in a simple blog-style layout.",
           },
           {
             title: "Submit your book listing",
@@ -30,8 +30,8 @@ export default function HowPublishingWorksPage() {
             body: "Our team checks listings against author guidelines and community policy. We may approve, request changes, or reject with a reason.",
           },
           {
-            title: "Go live — readers click out to buy",
-            body: "Your page and listings appear publicly. Purchases happen on your website, Amazon, or other channels you choose — not on Authors Pilot.",
+            title: "Go live - readers click out to buy",
+            body: "Your page and listings appear publicly. Purchases happen on your website, Amazon, or other channels you choose - not on Authors Pilot.",
           },
         ].map((step, i) => (
           <li key={step.title} className="border-l-4 border-coral/40 pl-5">
@@ -47,7 +47,7 @@ export default function HowPublishingWorksPage() {
       </div>
 
       <div className="mt-8">
-        <Button href="/publish">Submit Your Book</Button>
+        <Button href="/publish/start">Submit Your Book</Button>
       </div>
     </article>
   );

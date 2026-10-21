@@ -55,7 +55,7 @@ export function BookFairMoments() {
           </p>
           <p className="mx-auto mt-4 max-w-xl font-sans text-sm leading-relaxed text-charcoal sm:text-base">
             From US to Frankfurt, here are real moments from Authors Pilot
-            booths — authors, editors and readers, together.
+            booths - authors, editors and readers, together.
           </p>
         </FadeIn>
       </div>

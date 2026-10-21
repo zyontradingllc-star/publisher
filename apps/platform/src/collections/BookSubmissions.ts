@@ -77,7 +77,7 @@ export const BookSubmissions: CollectionConfig = {
       admin: {
         position: "sidebar",
         readOnly: true,
-        description: "Set on approve — public book URL slug.",
+        description: "Set on approve - public book URL slug.",
       },
       access: {
         update: () => false,

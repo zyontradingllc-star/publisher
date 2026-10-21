@@ -174,7 +174,7 @@ export const packageTestimonials = [
     rating: 4.5 as const,
   },
   {
-    quote: "Print files, eBook files, social mockups — all flawless and on time.",
+    quote: "Print files, eBook files, social mockups - all flawless and on time.",
     name: "Liam Frost",
     role: "Fantasy Author",
     photo: "/reviews/liam.webp",
@@ -200,22 +200,22 @@ export const packageFaq = [
   {
     question: "What exactly does a publisher do for me?",
     answer:
-      "Authors Pilot handles everything between your finished idea and a book readers can buy: cover design, editing, formatting, ISBN, distribution to Amazon and global retailers, and optional marketing. You stay the author and owner — we're the team that makes it real.",
+      "Authors Pilot handles everything between your finished idea and a book readers can buy: cover design, editing, formatting, ISBN, distribution to Amazon and global retailers, and optional marketing. You stay the author and owner - we're the team that makes it real.",
   },
   {
     question: "Why does a book cover matter so much?",
     answer:
-      "Readers judge a book by its cover in a second. A strong cover wins the click, the shelf glance, and the buy. We design for your genre so the book looks like it belongs — and still stands out.",
+      "Readers judge a book by its cover in a second. A strong cover wins the click, the shelf glance, and the buy. We design for your genre so the book looks like it belongs - and still stands out.",
   },
   {
     question: "How much does it cost to publish with Authors Pilot?",
     answer:
-      "Packages are scoped to the work your book actually needs. Standard, Signature, and Elite tiers cover writing through publishing and marketing. After a free consultation we'll recommend the right path — with no obligation until you're ready.",
+      "Packages are scoped to the work your book actually needs. Standard, Signature, and Elite tiers cover writing through publishing and marketing. After a free consultation we'll recommend the right path - with no obligation until you're ready.",
   },
   {
     question: "Do I keep my rights and royalties?",
     answer:
-      "Yes. You keep 100% of your rights and royalties. We don't take ownership of your work — you remain the author, and every cent of royalties stays yours.",
+      "Yes. You keep 100% of your rights and royalties. We don't take ownership of your work - you remain the author, and every cent of royalties stays yours.",
   },
   {
     question: "Can you help authors in the USA and worldwide?",

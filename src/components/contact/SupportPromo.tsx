@@ -3,12 +3,12 @@ import { FadeIn } from "@/components/motion/FadeIn";
 
 const points = [
   "Reach us on live chat or email, whichever you prefer.",
-  "No frustrating waiting times — on average, we reply within one business day.",
+  "No frustrating waiting times - on average, we reply within one business day.",
 ];
 
 const chat = [
   { from: "them", text: "Hi! Can you turn my finished manuscript into an audiobook?" },
-  { from: "us", text: "Absolutely — narration, mastering, and distribution are all included." },
+  { from: "us", text: "Absolutely - narration, mastering, and distribution are all included." },
   { from: "them", text: "How soon can we start?" },
 ] as const;
 

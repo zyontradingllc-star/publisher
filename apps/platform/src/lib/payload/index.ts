@@ -9,7 +9,7 @@ export function isPayloadConfigured(): boolean {
 
 let cached: Payload | null = null;
 
-/** Local API client — use from server actions / Node only. */
+/** Local API client - use from server actions / Node only. */
 export async function getPayloadClient(): Promise<Payload> {
   if (!isPayloadConfigured()) {
     throw new Error(

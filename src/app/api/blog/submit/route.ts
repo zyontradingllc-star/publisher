@@ -49,7 +49,7 @@ export async function POST(request: Request) {
   ].join("\n");
 
   const result = await sendAdminMail({
-    subject: `New Blog Submission — ${title}`,
+    subject: `New Blog Submission - ${title}`,
     text,
   });
 

@@ -6,7 +6,6 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { AnimatedServiceCards } from "@/components/ui/AnimatedServiceCards";
 import { ServicePageHero } from "@/components/services/ServicePageHero";
 import { ServiceFaqSection } from "@/components/services/ServiceFaqSection";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import {
   ebookWritingBanner,
   ebookWritingSections,
@@ -169,7 +168,6 @@ export function EbookWritingView() {
         </div>
       </section>
 
-      <AuthorConsultation />
     </>
   );
 }

@@ -11,7 +11,7 @@ export const Media: CollectionConfig = {
   upload: {
     staticDir: "media",
     mimeTypes: ["image/*"],
-    // One small derivative only — full-size original is used for book covers.
+    // One small derivative only - full-size original is used for book covers.
     // Generating multiple sharp sizes on every upload made Content step slow.
     imageSizes: [
       {

@@ -7,15 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { brand, contact } from "@/content/site";
 import { submitToInbox } from "@/lib/email/client-submit";
 
-const telHref = `tel:${brand.phone.replace(/[^\d+]/g, "")}`;
-
 const details = [
-  {
-    label: "Call us",
-    value: brand.phone,
-    href: telHref,
-    icon: "phone" as const,
-  },
   {
     label: "Email us",
     value: "hello@AuthorsPilot.com",
@@ -24,7 +16,7 @@ const details = [
   },
   {
     label: "Consult online",
-    value: "Video or phone authors",
+    value: "Video consultation available",
     icon: "globe" as const,
   },
   {
@@ -37,7 +29,6 @@ const details = [
 type FormState = {
   name: string;
   email: string;
-  phone: string;
   service: string;
   message: string;
 };
@@ -47,7 +38,6 @@ type FormErrors = Partial<Record<keyof FormState, string>>;
 const initial: FormState = {
   name: "",
   email: "",
-  phone: "",
   service: "",
   message: "",
 };
@@ -62,9 +52,6 @@ function validate(values: FormState): FormErrors {
   if (!emailOk.test(values.email.trim())) {
     errors.email = "Please enter a valid email.";
   }
-  if (!values.phone.trim() || values.phone.trim().length < 7) {
-    errors.phone = "Please enter a phone number.";
-  }
   if (!values.service) {
     errors.service = "Select a service.";
   }
@@ -73,13 +60,6 @@ function validate(values: FormState): FormErrors {
 
 function DetailIcon({ icon }: { icon: (typeof details)[number]["icon"] }) {
   const className = "h-5 w-5 text-[#E08A2A]";
-  if (icon === "phone") {
-    return (
-      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6.5 4.5h2.2l1 4.2-1.7 1.1a12.5 12.5 0 0 0 6.2 6.2l1.1-1.7 4.2 1v2.2c0 .8-.7 1.5-1.5 1.5C9.6 19 5 14.4 5 6c0-.8.7-1.5 1.5-1.5z" />
-      </svg>
-    );
-  }
   if (icon === "mail") {
     return (
       <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
@@ -104,12 +84,18 @@ function DetailIcon({ icon }: { icon: (typeof details)[number]["icon"] }) {
   );
 }
 
-export function AuthorConsultation() {
+type AuthorConsultationProps = {
+  /** Use as the page hero (h1 + tighter banner spacing). */
+  asHero?: boolean;
+};
+
+export function AuthorConsultation({ asHero = false }: AuthorConsultationProps) {
   const [values, setValues] = useState<FormState>(initial);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const Heading = asHero ? "h1" : "p";
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -129,7 +115,6 @@ export function AuthorConsultation() {
     const message = [
       `Name: ${values.name}`,
       `Email: ${values.email}`,
-      `Phone: ${values.phone}`,
       `Service: ${values.service}`,
       "",
       "Message:",
@@ -139,9 +124,8 @@ export function AuthorConsultation() {
     const result = await submitToInbox({
       name: values.name.trim(),
       email: values.email.trim(),
-      phone: values.phone.trim(),
       service: values.service,
-      _subject: `Free Consultation — ${values.service || "Authors Pilot"}`,
+      _subject: `Free Consultation - ${values.service || "Authors Pilot"}`,
       _replyto: values.email.trim(),
       message,
     });
@@ -165,7 +149,14 @@ export function AuthorConsultation() {
   const errorClass = "mt-1 text-xs text-red-600";
 
   return (
-    <section id="consultation" className="bg-warm-wash py-16 sm:py-20">
+    <section
+      id="consultation"
+      className={
+        asHero
+          ? "relative overflow-hidden bg-warm-wash py-8 sm:py-12 lg:py-14"
+          : "bg-warm-wash py-16 sm:py-20"
+      }
+    >
       <div className="mx-auto grid max-w-6xl items-start gap-10 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:px-8">
         <FadeIn>
           <span className="badge-pill">
@@ -176,15 +167,15 @@ export function AuthorConsultation() {
             Free Author Consultation
           </span>
 
-          <p className="mt-5 heading-section lg:text-[2.55rem]">
+          <Heading className="mt-5 heading-section lg:text-[2.55rem]">
             Start Your Publishing Journey With{" "}
             <span className="text-[#E08A2A]">Confidence</span>
-          </p>
+          </Heading>
 
           <p className="mt-4 max-w-lg font-sans text-sm leading-relaxed text-charcoal sm:text-base">
             Book a free, no-pressure consultation with a publishing strategist.
             We&apos;ll review your goals, recommend the right path and answer every
-            question — whether you&apos;re polishing a manuscript or just dreaming up
+            question - whether you&apos;re polishing a manuscript or just dreaming up
             your first cover.
           </p>
 
@@ -254,7 +245,7 @@ export function AuthorConsultation() {
                   Consultation booked
                 </h4>
                 <p className="mt-2 font-sans text-sm text-charcoal">
-                  Thanks — we&apos;ll be in touch soon with next steps.
+                  Thanks - we&apos;ll be in touch soon with next steps.
                 </p>
                 <button
                   type="button"
@@ -302,45 +293,28 @@ export function AuthorConsultation() {
                   </div>
                 </div>
 
-                <div className="grid gap-2.5 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="consult-phone" className={labelClass}>
-                      Phone Number *
-                    </label>
-                    <input
-                      id="consult-phone"
-                      name="phone"
-                      type="tel"
-                      value={values.phone}
-                      onChange={(e) => update("phone", e.target.value)}
-                      placeholder="Phone Number"
-                      className={fieldClass}
-                      autoComplete="tel"
-                      required
-                    />
-                    {errors.phone && <p className={errorClass}>{errors.phone}</p>}
-                  </div>
-                  <div>
-                    <label htmlFor="consult-service" className={labelClass}>
-                      Select a Service *
-                    </label>
-                    <select
-                      id="consult-service"
-                      name="service"
-                      value={values.service}
-                      onChange={(e) => update("service", e.target.value)}
-                      className={fieldClass}
-                      required
-                    >
-                      <option value="">Choose a service…</option>
-                      {contact.form.creating.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.service && <p className={errorClass}>{errors.service}</p>}
-                  </div>
+                <div>
+                  <label htmlFor="consult-service" className={labelClass}>
+                    Select a Service *
+                  </label>
+                  <select
+                    id="consult-service"
+                    name="service"
+                    value={values.service}
+                    onChange={(e) => update("service", e.target.value)}
+                    className={fieldClass}
+                    required
+                  >
+                    <option value="">Choose a service…</option>
+                    {contact.form.creating.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.service && (
+                    <p className={errorClass}>{errors.service}</p>
+                  )}
                 </div>
 
                 <div>

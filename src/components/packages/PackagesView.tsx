@@ -10,9 +10,6 @@ import { Accordion } from "@/components/ui/Accordion";
 import { BestSellerCta } from "@/components/ui/BestSellerCta";
 import { GoogleReviews } from "@/components/ui/GoogleReviews";
 import { packageFaq } from "@/content/packages";
-import { brand } from "@/content/site";
-
-const telHref = `tel:${brand.phone.replace(/[^\d+]/g, "")}`;
 
 export function PackagesView() {
   return (
@@ -39,7 +36,7 @@ export function PackagesView() {
               <p className="mt-5 max-w-xl font-sans text-base leading-relaxed text-charcoal sm:text-lg">
                 Simple, transparent, one-time pricing with full rights included.
                 Start with a stunning cover or go all the way to a marketed
-                best-seller — your royalties stay 100% yours.
+                best-seller - your royalties stay 100% yours.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
                 <Button href="/contact-author-website-design-agency">Get A Custom Quote</Button>
@@ -87,7 +84,7 @@ export function PackagesView() {
                 <span className="text-[#E08A2A]">Authors Pilot</span>
               </p>
               <p className="mx-auto mt-3 max-w-xl font-sans text-sm text-charcoal sm:text-base">
-                Don&apos;t take our word for it — here&apos;s what authors say
+                Don&apos;t take our word for it - here&apos;s what authors say
                 after working with Authors Pilot.
               </p>
             </div>
@@ -129,35 +126,6 @@ export function PackagesView() {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
             <Button href="/contact-author-website-design-agency">Book Free Consultation</Button>
-            <a
-              href={telHref}
-              className="group inline-flex items-center gap-3 text-left"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/35 text-[#E08A2A] transition group-hover:border-[#A7C4AB]">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.5 4.5h2.2l1 4.2-1.7 1.1a12.5 12.5 0 0 0 6.2 6.2l1.1-1.7 4.2 1v2.2c0 .8-.7 1.5-1.5 1.5C9.6 19 5 14.4 5 6c0-.8.7-1.5 1.5-1.5z"
-                  />
-                </svg>
-              </span>
-              <span>
-                <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
-                  Talk to an Expert
-                </span>
-                <span className="mt-0.5 block font-sans text-lg font-semibold text-white">
-                  {brand.phone}
-                </span>
-              </span>
-            </a>
           </div>
         </FadeIn>
       </section>

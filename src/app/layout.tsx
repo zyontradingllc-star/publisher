@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { JourneyConsultation } from "@/components/layout/JourneyConsultation";
 import { DeferredThirdParty } from "@/components/layout/DeferredThirdParty";
 import { PageTransition } from "@/components/motion/PageTransition";
 import JsonLd from "@/components/seo/JsonLd";
 import { brand } from "@/content/site";
 import { canonicalUrl } from "@/lib/seo";
+import { siteFont } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Authors Pilot",
   },
   description:
-    "Authors Pilot helps authors write, edit, design, and publish books — plus audiobooks and marketing to reach readers.",
+    "Authors Pilot helps authors write, edit, design, and publish books - plus audiobooks and marketing to reach readers.",
   keywords: [
     "book writing services",
     "book publishing services",
@@ -86,9 +86,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={siteFont.variable} suppressHydrationWarning>
       <body
-        className="flex min-h-screen flex-col bg-cream font-sans font-normal text-ink antialiased"
+        className="flex min-h-screen flex-col bg-page-wash font-sans font-normal text-ink antialiased"
         suppressHydrationWarning
       >
         <JsonLd
@@ -104,7 +104,6 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
-        <JourneyConsultation />
         <DeferredThirdParty />
       </body>
     </html>

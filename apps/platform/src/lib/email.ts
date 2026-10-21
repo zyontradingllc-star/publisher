@@ -22,7 +22,7 @@ export function isEmailConfigured(): boolean {
 
 /**
  * Send transactional email via Resend.
- * If the provider is not configured, returns `{ ok: true, skipped: true }` —
+ * If the provider is not configured, returns `{ ok: true, skipped: true }` -
  * callers must not claim delivery occurred.
  */
 export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult> {
@@ -74,7 +74,7 @@ export async function notifyAuthorSubmissionReceived(opts: {
 }) {
   return sendEmail({
     to: opts.email,
-    subject: `Authors Pilot — request received: ${opts.title}`,
+    subject: `Authors Pilot - request received: ${opts.title}`,
     html: `
       <p>Hello,</p>
       <p><strong>Request successfully submitted</strong></p>
@@ -85,7 +85,7 @@ export async function notifyAuthorSubmissionReceived(opts: {
       <p>You will receive another automated email from
       no-reply@authorspilot.com when the status changes.</p>
       <p><a href="${getAppUrl()}/dashboard">Open your dashboard</a></p>
-      <p>— Authors Pilot</p>
+      <p>- Authors Pilot</p>
     `,
   });
 }
@@ -119,7 +119,7 @@ export async function notifyAuthorStatusChange(opts: {
           : ""
       }
       <p><a href="${dashboardBooksUrl()}">Open your dashboard</a></p>
-      <p>— Authors Pilot</p>
+      <p>- Authors Pilot</p>
     `,
   });
 }

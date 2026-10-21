@@ -1,20 +1,31 @@
 /**
  * Publishing platform links.
- * Local (unified): same origin as marketing → `/publish` on :3000 (rewritten to :3001).
- * Production marketing site: absolute app.authorspilot.com.
+ *
+ * Local: empty PLATFORM_URL → same origin on :3000 (middleware proxies /publish → :3001).
+ * Production: leave empty until https://app.authorspilot.com is actually deployed.
+ *   Set NEXT_PUBLIC_PLATFORM_URL=https://app.authorspilot.com in .env.production
+ *   only after the Node platform is live there.
+ *
+ * Never bake localhost into a production / static-export build.
  */
-export const PLATFORM_URL = (
-  process.env.NEXT_PUBLIC_PLATFORM_URL ??
-  (process.env.NODE_ENV === "production"
-    ? "https://app.authorspilot.com"
-    : "")
-).replace(/\/$/, "");
+function resolvePlatformUrl(): string {
+  const raw = (process.env.NEXT_PUBLIC_PLATFORM_URL ?? "").trim().replace(/\/$/, "");
+  const isLocalHost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(raw);
+
+  if (process.env.NODE_ENV === "production") {
+    // Ignore empty + localhost — keep Publish on authorspilot.com until app.* is live
+    if (!raw || isLocalHost) return "";
+    return raw;
+  }
+
+  return raw;
+}
+
+export const PLATFORM_URL = resolvePlatformUrl();
 
 export const platformHref = (path = "/") => {
   const p = path.startsWith("/") ? path : `/${path}`;
-  // Marketing uses trailingSlash — keep Publish links consistent in local proxy mode
-  const normalized =
-    p === "/" ? "/" : p.endsWith("/") ? p : `${p}/`;
+  const normalized = p === "/" ? "/" : p.endsWith("/") ? p : `${p}/`;
   if (!PLATFORM_URL) return normalized;
   return `${PLATFORM_URL}${normalized === "/" ? "/" : normalized}`;
 };

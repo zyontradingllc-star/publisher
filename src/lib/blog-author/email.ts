@@ -33,7 +33,7 @@ export async function submitBlogPost(submission: BlogSubmission) {
       }
     }
   } catch {
-    // Static hosting has no API — fall through to send-mail.php.
+    // Static hosting has no API - fall through to send-mail.php.
   }
 
   const text = [
@@ -52,7 +52,7 @@ export async function submitBlogPost(submission: BlogSubmission) {
   return submitToInbox({
     name: submission.authorName,
     email: submission.email,
-    _subject: `New Blog Submission — ${submission.title}`,
+    _subject: `New Blog Submission - ${submission.title}`,
     _replyto: submission.email,
     message: text,
   });

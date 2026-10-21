@@ -72,21 +72,21 @@ export async function updateProfileAction(
 
   if (leadOnly) {
     const inbox = await dropInfoToInbox({
-      subject: `Author profile update — ${data.display_name}`,
+      subject: `Author profile update - ${data.display_name}`,
       lines: [
         "Author profile (dashboard)",
         "",
-        `Email: ${profile.email ?? "—"}`,
+        `Email: ${profile.email ?? "-"}`,
         `Display name: ${data.display_name}`,
         `Public slug: /authors/${data.slug}`,
-        `Bio: ${data.bio || "—"}`,
+        `Bio: ${data.bio || "-"}`,
         `Has website: ${data.has_author_website ? "yes" : "no"}`,
-        `Website: ${data.website_url ?? "—"}`,
-        `Facebook: ${data.social_facebook ?? "—"}`,
-        `Instagram: ${data.social_instagram ?? "—"}`,
-        `X: ${data.social_twitter ?? "—"}`,
-        `LinkedIn: ${data.social_linkedin ?? "—"}`,
-        `TikTok: ${data.social_tiktok ?? "—"}`,
+        `Website: ${data.website_url ?? "-"}`,
+        `Facebook: ${data.social_facebook ?? "-"}`,
+        `Instagram: ${data.social_instagram ?? "-"}`,
+        `X: ${data.social_twitter ?? "-"}`,
+        `LinkedIn: ${data.social_linkedin ?? "-"}`,
+        `TikTok: ${data.social_tiktok ?? "-"}`,
         `Public: ${data.is_public ? "yes" : "no"}`,
         `Profile complete: ${profileComplete ? "yes" : "no"}`,
         "",
@@ -127,13 +127,13 @@ export async function updateProfileAction(
     return { ok: true, message: "Profile saved" };
   } catch (err) {
     await dropInfoToInbox({
-      subject: `Author profile update — ${data.display_name}`,
+      subject: `Author profile update - ${data.display_name}`,
       lines: [
         "Author profile (fallback after DB error)",
-        `Email: ${profile.email ?? "—"}`,
+        `Email: ${profile.email ?? "-"}`,
         `Display name: ${data.display_name}`,
         `Slug: ${data.slug}`,
-        `Bio: ${data.bio || "—"}`,
+        `Bio: ${data.bio || "-"}`,
         `Error: ${err instanceof Error ? err.message : "unknown"}`,
       ],
     });
@@ -166,11 +166,11 @@ export async function uploadAvatarAction(
 
   if (leadOnly) {
     const inbox = await dropInfoToInbox({
-      subject: `Avatar upload — ${profile.display_name ?? profile.email}`,
+      subject: `Avatar upload - ${profile.display_name ?? profile.email}`,
       lines: [
         "Author avatar selected (storage not connected yet)",
         "",
-        `Email: ${profile.email ?? "—"}`,
+        `Email: ${profile.email ?? "-"}`,
         `File name: ${file.name}`,
         `File type: ${file.type}`,
         `File size: ${Math.round(file.size / 1024)} KB`,

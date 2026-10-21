@@ -15,7 +15,6 @@ export function OrganizationSchema() {
         description:
           "Authors Pilot helps authors turn their ideas and manuscripts into professionally written, edited, designed, formatted and published books.",
         email: brand.email,
-        telephone: [brand.phone, brand.phoneAlt],
         areaServed: {
           "@type": "Country",
           name: "United States",
@@ -23,7 +22,6 @@ export function OrganizationSchema() {
         contactPoint: [
           {
             "@type": "ContactPoint",
-            telephone: brand.phone,
             contactType: "customer service",
             email: brand.email,
             areaServed: "US",

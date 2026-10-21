@@ -17,7 +17,7 @@ function referrerHost(raw: string | null): string | null {
 /** Record a public book page view. Not a sale. */
 export async function recordBookViewAction(bookId: string) {
   if (!bookId) return { ok: false as const };
-  // Skip when Supabase is unset — avoids multi-second failed network attempts
+  // Skip when Supabase is unset - avoids multi-second failed network attempts
   if (
     !process.env.NEXT_PUBLIC_SUPABASE_URL ||
     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -86,7 +86,7 @@ export async function recordWebsiteDesignCtaClickAction(formData: FormData) {
     );
   }
 
-  // Always return the known safe marketing URL — never trust client-supplied destinations.
+  // Always return the known safe marketing URL - never trust client-supplied destinations.
   if (!isSafeHttpUrl(AUTHOR_WEBSITE_DESIGN_URL)) {
     return { ok: false as const, url: null };
   }

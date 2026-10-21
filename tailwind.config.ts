@@ -29,6 +29,7 @@ const config: Config = {
       },
       fontFamily: {
         display: [
+          "var(--font-site)",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
@@ -38,6 +39,7 @@ const config: Config = {
           "sans-serif",
         ],
         sans: [
+          "var(--font-site)",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
@@ -59,8 +61,12 @@ const config: Config = {
         "cta-lg": "0 18px 32px -8px rgba(224, 138, 42, 0.8)",
       },
       backgroundImage: {
+        "page-wash":
+          "linear-gradient(165deg, #E8EEE9 0%, #D5DFD7 42%, #C5D1C8 100%)",
         "warm-wash":
-          "linear-gradient(165deg, #FFFFFF 0%, #F3F4F6 45%, #E5E7EB 100%)",
+          "linear-gradient(165deg, #F4F7F5 0%, #E8EEE9 45%, #D5DFD7 100%)",
+        "forest-wash":
+          "linear-gradient(165deg, #304935 0%, #2a412e 48%, #253b29 100%)",
         "cta-wash":
           "linear-gradient(135deg, #1A2B1D 0%, #273E2B 55%, #3A5640 100%)",
         "promo-wash":

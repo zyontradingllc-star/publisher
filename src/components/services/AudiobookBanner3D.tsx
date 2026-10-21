@@ -17,7 +17,7 @@ export function AudiobookBanner3D({ ctaHref, ctaLabel }: AudiobookBanner3DProps)
           <div className="relative aspect-[1024/508] w-full overflow-hidden rounded-2xl shadow-lift">
             <Image
               src="/services/audiobook-promo-banner.webp"
-              alt="Your Book. Your Voice. Your Audience. — Authors Pilot audiobook production"
+              alt="Your Book. Your Voice. Your Audience. - Authors Pilot audiobook production"
               fill
               sizes="(max-width: 1024px) 100vw, 896px"
               className="object-cover object-center"

@@ -13,7 +13,7 @@ export const bookCoverDesignSections = {
       {
         title: "Fiction Book Covers",
         description:
-          "Genre-forward covers for romance, thriller, fantasy, mystery and more — designed to attract the right readers at a glance.",
+          "Genre-forward covers for romance, thriller, fantasy, mystery and more - designed to attract the right readers at a glance.",
       },
       {
         title: "Nonfiction Book Covers",
@@ -45,7 +45,7 @@ export const bookCoverDesignSections = {
   whyUs: {
     heading: "Why Authors Choose Authors Pilot",
     body: [
-      "We combine design craft with publishing awareness. That means your cover is not only beautiful — it is built for the platform, genre and reader expectation that matter most.",
+      "We combine design craft with publishing awareness. That means your cover is not only beautiful - it is built for the platform, genre and reader expectation that matter most.",
       "From first concept to final files, you get a collaborative process, clear communication and revisions that help your cover feel unmistakably yours.",
     ],
     points: [

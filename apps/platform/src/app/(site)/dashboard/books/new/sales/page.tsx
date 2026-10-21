@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireProfile } from "@/lib/auth";
 import { PublishBookPricingForm } from "@/components/forms/PublishBookPricingForm";
 
-export const metadata = { title: "Publish Book — Pricing & Sales" };
+export const metadata = { title: "Publish Book - Pricing & Sales" };
 
 export default async function PublishBookSalesPage({
   searchParams,

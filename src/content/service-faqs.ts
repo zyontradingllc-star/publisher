@@ -184,29 +184,31 @@ export const serviceFaqs: Record<ServiceSeoSlug, ServiceFaqItem[]> = {
   ],
   "author-website-design-usa": [
     {
-      question: "What is an author website?",
+      question: "What is an author website, and why do writers need one?",
       answer:
-        "A dedicated website where readers can discover your books, learn about you, and connect with your author brand.",
+        "An author website is a professional online home where readers can discover your books, explore your biography, read reviews, and connect with you directly. Unlike Amazon or other retailer profiles, your own website gives you greater control over your author brand, book promotions, email subscribers, and purchase links.\n\nWhether you're a new writer or an established author, a dedicated website helps you build a long-term online presence beyond individual book launches.",
     },
     {
-      question: "How much does an author website cost?",
+      question: "How much does a professional author website cost?",
       answer:
-        "Author websites with Authors Pilot typically start from $250 to $1,500. A focused launch site for one book sits at the lower end. A fuller author brand site with extra pages, reviews, and list signup lands in the mid range. Custom builds for series or a growing catalog start higher. Final pricing depends on pages and features — and you review the website before you pay.",
+        "The cost of an author website depends on its design, features, and functionality. A simple author website may include your biography, book collection, contact form, and purchase links, while an advanced website can offer direct book sales, email subscriptions, blogs, and custom integrations.\n\nAuthors Pilot provides custom author website design services tailored to your books, genre, audience, and budget. Contact us for a personalized quote.",
     },
     {
-      question: "Can you create a custom website for writers?",
+      question:
+        "Can Authors Pilot create a custom website for fiction and nonfiction writers?",
       answer:
-        "Yes. We design websites around your books, writing style, audience, and goals.",
+        "Yes! Authors Pilot designs custom websites for fiction authors, nonfiction writers, self-published authors, and established writers.\n\nWhether you write romance, fantasy, mystery, children's books, business, memoirs, or educational content, we create websites that reflect your genre, personality, and target audience.\n\nYour website can include custom book pages, author biographies, reviews, media features, blogs, and links to your preferred bookstores.",
     },
     {
-      question: "Can I add more books later?",
+      question: "Can I add new books and update my author website later?",
       answer:
-        "Yes. Your website can grow with your author career.",
+        "Absolutely! Your author website can grow alongside your writing career. You can add new book releases, update descriptions, display additional titles, share upcoming launches, and expand your author portfolio.\n\nDepending on your website setup, you can manage updates through a content management system or request ongoing website support.",
     },
     {
-      question: "Can my website help with Google?",
+      question:
+        "Can an SEO-friendly author website help readers find my books on Google?",
       answer:
-        "Yes. We build your website with SEO fundamentals in mind to give your author brand a strong foundation for search visibility.",
+        "Yes. A professionally developed, SEO-friendly author website can improve how search engines discover and understand your books and author information.\n\nAuthors Pilot builds websites with search-friendly page structures, mobile-responsive layouts, optimized metadata, descriptive book pages, and relevant structured data where appropriate.\n\nThese features help establish a strong technical SEO foundation for searches related to your author name, book titles, and genres. Google indexing, rankings, and organic traffic depend on several factors and cannot be guaranteed.",
     },
   ],
 };

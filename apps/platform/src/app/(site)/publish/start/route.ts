@@ -4,9 +4,7 @@ import { LEAD_COOKIE, type AuthorLead } from "@/lib/lead-session";
 import { publicRedirect } from "@/lib/public-origin";
 
 /**
- * Public entry — no signup. Sets a guest lead cookie (Route Handler),
- * then opens the existing 3-step Publish Book flow.
- * Uses public origin so a :3000→:3001 rewrite stays on one URL.
+ * CTA entry - sets a guest lead cookie, then opens the 3-step Publish Book form.
  */
 export async function GET(request: NextRequest) {
   const hasSession = Boolean(request.cookies.get(SESSION_COOKIE)?.value);

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireProfile } from "@/lib/auth";
 import { PublishBookContentForm } from "@/components/forms/PublishBookContentForm";
 
-export const metadata = { title: "Publish Book — Content" };
+export const metadata = { title: "Publish Book - Content" };
 
 export default async function PublishBookContentPage({
   searchParams,
@@ -35,7 +35,7 @@ export default async function PublishBookContentPage({
         <p className="mt-2 text-forest-muted">
           {title
             ? title
-            : "Manuscript, cover, ISBN, and accessibility — like a KDP content step, for Authors Pilot."}
+            : "Manuscript, cover, ISBN, and accessibility - like a KDP content step, for Authors Pilot."}
         </p>
       </header>
 

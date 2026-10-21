@@ -8,15 +8,11 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ForgeNumbers } from "@/components/ui/ForgeNumbers";
 import { BestSellerCta } from "@/components/ui/BestSellerCta";
 import { GoogleReviews } from "@/components/ui/GoogleReviews";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import { ServicePageHero } from "@/components/services/ServicePageHero";
 import {
-  brand,
   journeyPageHero,
   services,
 } from "@/content/site";
-
-const telHref = `tel:${brand.phone.replace(/[^\d+]/g, "")}`;
 
 const categories = [
   {
@@ -34,7 +30,7 @@ const categories = [
         tag: "Your Name on the Cover",
         title: "Ghostwriting",
         blurb:
-          "A professional writer drafts the book around your stories, expertise, and voice — confidential, and fully yours.",
+          "A professional writer drafts the book around your stories, expertise, and voice - confidential, and fully yours.",
         href: "/ghostwriting-services-for-authors",
       },
     ],
@@ -47,7 +43,7 @@ const categories = [
         tag: "Flawless Every Page",
         title: "Book Editing & Proofreading",
         blurb:
-          "Story, line and proof editing so nothing breaks a reader's trust — your voice stays intact.",
+          "Story, line and proof editing so nothing breaks a reader's trust - your voice stays intact.",
         href: "/professional-book-editing-services",
         id: "book-editing",
       },
@@ -63,7 +59,7 @@ const categories = [
   },
   {
     heading: "Cover Design",
-    intro: "Our flagship craft — covers and art that sell.",
+    intro: "Our flagship craft - covers and art that sell.",
     items: [
       {
         tag: "Flagship Service",
@@ -120,7 +116,7 @@ const categories = [
         tag: "For Young Readers",
         title: "Children Book Publishing",
         blurb:
-          "Picture books and middle-grade stories with warmth, color and craft — illustration, layout and publishing under one roof.",
+          "Picture books and middle-grade stories with warmth, color and craft - illustration, layout and publishing under one roof.",
         href: "/book-publishing-services-for-authors",
       },
     ],
@@ -147,7 +143,7 @@ const categories = [
         tag: "Narration to Publishing",
         title: "Audiobook Production",
         blurb:
-          "Professional narration, studio mastering and distribution — audiobooks are the fastest-growing format in publishing.",
+          "Professional narration, studio mastering and distribution - audiobooks are the fastest-growing format in publishing.",
         href: "/audiobook-production-services-for-authors",
       },
     ],
@@ -163,12 +159,12 @@ const process = [
   {
     number: "02",
     title: "Concepts",
-    body: "Distinct, market-ready directions — covers, structure or strategy — so you can choose with confidence.",
+    body: "Distinct, market-ready directions - covers, structure or strategy - so you can choose with confidence.",
   },
   {
     number: "03",
     title: "Revisions",
-    body: "Unlimited tweaks on your chosen route: typography, color, copy, mood — until it feels like yours.",
+    body: "Unlimited tweaks on your chosen route: typography, color, copy, mood - until it feels like yours.",
   },
   {
     number: "04",
@@ -188,7 +184,7 @@ export function ServicesView() {
             <FadeIn className="mx-auto w-full max-w-xl text-center lg:max-w-none">
               <p className="font-sans text-base leading-relaxed text-charcoal sm:text-lg">
                 {services.hero.description} From scroll-stopping cover design to
-                global publishing and best-seller marketing — one coordinated
+                global publishing and best-seller marketing - one coordinated
                 team takes authors from idea to icon.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -244,7 +240,7 @@ export function ServicesView() {
               </h2>
               <p className="mx-auto mt-3 max-w-xl font-sans text-sm text-charcoal sm:text-base">
                 Cover design leads everything we do, but every craft your book
-                needs lives here — coordinated by a single dedicated team.
+                needs lives here - coordinated by a single dedicated team.
               </p>
             </div>
           </FadeIn>
@@ -348,7 +344,7 @@ export function ServicesView() {
                 <span className="text-[#E08A2A]">Authors Pilot</span>
               </p>
               <p className="mx-auto mt-3 max-w-xl font-sans text-sm text-charcoal sm:text-base">
-                Don&apos;t take our word for it — here&apos;s what authors say
+                Don&apos;t take our word for it - here&apos;s what authors say
                 after working with Authors Pilot.
               </p>
             </div>
@@ -356,8 +352,6 @@ export function ServicesView() {
           <GoogleReviews />
         </div>
       </section>
-
-      <AuthorConsultation />
 
       <section className="bg-cta-wash py-16 sm:py-20">
         <FadeIn className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
@@ -367,36 +361,10 @@ export function ServicesView() {
           </p>
           <p className="mx-auto mt-4 max-w-xl font-sans text-sm leading-relaxed text-white/75 sm:text-base">
             Book a free consultation and we&apos;ll map the perfect path for
-            your book — no pressure, no jargon.
+            your book - no pressure, no jargon.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
             <Button href="/contact-author-website-design-agency">Book Free Consultation</Button>
-            <a href={telHref} className="group inline-flex items-center gap-3 text-left">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/35 text-[#E08A2A] transition group-hover:border-[#A7C4AB]">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  aria-hidden
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.5 4.5h2.2l1 4.2-1.7 1.1a12.5 12.5 0 0 0 6.2 6.2l1.1-1.7 4.2 1v2.2c0 .8-.7 1.5-1.5 1.5C9.6 19 5 14.4 5 6c0-.8.7-1.5 1.5-1.5z"
-                  />
-                </svg>
-              </span>
-              <span>
-                <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
-                  Talk to an Expert
-                </span>
-                <span className="mt-0.5 block font-sans text-lg font-semibold text-white">
-                  {brand.phone}
-                </span>
-              </span>
-            </a>
           </div>
         </FadeIn>
       </section>

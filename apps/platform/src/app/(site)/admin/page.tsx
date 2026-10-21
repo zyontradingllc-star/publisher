@@ -30,7 +30,7 @@ export default async function AdminOverviewPage() {
         <h1 className="heading-section">Admin overview</h1>
         <p className="mt-2 text-forest-muted">
           Review submissions, manage listings, and resolve reader reports. Authors
-          Pilot does not track sales or royalties — only listing workflow and
+          Pilot does not track sales or royalties - only listing workflow and
           outbound link analytics.
         </p>
       </header>

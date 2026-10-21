@@ -72,18 +72,18 @@ export async function saveBookDraftAction(
   // Lead session (signup emailed to no-reply@, Supabase not ready): drop book details to inbox
   if ((await isLeadOnlySession()) || !isSupabaseConfigured()) {
     const inbox = await dropInfoToInbox({
-      subject: `Book publishing details — ${parsed.data.title}`,
+      subject: `Book publishing details - ${parsed.data.title}`,
       lines: [
         "Author book publishing details (dashboard)",
         "",
         `Author: ${parsed.data.author_display_name}`,
         `Author email: ${profile.email ?? "(unknown)"}`,
         `Title: ${parsed.data.title}`,
-        `Subtitle: ${parsed.data.subtitle || "—"}`,
+        `Subtitle: ${parsed.data.subtitle || "-"}`,
         `Slug: ${parsed.data.slug}`,
         `Language: ${parsed.data.language}`,
-        `Genre id: ${parsed.data.genre_id || "—"}`,
-        `Publication date: ${parsed.data.publication_date || "—"}`,
+        `Genre id: ${parsed.data.genre_id || "-"}`,
+        `Publication date: ${parsed.data.publication_date || "-"}`,
         "",
         "Description:",
         parsed.data.description || "(empty)",
@@ -397,7 +397,7 @@ export async function uploadManuscriptAction(formData: FormData): Promise<Action
   return {
     ok: true,
     message:
-      "Manuscript uploaded privately. Note: uploads are not malware-scanned in Phase 1 — only authorized admins and you can access this file.",
+      "Manuscript uploaded privately. Note: uploads are not malware-scanned in Phase 1 - only authorized admins and you can access this file.",
   };
 }
 
@@ -475,7 +475,7 @@ export async function upsertSalesLinkAction(
   }
 
   revalidatePath(`/dashboard/books/${bookId}`);
-  return { ok: true, message: "Sales link saved. Readers will be sent to this external URL — Authors Pilot does not process purchases." };
+  return { ok: true, message: "Sales link saved. Readers will be sent to this external URL - Authors Pilot does not process purchases." };
 }
 
 export async function deleteSalesLinkAction(formData: FormData): Promise<ActionState> {
@@ -546,6 +546,6 @@ export async function recordOutboundClickAction(formData: FormData) {
     .update({ click_count: (link.click_count ?? 0) + 1 })
     .eq("id", linkId);
 
-  // Clicks are analytics only — never treated as confirmed sales or revenue.
+  // Clicks are analytics only - never treated as confirmed sales or revenue.
   redirect(url);
 }

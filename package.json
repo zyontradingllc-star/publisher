@@ -6,6 +6,8 @@
     "dev": "next dev",
     "dev:platform": "npm run dev --prefix apps/platform",
     "dev:all": "npx --yes concurrently -n web,app -c cyan,magenta \"npm run dev\" \"npm run dev --prefix apps/platform\"",
+    "sitemap:ap": "node scripts/write-sitemap-authors-pilot.mjs",
+    "prebuild": "npm run sitemap:ap",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -16,7 +18,7 @@
   "dependencies": {
     "framer-motion": "^12.43.0",
     "lucide-react": "^1.59.0",
-    "next": "^16.2.12",
+    "next": "^16.4.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

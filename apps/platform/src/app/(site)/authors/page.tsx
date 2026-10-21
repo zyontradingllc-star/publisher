@@ -69,7 +69,7 @@ export default async function AuthorsPage({
             description={
               q
                 ? "Try a different search term."
-                : "After approval, each author gets a separate public page — profiles will appear here."
+                : "After approval, each author gets a separate public page - profiles will appear here."
             }
           />
         ) : (

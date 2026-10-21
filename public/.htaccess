@@ -2,7 +2,17 @@ Options -MultiViews
 DirectoryIndex index.html
 RewriteEngine On
 
-# Canonical service URLs — 301 old slugs before file/SPA fallback
+# --- Host / protocol first (cut redirect chains for GSC) ---
+# Force HTTPS (works behind proxies / Cloudflare as well)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
+
+# Force apex host (www → non-www)
+RewriteCond %{HTTP_HOST} ^www\.authorspilot\.com$ [NC]
+RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
+
+# Canonical service URLs — 301 old / short slugs before file/SPA fallback
 RewriteRule ^about/?$ /about-authorspilot-publishing-agency/ [R=301,L]
 RewriteRule ^contact/?$ /contact-author-website-design-agency/ [R=301,L]
 RewriteRule ^packages/?$ /author-publishing-website-price/ [R=301,L]
@@ -27,15 +37,6 @@ RewriteRule ^ghostwriting/?$ /ghostwriting-services-for-authors/ [R=301,L]
 RewriteRule ^author-website-design-usa/?$ /author-website-design-agency-usa/ [R=301,L]
 RewriteRule ^pdf-to-audio/?$ /pdf-to-audio-conversion-service/ [R=301,L]
 RewriteRule ^book-animation/?$ /book-animation-video-services/ [R=301,L]
-
-# Force HTTPS (works behind proxies / Cloudflare as well)
-RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP:X-Forwarded-Proto} !=https
-RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
-
-# Force apex host (www → non-www)
-RewriteCond %{HTTP_HOST} ^www\.authorspilot\.com$ [NC]
-RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
 
 # Trailing slash for routes — skip real files (index.html, CSS, JS, images)
 RewriteCond %{REQUEST_FILENAME} !-f

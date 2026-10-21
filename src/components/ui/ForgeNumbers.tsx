@@ -98,7 +98,7 @@ export function ForgeNumbers() {
             <span className="text-[#E08A2A]">Authors Pilot</span>
           </p>
           <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-white/75 sm:text-base">
-            A decade of designing, editing and launching bestsellers — the proof
+            A decade of designing, editing and launching bestsellers - the proof
             is in the page count, the awards, and the authors who trust us.
           </p>
         </FadeIn>

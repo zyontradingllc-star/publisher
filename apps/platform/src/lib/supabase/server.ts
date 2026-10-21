@@ -23,7 +23,7 @@ export async function createClient() {
   }
 
   if (isSupabaseCircuitOpen()) {
-    throw new Error("Supabase circuit open — skipping unreachable host");
+    throw new Error("Supabase circuit open - skipping unreachable host");
   }
 
   return createServerClient(url, key, {
@@ -37,7 +37,7 @@ export async function createClient() {
             cookieStore.set(name, value, options)
           );
         } catch {
-          // Called from a Server Component — middleware will refresh sessions.
+          // Called from a Server Component - middleware will refresh sessions.
         }
       },
     },

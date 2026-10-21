@@ -103,7 +103,7 @@ export const seoPages = {
     serviceSlug: "book-formatting",
     pageTitle: "Book Formatting Services for Authors | Authors Pilot",
     pageDescription:
-      "Book formatting services for authors — clean eBook and print interiors for Kindle, Amazon KDP, and major publishing platforms.",
+      "Book formatting services for authors - clean eBook and print interiors for Kindle, Amazon KDP, and major publishing platforms.",
     schemaName: "Book Formatting Services",
     serviceType: "Book Formatting",
     h1: "Book Formatting Services for Authors",
@@ -166,7 +166,7 @@ export const seoPages = {
     serviceSlug: "ghostwriting",
     pageTitle: "Ghostwriting Services for Authors | Authors Pilot",
     pageDescription:
-      "Ghostwriting services for authors. We write the book in your voice — you keep the byline, rights, and royalties.",
+      "Ghostwriting services for authors. We write the book in your voice - you keep the byline, rights, and royalties.",
     schemaName: "Ghostwriting Services",
     serviceType: "Ghostwriting",
     h1: "Ghostwriting Services for Authors",
@@ -190,7 +190,7 @@ export const seoPages = {
       "Author website design agency in the USA. Custom author sites built around your books, with a free mockup you can review before you pay.",
     schemaName: "Author Website Design Services",
     serviceType: "Author Website Design",
-    h1: "Author Branding — Websites Built to Sell Your Books",
+    h1: "Author Branding - Websites Built to Sell Your Books",
     keywords:
       "author website design agency USA, author website designer, author website mockup, writer website design",
     breadcrumbs: [

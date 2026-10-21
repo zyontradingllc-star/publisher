@@ -7,6 +7,7 @@ const PLATFORM =
 /** Paths that belong to apps/platform (not the marketing site). */
 const PLATFORM_PREFIXES = [
   "/publish",
+  "/bookstore",
   "/dashboard",
   "/cms",
   "/books",
@@ -19,6 +20,11 @@ const PLATFORM_PREFIXES = [
   "/verify-email",
   "/how-publishing-works",
   "/genres",
+  "/faq",
+  "/pricing",
+  "/author-guidelines",
+  "/community-policy",
+  "/copyright",
 ] as const;
 
 function normalizePath(pathname: string) {

@@ -26,7 +26,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://authorspilot.com/sitemap.xml",
+    sitemap: "https://authorspilot.com/sitemap-authors-pilot.xml",
     host: "https://authorspilot.com",
   };
 }

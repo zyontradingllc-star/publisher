@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import { ServicePageHero } from "@/components/services/ServicePageHero";
 import {
   bookMarketingCta,
@@ -223,7 +222,7 @@ const strategyTabs: Record<
   "Content Strategy": {
     title: "Content Strategy",
     description:
-      "Plan a consistent content system around your book themes, reader needs, and author goals—so every post has a purpose.",
+      "Plan a consistent content system around your book themes, reader needs, and author goals-so every post has a purpose.",
     points: [
       "Monthly content calendar",
       "Pillar topics from your book",
@@ -233,7 +232,7 @@ const strategyTabs: Record<
   "Platform-Specific Planning": {
     title: "Platform-Specific Planning",
     description:
-      "Adapt your message for Instagram, Facebook, TikTok, LinkedIn, and more—because each platform rewards different content.",
+      "Adapt your message for Instagram, Facebook, TikTok, LinkedIn, and more-because each platform rewards different content.",
     points: [
       "Platform-fit content formats",
       "Audience-first messaging",
@@ -398,8 +397,6 @@ export function BookMarketingView() {
           </FadeIn>
         </div>
       </section>
-
-      <AuthorConsultation />
 
       <section className="bg-cta-wash py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">

@@ -26,7 +26,7 @@ export async function submitToInbox(
       return { success: true };
     }
   } catch {
-    // Hostinger PHP is the only sender — no mailto popup.
+    // Hostinger PHP is the only sender - no mailto popup.
   }
 
   return {

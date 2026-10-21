@@ -60,7 +60,7 @@ export function StepUpload({
 
       {coverPreview && (
         <div className="relative mx-auto aspect-[2/3] w-40 overflow-hidden rounded-xl shadow-book ring-1 ring-sand">
-          {/* Local object URL — not a hosted asset */}
+          {/* Local object URL - not a hosted asset */}
           <img
             src={coverPreview}
             alt={`${draft.title || "Book"} cover preview`}

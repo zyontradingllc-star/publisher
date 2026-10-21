@@ -45,7 +45,7 @@ export function RoyalPackages({
               <p className="mx-auto mt-3 max-w-xl font-sans text-sm text-charcoal sm:text-base">
                 Simple, transparent, one-time pricing with full rights included.
                 Start with a stunning cover or go all the way to a marketed
-                best-seller — your royalties stay 100% yours.
+                best-seller - your royalties stay 100% yours.
               </p>
             </div>
           </FadeIn>

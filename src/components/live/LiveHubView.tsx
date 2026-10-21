@@ -14,7 +14,7 @@ export function LiveHubView() {
       </h1>
       <p className="mt-4 max-w-2xl font-sans text-sm leading-relaxed text-charcoal sm:text-base">
         Add your title, metadata, and files. Activate an AuthorsPilot storefront
-        — or send buyers to your own link. Free AI tools stay open for now.
+        - or send buyers to your own link. Free AI tools stay open for now.
       </p>
       <div className="relative mt-8 inline-flex">
         <PaidSoonBadge className="-top-3 right-0" />
@@ -46,7 +46,7 @@ export function LiveHubView() {
             Free AI utilities
           </h2>
           <p className="mt-2 font-sans text-sm leading-relaxed text-charcoal">
-            Blurbs, keywords, titles, and royalty math — useful before you pay
+            Blurbs, keywords, titles, and royalty math - useful before you pay
             for a full publishing setup.
           </p>
           <ul className="mt-5 space-y-3">

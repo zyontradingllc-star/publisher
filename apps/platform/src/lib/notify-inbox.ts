@@ -26,7 +26,7 @@ export async function dropInfoToInbox(opts: {
     return { ok: true, via: "resend" };
   }
 
-  // 2) Live Hostinger PHP mailer — prefer non-www (www→non-www 301 drops POST)
+  // 2) Live Hostinger PHP mailer - prefer non-www (www→non-www 301 drops POST)
   const marketingBases = Array.from(
     new Set([
       getPublicSiteUrl().replace(/\/$/, ""),

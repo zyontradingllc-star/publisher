@@ -23,7 +23,7 @@ export function HomeServiceLinks() {
             <span className="badge-pill">Publishing Services</span>
             <p className="mt-4 heading-section">Explore Authors Pilot Services</p>
             <p className="mt-3 font-sans text-sm leading-relaxed text-charcoal sm:text-base">
-              From first draft to published book, audiobook, and Amazon KDP launch —
+              From first draft to published book, audiobook, and Amazon KDP launch -
               find the service that matches where you are in your author journey.
             </p>
           </div>

@@ -28,7 +28,7 @@ export default async function VerifyEmailPage({ searchParams }: PageProps) {
         ) : (
           <p>
             If you just signed up, check your email for a confirmation link before logging in. Some
-            inboxes filter automated mail — check spam or promotions if you do not see it within a
+            inboxes filter automated mail - check spam or promotions if you do not see it within a
             few minutes.
           </p>
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 import { savePublishPricingAction } from "@/app/actions/publish-book";
 import type { ActionState } from "@/app/actions/auth";
@@ -30,6 +30,13 @@ export function PublishBookPricingForm({
     savePublishPricingAction,
     initialState
   );
+  const [submitIntent, setSubmitIntent] = useState<"draft" | "publish" | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (!pending) setSubmitIntent(null);
+  }, [pending]);
 
   return (
     <div className="space-y-6">
@@ -116,7 +123,7 @@ export function PublishBookPricingForm({
         <Section title="Purchase links">
           <p className="mb-4 text-sm text-forest-muted">
             Add the external URLs where readers can buy. Authors Pilot redirects
-            only — payment happens on those sites.
+            only - payment happens on those sites.
           </p>
           <div className="space-y-4">
             <div>
@@ -211,19 +218,22 @@ export function PublishBookPricingForm({
               name="intent"
               value="draft"
               disabled={pending}
+              onClick={() => setSubmitIntent("draft")}
               className="rounded-full border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
             >
-              {pending ? "Saving…" : "Save as Draft"}
+              {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
             </button>
             <button
               type="submit"
               name="intent"
               value="publish"
               disabled={pending}
+              onClick={() => setSubmitIntent("publish")}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
             >
-              {pending ? "Publishing…" : "Publish Your Book"}
-              <span aria-hidden="true">→</span>
+              {pending && submitIntent === "publish"
+                ? "Publishing…"
+                : "Publish Your Book"}
             </button>
           </div>
         </div>

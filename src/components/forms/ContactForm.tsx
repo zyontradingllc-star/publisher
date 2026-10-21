@@ -72,7 +72,7 @@ export function ContactForm() {
       email: values.email.trim(),
       creating: values.creating,
       alreadyHave: values.alreadyHave,
-      _subject: `Project Inquiry — ${values.creating}`,
+      _subject: `Project Inquiry - ${values.creating}`,
       _replyto: values.email.trim(),
       message: values.message.trim(),
     });
@@ -229,7 +229,7 @@ export function ContactForm() {
       {submitError && <p className={errorClass}>{submitError}</p>}
 
       <Button type="submit" className="w-full sm:w-auto" disabled={sending}>
-        {sending ? "Sending…" : "Get My Free Quote"}
+        {sending ? "Sending…" : "Free Consultation"}
       </Button>
       <p className="text-sm text-charcoal">{contact.hero.reassurance}</p>
     </form>

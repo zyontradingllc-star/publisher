@@ -52,7 +52,7 @@ export async function getCurrentProfile(): Promise<Profile | null> {
       if (user) {
         const profile = await getProfileById(user.uid);
         if (profile) return profile;
-        // Auth exists but profile missing — synthesize minimal profile
+        // Auth exists but profile missing - synthesize minimal profile
         return {
           id: user.uid,
           role: "author",

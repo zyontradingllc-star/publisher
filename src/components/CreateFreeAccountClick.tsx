@@ -24,7 +24,7 @@ export function CreateFreeAccountClick() {
           _subject: "Create A Free Account",
           name: "Website visitor",
           message:
-            "Someone clicked Create A Free Account on the website (no form — one-click interest).",
+            "Someone clicked Create A Free Account on the website (no form - one-click interest).",
           page: typeof window !== "undefined" ? window.location.href : "",
         }),
       });
@@ -69,7 +69,7 @@ export function CreateFreeAccountClick() {
         </p>
       ) : (
         <p className="mt-4 text-xs text-forest-muted">
-          One click — no form, no captcha. Goes straight to
+          One click - no form, no captcha. Goes straight to
           no-reply@authorspilot.com.
         </p>
       )}

@@ -7,7 +7,6 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { ServicePageHero } from "@/components/services/ServicePageHero";
 import { ServiceFaqSection } from "@/components/services/ServiceFaqSection";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import {
   audiobookProductionCta,
   audiobookProductionSections,
@@ -38,7 +37,7 @@ const itemDescriptions: Record<string, string> = {
   "Professional Narration":
     "Human narration matched to your genre, tone, and audience for a natural, engaging performance.",
   "Voice Selection":
-    "Choose the right voice for your story—warm, authoritative, dramatic, or conversational.",
+    "Choose the right voice for your story-warm, authoritative, dramatic, or conversational.",
   "Audio Editing & Mastering":
     "Clean edits, balanced levels, and mastering ready for Audible, Apple Books, and more.",
   "Audiobook Cover":
@@ -54,7 +53,7 @@ const distributionTabs: Record<
   Audible: {
     title: "Audible",
     description:
-      "Prepare your audiobook for Audible’s global marketplace—where millions of listeners discover and binge new titles every day.",
+      "Prepare your audiobook for Audible’s global marketplace-where millions of listeners discover and binge new titles every day.",
     points: [
       "ACX-ready audio specs",
       "Retail sample chapter guidance",
@@ -94,7 +93,7 @@ const distributionTabs: Record<
   "Audiobook Retailers": {
     title: "Audiobook Retailers",
     description:
-      "Expand beyond the big names—prepare your title for additional audiobook retailers and specialty listening stores.",
+      "Expand beyond the big names-prepare your title for additional audiobook retailers and specialty listening stores.",
     points: [
       "Multi-retailer file packaging",
       "Platform requirement checklists",
@@ -341,15 +340,13 @@ export function AudiobookProductionView() {
         </div>
       </section>
 
-      <AuthorConsultation />
-
       <section className="bg-cream py-10 sm:py-12">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="relative aspect-[1600/500] w-full overflow-hidden rounded-2xl shadow-soft">
               <Image
                 src="/services/audiobook-faq-banner.webp"
-                alt="Audio Book — Authors Pilot audiobook services"
+                alt="Audio Book - Authors Pilot audiobook services"
                 fill
                 sizes="(max-width: 1024px) 100vw, 1152px"
                 className="object-cover object-center"

@@ -129,7 +129,7 @@ export function FreeCoverOffer() {
 
                 <p className="mt-4 max-w-lg font-sans text-sm leading-relaxed text-charcoal sm:text-base">
                   See your book as a finished cover before you spend a cent. Request
-                  a free 3D mockup and a professional audit of your current cover —
+                  a free 3D mockup and a professional audit of your current cover -
                   no strings attached.
                 </p>
 

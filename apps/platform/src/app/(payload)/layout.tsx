@@ -1,4 +1,4 @@
-/* Payload CMS root layout — own <html>, plus site header/footer inside body. */
+/* Payload CMS root layout - own <html>, plus site header/footer inside body. */
 import type { ServerFunctionClient } from "payload";
 import config from "@payload-config";
 import "@payloadcms/next/css";
@@ -38,7 +38,7 @@ export default async function PayloadLayout({ children }: Args) {
 
   return (
     <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
-      <div className="flex min-h-screen flex-col bg-warm-wash text-ink antialiased">
+      <div className="flex min-h-screen flex-col bg-page-wash text-ink antialiased">
         <SiteHeader profile={profile} />
         <div className="min-h-0 flex-1">{children}</div>
         <SiteFooter />

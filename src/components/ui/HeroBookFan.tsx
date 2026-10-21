@@ -4,7 +4,16 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const covers = Array.from({ length: 10 }, (_, i) => `/books/book${i + 1}.webp`);
+const BOOK_COVERS = Array.from(
+  { length: 10 },
+  (_, i) => `/books/book${i + 1}.webp`,
+);
+
+/** Website page hero - business site mockups (1–10). */
+export const WEBSITE_MOCKUPS = Array.from(
+  { length: 10 },
+  (_, i) => `/websites/site-${i + 1}.webp`,
+);
 
 type Placement = {
   x: string;
@@ -29,7 +38,7 @@ const inner = (side: 1 | -1): Placement => ({
   rotateY: side * -20,
   scale: 0.85,
   z: 20,
-  dim: 0.9,
+  dim: 0.72,
   opacity: 1,
 });
 
@@ -38,7 +47,7 @@ const outer = (side: 1 | -1, opacity = 1): Placement => ({
   rotateY: side * -34,
   scale: 0.72,
   z: 10,
-  dim: 0.8,
+  dim: 0.42,
   opacity,
 });
 
@@ -56,7 +65,15 @@ function placement(distance: number, total: number): Placement {
   return distance <= total / 2 ? outer(1, 0) : outer(-1, 0);
 }
 
-export function HeroBookFan() {
+type HeroBookFanProps = {
+  covers?: string[];
+  imageAlt?: string;
+};
+
+export function HeroBookFan({
+  covers = BOOK_COVERS,
+  imageAlt = "Featured book cover",
+}: HeroBookFanProps) {
   const [lead, setLead] = useState(0);
   const [loaded, setLoaded] = useState<Record<string, boolean>>({});
 
@@ -68,7 +85,7 @@ export function HeroBookFan() {
     }, 1100);
 
     return () => window.clearInterval(id);
-  }, []);
+  }, [covers.length]);
 
   return (
     <div className="image-bob relative aspect-[4/3] w-full sm:aspect-[5/4]">
@@ -106,7 +123,7 @@ export function HeroBookFan() {
             >
               <Image
                 src={src}
-                alt={`Featured book cover ${i + 1}`}
+                alt={`${imageAlt} ${i + 1}`}
                 fill
                 sizes="(max-width: 1024px) 45vw, 320px"
                 priority={i === 0}

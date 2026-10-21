@@ -8,7 +8,7 @@ export type AuthorLead = {
   createdAt: string;
   /** Books submitted for review (lead mode without DB) */
   pendingCount?: number;
-  /** After admin would publish — demo / future count */
+  /** After admin would publish - demo / future count */
   publishedCount?: number;
   lastBookTitle?: string;
 };

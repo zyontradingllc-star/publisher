@@ -10,7 +10,7 @@ export default function CopyrightPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="heading-section">Copyright (draft)</h1>
       <p className="mt-4 text-sm text-forest-muted">
-        Draft notice for review — not legal advice. This page describes how we handle copyright
+        Draft notice for review - not legal advice. This page describes how we handle copyright
         concerns on Authors Pilot.
       </p>
 

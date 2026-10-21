@@ -15,7 +15,7 @@ export default async function DashboardProfilePage() {
         <h1 className="heading-section">Author profile</h1>
         <p className="mt-2 text-forest-muted">
           Your public author page helps readers discover your work. Authors Pilot
-          never sells books on your behalf — profile links point to channels you
+          never sells books on your behalf - profile links point to channels you
           control.
         </p>
       </header>

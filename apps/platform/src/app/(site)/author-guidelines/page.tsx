@@ -10,7 +10,7 @@ export default function AuthorGuidelinesPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="heading-section">Author guidelines</h1>
       <p className="mt-4 text-sm text-forest-muted">
-        Draft for author review — not legal advice. These guidelines explain what we expect before a
+        Draft for author review - not legal advice. These guidelines explain what we expect before a
         listing is approved.
       </p>
 

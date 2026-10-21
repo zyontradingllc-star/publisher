@@ -28,7 +28,7 @@ export default async function AdminAuthorsPage() {
         <h1 className="heading-section">Authors</h1>
         <p className="mt-2 text-forest-muted">
           Manage public author profile visibility. Book earnings stay with authors
-          — no royalty ledger here.
+          - no royalty ledger here.
         </p>
       </header>
 
@@ -48,7 +48,7 @@ export default async function AdminAuthorsPage() {
               <tr key={author.id}>
                 <td className="px-4 py-3">
                   <p className="font-semibold text-ink">
-                    {author.display_name ?? "—"}
+                    {author.display_name ?? "-"}
                   </p>
                   {author.slug ? (
                     <Link
@@ -67,7 +67,7 @@ export default async function AdminAuthorsPage() {
                   ) : null}
                 </td>
                 <td className="hidden px-4 py-3 text-forest-muted md:table-cell">
-                  {author.email ?? "—"}
+                  {author.email ?? "-"}
                 </td>
                 <td className="px-4 py-3">
                   {author.is_public ? (

@@ -2,7 +2,7 @@ import type { BookStatus } from "@/types/database";
 
 /**
  * Valid publication workflow transitions.
- * Authors never transition to `published` — only admins may approve.
+ * Authors never transition to `published` - only admins may approve.
  * Changing a browser value cannot bypass this (also enforced in Postgres).
  */
 const TRANSITIONS: Record<BookStatus, readonly BookStatus[]> = {

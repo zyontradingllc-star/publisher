@@ -8,7 +8,6 @@ import { submitToInbox } from "@/lib/email/client-submit";
 type FormState = {
   name: string;
   email: string;
-  phone: string;
   service: string;
   message: string;
 };
@@ -18,7 +17,6 @@ type FormErrors = Partial<Record<keyof FormState, string>>;
 const initial: FormState = {
   name: "",
   email: "",
-  phone: "",
   service: "",
   message: "",
 };
@@ -34,9 +32,6 @@ function validate(values: FormState): FormErrors {
   if (!emailOk.test(values.email.trim())) {
     errors.email = "Please enter a valid email.";
   }
-  if (!values.phone.trim() || values.phone.trim().length < 7) {
-    errors.phone = "Please enter a phone number.";
-  }
   if (!values.service) {
     errors.service = "Select a service.";
   }
@@ -46,8 +41,8 @@ function validate(values: FormState): FormErrors {
 
 export function QuoteForm({
   title = "Get Your Free Quote",
-  subtitle = "Tell us about your book — we’ll reply within one business day.",
-  submitLabel = "Get My Free Quote",
+  subtitle = "Tell us about your book - we’ll reply within one business day.",
+  submitLabel = "Free Consultation",
 }: {
   title?: string;
   subtitle?: string;
@@ -77,7 +72,6 @@ export function QuoteForm({
     const message = [
       `Name: ${values.name}`,
       `Email: ${values.email}`,
-      `Phone: ${values.phone}`,
       `Service: ${values.service}`,
       "",
       "About the book:",
@@ -87,9 +81,8 @@ export function QuoteForm({
     const result = await submitToInbox({
       name: values.name.trim(),
       email: values.email.trim(),
-      phone: values.phone.trim(),
       service: values.service,
-      _subject: `Free Quote Request — ${values.service || "Authors Pilot"}`,
+      _subject: `Free Quote Request - ${values.service || "Authors Pilot"}`,
       _replyto: values.email.trim(),
       message,
     });
@@ -130,7 +123,7 @@ export function QuoteForm({
         <div className="mt-6 rounded-xl border border-sand bg-ivory p-5 text-center" role="status">
           <h4 className="font-display text-lg font-semibold text-ink">Quote requested</h4>
           <p className="mt-2 font-sans text-sm text-charcoal">
-            Thanks — we’ll be in touch within one business day. You can also reach us at{" "}
+            Thanks - we’ll be in touch within one business day. You can also reach us at{" "}
             <a
               href={`mailto:${brand.email}`}
               className="font-semibold text-[#273E2B] underline-offset-2 hover:underline"
@@ -181,23 +174,6 @@ export function QuoteForm({
               required
             />
             {errors.email && <p className={errorClass}>{errors.email}</p>}
-          </div>
-          <div>
-            <label htmlFor="quote-phone" className={labelClass}>
-              Phone Number *
-            </label>
-            <input
-              id="quote-phone"
-              name="phone"
-              type="tel"
-              value={values.phone}
-              onChange={(e) => update("phone", e.target.value)}
-              placeholder="Phone Number"
-              className={fieldClass}
-              autoComplete="tel"
-              required
-            />
-            {errors.phone && <p className={errorClass}>{errors.phone}</p>}
           </div>
           <div>
             <label htmlFor="quote-service" className={labelClass}>

@@ -8,7 +8,6 @@ import { QuoteForm } from "@/components/forms/QuoteForm";
 import { ForgeNumbers } from "@/components/ui/ForgeNumbers";
 import { BestSellerCta } from "@/components/ui/BestSellerCta";
 import { GoogleReviews } from "@/components/ui/GoogleReviews";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 
 const whoPoints = [
   "A decade designing best-selling covers across every genre",
@@ -24,7 +23,7 @@ const values = [
   },
   {
     title: "Covers That Sell",
-    body: "Design isn't decoration — it's your storefront. We obsess over the craft that wins the click and the buy.",
+    body: "Design isn't decoration - it's your storefront. We obsess over the craft that wins the click and the buy.",
   },
   {
     title: "One Coordinated Team",
@@ -40,7 +39,7 @@ const values = [
   },
   {
     title: "Results You Can Measure",
-    body: "Best-seller ranks, glowing reviews and royalties — we define success the same way you do.",
+    body: "Best-seller ranks, glowing reviews and royalties - we define success the same way you do.",
   },
 ];
 
@@ -58,7 +57,7 @@ const steps = [
   {
     number: "03",
     title: "Writing & Editing",
-    body: "Our editors and designers refine every word and pixel — manuscript polished, cover concepts rendered in 3D.",
+    body: "Our editors and designers refine every word and pixel - manuscript polished, cover concepts rendered in 3D.",
   },
   {
     number: "04",
@@ -71,7 +70,7 @@ const visionPoints = [
   "Trend-forward design that ages gracefully on the shelf",
   "Data-backed marketing that compounds month over month",
   "Global distribution to 40,000+ retail & library channels",
-  "Lifetime author support — your success never expires",
+  "Lifetime author support - your success never expires",
 ];
 
 const coverStrip = [
@@ -115,7 +114,7 @@ export function AboutView() {
                 Our Story
               </span>
               <h1 className="mt-5 heading-hero sm:text-[3.2rem] lg:text-[3.5rem]">
-                About AuthorsPilot — Your{" "}
+                About AuthorsPilot - Your{" "}
                 <span className="text-[#E08A2A]">Publishing Partner</span>
               </h1>
               <p className="mt-5 max-w-xl font-sans text-base leading-relaxed text-charcoal sm:text-lg">
@@ -158,7 +157,7 @@ export function AboutView() {
               <div className="relative mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-[2rem] shadow-lift">
                 <Image
                   src="/about-banner-author.webp"
-                  alt="Authors Pilot — author at a book signing"
+                  alt="Authors Pilot - author at a book signing"
                   fill
                   sizes="(max-width: 1024px) 90vw, 448px"
                   className="image-ken-burns object-cover object-center"
@@ -335,7 +334,7 @@ export function AboutView() {
                 <span className="text-[#E08A2A]">Authors Pilot</span>
               </p>
               <p className="mx-auto mt-3 max-w-xl font-sans text-sm text-charcoal sm:text-base">
-                Don&apos;t take our word for it — here&apos;s what authors say
+                Don&apos;t take our word for it - here&apos;s what authors say
                 after working with Authors Pilot.
               </p>
             </div>
@@ -345,7 +344,6 @@ export function AboutView() {
       </section>
 
       <BestSellerCta />
-      <AuthorConsultation />
     </>
   );
 }

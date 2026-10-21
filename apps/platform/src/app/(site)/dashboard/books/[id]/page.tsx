@@ -148,7 +148,7 @@ export default async function EditBookPage({
                   className="block w-full text-sm"
                   required
                 />
-                <p className="help-text">JPEG, PNG, WebP, or GIF — max 5 MB.</p>
+                <p className="help-text">JPEG, PNG, WebP, or GIF - max 5 MB.</p>
                 <Button type="submit" variant="secondary">
                   Upload cover
                 </Button>
@@ -195,7 +195,7 @@ export default async function EditBookPage({
           <p className="font-semibold">You own your sales channels</p>
           <p className="mt-1">
             Add links to your author website, Amazon, or other stores. Readers
-            leave Authors Pilot to buy — we do not checkout, hold funds, or take
+            leave Authors Pilot to buy - we do not checkout, hold funds, or take
             royalties. Outbound clicks are analytics only, not confirmed sales.
           </p>
         </Alert>

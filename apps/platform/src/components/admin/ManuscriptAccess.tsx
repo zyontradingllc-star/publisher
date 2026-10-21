@@ -37,7 +37,7 @@ export function ManuscriptAccess({
       {error ? <Alert variant="error">{error}</Alert> : null}
       <p className="text-sm text-forest-muted">
         {filename
-          ? `On file: ${filename} (private — signed URL expires in 2 minutes)`
+          ? `On file: ${filename} (private - signed URL expires in 2 minutes)`
           : "No manuscript uploaded."}
       </p>
       <Button

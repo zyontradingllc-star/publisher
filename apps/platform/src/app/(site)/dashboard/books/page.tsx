@@ -18,7 +18,7 @@ export default async function DashboardBooksPage() {
         <div>
           <h1 className="heading-section">My books</h1>
           <p className="mt-2 text-forest-muted">
-            Drafts, submissions, and published listings — all in one place.
+            Drafts, submissions, and published listings - all in one place.
           </p>
         </div>
         <Button href="/dashboard/books/new">Publish Book</Button>

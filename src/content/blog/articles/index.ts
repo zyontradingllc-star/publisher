@@ -6,9 +6,9 @@ const blogArticles = [
     title: "How to Publish a Book: Complete Guide (Traditional vs Self-Publishing)",
     seoTitle: "How to Publish a Book Guide | Traditional vs Self-Publishing",
     metaDescription:
-      "Everything you need to know about publishing a book — compare traditional publishing, self-publishing, and hybrid options to find the right path.",
+      "Everything you need to know about publishing a book - compare traditional publishing, self-publishing, and hybrid options to find the right path.",
     excerpt:
-      "Publishing a book means turning a finished manuscript into a product readers can buy. This guide walks through every stage — from editing and design to distribution and launch.",
+      "Publishing a book means turning a finished manuscript into a product readers can buy. This guide walks through every stage - from editing and design to distribution and launch.",
     category: "Publishing",
     primaryKeyword: "how to publish a book",
     secondaryKeywords: [
@@ -30,7 +30,7 @@ const blogArticles = [
         heading: "Your Publishing Options",
         level: 2,
         paragraphs: [
-          "Publishing is the process of preparing, producing, and distributing a book so readers can discover and purchase it. It is not a single action — it is a chain of decisions about quality, positioning, and reach.",
+          "Publishing is the process of preparing, producing, and distributing a book so readers can discover and purchase it. It is not a single action - it is a chain of decisions about quality, positioning, and reach.",
           "Whether you pursue a traditional publishing deal or self-publish independently, the fundamentals stay the same: readers expect professional editing, a cover that fits the genre, and a reading experience free of formatting errors. If you have already chosen self-publishing, follow [How to Self-Publish a Book: Step-by-Step Process (2026)](/blog/how-to-self-publish-a-book) for the exact upload and launch steps.",
         ],
       },
@@ -40,7 +40,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "Before any cover or formatting work begins, your manuscript needs to be as strong as possible. Developmental editing addresses structure and pacing. Copy editing catches grammar, consistency, and clarity issues. Proofreading is the final pass before files go to production.",
-          "Many first-time authors underestimate how much revision remains after they type \"the end.\" Budget time and budget dollars for editing — it is the single highest-ROI investment in the publishing process.",
+          "Many first-time authors underestimate how much revision remains after they type \"the end.\" Budget time and budget dollars for editing - it is the single highest-ROI investment in the publishing process.",
         ],
         bullets: [
           "Developmental edit for story structure and flow",
@@ -53,7 +53,7 @@ const blogArticles = [
         heading: "Self-Publishing",
         level: 3,
         paragraphs: [
-          "Your cover is your book's storefront. On Amazon and in bookstores, readers judge genre, quality, and audience in seconds based on typography, imagery, and layout. Interior formatting matters too — margins, chapter headings, and page breaks affect readability in both print and eBook formats.",
+          "Your cover is your book's storefront. On Amazon and in bookstores, readers judge genre, quality, and audience in seconds based on typography, imagery, and layout. Interior formatting matters too - margins, chapter headings, and page breaks affect readability in both print and eBook formats.",
           "Print and digital formats require different file specifications. A print-ready PDF follows trim size and bleed rules, while an ePub or MOBI file needs reflowable text and a linked table of contents.",
         ],
       },
@@ -63,7 +63,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "Traditional publishing involves pitching literary agents or publishers, signing a contract, and working with an in-house team on editing, design, and distribution. You trade some creative control and royalty percentage for upfront validation and wider retail placement.",
-          "Self-publishing puts you in charge of every decision and every dollar. Platforms like Amazon KDP, IngramSpark, and Draft2Digital let USA authors publish directly and keep a larger share of royalties. The trade-off is that you manage — or hire for — every production step yourself.",
+          "Self-publishing puts you in charge of every decision and every dollar. Platforms like Amazon KDP, IngramSpark, and Draft2Digital let USA authors publish directly and keep a larger share of royalties. The trade-off is that you manage - or hire for - every production step yourself.",
         ],
       },
       {
@@ -71,7 +71,7 @@ const blogArticles = [
         heading: "Which Path Is Right for You?",
         level: 2,
         paragraphs: [
-          "An ISBN identifies your book in retail systems. eBooks on Amazon KDP can use a free ASIN, but wide distribution to bookstores and libraries typically requires your own ISBN. Metadata — title, subtitle, categories, keywords, and description — determines how discoverable your book is on retailer search engines.",
+          "An ISBN identifies your book in retail systems. eBooks on Amazon KDP can use a free ASIN, but wide distribution to bookstores and libraries typically requires your own ISBN. Metadata - title, subtitle, categories, keywords, and description - determines how discoverable your book is on retailer search engines.",
           "Distribution strategy depends on your goals. Amazon-only is fast and simple. Wide distribution through IngramSpark or Draft2Digital reaches Apple Books, Kobo, Barnes & Noble, and library platforms like Hoopla and OverDrive.",
         ],
       },
@@ -80,8 +80,8 @@ const blogArticles = [
         heading: "Next Steps",
         level: 2,
         paragraphs: [
-          "Publication day is a milestone, not a finish line. A launch plan might include advance reader copies, email list announcements, social media promotion, and paid ads on Amazon or Meta. Reviews accumulate over weeks and months — plan for sustained marketing, not a one-day spike.",
-          "If you have already chosen self-publishing, follow [How to Self-Publish a Book: Step-by-Step Process (2026)](/blog/how-to-self-publish-a-book) for the exact upload and launch steps. Track sales, ad spend, and reader feedback, then treat publishing as an ongoing business — not a one-time event.",
+          "Publication day is a milestone, not a finish line. A launch plan might include advance reader copies, email list announcements, social media promotion, and paid ads on Amazon or Meta. Reviews accumulate over weeks and months - plan for sustained marketing, not a one-day spike.",
+          "If you have already chosen self-publishing, follow [How to Self-Publish a Book: Step-by-Step Process (2026)](/blog/how-to-self-publish-a-book) for the exact upload and launch steps. Track sales, ad spend, and reader feedback, then treat publishing as an ongoing business - not a one-time event.",
         ],
       },
     ],
@@ -150,7 +150,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Self-publishing has moved from a last resort to a legitimate first choice for many authors. You set your own deadlines, keep creative control, and earn higher per-unit royalties than most traditional contracts offer. Still comparing paths? Start with [How to Publish a Book: Complete Guide (Traditional vs Self-Publishing)](/blog/how-to-publish-a-book), then come back here for the action steps.",
-          "The USA self-publishing market is mature. Tools for editing, design, formatting, and distribution are accessible and affordable. The authors who succeed treat self-publishing as a business — investing in quality and marketing from day one.",
+          "The USA self-publishing market is mature. Tools for editing, design, formatting, and distribution are accessible and affordable. The authors who succeed treat self-publishing as a business - investing in quality and marketing from day one.",
         ],
       },
       {
@@ -158,7 +158,7 @@ const blogArticles = [
         heading: "Step 2: Format Your Book",
         level: 2,
         paragraphs: [
-          "Self-published books compete on the same shelves as traditionally published titles. Readers notice typos, plot holes, and awkward prose immediately — and they leave reviews that affect future sales.",
+          "Self-published books compete on the same shelves as traditionally published titles. Readers notice typos, plot holes, and awkward prose immediately - and they leave reviews that affect future sales.",
           "At minimum, invest in a professional copy edit and proofread. For fiction and narrative nonfiction, a developmental edit before copy editing catches structural problems that no amount of proofreading can fix.",
         ],
       },
@@ -167,7 +167,7 @@ const blogArticles = [
         heading: "Step 3: Design Your Cover",
         level: 2,
         paragraphs: [
-          "Your cover must communicate genre and quality at thumbnail size. Study bestsellers in your category on Amazon and note typography, color palettes, and imagery patterns. Then hire a designer who understands market conventions — not just aesthetics.",
+          "Your cover must communicate genre and quality at thumbnail size. Study bestsellers in your category on Amazon and note typography, color palettes, and imagery patterns. Then hire a designer who understands market conventions - not just aesthetics.",
           "Interior formatting affects the reading experience. Print interiors need proper margins, running headers, and page numbering. eBook files need a navigable table of contents, consistent chapter styles, and clean HTML/CSS behind the scenes.",
         ],
       },
@@ -176,7 +176,7 @@ const blogArticles = [
         heading: "Step 4: Publish on Amazon KDP & Other Platforms",
         level: 2,
         paragraphs: [
-          "Amazon KDP accepts ePub for eBooks and PDF for print-on-demand paperbacks and hardcovers. IngramSpark and Draft2Digital have their own specifications. Formatting errors — wrong trim size, missing bleed, broken TOC links — cause upload rejections and delay your launch.",
+          "Amazon KDP accepts ePub for eBooks and PDF for print-on-demand paperbacks and hardcovers. IngramSpark and Draft2Digital have their own specifications. Formatting errors - wrong trim size, missing bleed, broken TOC links - cause upload rejections and delay your launch.",
           "Decide early whether you will go Amazon-exclusive (KDP Select) or distribute wide. KDP Select requires exclusivity for the eBook but offers promotional tools like Kindle Countdown Deals and inclusion in Kindle Unlimited.",
         ],
       },
@@ -279,7 +279,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "Editing is usually the largest line item. Developmental editing for a full-length novel (70,000–90,000 words) runs $1,000 to $3,000+. Copy editing costs $0.02 to $0.05 per word. Proofreading adds $0.01 to $0.03 per word on top.",
-          "Nonfiction books with citations, footnotes, or technical content may cost more. Short books and novellas cost less. Never skip editing to save money — readers and reviewers will notice.",
+          "Nonfiction books with citations, footnotes, or technical content may cost more. Short books and novellas cost less. Never skip editing to save money - readers and reviewers will notice.",
         ],
         bullets: [
           "Developmental edit: $1,000–$3,000+ for a novel",
@@ -292,7 +292,7 @@ const blogArticles = [
         heading: "Cover Design",
         level: 3,
         paragraphs: [
-          "Professional cover design ranges from $300 for a premade or template-based cover to $800–$1,500+ for custom illustration or photography. Your cover is not the place to cut corners — it directly affects click-through rates on Amazon.",
+          "Professional cover design ranges from $300 for a premade or template-based cover to $800–$1,500+ for custom illustration or photography. Your cover is not the place to cut corners - it directly affects click-through rates on Amazon.",
           "Interior formatting for print and eBook typically costs $200 to $600 depending on complexity. Books with tables, images, footnotes, or special layouts sit at the higher end.",
         ],
       },
@@ -311,7 +311,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "Marketing is the most variable expense. Some authors launch with zero ad spend and rely on organic reach. Others invest $500 to $5,000 in launch ads, newsletter promotions, and review services.",
-          "Plan for ongoing marketing, not just launch week. Amazon ads, BookBub Featured Deals, social media promotion, and email list building all cost money — but they also drive the sales that recover your production investment.",
+          "Plan for ongoing marketing, not just launch week. Amazon ads, BookBub Featured Deals, social media promotion, and email list building all cost money - but they also drive the sales that recover your production investment.",
         ],
       },
       {
@@ -320,7 +320,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Traditional publishers cover editing, design, printing, and distribution at no cost to the author. You may still hire a freelance editor before submitting to agents, and you will likely invest in your own marketing.",
-          "Royalty rates are lower — typically 10–15% of hardcover list price and 25% of eBook net — so the upfront savings come with long-term trade-offs in income per copy sold.",
+          "Royalty rates are lower - typically 10–15% of hardcover list price and 25% of eBook net - so the upfront savings come with long-term trade-offs in income per copy sold.",
         ],
       },
       {
@@ -347,7 +347,7 @@ const blogArticles = [
       {
         question: "Do publishers pay you or do you pay them?",
         answer:
-          "Legitimate traditional publishers pay you an advance and royalties. Vanity presses charge authors to publish — avoid any company that requires payment upfront for \"publishing packages.\"",
+          "Legitimate traditional publishers pay you an advance and royalties. Vanity presses charge authors to publish - avoid any company that requires payment upfront for \"publishing packages.\"",
       },
     ],
     relatedSlugs: [
@@ -406,7 +406,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Professional ghostwriting agencies like Authors Pilot offer vetted writers, project management, and contract protection. Freelance platforms (Reedsy, Upwork) provide access to individual writers at varying price points. Referrals from other authors, coaches, and industry contacts are often the most reliable source.",
-          "Avoid classified ads and cold outreach from unverified writers. Legitimate ghostwriters have portfolios, client testimonials, and clear processes — not vague promises and pressure to pay upfront.",
+          "Avoid classified ads and cold outreach from unverified writers. Legitimate ghostwriters have portfolios, client testimonials, and clear processes - not vague promises and pressure to pay upfront.",
         ],
         bullets: [
           "Ghostwriting agencies with genre specialists",
@@ -419,7 +419,7 @@ const blogArticles = [
         heading: "Red Flags to Avoid",
         level: 2,
         paragraphs: [
-          "Request writing samples in or near your genre. A ghostwriter who excels at business books may not be the right fit for literary fiction. Ask about books they have ghostwritten that are published and available — many projects are under NDA, but experienced writers can discuss their process without revealing client names.",
+          "Request writing samples in or near your genre. A ghostwriter who excels at business books may not be the right fit for literary fiction. Ask about books they have ghostwritten that are published and available - many projects are under NDA, but experienced writers can discuss their process without revealing client names.",
           "Look for consistency in voice, structure, and professionalism across samples. Pay attention to how they organize ideas, handle transitions, and maintain reader engagement.",
         ],
       },
@@ -456,7 +456,7 @@ const blogArticles = [
       {
         question: "Can a ghostwriter help with publishing too?",
         answer:
-          "Many ghostwriting agencies, including Authors Pilot, offer editing, cover design, formatting, and publishing support after the manuscript is complete — giving you a true end-to-end path.",
+          "Many ghostwriting agencies, including Authors Pilot, offer editing, cover design, formatting, and publishing support after the manuscript is complete - giving you a true end-to-end path.",
       },
     ],
     relatedSlugs: [
@@ -505,7 +505,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Ghostwriters price projects in three main ways: per word, flat project fee, or hourly. Per-word rates are most common for book-length work because they align cost with scope. Flat fees work when the project has a clearly defined outline and word count. Hourly rates appear for consulting, research-heavy phases, or shorter projects.",
-          "Payment is usually split into milestones — a deposit at signing, payments at chapter deliveries, and a final payment upon completion. Avoid any writer who demands 100% upfront.",
+          "Payment is usually split into milestones - a deposit at signing, payments at chapter deliveries, and a final payment upon completion. Avoid any writer who demands 100% upfront.",
         ],
       },
       {
@@ -529,7 +529,7 @@ const blogArticles = [
         bullets: [
           "Writer experience and published track record",
           "Research and interview requirements",
-          "Timeline — rush projects cost more",
+          "Timeline - rush projects cost more",
           "Number of revision rounds included",
         ],
       },
@@ -538,7 +538,7 @@ const blogArticles = [
         heading: "What Is Included in the Fee",
         level: 3,
         paragraphs: [
-          "A standard ghostwriting fee typically includes interviews or intake sessions, outline development, drafting, and two to three rounds of revisions. It does not usually include copy editing, proofreading, cover design, formatting, or publishing — those are separate services.",
+          "A standard ghostwriting fee typically includes interviews or intake sessions, outline development, drafting, and two to three rounds of revisions. It does not usually include copy editing, proofreading, cover design, formatting, or publishing - those are separate services.",
           "Clarify inclusions before signing. Some agencies bundle ghostwriting with editing and publishing in package pricing, which can reduce total cost compared to hiring each service separately.",
         ],
       },
@@ -548,7 +548,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Get quotes from at least two providers. Compare not just price but what is included, the writer's genre experience, and the agency's project management support.",
-          "If your budget is limited, consider starting with a detailed outline and partial manuscript before committing to a full ghostwrite. Some authors write the first draft themselves and hire a ghostwriter for revision and polish — a hybrid approach that reduces cost.",
+          "If your budget is limited, consider starting with a detailed outline and partial manuscript before committing to a full ghostwrite. Some authors write the first draft themselves and hire a ghostwriter for revision and polish - a hybrid approach that reduces cost.",
         ],
       },
     ],
@@ -561,7 +561,7 @@ const blogArticles = [
       {
         question: "Can I negotiate ghostwriter rates?",
         answer:
-          "Some flexibility exists — especially for longer projects, multi-book deals, or flexible timelines. Competing on price alone risks quality. Negotiate scope (word count, revision rounds) if the rate is above your budget.",
+          "Some flexibility exists - especially for longer projects, multi-book deals, or flexible timelines. Competing on price alone risks quality. Negotiate scope (word count, revision rounds) if the rate is above your budget.",
       },
       {
         question: "Do ghostwriters get royalties?",
@@ -614,7 +614,7 @@ const blogArticles = [
         heading: "Step 1: Find Your Idea",
         level: 2,
         paragraphs: [
-          "Every book begins with an idea — but not every idea sustains 50,000+ words. Test your concept by writing a one-page summary: Who is this for? What problem does it solve or what story does it tell? Why are you the right person to write it?",
+          "Every book begins with an idea - but not every idea sustains 50,000+ words. Test your concept by writing a one-page summary: Who is this for? What problem does it solve or what story does it tell? Why are you the right person to write it?",
           "For nonfiction, validate demand by checking competing titles on Amazon, reader reviews, and forums where your audience gathers. For fiction, clarify genre, protagonist, central conflict, and stakes before you write chapter one.",
         ],
       },
@@ -623,7 +623,7 @@ const blogArticles = [
         heading: "Step 2: Outline Your Book",
         level: 2,
         paragraphs: [
-          "Outliners map chapters, scenes, or sections before drafting. Pantsers (discovery writers) write into the dark and structure later. Most successful authors land somewhere in between — a loose chapter outline that allows flexibility.",
+          "Outliners map chapters, scenes, or sections before drafting. Pantsers (discovery writers) write into the dark and structure later. Most successful authors land somewhere in between - a loose chapter outline that allows flexibility.",
           "For nonfiction, a detailed outline with key points per chapter keeps you focused and prevents repetition. For fiction, scene lists or beat sheets (Save the Cat, Story Grid) help maintain pacing and arc.",
         ],
         bullets: [
@@ -637,7 +637,7 @@ const blogArticles = [
         heading: "Step 3: Write Your First Draft",
         level: 2,
         paragraphs: [
-          "Consistency beats intensity. Writing 500 words per day produces a 60,000-word draft in four months. Writing 3,000 words once a week produces the same result — but daily habits keep the story fresh in your mind.",
+          "Consistency beats intensity. Writing 500 words per day produces a 60,000-word draft in four months. Writing 3,000 words once a week produces the same result - but daily habits keep the story fresh in your mind.",
           "Protect your writing time. Block a recurring slot, eliminate distractions, and give yourself permission to write badly in the first draft. You cannot edit a blank page.",
         ],
       },
@@ -646,7 +646,7 @@ const blogArticles = [
         heading: "Step 4: Overcome Writer's Block",
         level: 2,
         paragraphs: [
-          "The first draft's only job is to exist. Turn off your inner critic, skip scenes you are stuck on (leave a placeholder), and move forward. Most authors report that the middle of the book is the hardest — push through it.",
+          "The first draft's only job is to exist. Turn off your inner critic, skip scenes you are stuck on (leave a placeholder), and move forward. Most authors report that the middle of the book is the hardest - push through it.",
           "When you finish, celebrate. Then put the manuscript away for at least one to two weeks before revision. Distance gives you the objectivity to cut, restructure, and strengthen.",
         ],
       },
@@ -665,7 +665,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "If you are stuck, behind schedule, or lack confidence in your writing, professional help accelerates progress. Book coaches guide you through outlining and accountability. Ghostwriters and co-writers can draft from your notes and interviews.",
-          "Authors Pilot offers book writing support at every stage — from outlining and coaching to full ghostwriting — so you do not have to finish alone. This guide stops at a finished manuscript. For publishing paths, read [How to Publish a Book](/blog/how-to-publish-a-book). For the self-publishing workflow, see [How to Self-Publish a Book](/blog/how-to-self-publish-a-book). More writing links live on [Writing Resources for Authors](/blog/writing-resources-for-authors).",
+          "Authors Pilot offers book writing support at every stage - from outlining and coaching to full ghostwriting - so you do not have to finish alone. This guide stops at a finished manuscript. For publishing paths, read [How to Publish a Book](/blog/how-to-publish-a-book). For the self-publishing workflow, see [How to Self-Publish a Book](/blog/how-to-self-publish-a-book). More writing links live on [Writing Resources for Authors](/blog/writing-resources-for-authors).",
         ],
       },
     ],
@@ -678,7 +678,7 @@ const blogArticles = [
       {
         question: "What software should I use to write a book?",
         answer:
-          "Microsoft Word, Google Docs, Scrivener, and Ulysses are popular choices. The best tool is the one you will actually use consistently. Formatting comes later — focus on drafting first.",
+          "Microsoft Word, Google Docs, Scrivener, and Ulysses are popular choices. The best tool is the one you will actually use consistently. Formatting comes later - focus on drafting first.",
       },
       {
         question: "Do I need to write every day?",
@@ -731,7 +731,7 @@ const blogArticles = [
         heading: "Print Formatting Basics",
         level: 2,
         paragraphs: [
-          "Print and eBook formatting are different disciplines. Print layout is fixed — what you design on the page is exactly what prints. eBook layout is reflowable — readers adjust font size and device, so your file must adapt gracefully.",
+          "Print and eBook formatting are different disciplines. Print layout is fixed - what you design on the page is exactly what prints. eBook layout is reflowable - readers adjust font size and device, so your file must adapt gracefully.",
           "Most authors need both formats. Amazon KDP, IngramSpark, and Draft2Digital each publish print and digital, but file requirements differ. Plan for both from the start to avoid reformatting later.",
         ],
       },
@@ -741,7 +741,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "Choose a trim size before you begin. Common fiction sizes are 5×8, 5.5×8.5, and 6×9 inches. Nonfiction often uses 6×9. Your choice affects printing cost, page count, and shelf presence.",
-          "Set margins to accommodate binding — inside (gutter) margins are wider than outside margins. Use professional fonts: Garamond, Caslon, Minion, or Palatino for body text at 10–12 pt. Chapter headings can use a complementary display font.",
+          "Set margins to accommodate binding - inside (gutter) margins are wider than outside margins. Use professional fonts: Garamond, Caslon, Minion, or Palatino for body text at 10–12 pt. Chapter headings can use a complementary display font.",
         ],
         bullets: [
           "Trim size: 5×8, 5.5×8.5, or 6×9 for most books",
@@ -755,7 +755,7 @@ const blogArticles = [
         heading: "Ebook Formatting Basics",
         level: 2,
         paragraphs: [
-          "eBooks use HTML and CSS under the hood. Style headings (H1 for chapter titles), body paragraphs, block quotes, and images with CSS classes. Avoid hard-coded font sizes — use relative units (em, %) so text scales on different devices.",
+          "eBooks use HTML and CSS under the hood. Style headings (H1 for chapter titles), body paragraphs, block quotes, and images with CSS classes. Avoid hard-coded font sizes - use relative units (em, %) so text scales on different devices.",
           "Build a linked table of contents in your ePub file. KDP converts ePub to Kindle format automatically, but a clean source file reduces conversion errors like broken links, orphaned lines, and spacing glitches.",
         ],
       },
@@ -774,7 +774,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Using tabs or spaces for paragraph indents instead of stylesheet styles. Inconsistent chapter heading formats. Embedding low-resolution images. Forgetting bleed on full-bleed cover wraps. Using multiple font families that clash.",
-          "Upload a proof copy before approving print distribution. Order a physical proof from KDP or IngramSpark and read it cover to cover. eBook errors are harder to catch — use Kindle Previewer and Apple Books validation tools.",
+          "Upload a proof copy before approving print distribution. Order a physical proof from KDP or IngramSpark and read it cover to cover. eBook errors are harder to catch - use Kindle Previewer and Apple Books validation tools.",
         ],
       },
       {
@@ -783,7 +783,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "DIY tools include Vellum (Mac, popular for fiction), Atticus (cross-platform), and Reedsy Book Editor (free, web-based). Adobe InDesign offers maximum control for complex layouts.",
-          "Professional formatting services handle the technical details and platform uploads for you. Authors Pilot formats manuscripts for KDP, IngramSpark, and wide eBook distribution — ensuring your book looks polished in every format.",
+          "Professional formatting services handle the technical details and platform uploads for you. Authors Pilot formats manuscripts for KDP, IngramSpark, and wide eBook distribution - ensuring your book looks polished in every format.",
         ],
       },
     ],
@@ -849,7 +849,7 @@ const blogArticles = [
         heading: "Step 1: Research Your Genre",
         level: 2,
         paragraphs: [
-          "Your cover is the first — and often only — marketing asset a potential reader sees. On Amazon, it appears at thumbnail size alongside dozens of competitors. A cover that communicates genre, tone, and quality in under two seconds wins the click. For the evaluation framework — what to judge, not how to build — read [What Makes a Good Book Cover? 7 Elements Every Cover Needs](/blog/what-makes-a-good-book-cover).",
+          "Your cover is the first - and often only - marketing asset a potential reader sees. On Amazon, it appears at thumbnail size alongside dozens of competitors. A cover that communicates genre, tone, and quality in under two seconds wins the click. For the evaluation framework - what to judge, not how to build - read [What Makes a Good Book Cover? 7 Elements Every Cover Needs](/blog/what-makes-a-good-book-cover).",
           "Readers do judge books by their covers. A mismatched cover (a romance cover on a thriller, a clip-art design on a business book) signals amateur production and kills conversion even if the writing is excellent.",
         ],
       },
@@ -859,7 +859,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Open Amazon and browse the top 20 bestsellers in your category. Note recurring visual patterns: color schemes, typography styles, image types (photography vs. illustration), and layout structures. Your cover should fit the genre while standing out.",
-          "Create a mood board with covers you admire. Share it with your designer so they understand the market context. The goal is not to copy — it is to signal the right genre instantly.",
+          "Create a mood board with covers you admire. Share it with your designer so they understand the market context. The goal is not to copy - it is to signal the right genre instantly.",
         ],
       },
       {
@@ -919,7 +919,7 @@ const blogArticles = [
       {
         question: "What size should my book cover be?",
         answer:
-          "For Amazon KDP eBook, upload at least 2560 × 1600 pixels. Print covers depend on trim size, page count (spine width), and bleed requirements — your designer calculates these based on your final formatted interior.",
+          "For Amazon KDP eBook, upload at least 2560 × 1600 pixels. Print covers depend on trim size, page count (spine width), and bleed requirements - your designer calculates these based on your final formatted interior.",
       },
     ],
     relatedSlugs: [
@@ -942,9 +942,9 @@ const blogArticles = [
     title: "What Makes a Good Book Cover? 7 Elements Every Cover Needs",
     seoTitle: "What Makes a Good Book Cover Design | 7 Elements That Work",
     metaDescription:
-      "Learn the design principles behind great book covers — typography, color psychology, genre conventions, and what makes readers stop scrolling.",
+      "Learn the design principles behind great book covers - typography, color psychology, genre conventions, and what makes readers stop scrolling.",
     excerpt:
-      "A good book cover is not just beautiful — it is strategic. Learn the design principles that separate bestsellers from overlooked titles.",
+      "A good book cover is not just beautiful - it is strategic. Learn the design principles that separate bestsellers from overlooked titles.",
     category: "Book Cover Design",
     primaryKeyword: "what makes a good book cover",
     secondaryKeywords: [
@@ -966,8 +966,8 @@ const blogArticles = [
         heading: "Why Your Cover Matters",
         level: 2,
         paragraphs: [
-          "The number-one job of a book cover is to tell the reader what kind of book this is. Genre clarity means a fantasy reader recognizes fantasy, a romance reader recognizes romance, and a business reader sees professionalism and authority. This article is the criteria — what to evaluate. For the build process, use [How to Design a Book Cover: Step-by-Step Process](/blog/how-to-design-a-book-cover).",
-          "When a cover sends mixed signals — a cartoon illustration on a serious memoir, a serif-heavy layout on a fast-paced thriller — readers scroll past. Clarity builds trust before a single word is read.",
+          "The number-one job of a book cover is to tell the reader what kind of book this is. Genre clarity means a fantasy reader recognizes fantasy, a romance reader recognizes romance, and a business reader sees professionalism and authority. This article is the criteria - what to evaluate. For the build process, use [How to Design a Book Cover: Step-by-Step Process](/blog/how-to-design-a-book-cover).",
+          "When a cover sends mixed signals - a cartoon illustration on a serious memoir, a serif-heavy layout on a fast-paced thriller - readers scroll past. Clarity builds trust before a single word is read.",
         ],
       },
       {
@@ -985,7 +985,7 @@ const blogArticles = [
         level: 3,
         paragraphs: [
           "Great cover typography is confident and legible. The title is the largest element. The author name is secondary (unless you are a household name). Subtitles, if used, are smaller but still readable.",
-          "Avoid overcrowding. Three text elements — title, subtitle, author — are enough. Decorative fonts work for specific genres (fantasy, historical) but should never sacrifice readability.",
+          "Avoid overcrowding. Three text elements - title, subtitle, author - are enough. Decorative fonts work for specific genres (fantasy, historical) but should never sacrifice readability.",
         ],
       },
       {
@@ -1008,7 +1008,7 @@ const blogArticles = [
         heading: "Genre Conventions",
         level: 3,
         paragraphs: [
-          "The best covers follow genre conventions closely enough to be recognized, then add one distinctive element — an unusual color choice, a striking image, an unexpected typographic treatment — that makes the cover memorable.",
+          "The best covers follow genre conventions closely enough to be recognized, then add one distinctive element - an unusual color choice, a striking image, an unexpected typographic treatment - that makes the cover memorable.",
           "Complete originality that ignores genre norms confuses readers. Pure imitation that copies a bestseller's cover looks derivative. The sweet spot is familiar plus fresh.",
         ],
       },
@@ -1076,14 +1076,14 @@ const blogArticles = [
     featuredImage: "/services/book-publishing-banner.webp",
     featuredImageAlt: "Amazon KDP publishing dashboard on a computer screen",
     shortAnswer:
-      "To publish on Amazon KDP, create a KDP account, prepare your formatted manuscript and cover files, click Create New Title, enter book details and metadata, upload interior and cover files, set pricing and territories, preview with Online Previewer, and publish — your book goes live within 72 hours.",
+      "To publish on Amazon KDP, create a KDP account, prepare your formatted manuscript and cover files, click Create New Title, enter book details and metadata, upload interior and cover files, set pricing and territories, preview with Online Previewer, and publish - your book goes live within 72 hours.",
     sections: [
       {
         id: "create-your-kdp-account",
         heading: "What Is Amazon KDP?",
         level: 2,
         paragraphs: [
-          "Go to kdp.amazon.com and sign in with your Amazon account — or create one. Complete tax information (W-9 for USA authors) and add a bank account for royalty payments. KDP pays monthly, approximately 60 days after the end of each month.",
+          "Go to kdp.amazon.com and sign in with your Amazon account - or create one. Complete tax information (W-9 for USA authors) and add a bank account for royalty payments. KDP pays monthly, approximately 60 days after the end of each month.",
           "Set up your Author Central page at author.amazon.com after your first book is live. This lets you manage your author bio, link books, track sales, and respond to reviews.",
         ],
       },
@@ -1092,7 +1092,7 @@ const blogArticles = [
         heading: "Step-by-Step Publishing Process",
         level: 2,
         paragraphs: [
-          "You need two files: an interior manuscript file and a cover file. For eBooks, upload an ePub or DOCX — KDP converts to Kindle format. For paperback, upload a print-ready PDF with correct trim size, margins, and bleed.",
+          "You need two files: an interior manuscript file and a cover file. For eBooks, upload an ePub or DOCX - KDP converts to Kindle format. For paperback, upload a print-ready PDF with correct trim size, margins, and bleed.",
           "Cover files must include front, spine, and back for print. KDP provides a cover calculator and template based on your trim size and page count. eBook covers upload as a single front-image JPEG or TIFF at 2560 × 1600 pixels minimum.",
         ],
       },
@@ -1101,8 +1101,8 @@ const blogArticles = [
         heading: "Enter Book Details and Metadata",
         level: 3,
         paragraphs: [
-          "Fill in every field on the Details page: title, subtitle, series info, edition number, author, description, publishing rights, keywords, and categories. Your book description is your sales page copy — write it with a hook, benefit, and call to action.",
-          "Choose two BISAC categories during upload. Keywords fill seven boxes of 50 characters each. Use phrases readers actually search — not single words. Tools like Publisher Rocket and Amazon's autocomplete help identify high-traffic terms.",
+          "Fill in every field on the Details page: title, subtitle, series info, edition number, author, description, publishing rights, keywords, and categories. Your book description is your sales page copy - write it with a hook, benefit, and call to action.",
+          "Choose two BISAC categories during upload. Keywords fill seven boxes of 50 characters each. Use phrases readers actually search - not single words. Tools like Publisher Rocket and Amazon's autocomplete help identify high-traffic terms.",
         ],
         bullets: [
           "Book description: 150–400 words with HTML formatting allowed",
@@ -1134,7 +1134,7 @@ const blogArticles = [
         heading: "Preview, Publish, and Launch",
         level: 3,
         paragraphs: [
-          "Use KDP's Online Previewer and order a physical proof before approving your paperback. Check for formatting errors, cover alignment, and color accuracy. Once satisfied, click Publish — eBooks typically go live within 24–72 hours.",
+          "Use KDP's Online Previewer and order a physical proof before approving your paperback. Check for formatting errors, cover alignment, and color accuracy. Once satisfied, click Publish - eBooks typically go live within 24–72 hours.",
           "After publication, set up Amazon Ads, share your book link with your email list, and monitor your KDP dashboard for sales data. Adjust keywords and ad campaigns based on performance in the first 30 days.",
         ],
       },
@@ -1202,7 +1202,7 @@ const blogArticles = [
         heading: "Step 1: Prepare Your Manuscript",
         level: 2,
         paragraphs: [
-          "Audiobook sales have grown double digits year over year for over a decade. Listeners consume books during commutes, workouts, and household tasks — times when reading is impossible. An audiobook version captures revenue you would otherwise lose.",
+          "Audiobook sales have grown double digits year over year for over a decade. Listeners consume books during commutes, workouts, and household tasks - times when reading is impossible. An audiobook version captures revenue you would otherwise lose.",
           "Amazon owns Audible, and audiobook listings link to your eBook and print editions on the same author page. Cross-format discovery means your audiobook promotes your other formats and vice versa.",
         ],
       },
@@ -1211,7 +1211,7 @@ const blogArticles = [
         heading: "Step 2: Choose a Narrator",
         level: 2,
         paragraphs: [
-          "Hiring a professional narrator is the most common path for fiction and narrative nonfiction. Narrators charge per finished hour (PFH) — typically $200 to $500+ PFH on ACX. A 70,000-word novel produces roughly 7–8 finished hours of audio.",
+          "Hiring a professional narrator is the most common path for fiction and narrative nonfiction. Narrators charge per finished hour (PFH) - typically $200 to $500+ PFH on ACX. A 70,000-word novel produces roughly 7–8 finished hours of audio.",
           "Recording yourself works for authors with public-speaking experience and access to a quiet recording space. AI narration is emerging as a lower-cost option but still lacks the nuance of human performance for most genres.",
         ],
         bullets: [
@@ -1244,7 +1244,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "ACX (Audiobook Creation Exchange) distributes to Audible, Amazon, and iTunes. You can choose exclusive (40% royalty) or non-exclusive (25% royalty) distribution. ACX is the largest audiobook marketplace.",
-          "Findaway Voices distributes to 40+ platforms including Spotify, Google Play, Kobo, and library systems. Many authors use ACX for Audible exclusivity and Findaway for wide reach — though ACX exclusivity prevents simultaneous wide distribution of the same title.",
+          "Findaway Voices distributes to 40+ platforms including Spotify, Google Play, Kobo, and library systems. Many authors use ACX for Audible exclusivity and Findaway for wide reach - though ACX exclusivity prevents simultaneous wide distribution of the same title.",
         ],
       },
       {
@@ -1253,7 +1253,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Professional production for a 70,000-word novel costs $1,500 to $4,000+ depending on narrator rates and production complexity. ACX offers royalty-share deals where narrators work for a percentage of sales instead of upfront payment.",
-          "Audiobook ROI accumulates over time. Unlike eBooks, audiobooks have less price sensitivity — listeners expect to pay $15–$30. A strong audiobook generates passive income for years, especially in series where listeners binge multiple titles.",
+          "Audiobook ROI accumulates over time. Unlike eBooks, audiobooks have less price sensitivity - listeners expect to pay $15–$30. A strong audiobook generates passive income for years, especially in series where listeners binge multiple titles.",
         ],
       },
     ],
@@ -1375,7 +1375,7 @@ const blogArticles = [
         heading: "Timeline",
         level: 3,
         paragraphs: [
-          "Contrary to popular belief, traditional publishers expect authors to drive most marketing — especially for debut and midlist titles. Big marketing budgets are reserved for lead titles. Self-published authors know from day one that marketing is their responsibility.",
+          "Contrary to popular belief, traditional publishers expect authors to drive most marketing - especially for debut and midlist titles. Big marketing budgets are reserved for lead titles. Self-published authors know from day one that marketing is their responsibility.",
           "Traditional publishing offers bookstore placement, library sales channels, and the credibility of a known imprint. Self-publishing offers Amazon's massive customer base, direct reader relationships, and the ability to pivot quickly on pricing and strategy.",
         ],
       },
@@ -1386,7 +1386,7 @@ const blogArticles = [
         paragraphs: [
           "Choose self-publishing if you want speed, control, higher per-unit income, and already have (or can build) a marketing platform. It suits entrepreneurs, coaches, genre fiction writers, and authors with a ready audience.",
           "Choose traditional publishing if you want the validation of a publishing deal, potential for a significant advance, bookstore distribution, and are willing to invest years in the process. It suits literary fiction, high-concept nonfiction, and authors seeking mainstream media attention.",
-          "Many successful authors use both — traditionally publishing some titles while self-publishing others, or self-publishing first and selling rights to a publisher after proving market demand.",
+          "Many successful authors use both - traditionally publishing some titles while self-publishing others, or self-publishing first and selling rights to a publisher after proving market demand.",
         ],
       },
     ],
@@ -1394,17 +1394,17 @@ const blogArticles = [
       {
         question: "Is self-publishing still looked down upon?",
         answer:
-          "Not the way it was a decade ago. Quality self-published books are indistinguishable from traditional titles on Amazon. The stigma fades when the product is professional — editing, cover, and formatting matter more than the publishing path.",
+          "Not the way it was a decade ago. Quality self-published books are indistinguishable from traditional titles on Amazon. The stigma fades when the product is professional - editing, cover, and formatting matter more than the publishing path.",
       },
       {
         question: "Can I switch from self-publishing to traditional later?",
         answer:
-          "Yes. Proven sales numbers strengthen your pitch to agents and publishers. Several bestselling authors started self-published and later signed traditional deals — Andy Weir (The Martian) is a famous example.",
+          "Yes. Proven sales numbers strengthen your pitch to agents and publishers. Several bestselling authors started self-published and later signed traditional deals - Andy Weir (The Martian) is a famous example.",
       },
       {
         question: "What is hybrid publishing?",
         answer:
-          "Hybrid publishing blends elements of both paths: the author may invest in production costs while the hybrid publisher provides editorial, design, and distribution services. Vet hybrid publishers carefully — some are reputable, others are vanity presses in disguise.",
+          "Hybrid publishing blends elements of both paths: the author may invest in production costs while the hybrid publisher provides editorial, design, and distribution services. Vet hybrid publishers carefully - some are reputable, others are vanity presses in disguise.",
       },
     ],
     relatedSlugs: [

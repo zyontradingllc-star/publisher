@@ -11,7 +11,7 @@ import {
 import { FadeIn } from "@/components/motion/FadeIn";
 
 const covers = Array.from(
-  { length: 9 },
+  { length: 10 },
   (_, i) => `/covers-in-motion/cover-${i + 1}.webp`,
 );
 

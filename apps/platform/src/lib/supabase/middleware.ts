@@ -14,7 +14,7 @@ export async function updateSession(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", pathname);
 
-  // Payload CMS admin + API — do not apply Firebase/lead gates
+  // Payload CMS admin + API - do not apply Firebase/lead gates
   if (pathname.startsWith("/cms") || pathname.startsWith("/api")) {
     return NextResponse.next({
       request: { headers: requestHeaders },

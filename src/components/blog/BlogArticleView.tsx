@@ -6,7 +6,6 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 import { AdSenseSlot } from "@/components/ads/AdSenseSlot";
 import {
   buildArticleFaqSchema,
@@ -258,7 +257,6 @@ export function BlogArticleView({ article, related }: Props) {
         )}
       </article>
 
-      <AuthorConsultation />
     </>
   );
 }

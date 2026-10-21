@@ -47,14 +47,7 @@ export function Button({
   );
 
   const content = (
-    <>
-      <span className="relative inline-flex items-center gap-2">{children}</span>
-      {variant === "primary" && (
-        <span aria-hidden="true" className="relative">
-          →
-        </span>
-      )}
-    </>
+    <span className="relative inline-flex items-center gap-2">{children}</span>
   );
 
   if (href) {

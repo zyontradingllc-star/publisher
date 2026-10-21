@@ -52,7 +52,7 @@ export function ReviewForm({
               Choose an action…
             </option>
             {currentStatus !== "published" ? (
-              <option value="approve">Approve — publish listing</option>
+              <option value="approve">Approve - publish listing</option>
             ) : null}
             {currentStatus === "pending_review" ||
             currentStatus === "changes_requested" ? (

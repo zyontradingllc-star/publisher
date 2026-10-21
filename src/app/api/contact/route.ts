@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   }
 
   const result = await sendAdminMail({
-    subject: `Project Inquiry — ${creating}`,
+    subject: `Project Inquiry - ${creating}`,
     text: [
       `Name: ${name.trim()}`,
       `Email: ${email.trim()}`,

@@ -107,7 +107,7 @@ export default async function AdminBookReviewPage({
           </p>
           <p className="text-sm">
             <span className="font-semibold">Account:</span>{" "}
-            {author?.display_name ?? "—"}
+            {author?.display_name ?? "-"}
             {author?.email ? ` (${author.email})` : ""}
           </p>
           {author?.slug ? (
@@ -149,7 +149,7 @@ export default async function AdminBookReviewPage({
       <section className="space-y-4">
         <h2 className="heading-display text-xl">Sales links</h2>
         <Alert variant="info">
-          External destinations only — Authors Pilot does not verify purchases or
+          External destinations only - Authors Pilot does not verify purchases or
           pay royalties.
         </Alert>
         {(book.sales_links ?? []).length === 0 ? (

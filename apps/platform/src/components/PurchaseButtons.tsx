@@ -24,7 +24,7 @@ export function PurchaseButtons({ bookId, links }: PurchaseButtonsProps) {
   return (
     <div className="space-y-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-forest-muted">
-        Purchases happen on external sites — Authors Pilot does not checkout here.
+        Purchases happen on external sites - Authors Pilot does not checkout here.
       </p>
       {active.map((link) => (
         <form key={link.id} action={recordOutboundClickAction} className="w-full">

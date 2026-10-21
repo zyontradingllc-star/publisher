@@ -8,7 +8,6 @@ import { BlogCard } from "@/components/blog/BlogCard";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { NewsletterSignup } from "@/components/ui/NewsletterSignup";
-import { AuthorConsultation } from "@/components/ui/AuthorConsultation";
 
 const SERVICE_LINKS = [
   { href: "/book-writing-services-for-authors", label: "Book Writing" },
@@ -56,11 +55,11 @@ export function BlogHomeView({ articles, featured }: Props) {
       <FadeIn>
         <span className="badge-pill">Author Resources</span>
         <h1 className="mt-4 heading-section">
-          Author Publishing Blog — Tips, Guides &amp; Resources
+          Author Publishing Blog - Tips, Guides &amp; Resources
         </h1>
         <p className="mt-4 max-w-3xl font-sans text-base leading-relaxed text-charcoal sm:text-lg">
           Practical publishing guidance on writing, self publishing, cover design,
-          formatting, Amazon KDP, and audiobooks — written for authors who want
+          formatting, Amazon KDP, and audiobooks - written for authors who want
           clear answers and a professional path forward.
         </p>
         <div className="mt-6">
@@ -175,7 +174,6 @@ export function BlogHomeView({ articles, featured }: Props) {
       </div>
     </div>
 
-      <AuthorConsultation />
     </>
   );
 }
