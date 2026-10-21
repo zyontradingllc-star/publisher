@@ -23,7 +23,24 @@ Bina Firebase + Mongo ke deploy ho jayega lekin form/login kaam nahi karega.
 
 ---
 
-## Step 1 — Railway pe Node deploy (sabse asaan)
+## Step 1 — Render pe Node deploy (recommended jab Railway down ho)
+
+1. [dashboard.render.com](https://dashboard.render.com) → **New** → **Blueprint**  
+2. GitHub repo: `zyontradingllc-star/publisher` (root pe `render.yaml` hai)  
+3. Service: `authorspilot-platform` · root `apps/platform` · Docker  
+4. Pehli deploy pe ye secrets paste karo (`apps/platform/.env.local` se):
+   - `DATABASE_URL` + `MONGODB_URI` (Atlas)
+   - saari `NEXT_PUBLIC_FIREBASE_*`
+   - `FIREBASE_CLIENT_EMAIL` + `FIREBASE_PRIVATE_KEY`
+5. Deploy → Render URL milegi (`*.onrender.com`)  
+6. Test: `https://YOUR.onrender.com/publish/`
+
+Custom domain: Render → **Settings** → **Custom Domains** → `app.authorspilot.com`  
+Hostinger DNS: CNAME `app` → jo Render bole.
+
+---
+
+## Step 1b — Railway (optional / jab platform stable ho)
 
 1. [railway.app](https://railway.app) pe account → **New Project** → **Deploy from GitHub**  
 2. Ye repo connect karo  

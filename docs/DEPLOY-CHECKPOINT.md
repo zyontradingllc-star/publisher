@@ -40,32 +40,20 @@ Static `out/` alone **cannot** run real `/dashboard/books/new/`.
 
 ---
 
-## Tomorrow — do this first
+## Next — Render (Railway currently paused / outage)
 
-1. Railway project → **+ Create** → **GitHub Repo**
-2. Root Directory: **`apps/platform`**
-3. Dockerfile
-4. Variables on that **new** service:
-
-```env
-DATABASE_URL=${{MongoDB.MONGO_PRIVATE_URL}}
-MONGODB_URI=${{MongoDB.MONGO_PRIVATE_URL}}
-PAYLOAD_SECRET=<long-random-string>
-NEXT_PUBLIC_SITE_URL=https://app.authorspilot.com
-NEXT_PUBLIC_APP_URL=https://app.authorspilot.com
-NEXT_PUBLIC_MARKETING_URL=https://authorspilot.com
-```
-
-Plus copy from `apps/platform/.env.local`:
-- all `NEXT_PUBLIC_FIREBASE_*`
-- `FIREBASE_CLIENT_EMAIL`
-- `FIREBASE_PRIVATE_KEY`
-
-5. Deploy → open Railway URL `/publish/`
-6. DNS: CNAME `app` → Railway domain → `https://app.authorspilot.com`
-7. When app.* returns 200:
+1. [Render](https://dashboard.render.com) → **New** → **Blueprint** → repo `zyontradingllc-star/publisher`
+2. Uses root `render.yaml` → service `authorspilot-platform` (`apps/platform` + Dockerfile)
+3. Paste secrets from `apps/platform/.env.local` (Atlas Mongo + Firebase)
+4. Deploy → open `*.onrender.com/publish/`
+5. Custom domain `app.authorspilot.com` + Hostinger CNAME `app`
+6. When app.* returns 200:
    - set root `.env.production` → `NEXT_PUBLIC_PLATFORM_URL=https://app.authorspilot.com`
    - `npm run build` → upload new `out/` to Hostinger
+
+### Railway (backup only)
+
+Same app: root `apps/platform`, Dockerfile, Mongo `${{MongoDB.MONGO_PRIVATE_URL}}` **or** Atlas URI from `.env.local`.
 
 ---
 
