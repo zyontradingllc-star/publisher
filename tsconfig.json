@@ -39,6 +39,7 @@
     "node_modules",
     "apps",
     "app.authors",
-    "out"
+    "out",
+    "scripts"
   ]
 }
