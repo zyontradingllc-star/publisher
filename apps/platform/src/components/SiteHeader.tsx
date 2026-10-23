@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { SignupCta } from "@/components/forms/SignupCta";
 import { Button } from "@/components/ui/Button";
 import {
   MARKETING_HOME_URL,
@@ -194,13 +195,7 @@ export function SiteHeader({ profile }: Props) {
                 </Button>
               </>
             ) : (
-              <Button
-                href="/publish/start"
-                variant="primary"
-                className="!px-4 !py-2 !text-xs"
-              >
-                Submit Your Book
-              </Button>
+              <SignupCta className="!px-4 !py-2 !text-xs" />
             )}
           </div>
 
@@ -325,7 +320,7 @@ export function SiteHeader({ profile }: Props) {
                     Dashboard
                   </Button>
                 ) : (
-                  <Button href="/publish/start">Submit Your Book</Button>
+                  <SignupCta />
                 )}
               </div>
             </div>

@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 
 const GA_MEASUREMENT_ID = "G-NLN088L5TN";
+const INSPECTLET_WID = 893917768;
 
 export function DeferredThirdParty() {
   const [ready, setReady] = useState(false);
@@ -34,6 +35,23 @@ export function DeferredThirdParty() {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}');
+        `}
+      </Script>
+      <Script id="inspectlet" strategy="lazyOnload">
+        {`
+          (function() {
+            window.__insp = window.__insp || [];
+            __insp.push(['wid', ${INSPECTLET_WID}]);
+            if (typeof window.__inspld != "undefined") return;
+            window.__inspld = 1;
+            var insp = document.createElement('script');
+            insp.type = 'text/javascript';
+            insp.async = true;
+            insp.id = "inspsync";
+            insp.src = 'https://cdn.inspectlet.com/inspectlet.js?wid=${INSPECTLET_WID}&r=' + Math.floor(new Date().getTime()/3600000);
+            var x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(insp, x);
+          })();
         `}
       </Script>
     </>

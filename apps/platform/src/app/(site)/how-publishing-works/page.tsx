@@ -47,7 +47,7 @@ export default function HowPublishingWorksPage() {
       </div>
 
       <div className="mt-8">
-        <Button href="/publish/start">Submit Your Book</Button>
+        <Button href="/signup?google=1">Signup</Button>
       </div>
     </article>
   );

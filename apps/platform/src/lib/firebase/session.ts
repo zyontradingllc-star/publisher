@@ -26,6 +26,25 @@ export async function createSessionCookie(idToken: string) {
   });
 }
 
+/**
+ * Verify a Firebase ID token (e.g. from Google popup) and mint the
+ * httpOnly session cookie. Returns decoded claims.
+ */
+export async function createSessionFromIdToken(idToken: string) {
+  const auth = adminAuth();
+  if (!auth) throw new Error("Firebase Admin is not configured");
+
+  const decoded = await auth.verifyIdToken(idToken);
+  await createSessionCookie(idToken);
+  return {
+    uid: decoded.uid,
+    email: decoded.email ?? null,
+    name: decoded.name ?? null,
+    picture: decoded.picture ?? null,
+    emailVerified: Boolean(decoded.email_verified),
+  };
+}
+
 export async function clearSessionCookie() {
   const store = await cookies();
   store.delete(SESSION_COOKIE);

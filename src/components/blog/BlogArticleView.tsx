@@ -78,7 +78,7 @@ export function BlogArticleView({ article, related }: Props) {
         items={[
           { label: "Home", href: "/book-publishing-author-website-design-agency" },
           { label: "Blog", href: "/blog/author-publishing-blog-resources" },
-          { label: article.title },
+          { label: article.title, href: `/blog/${article.slug}` },
         ]}
       />
 

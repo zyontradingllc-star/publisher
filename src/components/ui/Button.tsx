@@ -16,13 +16,13 @@ type ButtonProps = {
 
 const variants = {
   primary:
-    "rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] text-ink shadow-cta hover:brightness-105 hover:shadow-cta-lg focus-visible:ring-[#E08A2A] uppercase tracking-wide",
+    "rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] text-ink shadow-cta hover:brightness-105 hover:shadow-cta-lg focus-visible:ring-[#E08A2A] uppercase tracking-wide",
   secondary:
-    "rounded-full bg-ink text-linen shadow-soft hover:bg-slate hover:shadow-lift focus-visible:ring-ink uppercase tracking-wide",
+    "rounded-none bg-ink text-linen shadow-soft hover:bg-slate hover:shadow-lift focus-visible:ring-ink uppercase tracking-wide",
   ghost:
-    "rounded-full bg-white text-ink border border-sand hover:border-coral/40 focus-visible:ring-coral uppercase tracking-wide",
+    "rounded-none bg-white text-ink border border-sand hover:border-coral/40 focus-visible:ring-coral uppercase tracking-wide",
   inverse:
-    "rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] text-ink shadow-cta hover:brightness-105 hover:shadow-cta-lg focus-visible:ring-[#E08A2A] uppercase tracking-wide",
+    "rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] text-ink shadow-cta hover:brightness-105 hover:shadow-cta-lg focus-visible:ring-[#E08A2A] uppercase tracking-wide",
 };
 
 export function Button({

@@ -71,10 +71,19 @@ export async function getBookBySlug(slug: string) {
         overrideAccess: true,
       });
       const doc = result.docs[0];
-      return {
-        book: doc ? mapPayloadBook(doc as never) : null,
-        error: null as string | null,
-      };
+      if (!doc) {
+        return { book: null as BookWithRelations | null, error: null as string | null };
+      }
+      const book = mapPayloadBook(doc as never);
+      try {
+        const { getSalesLinksForBookPayload } = await import(
+          "@/lib/data/books-payload"
+        );
+        book.sales_links = await getSalesLinksForBookPayload(String(doc.id));
+      } catch {
+        book.sales_links = [];
+      }
+      return { book, error: null as string | null };
     } catch (err) {
       return {
         book: null as BookWithRelations | null,
@@ -314,8 +323,9 @@ export async function getMyBooks(
 
   if (authorId && authorId !== "lead-session") {
     try {
+      const { usePayloadData } = await import("@/lib/data/flags");
       const { isFirebaseConfigured } = await import("@/lib/firebase/config");
-      if (isFirebaseConfigured()) {
+      if (usePayloadData() || isFirebaseConfigured()) {
         const { getBooksByAuthor } = await import("@/lib/firebase/books");
         for (const book of await getBooksByAuthor(authorId)) {
           if (seen.has(book.id)) continue;
@@ -336,13 +346,27 @@ export async function getMyBook(authorId: string, bookId: string) {
     return { book: null, error: null as string | null };
   }
   try {
+    const { usePayloadData } = await import("@/lib/data/flags");
     const { isFirebaseConfigured } = await import("@/lib/firebase/config");
-    if (!isFirebaseConfigured()) {
+    if (!usePayloadData() && !isFirebaseConfigured()) {
       return { book: null, error: null as string | null };
     }
     const { getBookForAuthor } = await import("@/lib/firebase/books");
     const book = await getBookForAuthor(authorId, bookId);
-    return { book: book as BookWithRelations | null, error: null as string | null };
+    if (!book) {
+      return { book: null, error: null as string | null };
+    }
+    let sales_links: SalesLink[] = [];
+    if (usePayloadData()) {
+      const { getSalesLinksForBookPayload } = await import(
+        "@/lib/data/books-payload"
+      );
+      sales_links = await getSalesLinksForBookPayload(bookId);
+    }
+    return {
+      book: { ...book, sales_links } as BookWithRelations,
+      error: null as string | null,
+    };
   } catch (err) {
     return {
       book: null,

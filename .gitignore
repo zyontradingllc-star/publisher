@@ -29,6 +29,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# Hostinger PHP secrets (Turnstile secret for send-mail.php)
+/public/send-mail.secrets.php
+
 # vercel
 .vercel
 

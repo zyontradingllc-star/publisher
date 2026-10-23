@@ -179,9 +179,12 @@ export async function savePublishDetailsAction(
     }
   }
 
+  const { usePayloadData: usePayloadForDraft } = await import(
+    "@/lib/data/flags"
+  );
   const leadOnly =
     (await isLeadOnlySession()) ||
-    !isFirebaseConfigured() ||
+    (!usePayloadForDraft() && !isFirebaseConfigured()) ||
     profile.id === "lead-session";
 
   if (leadOnly) {
@@ -191,7 +194,7 @@ export async function savePublishDetailsAction(
     return {
       ok: true,
       message:
-        "Draft details saved. Click Save and Continue for the Content step. (Configure DATABASE_URL + PAYLOAD_SECRET to store submissions in Payload.)",
+        "Draft details saved. Click Save and Continue for the Content step. (Configure DATABASE_URL + PAYLOAD_SECRET, or set USE_PAYLOAD_DATA=true.)",
     };
   }
 
@@ -355,7 +358,14 @@ export async function savePublishContentAction(
     }
   }
 
-  if (bookId && isFirebaseConfigured() && profile.id !== "lead-session") {
+  const { usePayloadData: usePayloadDataContent } = await import(
+    "@/lib/data/flags"
+  );
+  if (
+    bookId &&
+    profile.id !== "lead-session" &&
+    (usePayloadDataContent() || isFirebaseConfigured())
+  ) {
     try {
       const patch: Record<string, unknown> = {};
       if (coverFile) {
@@ -381,7 +391,7 @@ export async function savePublishContentAction(
         patch.manuscript_size_bytes = manuscriptFile.size;
       }
       if (Object.keys(patch).length) {
-        await updateBook(bookId, patch);
+        await updateBook(bookId, patch as Parameters<typeof updateBook>[1]);
       }
     } catch (err) {
       console.warn(
@@ -456,16 +466,21 @@ export async function savePublishPricingAction(
     if (!url) continue;
     try {
       const u = new URL(url);
-      if (u.protocol !== "http:" && u.protocol !== "https:") {
-        return { ok: false, message: "Purchase links must use http:// or https://" };
+      if (u.protocol !== "https:") {
+        return { ok: false, message: "Purchase links must use https://" };
       }
     } catch {
       return { ok: false, message: `Invalid URL: ${url}` };
     }
   }
 
-  // Persist sales links + pending status in Firestore when configured
-  if (bookId && isFirebaseConfigured() && profile.id !== "lead-session") {
+  // Persist sales links + pending status (Payload when USE_PAYLOAD_DATA, else Firestore)
+  const { usePayloadData } = await import("@/lib/data/flags");
+  if (
+    bookId &&
+    profile.id !== "lead-session" &&
+    (usePayloadData() || isFirebaseConfigured())
+  ) {
     try {
       const linkRows = [];
       if (linkAuthor) {

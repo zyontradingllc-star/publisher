@@ -10,7 +10,7 @@ type SendMailInput = {
 export async function sendMail({ to, subject, text, html }: SendMailInput) {
   const resendKey = process.env.RESEND_API_KEY;
   const from =
-    process.env.EMAIL_FROM || "Authors Pilot <hello@authorspilot.com>";
+    process.env.EMAIL_FROM || "Authors Pilot <info@authorspilot.com>";
 
   if (!resendKey) {
     return {

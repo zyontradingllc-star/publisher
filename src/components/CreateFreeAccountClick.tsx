@@ -50,7 +50,7 @@ export function CreateFreeAccountClick() {
         type="button"
         onClick={handleClick}
         disabled={status === "sending" || status === "sent"}
-        className="w-full rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-6 py-4 font-sans text-sm font-bold uppercase tracking-wide text-ink shadow-cta transition hover:brightness-105 hover:shadow-cta-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E08A2A] focus-visible:ring-offset-2 disabled:opacity-70"
+        className="w-full rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-6 py-4 font-sans text-sm font-bold uppercase tracking-wide text-ink shadow-cta transition hover:brightness-105 hover:shadow-cta-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E08A2A] focus-visible:ring-offset-2 disabled:opacity-70"
       >
         {status === "sending"
           ? "Sending…"

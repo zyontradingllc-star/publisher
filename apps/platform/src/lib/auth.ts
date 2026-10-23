@@ -95,6 +95,15 @@ export async function requireUser(nextPath = "/dashboard") {
 
 export async function requireProfile(nextPath = "/dashboard") {
   const profile = await getCurrentProfile();
+  const needsSignup =
+    nextPath.startsWith("/dashboard/books/new") &&
+    (!profile || profile.id === "lead-session");
+
+  if (needsSignup) {
+    redirect(
+      `/signup?next=${encodeURIComponent(nextPath)}&google=1`
+    );
+  }
   if (!profile) {
     redirect(`/login?next=${encodeURIComponent(nextPath)}`);
   }

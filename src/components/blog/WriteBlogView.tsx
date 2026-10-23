@@ -153,7 +153,7 @@ export function WriteBlogView() {
               Submit your article
             </h3>
             <p className="mt-2 font-sans text-sm text-charcoal">
-              Your draft goes straight to hello@authorspilot.com - no verification
+              Your draft goes straight to info@authorspilot.com - no verification
               code.
             </p>
 

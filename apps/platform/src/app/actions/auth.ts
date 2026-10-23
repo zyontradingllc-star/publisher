@@ -7,10 +7,14 @@ import { isFirebaseConfigured } from "@/lib/firebase/config";
 import { adminAuth } from "@/lib/firebase/admin";
 import {
   clearSessionCookie,
+  createSessionFromIdToken,
   sendPasswordResetEmail,
   signInWithPassword,
 } from "@/lib/firebase/session";
-import { createAuthorProfile } from "@/lib/firebase/profiles";
+import {
+  createAuthorProfile,
+  getProfileById,
+} from "@/lib/firebase/profiles";
 import {
   forgotPasswordSchema,
   loginSchema,
@@ -18,6 +22,7 @@ import {
   signupSchema,
 } from "@/lib/validations";
 import { getAppUrl } from "@/lib/env";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 export type ActionState = {
   ok: boolean;
@@ -35,11 +40,13 @@ export async function signupAction(
   _prev: ActionState,
   formData: FormData
 ): Promise<ActionState> {
+  const rawName = String(formData.get("displayName") || "").trim();
   const parsed = signupSchema.safeParse({
     email: formData.get("email"),
+    confirmEmail: formData.get("confirmEmail"),
     password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
-    displayName: formData.get("displayName"),
+    confirmPassword: formData.get("confirmPassword") || undefined,
+    displayName: rawName || undefined,
   });
 
   if (!parsed.success) {
@@ -53,7 +60,11 @@ export async function signupAction(
     };
   }
 
-  const { email, password, displayName } = parsed.data;
+  const { email, password } = parsed.data;
+  const displayName =
+    parsed.data.displayName ||
+    email.split("@")[0]?.replace(/[._+-]+/g, " ").trim() ||
+    "Author";
 
   const inbox = await dropInfoToInbox({
     subject: `Signup As Author - ${displayName}`,
@@ -116,7 +127,8 @@ export async function signupAction(
     await createAuthorProfile({ uid, email, displayName });
     await signInWithPassword(email, password);
     await clearAuthorLeadCookie().catch(() => undefined);
-    redirect("/dashboard/books/new");
+    const next = String(formData.get("next") || "/dashboard/books/new");
+    redirect(next.startsWith("/") ? next : "/dashboard/books/new");
   } catch (err) {
     // NEXT_REDIRECT is thrown by redirect() - rethrow
     if (
@@ -135,6 +147,106 @@ export async function signupAction(
       createdAt: new Date().toISOString(),
     });
     redirect("/dashboard/books/new");
+  }
+}
+
+/**
+ * Continue with Google: optional Cloudflare Turnstile → verify ID token →
+ * ensure author profile → session → next (default publish form for new authors).
+ */
+export async function continueWithGoogleAction(
+  idToken: string,
+  nextPath = "/dashboard",
+  turnstileToken?: string | null
+): Promise<ActionState> {
+  if (!idToken || typeof idToken !== "string") {
+    return { ok: false, message: "Google sign-in did not return a token." };
+  }
+
+  if (!isFirebaseConfigured()) {
+    return {
+      ok: false,
+      message:
+        "Google sign-in needs Firebase. Enable Google in Authentication → Sign-in method.",
+    };
+  }
+
+  // Signup passes turnstileToken (string|null). Login omits it — skip captcha.
+  if (turnstileToken !== undefined) {
+    const captcha = await verifyTurnstileToken(turnstileToken);
+    if (!captcha.success) {
+      return {
+        ok: false,
+        message: captcha.message || "Security check failed.",
+      };
+    }
+  }
+
+  try {
+    const session = await createSessionFromIdToken(idToken);
+    if (!session.email) {
+      return {
+        ok: false,
+        message: "Your Google account has no email. Use another account.",
+      };
+    }
+
+    const displayName =
+      session.name?.trim() || session.email.split("@")[0] || "Author";
+
+    const existing = await getProfileById(session.uid);
+    const isNew = !existing;
+
+    if (isNew) {
+      await createAuthorProfile({
+        uid: session.uid,
+        email: session.email,
+        displayName,
+      });
+      const inbox = await dropInfoToInbox({
+        subject: `Signup As Author (Google) - ${displayName}`,
+        lines: [
+          "New author signup via Google (Authors Pilot platform)",
+          "",
+          `Display name: ${displayName}`,
+          `Email: ${session.email}`,
+          `Firebase UID: ${session.uid}`,
+          `Submitted at: ${new Date().toISOString()}`,
+          "",
+          "Auth backend: Firebase Google",
+        ],
+      });
+      if (!inbox.ok) {
+        console.warn("[google-signup] inbox drop failed:", inbox.error);
+      }
+    }
+
+    await clearAuthorLeadCookie().catch(() => undefined);
+
+    const safeNext = nextPath.startsWith("/") ? nextPath : "/dashboard";
+    // New authors always land on the publish form; returning users honor nextPath
+    // (signup CTA passes /dashboard/books/new so the form opens with Google name/email).
+    redirect(isNew || safeNext === "/dashboard/books/new" ? "/dashboard/books/new" : safeNext);
+  } catch (err) {
+    if (
+      err &&
+      typeof err === "object" &&
+      "digest" in err &&
+      String((err as { digest?: string }).digest).startsWith("NEXT_REDIRECT")
+    ) {
+      throw err;
+    }
+    console.warn(
+      "[google-continue]",
+      err instanceof Error ? err.message : err
+    );
+    return {
+      ok: false,
+      message:
+        err instanceof Error
+          ? err.message
+          : "Google sign-in failed. Please try again.",
+    };
   }
 }
 

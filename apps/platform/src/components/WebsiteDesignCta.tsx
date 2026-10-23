@@ -102,7 +102,7 @@ export function WebsiteDesignCta({
         <button
           type="button"
           onClick={handleClick}
-          className="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-6 py-3 font-sans text-sm font-bold uppercase tracking-wide text-ink shadow-cta transition duration-300 hover:brightness-105 hover:shadow-cta-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E08A2A] focus-visible:ring-offset-2"
+          className="group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-6 py-3 font-sans text-sm font-bold uppercase tracking-wide text-ink shadow-cta transition duration-300 hover:brightness-105 hover:shadow-cta-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E08A2A] focus-visible:ring-offset-2"
         >
           <span>Get Your Author Website</span>
         </button>

@@ -31,10 +31,15 @@ export async function updateSession(request: NextRequest) {
   const hasFirebaseSession = Boolean(request.cookies.get(SESSION_COOKIE)?.value);
   const firebaseOn = isFirebaseConfigured();
 
+  // Publish wizard: always signup first (no guest lead bypass)
+  if (pathname.startsWith("/dashboard/books/new") && !hasFirebaseSession) {
+    return publicRedirect(
+      request,
+      `/signup?next=${encodeURIComponent(pathname)}&google=1`
+    );
+  }
+
   if ((isDashboard || isAdmin) && !hasFirebaseSession && !hasLead) {
-    if (pathname.startsWith("/dashboard/books/new")) {
-      return publicRedirect(request, "/publish");
-    }
     const loginPath = firebaseOn ? "/login" : "/signup";
     return publicRedirect(
       request,
@@ -52,7 +57,12 @@ export async function updateSession(request: NextRequest) {
       pathname === "/signup" ||
       pathname.startsWith("/signup/"))
   ) {
-    return publicRedirect(request, "/dashboard");
+    // Signup CTA → publish form; login → dashboard
+    const dest =
+      pathname === "/signup" || pathname.startsWith("/signup/")
+        ? "/dashboard/books/new"
+        : "/dashboard";
+    return publicRedirect(request, dest);
   }
 
   return response;

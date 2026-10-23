@@ -1,6 +1,5 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { getSessionUser } from "@/lib/auth";
 import { reportSchema } from "@/lib/validations";
 import type { ActionState } from "@/app/actions/auth";
@@ -20,20 +19,11 @@ export async function reportBookAction(
     return { ok: false, message: "Please provide a reason for the report." };
   }
 
-  const user = await getSessionUser();
-  const supabase = await createClient();
-  const { error } = await supabase.from("content_reports").insert({
-    book_id: parsed.data.book_id,
-    reason: parsed.data.reason,
-    details: parsed.data.details || null,
-    reporter_email: parsed.data.reporter_email || user?.email || null,
-    reporter_user_id: user?.id ?? null,
-  });
-
-  if (error) return { ok: false, message: error.message };
+  void (await getSessionUser());
 
   return {
-    ok: true,
-    message: "Thank you. Your report was submitted for review.",
+    ok: false,
+    message:
+      "Reporting is temporarily unavailable while we move off Supabase. Email hello@authorspilot.com with the book URL and reason.",
   };
 }

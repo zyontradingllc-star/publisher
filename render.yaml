@@ -1,5 +1,6 @@
-# Authors Pilot platform — Render Blueprint (Railway alternative)
-# Dashboard: New → Blueprint → connect zyontradingllc-star/publisher
+# Authors Pilot — complete Render Blueprint
+# Marketing (static) stays on Hostinger; this deploys the publishing platform only.
+# Apply: https://dashboard.render.com/blueprint/new?repo=https://github.com/zyontradingllc-star/publisher
 # Docs: https://render.com/docs/blueprint-spec
 
 services:
@@ -17,8 +18,13 @@ services:
       paths:
         - apps/platform/**
     envVars:
+      # --- Runtime ---
       - key: NODE_ENV
         value: production
+      - key: HOSTNAME
+        value: "0.0.0.0"
+
+      # --- Public URLs ---
       - key: NEXT_PUBLIC_SITE_URL
         value: https://app.authorspilot.com
       - key: NEXT_PUBLIC_APP_URL
@@ -27,17 +33,32 @@ services:
         value: https://authorspilot.com
       - key: PUBLIC_SITE_URL
         value: https://authorspilot.com
+
+      # --- Email ---
       - key: EMAIL_FROM
         value: Authors Pilot <no-reply@authorspilot.com>
       - key: ADMIN_NOTIFICATION_EMAIL
-        value: hello@authorspilot.com
+        value: info@authorspilot.com
+      - key: RESEND_API_KEY
+        sync: false
+
+      # --- Upload limits ---
+      - key: MAX_COVER_BYTES
+        value: "5242880"
+      - key: MAX_MANUSCRIPT_BYTES
+        value: "26214400"
+
+      # --- Payload CMS ---
       - key: PAYLOAD_SECRET
         generateValue: true
-      # Paste from apps/platform/.env.local in Render dashboard (first deploy prompts):
+
+      # --- MongoDB (Atlas) — paste from apps/platform/.env.local ---
       - key: DATABASE_URL
         sync: false
       - key: MONGODB_URI
         sync: false
+
+      # --- Firebase (client) ---
       - key: NEXT_PUBLIC_FIREBASE_API_KEY
         sync: false
       - key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
@@ -50,6 +71,8 @@ services:
         sync: false
       - key: NEXT_PUBLIC_FIREBASE_APP_ID
         sync: false
+
+      # --- Firebase (admin / server) ---
       - key: FIREBASE_CLIENT_EMAIL
         sync: false
       - key: FIREBASE_PRIVATE_KEY

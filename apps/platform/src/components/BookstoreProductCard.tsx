@@ -67,7 +67,7 @@ export function BookstoreProductCard({
         </p>
         <Link
           href={href}
-          className="mt-2 inline-flex items-center justify-center rounded-full border border-sand bg-ivory px-3 py-1.5 text-center text-[11px] font-bold uppercase tracking-wide text-ink transition hover:border-coral/40"
+          className="mt-2 inline-flex items-center justify-center rounded-none border border-sand bg-ivory px-3 py-1.5 text-center text-[11px] font-bold uppercase tracking-wide text-ink transition hover:border-coral/40"
         >
           View listing
         </Link>

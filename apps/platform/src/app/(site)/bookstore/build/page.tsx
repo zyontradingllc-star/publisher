@@ -120,7 +120,7 @@ export default async function BookstorePage({
               Search
             </button>
           </form>
-          <Button href="/publish/start" className="!px-4 !py-2.5 !text-xs">
+          <Button href="/signup?google=1" className="!px-4 !py-2.5 !text-xs">
             Submit Your Book
           </Button>
         </div>
@@ -220,7 +220,7 @@ export default async function BookstorePage({
                     ? "Try another search or clear filters. New titles appear after approval."
                     : "Approved listings will show here for readers to discover."
                 }
-                actionHref="/publish/start"
+                actionHref="/signup?google=1"
                 actionLabel="Submit Your Book"
               />
             ) : (

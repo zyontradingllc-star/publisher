@@ -122,7 +122,7 @@ export default function FaqPage() {
           bestseller, Authors Pilot helps you take the next step.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <Button href="/publish/start">Submit Your Book</Button>
+          <Button href="/signup?google=1">Signup</Button>
           <Button href={MARKETING_HOME_URL} variant="ghost">
             Explore Publishing Services
           </Button>

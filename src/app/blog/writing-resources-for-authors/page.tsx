@@ -18,7 +18,7 @@ export default function WriteBlogPage() {
         items={[
           { label: "Home", href: "/book-publishing-author-website-design-agency" },
           { label: "Blog", href: "/blog/author-publishing-blog-resources" },
-          { label: "Write" },
+          { label: "Write", href: "/blog/writing-resources-for-authors" },
         ]}
       />
       <WriteBlogView />

@@ -21,7 +21,7 @@ const columns = [
     title: "Publish With Us",
     links: [
       { href: platformHref("/publish"), label: "Publish Your Book" },
-      { href: platformHref("/publish/start"), label: "Submit Your Book" },
+      { href: platformHref("/signup"), label: "Signup" },
       { href: platformHref("/bookstore"), label: "BookStore" },
       { href: platformHref("/authors"), label: "Browse Authors" },
       { href: platformHref("/pricing"), label: "Pricing" },

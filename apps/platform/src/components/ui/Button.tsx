@@ -20,13 +20,13 @@ type ButtonProps = {
 
 const variants: Record<Variant, string> = {
   primary:
-    "rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] text-ink shadow-cta hover:brightness-105 hover:shadow-cta-lg focus-visible:ring-[#E08A2A] uppercase tracking-wide",
+    "rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] text-ink shadow-cta hover:brightness-105 hover:shadow-cta-lg focus-visible:ring-[#E08A2A] uppercase tracking-wide",
   secondary:
-    "rounded-full bg-ink text-linen shadow-soft hover:bg-slate hover:shadow-lift focus-visible:ring-ink uppercase tracking-wide",
+    "rounded-none bg-ink text-linen shadow-soft hover:bg-slate hover:shadow-lift focus-visible:ring-ink uppercase tracking-wide",
   ghost:
-    "rounded-full bg-white text-ink border border-sand hover:border-coral/40 focus-visible:ring-coral uppercase tracking-wide",
+    "rounded-none bg-white text-ink border border-sand hover:border-coral/40 focus-visible:ring-coral uppercase tracking-wide",
   danger:
-    "rounded-full bg-red-600 text-white shadow-soft hover:bg-red-700 focus-visible:ring-red-600 uppercase tracking-wide",
+    "rounded-none bg-red-600 text-white shadow-soft hover:bg-red-700 focus-visible:ring-red-600 uppercase tracking-wide",
 };
 
 export function Button({

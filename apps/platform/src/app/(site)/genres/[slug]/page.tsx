@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { BookCard } from "@/components/BookCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { getGenreBySlug, getPublishedBooks } from "@/lib/books";
-import { isSupabaseConfigured } from "@/lib/supabase/server";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -13,7 +12,6 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (!isSupabaseConfigured()) return { title: "Genre" };
   const genre = await getGenreBySlug(slug).catch(() => null);
   if (!genre) return { title: "Genre" };
   return {
@@ -28,8 +26,6 @@ export default async function GenrePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page ?? "1") || 1);
-
-  if (!isSupabaseConfigured()) notFound();
 
   const genre = await getGenreBySlug(slug).catch(() => null);
   if (!genre) notFound();

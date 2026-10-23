@@ -110,7 +110,7 @@ export function DiyGuideView({ guide }: Props) {
         items={[
           { label: "Home", href: "/book-publishing-author-website-design-agency" },
           { label: "Free Guides", href: "/publish-book-for-free" },
-          { label: guide.title },
+          { label: guide.title, href: `/${guide.slug}` },
         ]}
       />
 

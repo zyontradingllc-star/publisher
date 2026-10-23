@@ -84,7 +84,7 @@ export default function HomePageClient() {
               className="mt-8"
             >
               <div className="flex flex-wrap justify-center gap-3 md:justify-start">
-                <Button href={platformHref("/publish")}>Submit Your Book</Button>
+                <Button href={platformHref("/signup?google=1")}>Signup</Button>
               </div>
               <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-charcoal">
                 <span className="inline-flex items-center gap-2">

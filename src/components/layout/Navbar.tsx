@@ -7,9 +7,8 @@ import { useEffect, useState } from "react";
 import { brand, homeHref, navLinks, servicesNavChildren } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { BrandLogo } from "@/components/layout/BrandLogo";
+import { SignupCta } from "@/components/SignupCta";
 import { platformHref } from "@/lib/platform";
-
-const SUBMIT_BOOK_HREF = platformHref("/publish/start");
 
 export function Navbar() {
   const pathname = usePathname();
@@ -180,13 +179,7 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center lg:flex">
-            <Button
-              href={SUBMIT_BOOK_HREF}
-              variant="primary"
-              className="cta-blink !px-4 !py-2 !text-xs"
-            >
-              Submit Your Book
-            </Button>
+            <SignupCta className="cta-blink !px-4 !py-2 !text-xs" />
           </div>
 
           <button
@@ -314,9 +307,7 @@ export function Navbar() {
                   })}
                 </ul>
                 <div className="flex justify-center pt-4">
-                  <Button href={SUBMIT_BOOK_HREF} className="cta-blink">
-                    Submit Your Book
-                  </Button>
+                  <SignupCta className="cta-blink" />
                 </div>
               </div>
             </motion.div>

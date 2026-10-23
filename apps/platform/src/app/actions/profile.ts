@@ -65,9 +65,10 @@ export async function updateProfileAction(
     data.display_name && data.slug && (data.bio?.length ?? 0) > 20
   );
 
+  const { usePayloadData } = await import("@/lib/data/flags");
   const leadOnly =
     (await isLeadOnlySession()) ||
-    !isFirebaseConfigured() ||
+    (!usePayloadData() && !isFirebaseConfigured()) ||
     profile.id === "lead-session";
 
   if (leadOnly) {
@@ -159,9 +160,12 @@ export async function uploadAvatarAction(
     return { ok: false, message: "Avatar must be 2 MB or smaller." };
   }
 
+  const { usePayloadData: usePayloadForAvatar } = await import(
+    "@/lib/data/flags"
+  );
   const leadOnly =
     (await isLeadOnlySession()) ||
-    !isFirebaseConfigured() ||
+    (!usePayloadForAvatar() && !isFirebaseConfigured()) ||
     profile.id === "lead-session";
 
   if (leadOnly) {

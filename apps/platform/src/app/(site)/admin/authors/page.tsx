@@ -1,34 +1,58 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
-import { setAuthorPublicAction } from "@/app/actions/admin";
-import { Button } from "@/components/ui/Button";
+import { getPayloadClient, isPayloadConfigured } from "@/lib/payload";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = { title: "Admin · Authors" };
 
 export default async function AdminAuthorsPage() {
-  async function toggleAuthorPublic(formData: FormData) {
-    "use server";
-    await setAuthorPublicAction(formData);
-  }
-
   await requireAdmin();
-  const supabase = await createClient();
 
-  const { data: authors } = await supabase
-    .from("profiles")
-    .select("id, display_name, email, slug, role, is_public, profile_complete, created_at")
-    .order("created_at", { ascending: false })
-    .limit(200);
+  const authors: {
+    id: string;
+    displayName: string;
+    email: string;
+    slug: string;
+    createdAt: string;
+  }[] = [];
+
+  if (isPayloadConfigured()) {
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "authors",
+      limit: 200,
+      sort: "-createdAt",
+      overrideAccess: true,
+      depth: 0,
+    });
+    for (const doc of result.docs) {
+      const a = doc as {
+        id: string | number;
+        displayName?: string | null;
+        email?: string | null;
+        slug?: string | null;
+        createdAt?: string;
+      };
+      authors.push({
+        id: String(a.id),
+        displayName: a.displayName || "-",
+        email: a.email || "-",
+        slug: a.slug || "",
+        createdAt: a.createdAt || new Date().toISOString(),
+      });
+    }
+  }
 
   return (
     <div className="space-y-6">
       <header>
         <h1 className="heading-section">Authors</h1>
         <p className="mt-2 text-forest-muted">
-          Manage public author profile visibility. Book earnings stay with authors
-          - no royalty ledger here.
+          Payload CMS authors. Edit profiles in{" "}
+          <Link href="/cms" className="font-semibold text-coral hover:underline">
+            /cms
+          </Link>
+          . Book earnings stay with authors — no royalty ledger here.
         </p>
       </header>
 
@@ -38,18 +62,14 @@ export default async function AdminAuthorsPage() {
             <tr>
               <th className="px-4 py-3 font-bold">Name</th>
               <th className="hidden px-4 py-3 font-bold md:table-cell">Email</th>
-              <th className="px-4 py-3 font-bold">Public</th>
               <th className="hidden px-4 py-3 font-bold sm:table-cell">Joined</th>
-              <th className="px-4 py-3 font-bold">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-sand">
-            {(authors ?? []).map((author) => (
+            {authors.map((author) => (
               <tr key={author.id}>
                 <td className="px-4 py-3">
-                  <p className="font-semibold text-ink">
-                    {author.display_name ?? "-"}
-                  </p>
+                  <p className="font-semibold text-ink">{author.displayName}</p>
                   {author.slug ? (
                     <Link
                       href={`/authors/${author.slug}`}
@@ -60,42 +80,22 @@ export default async function AdminAuthorsPage() {
                   ) : (
                     <span className="text-xs text-forest-muted">No slug</span>
                   )}
-                  {author.role === "admin" ? (
-                    <span className="ml-2 text-xs font-bold uppercase text-coral">
-                      Admin
-                    </span>
-                  ) : null}
                 </td>
                 <td className="hidden px-4 py-3 text-forest-muted md:table-cell">
-                  {author.email ?? "-"}
-                </td>
-                <td className="px-4 py-3">
-                  {author.is_public ? (
-                    <span className="text-green-800 font-semibold">Yes</span>
-                  ) : (
-                    <span className="text-forest-muted">Hidden</span>
-                  )}
+                  {author.email}
                 </td>
                 <td className="hidden px-4 py-3 text-forest-muted sm:table-cell">
-                  {formatDate(author.created_at)}
-                </td>
-                <td className="px-4 py-3">
-                  <form action={toggleAuthorPublic} className="inline">
-                    <input type="hidden" name="author_id" value={author.id} />
-                    <input
-                      type="hidden"
-                      name="is_public"
-                      value={author.is_public ? "false" : "true"}
-                    />
-                    <Button type="submit" variant="ghost" className="px-4 py-2 text-xs">
-                      {author.is_public ? "Hide profile" : "Make public"}
-                    </Button>
-                  </form>
+                  {formatDate(author.createdAt)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {authors.length === 0 ? (
+          <p className="px-4 py-8 text-center text-forest-muted">
+            No authors in Payload yet.
+          </p>
+        ) : null}
       </div>
     </div>
   );

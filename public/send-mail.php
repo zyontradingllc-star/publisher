@@ -18,14 +18,75 @@ $intent = trim((string) ($data['intent'] ?? ''));
 // One-click Create Free Account → straight to no-reply@authorspilot.com
 $to = ($intent === 'create-free-account')
   ? 'no-reply@authorspilot.com'
-  : 'hello@authorspilot.com';
+  : 'info@authorspilot.com';
 $name = trim((string) ($data['name'] ?? 'Website visitor'));
 $email = trim((string) ($data['email'] ?? $data['_replyto'] ?? ''));
 $subject = trim((string) ($data['_subject'] ?? $data['subject'] ?? 'New website inquiry'));
 $message = trim((string) ($data['message'] ?? ''));
+$captchaToken = trim((string) ($data['captchaToken'] ?? $data['cf-turnstile-response'] ?? ''));
 
 function clean_header($value) {
   return trim(str_replace(["\r", "\n"], '', (string) $value));
+}
+
+function turnstile_secret() {
+  $secret = getenv('TURNSTILE_SECRET_KEY') ?: '';
+  $secretsFile = __DIR__ . '/send-mail.secrets.php';
+  if (is_readable($secretsFile)) {
+    $secrets = include $secretsFile;
+    if (is_array($secrets) && !empty($secrets['turnstile_secret'])) {
+      $secret = (string) $secrets['turnstile_secret'];
+    }
+  }
+  return trim($secret);
+}
+
+function verify_turnstile($token) {
+  $secret = turnstile_secret();
+  // Secret not deployed yet — allow mail so Hostinger keeps working during setup.
+  if ($secret === '') {
+    return true;
+  }
+  if ($token === '') {
+    return false;
+  }
+
+  $payload = http_build_query([
+    'secret' => $secret,
+    'response' => $token,
+    'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+  ]);
+
+  $ctx = stream_context_create([
+    'http' => [
+      'method' => 'POST',
+      'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+      'content' => $payload,
+      'timeout' => 8,
+    ],
+  ]);
+
+  $raw = @file_get_contents(
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    false,
+    $ctx,
+  );
+  if ($raw === false) {
+    return false;
+  }
+  $result = json_decode($raw, true);
+  return is_array($result) && !empty($result['success']);
+}
+
+// Contact / quote forms require Turnstile when the secret is configured.
+// One-click create-free-account intentionally skips captcha.
+if ($intent !== 'create-free-account' && !verify_turnstile($captchaToken)) {
+  http_response_code(403);
+  echo json_encode([
+    'success' => false,
+    'message' => 'Security check failed. Please complete the captcha and try again.',
+  ]);
+  exit;
 }
 
 if ($message === '') {
@@ -54,7 +115,7 @@ $body = implode("\n", $lines);
 
 $fromAddress = ($intent === 'create-free-account')
   ? 'no-reply@authorspilot.com'
-  : 'hello@authorspilot.com';
+  : 'info@authorspilot.com';
 
 $headers = [
   'MIME-Version: 1.0',

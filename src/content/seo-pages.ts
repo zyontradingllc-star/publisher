@@ -27,7 +27,7 @@ export const seoPages = {
       "book writing services, manuscript writing, professional book writers, author writing services, fiction writing services",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Book Writing" },
+      { label: "Book Writing", href: "/book-writing-services-for-authors" },
     ],
     relatedLinks: [
       { href: "/ghostwriting-services-for-authors", label: "Ghostwriting" },
@@ -48,7 +48,7 @@ export const seoPages = {
       "self publishing services, independent author publishing, self published authors, publish your own book",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Self Publishing" },
+      { label: "Self Publishing", href: "/self-publishing-services-for-authors" },
     ],
     relatedLinks: [
       { href: "/book-writing-services-for-authors", label: "Book Writing" },
@@ -69,7 +69,7 @@ export const seoPages = {
       "book cover design, ebook cover design, Kindle cover design, professional book covers, custom book covers",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Book Cover Design" },
+      { label: "Book Cover Design", href: "/book-cover-design-services" },
     ],
     relatedLinks: [
       { href: "/book-formatting-services-for-authors", label: "Book Formatting" },
@@ -90,7 +90,7 @@ export const seoPages = {
       "book editing services, developmental editing, copy editing, proofreading services, manuscript editing",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Book Editing" },
+      { label: "Book Editing", href: "/professional-book-editing-services" },
     ],
     relatedLinks: [
       { href: "/book-writing-services-for-authors", label: "Book Writing" },
@@ -111,7 +111,7 @@ export const seoPages = {
       "book formatting services, ebook formatting, Kindle formatting, print book formatting, manuscript formatting",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Book Formatting" },
+      { label: "Book Formatting", href: "/book-formatting-services-for-authors" },
     ],
     relatedLinks: [
       { href: "/book-cover-design-services", label: "Cover Design" },
@@ -132,7 +132,7 @@ export const seoPages = {
       "audiobook publishing, publish an audiobook, turn a book into an audiobook, Audible publishing, ACX audiobook",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Audiobook Publishing" },
+      { label: "Audiobook Publishing", href: "/audiobook-publishing-services" },
     ],
     relatedLinks: [
       { href: "/audiobook-production-services-for-authors", label: "Audiobook Production" },
@@ -153,7 +153,10 @@ export const seoPages = {
       "Amazon KDP publishing, Kindle publishing services, KDP publishing, self publish on Amazon, Kindle Direct Publishing",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Amazon KDP Publishing" },
+      {
+        label: "Amazon KDP Publishing",
+        href: "/amazon-kdp-publishing-services",
+      },
     ],
     relatedLinks: [
       { href: "/book-formatting-services-for-authors", label: "Book Formatting" },
@@ -174,7 +177,7 @@ export const seoPages = {
       "ghostwriting services, book ghostwriting, professional ghostwriters, nonfiction ghostwriting",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Ghostwriting" },
+      { label: "Ghostwriting", href: "/ghostwriting-services-for-authors" },
     ],
     relatedLinks: [
       { href: "/book-writing-services-for-authors", label: "Book Writing" },
@@ -195,7 +198,10 @@ export const seoPages = {
       "author website design agency USA, author website designer, author website mockup, writer website design",
     breadcrumbs: [
       { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Author Website Design USA" },
+      {
+        label: "Author Website Design USA",
+        href: "/author-website-design-agency-usa",
+      },
     ],
     relatedLinks: [
       { href: "/book-marketing-services-for-authors", label: "Book Marketing" },

@@ -7,5 +7,5 @@ import { redirect } from "next/navigation";
  * Locally, middleware still proxies /dashboard/* to :3001 (real form).
  */
 export default function DashboardPublishNewFallback() {
-  redirect("/publish/start/");
+  redirect("/signup?google=1");
 }

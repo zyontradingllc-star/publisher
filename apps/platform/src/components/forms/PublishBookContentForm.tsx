@@ -56,7 +56,7 @@ export function PublishBookContentForm({
             This file is never sold through Authors Pilot - readers buy on your
             own website or retailer.
           </p>
-          <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
+          <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
             Upload manuscript
             <input
               type="file"
@@ -143,7 +143,7 @@ export function PublishBookContentForm({
                 </div>
               )}
               <div>
-                <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
+                <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
                   Upload Book Cover
                   <input
                     type="file"
@@ -193,7 +193,7 @@ export function PublishBookContentForm({
                 </div>
               )}
               <div>
-                <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
+                <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
                   Upload profile picture
                   <input
                     type="file"
@@ -260,7 +260,7 @@ export function PublishBookContentForm({
           <button
             type="button"
             disabled
-            className="mt-4 rounded-full border border-sand bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-forest-muted opacity-70"
+            className="mt-4 rounded-none border border-sand bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-forest-muted opacity-70"
           >
             Launch Previewer (coming soon)
           </button>
@@ -344,7 +344,7 @@ export function PublishBookContentForm({
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-sand pt-6">
           <Link
             href="/dashboard/books/new"
-            className="inline-flex items-center rounded-full border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40"
+            className="inline-flex items-center rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40"
           >
             ← Back to Details
           </Link>
@@ -355,7 +355,7 @@ export function PublishBookContentForm({
               value="draft"
               disabled={pending}
               onClick={() => setSubmitIntent("draft")}
-              className="rounded-full border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
+              className="rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
             >
               {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
             </button>
@@ -365,7 +365,7 @@ export function PublishBookContentForm({
               value="continue"
               disabled={pending}
               onClick={() => setSubmitIntent("continue")}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
             >
               {pending && submitIntent === "continue"
                 ? "Saving…"

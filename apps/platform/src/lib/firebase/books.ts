@@ -1,7 +1,11 @@
 import { adminDb, adminStorage } from "@/lib/firebase/admin";
+import { usePayloadData } from "@/lib/data/flags";
+import { firebasePublicUrl } from "@/lib/firebase/storage-url";
 import { slugify } from "@/lib/utils";
 import type { Book, BookStatus, SalesLink } from "@/types/database";
 import { randomUUID } from "crypto";
+
+export { firebasePublicUrl };
 
 function mapBook(id: string, data: Record<string, unknown>): Book {
   return {
@@ -45,6 +49,13 @@ export async function createBookDraft(opts: {
   genreId?: string | null;
   language?: string;
 }): Promise<Book> {
+  if (usePayloadData()) {
+    const { createBookDraftPayload } = await import(
+      "@/lib/data/books-payload"
+    );
+    return createBookDraftPayload(opts);
+  }
+
   const db = adminDb();
   if (!db) throw new Error("Firestore is not configured");
 
@@ -86,6 +97,13 @@ export async function createBookDraft(opts: {
 }
 
 export async function getBooksByAuthor(authorId: string): Promise<Book[]> {
+  if (usePayloadData()) {
+    const { getBooksByAuthorPayload } = await import(
+      "@/lib/data/books-payload"
+    );
+    return getBooksByAuthorPayload(authorId);
+  }
+
   const db = adminDb();
   if (!db) return [];
   const snap = await db
@@ -102,6 +120,13 @@ export async function getBookForAuthor(
   authorId: string,
   bookId: string
 ): Promise<Book | null> {
+  if (usePayloadData()) {
+    const { getBookForAuthorPayload } = await import(
+      "@/lib/data/books-payload"
+    );
+    return getBookForAuthorPayload(authorId, bookId);
+  }
+
   const db = adminDb();
   if (!db) return null;
   const snap = await db.collection("books").doc(bookId).get();
@@ -115,6 +140,11 @@ export async function updateBook(
   bookId: string,
   patch: Partial<Book>
 ): Promise<void> {
+  if (usePayloadData()) {
+    const { updateBookPayload } = await import("@/lib/data/books-payload");
+    return updateBookPayload(bookId, patch);
+  }
+
   const db = adminDb();
   if (!db) throw new Error("Firestore is not configured");
   const { id: _id, ...rest } = patch;
@@ -126,8 +156,16 @@ export async function updateBook(
 
 export async function setSalesLinks(
   bookId: string,
-  links: Omit<SalesLink, "id" | "book_id" | "click_count" | "created_at" | "updated_at">[]
+  links: Omit<
+    SalesLink,
+    "id" | "book_id" | "click_count" | "created_at" | "updated_at"
+  >[]
 ) {
+  if (usePayloadData()) {
+    const { setSalesLinksPayload } = await import("@/lib/data/books-payload");
+    return setSalesLinksPayload(bookId, links);
+  }
+
   const db = adminDb();
   if (!db) throw new Error("Firestore is not configured");
   const batch = db.batch();
@@ -149,6 +187,7 @@ export async function setSalesLinks(
   await batch.commit();
 }
 
+/** Firebase Storage only — not gated by USE_PAYLOAD_DATA. */
 export async function uploadAuthorFile(opts: {
   authorId: string;
   bookId: string;
@@ -174,12 +213,4 @@ export async function uploadAuthorFile(opts: {
   await file.makePublic().catch(() => undefined);
 
   return path;
-}
-
-export function firebasePublicUrl(path: string | null | undefined): string | null {
-  if (!path) return null;
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  const bucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
-  if (!bucket) return null;
-  return `https://storage.googleapis.com/${bucket}/${path}`;
 }

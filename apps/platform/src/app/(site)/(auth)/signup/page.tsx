@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
-import { signupAction } from "@/app/actions/auth";
-import { AuthForm } from "@/components/forms/AuthForm";
-import { PricingNotice } from "@/components/PricingNotice";
+import { Suspense } from "react";
+import { CreateAccountForm } from "@/components/forms/CreateAccountForm";
 
 export const metadata: Metadata = {
-  title: "Signup As Author",
+  title: "Create Account",
 };
 
 export default function SignupPage() {
   return (
-    <div className="space-y-4">
-      <AuthForm mode="signup" action={signupAction} />
-      <PricingNotice />
-    </div>
+    <Suspense fallback={<div className="card-surface p-8 text-center text-sm text-forest-muted">Loading…</div>}>
+      <CreateAccountForm />
+    </Suspense>
   );
 }

@@ -1,4 +1,5 @@
 import { adminDb } from "@/lib/firebase/admin";
+import { usePayloadData } from "@/lib/data/flags";
 import { slugify } from "@/lib/utils";
 import type { Profile } from "@/types/database";
 
@@ -31,6 +32,13 @@ export async function createAuthorProfile(opts: {
   email: string;
   displayName: string;
 }): Promise<Profile> {
+  if (usePayloadData()) {
+    const { createAuthorProfilePayload } = await import(
+      "@/lib/data/profiles-payload"
+    );
+    return createAuthorProfilePayload(opts);
+  }
+
   const db = adminDb();
   if (!db) throw new Error("Firestore is not configured");
 
@@ -64,6 +72,13 @@ export async function createAuthorProfile(opts: {
 }
 
 export async function getProfileById(uid: string): Promise<Profile | null> {
+  if (usePayloadData()) {
+    const { getProfileByIdPayload } = await import(
+      "@/lib/data/profiles-payload"
+    );
+    return getProfileByIdPayload(uid);
+  }
+
   const db = adminDb();
   if (!db) return null;
   const snap = await db.collection("profiles").doc(uid).get();
@@ -75,6 +90,13 @@ export async function updateProfile(
   uid: string,
   patch: Partial<Profile>
 ): Promise<Profile | null> {
+  if (usePayloadData()) {
+    const { updateProfilePayload } = await import(
+      "@/lib/data/profiles-payload"
+    );
+    return updateProfilePayload(uid, patch);
+  }
+
   const db = adminDb();
   if (!db) return null;
   const { id: _id, ...rest } = patch;

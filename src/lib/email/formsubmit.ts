@@ -1,1 +1,1 @@
-export const FORM_EMAIL = "hello@authorspilot.com";
+export const FORM_EMAIL = "info@authorspilot.com";

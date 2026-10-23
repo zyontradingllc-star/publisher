@@ -1,16 +1,21 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Image from "next/image";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
+import {
+  Turnstile,
+  isTurnstileEnabled,
+  type TurnstileHandle,
+} from "@/components/forms/Turnstile";
 import { brand, contact } from "@/content/site";
 import { submitToInbox } from "@/lib/email/client-submit";
 
 const details = [
   {
     label: "Email us",
-    value: "hello@AuthorsPilot.com",
+    value: brand.email,
     href: `mailto:${brand.email}`,
     icon: "mail" as const,
   },
@@ -95,6 +100,9 @@ export function AuthorConsultation({ asHero = false }: AuthorConsultationProps) 
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
+  const turnstileRequired = isTurnstileEnabled();
   const Heading = asHero ? "h1" : "p";
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -108,6 +116,11 @@ export function AuthorConsultation({ asHero = false }: AuthorConsultationProps) 
     const next = validate(values);
     setErrors(next);
     if (Object.keys(next).length > 0) return;
+
+    if (turnstileRequired && !turnstileToken) {
+      setSubmitError("Please complete the security check.");
+      return;
+    }
 
     setSending(true);
     setSubmitError(null);
@@ -128,9 +141,12 @@ export function AuthorConsultation({ asHero = false }: AuthorConsultationProps) 
       _subject: `Free Consultation - ${values.service || "Authors Pilot"}`,
       _replyto: values.email.trim(),
       message,
+      ...(turnstileToken ? { captchaToken: turnstileToken } : {}),
     });
 
     setSending(false);
+    turnstileRef.current?.reset();
+    setTurnstileToken(null);
 
     if (!result.success) {
       setSubmitError(
@@ -332,9 +348,21 @@ export function AuthorConsultation({ asHero = false }: AuthorConsultationProps) 
                   />
                 </div>
 
+                <Turnstile
+                  ref={turnstileRef}
+                  action="contact"
+                  onChange={setTurnstileToken}
+                  className="pt-1"
+                />
+
                 {submitError && <p className={errorClass}>{submitError}</p>}
                 <div className="flex w-full pt-1 [&_button]:w-full [&_div]:w-full">
-                  <Button type="submit" disabled={sending}>
+                  <Button
+                    type="submit"
+                    disabled={
+                      sending || (turnstileRequired && !turnstileToken)
+                    }
+                  >
                     {sending ? "Sending…" : "Book My Free Consultation"}
                   </Button>
                 </div>

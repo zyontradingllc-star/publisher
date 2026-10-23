@@ -7,7 +7,7 @@ import { platformHref } from "@/lib/platform";
 export const brand = {
   name: "Authors Pilot",
   tagline: "Pilot Your Story. Self-Publishing Story System.",
-  email: "hello@authorspilot.com",
+  email: "info@authorspilot.com",
 };
 
 export const socialLinks = [

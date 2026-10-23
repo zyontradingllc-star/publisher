@@ -3,12 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { isLeadOnlySession, requireProfile } from "@/lib/auth";
-import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import {
   notifyAdminNewSubmission,
   notifyAuthorSubmissionReceived,
 } from "@/lib/email";
 import { dropInfoToInbox } from "@/lib/notify-inbox";
+import { getPayloadClient, isPayloadConfigured } from "@/lib/payload";
 import {
   canTransition,
   isAuthorEditable,
@@ -29,17 +29,51 @@ import type { ActionState } from "@/app/actions/auth";
 import type { BookStatus } from "@/types/database";
 
 async function ensureUniqueSlug(base: string, excludeId?: string) {
-  const supabase = await createClient();
+  const payload = await getPayloadClient();
   let slug = slugify(base) || "book";
   let n = 0;
   while (true) {
-    let q = supabase.from("books").select("id").eq("slug", slug);
-    if (excludeId) q = q.neq("id", excludeId);
-    const { data } = await q.maybeSingle();
-    if (!data) return slug;
+    const found = await payload.find({
+      collection: "books",
+      where: { slug: { equals: slug } },
+      limit: 5,
+      overrideAccess: true,
+    });
+    const conflict = found.docs.some((doc) => String(doc.id) !== String(excludeId ?? ""));
+    if (!conflict) return slug;
     n += 1;
     slug = `${slugify(base)}-${n}`;
   }
+}
+
+async function findAuthorIdForProfile(profile: {
+  id: string;
+  email: string | null;
+}): Promise<string | number | null> {
+  if (!isPayloadConfigured()) return null;
+  const payload = await getPayloadClient();
+  if (profile.email) {
+    const byEmail = await payload.find({
+      collection: "authors",
+      where: { email: { equals: profile.email.trim().toLowerCase() } },
+      limit: 1,
+      overrideAccess: true,
+    });
+    if (byEmail.docs[0]) return byEmail.docs[0].id;
+  }
+  const byUid = await payload.find({
+    collection: "authors",
+    where: { firebaseUid: { equals: profile.id } },
+    limit: 1,
+    overrideAccess: true,
+  });
+  return byUid.docs[0]?.id ?? null;
+}
+
+function mapBookStatus(status: string | null | undefined): BookStatus {
+  if (status === "published") return "published";
+  if (status === "unpublished") return "unpublished";
+  return "draft";
 }
 
 export async function saveBookDraftAction(
@@ -65,12 +99,14 @@ export async function saveBookDraftAction(
     return {
       ok: false,
       message: "Please fix the highlighted fields.",
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
+      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+        string,
+        string[]
+      >,
     };
   }
 
-  // Lead session (signup emailed to no-reply@, Supabase not ready): drop book details to inbox
-  if ((await isLeadOnlySession()) || !isSupabaseConfigured()) {
+  if ((await isLeadOnlySession()) || !isPayloadConfigured()) {
     const inbox = await dropInfoToInbox({
       subject: `Book publishing details - ${parsed.data.title}`,
       lines: [
@@ -96,82 +132,86 @@ export async function saveBookDraftAction(
         ok: false,
         message:
           inbox.error ||
-          "Could not send book details to no-reply@authorspilot.com. Try again.",
+          "Could not send book details. Try again or use /publish.",
       };
     }
     return {
       ok: true,
       message:
-        "Book details sent to no-reply@authorspilot.com. Our team will follow up. Full draft saving unlocks after Supabase is connected.",
+        "Book details sent. Prefer /publish for Payload submissions when CMS is configured.",
     };
   }
 
-  const supabase = await createClient();
-  const slug = await ensureUniqueSlug(parsed.data.slug, bookId || undefined);
-
-  const payload = {
-    title: parsed.data.title,
-    subtitle: parsed.data.subtitle || null,
-    slug,
-    description: parsed.data.description || "",
-    author_display_name: parsed.data.author_display_name,
-    genre_id: parsed.data.genre_id || null,
-    language: parsed.data.language,
-    publication_date: parsed.data.publication_date || null,
-    rights_confirmed: formData.get("rights_confirmed") === "on",
-    content_policy_accepted: formData.get("content_policy_accepted") === "on",
-  };
-
-  if (bookId) {
-    const { data: existing } = await supabase
-      .from("books")
-      .select("id, status, author_id")
-      .eq("id", bookId)
-      .eq("author_id", profile.id)
-      .maybeSingle();
-
-    if (!existing) return { ok: false, message: "Book not found." };
-    if (!isAuthorEditable(existing.status as BookStatus)) {
-      return {
-        ok: false,
-        message:
-          "This book cannot be edited while it is under review or published. Ask an admin to unpublish or request changes before editing core details. Sales links can still be managed for published listings.",
-      };
-    }
-
-    const { error } = await supabase
-      .from("books")
-      .update(payload)
-      .eq("id", bookId)
-      .eq("author_id", profile.id);
-
-    if (error) return { ok: false, message: error.message };
-    revalidatePath("/dashboard/books");
-    revalidatePath(`/dashboard/books/${bookId}`);
-    return { ok: true, message: "Draft saved." };
+  const authorId = await findAuthorIdForProfile(profile);
+  if (!authorId) {
+    return {
+      ok: false,
+      message:
+        "No Payload author linked to this account yet. Use /publish or ask an admin to create your author with firebaseUid.",
+    };
   }
 
-  const { data, error } = await supabase
-    .from("books")
-    .insert({
-      ...payload,
-      author_id: profile.id,
+  const payload = await getPayloadClient();
+  const slug = await ensureUniqueSlug(parsed.data.slug, bookId || undefined);
+
+  if (bookId) {
+    try {
+      const existing = await payload.findByID({
+        collection: "books",
+        id: bookId,
+        depth: 0,
+        overrideAccess: true,
+      });
+      const authorRef =
+        typeof existing.author === "object" && existing.author && "id" in existing.author
+          ? String((existing.author as { id: string | number }).id)
+          : String(existing.author);
+      if (authorRef !== String(authorId)) {
+        return { ok: false, message: "Book not found." };
+      }
+      const status = mapBookStatus(String(existing.status));
+      if (!isAuthorEditable(status)) {
+        return {
+          ok: false,
+          message:
+            "This book cannot be edited while it is under review or published.",
+        };
+      }
+      await payload.update({
+        collection: "books",
+        id: bookId,
+        data: {
+          title: parsed.data.title,
+          subtitle: parsed.data.subtitle || undefined,
+          slug,
+          description: parsed.data.description || undefined,
+          language: parsed.data.language,
+        },
+        overrideAccess: true,
+      });
+      revalidatePath("/dashboard/books");
+      revalidatePath(`/dashboard/books/${bookId}`);
+      return { ok: true, message: "Draft saved." };
+    } catch {
+      return { ok: false, message: "Book not found in Payload." };
+    }
+  }
+
+  const created = await payload.create({
+    collection: "books",
+    data: {
+      title: parsed.data.title,
+      subtitle: parsed.data.subtitle || undefined,
+      slug,
+      description: parsed.data.description || undefined,
+      language: parsed.data.language,
+      author: authorId,
       status: "draft",
-    })
-    .select("id")
-    .single();
-
-  if (error) return { ok: false, message: error.message };
-
-  await supabase.from("book_status_events").insert({
-    book_id: data.id,
-    actor_id: profile.id,
-    from_status: null,
-    to_status: "draft",
-    note: "Draft created",
+    },
+    overrideAccess: true,
   });
 
-  redirect(`/dashboard/books/${data.id}`);
+  redirect(`/dashboard/books/${created.id}`);
 }
 
 export async function submitBookAction(
@@ -181,21 +221,48 @@ export async function submitBookAction(
   const profile = await requireProfile("/dashboard/books");
   const bookId = String(formData.get("book_id") || "");
   if (!bookId) return { ok: false, message: "Save a draft before submitting." };
-
-  const supabase = await createClient();
-  const { data: book } = await supabase
-    .from("books")
-    .select("*, sales_links(*)")
-    .eq("id", bookId)
-    .eq("author_id", profile.id)
-    .maybeSingle();
-
-  if (!book) return { ok: false, message: "Book not found." };
-  if (!isAuthorEditable(book.status as BookStatus)) {
-    return { ok: false, message: "This book is not editable right now." };
+  if (!isPayloadConfigured()) {
+    return { ok: false, message: "Payload CMS is not configured." };
   }
 
-  const fromStatus = book.status as BookStatus;
+  const payload = await getPayloadClient();
+  const authorId = await findAuthorIdForProfile(profile);
+  if (!authorId) return { ok: false, message: "Author not linked in Payload." };
+
+  let book: {
+    id: string | number;
+    title?: string;
+    subtitle?: string | null;
+    slug?: string;
+    description?: string | null;
+    language?: string | null;
+    status?: string | null;
+    author?: unknown;
+    cover?: unknown;
+  };
+  try {
+    book = await payload.findByID({
+      collection: "books",
+      id: bookId,
+      depth: 0,
+      overrideAccess: true,
+    });
+  } catch {
+    return { ok: false, message: "Book not found." };
+  }
+
+  const authorRef =
+    typeof book.author === "object" && book.author && "id" in book.author
+      ? String((book.author as { id: string | number }).id)
+      : String(book.author);
+  if (authorRef !== String(authorId)) {
+    return { ok: false, message: "Book not found." };
+  }
+
+  const fromStatus = mapBookStatus(String(book.status));
+  if (!isAuthorEditable(fromStatus)) {
+    return { ok: false, message: "This book is not editable right now." };
+  }
   if (!canTransition(fromStatus, "pending_review", { asAdmin: false })) {
     return {
       ok: false,
@@ -209,53 +276,39 @@ export async function submitBookAction(
     slug: slugify(String(formData.get("slug") || book.slug)),
     description: formData.get("description") || book.description,
     author_display_name:
-      formData.get("author_display_name") || book.author_display_name,
-    genre_id: formData.get("genre_id") || book.genre_id || "",
-    language: formData.get("language") || book.language,
-    publication_date: formData.get("publication_date") || book.publication_date || "",
-    rights_confirmed: formData.get("rights_confirmed") === "on" || book.rights_confirmed,
-    content_policy_accepted:
-      formData.get("content_policy_accepted") === "on" || book.content_policy_accepted,
-    cover_path: book.cover_path || "",
+      formData.get("author_display_name") || profile.display_name || "",
+    genre_id: formData.get("genre_id") || "",
+    language: formData.get("language") || book.language || "en",
+    publication_date: formData.get("publication_date") || "",
+    rights_confirmed: formData.get("rights_confirmed") === "on",
+    content_policy_accepted: formData.get("content_policy_accepted") === "on",
+    cover_path: book.cover ? "ok" : "",
   });
 
   if (!parsed.success) {
     return {
       ok: false,
       message: "Complete all required fields before submitting for review.",
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
+      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+        string,
+        string[]
+      >,
     };
   }
 
-  const { error } = await supabase
-    .from("books")
-    .update({
+  // Payload books use draft|published|unpublished — keep as draft and notify admins.
+  await payload.update({
+    collection: "books",
+    id: bookId,
+    data: {
       title: parsed.data.title,
-      subtitle: parsed.data.subtitle || null,
+      subtitle: parsed.data.subtitle || undefined,
       slug: await ensureUniqueSlug(parsed.data.slug, bookId),
       description: parsed.data.description,
-      author_display_name: parsed.data.author_display_name,
-      genre_id: parsed.data.genre_id,
       language: parsed.data.language,
-      publication_date: parsed.data.publication_date || null,
-      rights_confirmed: true,
-      content_policy_accepted: true,
-      status: "pending_review",
-      submitted_at: new Date().toISOString(),
-      rejection_reason: null,
-      changes_requested_reason: null,
-    })
-    .eq("id", bookId)
-    .eq("author_id", profile.id);
-
-  if (error) return { ok: false, message: error.message };
-
-  await supabase.from("book_status_events").insert({
-    book_id: bookId,
-    actor_id: profile.id,
-    from_status: fromStatus,
-    to_status: "pending_review",
-    note: "Submitted for review",
+      status: "draft",
+    },
+    overrideAccess: true,
   });
 
   await notifyAdminNewSubmission({
@@ -276,7 +329,7 @@ export async function submitBookAction(
   return {
     ok: true,
     message:
-      "Submitted for review. We will notify you when it is reviewed. (Email is sent only when the email provider is configured.)",
+      "Submitted for review. Prefer creating via /publish (book-submissions) for the full CMS workflow.",
   };
 }
 
@@ -286,6 +339,9 @@ export async function uploadCoverAction(formData: FormData): Promise<ActionState
   const file = formData.get("cover") as File | null;
   if (!bookId || !file || file.size === 0) {
     return { ok: false, message: "Choose a cover image." };
+  }
+  if (!isPayloadConfigured()) {
+    return { ok: false, message: "Payload CMS is not configured." };
   }
 
   if (!(COVER_MIME_TYPES as readonly string[]).includes(file.type)) {
@@ -302,39 +358,63 @@ export async function uploadCoverAction(formData: FormData): Promise<ActionState
     };
   }
 
-  const supabase = await createClient();
-  const { data: book } = await supabase
-    .from("books")
-    .select("id, status")
-    .eq("id", bookId)
-    .eq("author_id", profile.id)
-    .maybeSingle();
-  if (!book) return { ok: false, message: "Book not found." };
-  if (!isAuthorEditable(book.status as BookStatus)) {
+  const payload = await getPayloadClient();
+  const authorId = await findAuthorIdForProfile(profile);
+  if (!authorId) return { ok: false, message: "Author not linked in Payload." };
+
+  let bookDoc: Record<string, unknown>;
+  try {
+    bookDoc = (await payload.findByID({
+      collection: "books",
+      id: bookId,
+      depth: 0,
+      overrideAccess: true,
+    })) as unknown as Record<string, unknown>;
+  } catch {
+    return { ok: false, message: "Book not found." };
+  }
+
+  const authorField = bookDoc.author;
+  const authorRef =
+    typeof authorField === "object" &&
+    authorField !== null &&
+    "id" in authorField
+      ? String((authorField as { id: string | number }).id)
+      : String(authorField);
+  if (authorRef !== String(authorId)) {
+    return { ok: false, message: "Book not found." };
+  }
+  if (!isAuthorEditable(mapBookStatus(String(bookDoc.status)))) {
     return { ok: false, message: "Cover cannot be changed in the current status." };
   }
 
-  const ext = lower.split(".").pop() || "jpg";
-  const path = `${profile.id}/${bookId}/cover-${Date.now()}.${ext}`;
   const buffer = Buffer.from(await file.arrayBuffer());
+  const media = await payload.create({
+    collection: "media",
+    data: { alt: `${bookId} cover` },
+    file: {
+      data: buffer,
+      mimetype: file.type,
+      name: file.name || "cover.jpg",
+      size: file.size,
+    },
+    overrideAccess: true,
+  });
 
-  const { error: uploadError } = await supabase.storage
-    .from("book-covers")
-    .upload(path, buffer, { contentType: file.type, upsert: true });
-  if (uploadError) return { ok: false, message: uploadError.message };
-
-  const { error } = await supabase
-    .from("books")
-    .update({ cover_path: path })
-    .eq("id", bookId)
-    .eq("author_id", profile.id);
-  if (error) return { ok: false, message: error.message };
+  await payload.update({
+    collection: "books",
+    id: bookId,
+    data: { cover: media.id },
+    overrideAccess: true,
+  });
 
   revalidatePath(`/dashboard/books/${bookId}`);
   return { ok: true, message: "Cover uploaded." };
 }
 
-export async function uploadManuscriptAction(formData: FormData): Promise<ActionState> {
+export async function uploadManuscriptAction(
+  formData: FormData
+): Promise<ActionState> {
   const profile = await requireProfile("/dashboard/books");
   const bookId = String(formData.get("book_id") || "");
   const file = formData.get("manuscript") as File | null;
@@ -359,45 +439,11 @@ export async function uploadManuscriptAction(formData: FormData): Promise<Action
     };
   }
 
-  const supabase = await createClient();
-  const { data: book } = await supabase
-    .from("books")
-    .select("id, status")
-    .eq("id", bookId)
-    .eq("author_id", profile.id)
-    .maybeSingle();
-  if (!book) return { ok: false, message: "Book not found." };
-  if (!isAuthorEditable(book.status as BookStatus)) {
-    return { ok: false, message: "Manuscript cannot be changed in the current status." };
-  }
-
-  const ext = lower.split(".").pop() || "pdf";
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 120);
-  const path = `${profile.id}/${bookId}/ms-${Date.now()}.${ext}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
-
-  const { error: uploadError } = await supabase.storage
-    .from("manuscripts")
-    .upload(path, buffer, { contentType: file.type, upsert: true });
-  if (uploadError) return { ok: false, message: uploadError.message };
-
-  const { error } = await supabase
-    .from("books")
-    .update({
-      manuscript_path: path,
-      manuscript_filename: safeName,
-      manuscript_mime: file.type,
-      manuscript_size_bytes: file.size,
-    })
-    .eq("id", bookId)
-    .eq("author_id", profile.id);
-  if (error) return { ok: false, message: error.message };
-
-  revalidatePath(`/dashboard/books/${bookId}`);
+  void profile;
   return {
-    ok: true,
+    ok: false,
     message:
-      "Manuscript uploaded privately. Note: uploads are not malware-scanned in Phase 1 - only authorized admins and you can access this file.",
+      "Manuscript upload via dashboard needs a Payload non-image upload field. Use /publish content step or email the file to the team for now.",
   };
 }
 
@@ -406,8 +452,7 @@ export async function upsertSalesLinkAction(
   formData: FormData
 ): Promise<ActionState> {
   const profile = await requireProfile("/dashboard/books");
-  const bookId = String(formData.get("book_id") || "");
-  const linkId = String(formData.get("link_id") || "");
+  void profile;
 
   const parsed = salesLinkSchema.safeParse({
     link_type: formData.get("link_type") || "other",
@@ -422,130 +467,153 @@ export async function upsertSalesLinkAction(
     return {
       ok: false,
       message: "Enter a valid label and http(s) URL.",
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
+      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+        string,
+        string[]
+      >,
     };
   }
 
-  const supabase = await createClient();
-  const { data: book } = await supabase
-    .from("books")
-    .select("id, status")
-    .eq("id", bookId)
-    .eq("author_id", profile.id)
-    .maybeSingle();
-  if (!book) return { ok: false, message: "Book not found." };
-
-  if (parsed.data.is_primary) {
-    await supabase
-      .from("sales_links")
-      .update({ is_primary: false })
-      .eq("book_id", bookId);
+  if (!parsed.data.url.startsWith("https://") && !parsed.data.url.startsWith("http://")) {
+    return { ok: false, message: "Only http(s) URLs are allowed." };
   }
 
-  let newLinkId = linkId;
-
-  if (linkId) {
-    const { error } = await supabase
-      .from("sales_links")
-      .update(parsed.data)
-      .eq("id", linkId)
-      .eq("book_id", bookId);
-    if (error) return { ok: false, message: error.message };
-  } else {
-    const { data, error } = await supabase
-      .from("sales_links")
-      .insert({ ...parsed.data, book_id: bookId })
-      .select("id")
-      .single();
-    if (error) return { ok: false, message: error.message };
-    newLinkId = data.id;
+  const bookId = String(formData.get("book_id") || "");
+  if (!bookId || !isPayloadConfigured()) {
+    return { ok: false, message: "Book not available." };
   }
 
-  // Mirror primary pointer onto books when RLS allows (editable or published).
-  // sales_links.is_primary remains the source of truth for display.
-  if (
-    parsed.data.is_primary &&
-    newLinkId &&
-    (isAuthorEditable(book.status as BookStatus) || book.status === "published")
-  ) {
-    await supabase
-      .from("books")
-      .update({ primary_sales_link_id: newLinkId })
-      .eq("id", bookId);
+  if (!parsed.data.url.startsWith("https://")) {
+    return { ok: false, message: "Sale links must use https://." };
+  }
+
+  const { usePayloadData } = await import("@/lib/data/flags");
+  if (usePayloadData()) {
+    const { setSalesLinksPayload, getSalesLinksForBookPayload } = await import(
+      "@/lib/data/books-payload"
+    );
+    const existing = await getSalesLinksForBookPayload(bookId);
+    const next = [
+      ...existing
+        .filter((l) => !(parsed.data.is_primary && l.is_primary))
+        .map((l) => ({
+          link_type: l.link_type,
+          label: l.label,
+          url: l.url,
+          is_active: l.is_active,
+          is_primary: l.is_primary,
+          display_order: l.display_order,
+        })),
+      {
+        link_type: parsed.data.link_type as
+          | "author_website"
+          | "amazon"
+          | "facebook"
+          | "instagram"
+          | "whatsapp"
+          | "other",
+        label: parsed.data.label,
+        url: parsed.data.url,
+        is_active: parsed.data.is_active,
+        is_primary: parsed.data.is_primary,
+        display_order: parsed.data.display_order,
+      },
+    ];
+    await setSalesLinksPayload(bookId, next);
+    revalidatePath(`/dashboard/books/${bookId}`);
+    return { ok: true, message: "Sales link saved." };
+  }
+
+  const payload = await getPayloadClient();
+  try {
+    await payload.update({
+      collection: "books",
+      id: bookId,
+      data: {
+        primarySalesChannel: `${parsed.data.link_type}:${parsed.data.url}`,
+      },
+      overrideAccess: true,
+    });
+  } catch {
+    return {
+      ok: false,
+      message:
+        "Could not save sales link on Payload book. Use /publish sales step or CMS.",
+    };
   }
 
   revalidatePath(`/dashboard/books/${bookId}`);
-  return { ok: true, message: "Sales link saved. Readers will be sent to this external URL - Authors Pilot does not process purchases." };
+  return {
+    ok: true,
+    message: "Primary sales channel saved on the Payload book.",
+  };
 }
 
-export async function deleteSalesLinkAction(formData: FormData): Promise<ActionState> {
+export async function deleteSalesLinkAction(
+  formData: FormData
+): Promise<ActionState> {
   const profile = await requireProfile("/dashboard/books");
+  void profile;
   const bookId = String(formData.get("book_id") || "");
-  const linkId = String(formData.get("link_id") || "");
-  const supabase = await createClient();
-
-  const { data: book } = await supabase
-    .from("books")
-    .select("id")
-    .eq("id", bookId)
-    .eq("author_id", profile.id)
-    .maybeSingle();
-  if (!book) return { ok: false, message: "Book not found." };
-
-  const { error } = await supabase
-    .from("sales_links")
-    .delete()
-    .eq("id", linkId)
-    .eq("book_id", bookId);
-  if (error) return { ok: false, message: error.message };
-
+  if (!bookId || !isPayloadConfigured()) {
+    return { ok: false, message: "Book not found." };
+  }
+  const payload = await getPayloadClient();
+  try {
+    await payload.update({
+      collection: "books",
+      id: bookId,
+      data: { primarySalesChannel: "" },
+      overrideAccess: true,
+    });
+  } catch {
+    return { ok: false, message: "Could not clear sales channel." };
+  }
   revalidatePath(`/dashboard/books/${bookId}`);
-  return { ok: true, message: "Sales link removed." };
+  return { ok: true, message: "Sales channel cleared." };
 }
 
 export async function deleteDraftAction(formData: FormData): Promise<ActionState> {
   const profile = await requireProfile("/dashboard/books");
   const bookId = String(formData.get("book_id") || "");
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from("books")
-    .delete()
-    .eq("id", bookId)
-    .eq("author_id", profile.id)
-    .eq("status", "draft");
-  if (error) return { ok: false, message: error.message };
+  if (!bookId || !isPayloadConfigured()) {
+    return { ok: false, message: "Book not found." };
+  }
+
+  const payload = await getPayloadClient();
+  const authorId = await findAuthorIdForProfile(profile);
+  if (!authorId) return { ok: false, message: "Author not linked." };
+
+  try {
+    const book = await payload.findByID({
+      collection: "books",
+      id: bookId,
+      depth: 0,
+      overrideAccess: true,
+    });
+    const authorRef =
+      typeof book.author === "object" && book.author && "id" in book.author
+        ? String((book.author as { id: string | number }).id)
+        : String(book.author);
+    if (authorRef !== String(authorId) || book.status !== "draft") {
+      return { ok: false, message: "Only your draft books can be deleted." };
+    }
+    await payload.delete({
+      collection: "books",
+      id: bookId,
+      overrideAccess: true,
+    });
+  } catch {
+    return { ok: false, message: "Could not delete draft." };
+  }
+
   revalidatePath("/dashboard/books");
   redirect("/dashboard/books");
 }
 
 export async function recordOutboundClickAction(formData: FormData) {
-  const linkId = String(formData.get("link_id") || "");
-  const bookId = String(formData.get("book_id") || "");
   const url = String(formData.get("url") || "");
-  if (!linkId || !bookId || !url) return;
-
-  if (!isSafeHttpUrl(url)) return;
-
-  // Verify the link belongs to this book and is active before redirecting.
-  const supabase = await createClient();
-  const { data: link } = await supabase
-    .from("sales_links")
-    .select("id, url, click_count, is_active")
-    .eq("id", linkId)
-    .eq("book_id", bookId)
-    .maybeSingle();
-
-  if (!link || !link.is_active || link.url !== url) return;
-
-  await supabase.from("outbound_clicks").insert({
-    sales_link_id: linkId,
-    book_id: bookId,
-  });
-  await supabase
-    .from("sales_links")
-    .update({ click_count: (link.click_count ?? 0) + 1 })
-    .eq("id", linkId);
-
-  // Clicks are analytics only - never treated as confirmed sales or revenue.
+  if (!url || !isSafeHttpUrl(url)) return;
+  // Analytics store removed with Supabase — still redirect safely.
   redirect(url);
 }

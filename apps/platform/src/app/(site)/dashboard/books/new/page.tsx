@@ -14,8 +14,8 @@ export default async function PublishBookDetailsPage() {
       <header className="space-y-4">
         <div className="relative w-full overflow-hidden rounded-2xl border border-sand shadow-soft">
           <Image
-            src="/banners/keep-royalties-banner.webp"
-            alt="Get 100% of your book royalties - Authors Pilot"
+            src="/banners/submit-book-buy-link-banner.webp"
+            alt="Submit your book and share your buy link - Authors Pilot"
             width={1024}
             height={235}
             priority

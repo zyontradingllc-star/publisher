@@ -28,14 +28,12 @@ export function publicStorageUrl(bucket: string, path: string | null | undefined
   if (!path) return null;
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
 
+  void bucket;
   const fbBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
   if (fbBucket) {
     return `https://storage.googleapis.com/${fbBucket}/${path}`;
   }
-
-  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!base) return null;
-  return `${base}/storage/v1/object/public/${bucket}/${path}`;
+  return null;
 }
 
 export function coverUrl(path: string | null | undefined): string | null {

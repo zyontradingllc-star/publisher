@@ -71,28 +71,25 @@ function PricingNotice({ className = "" }: { className?: string }) {
 export function PublishLanding() {
   return (
     <>
-      <section className="border-b border-sand bg-cta-wash text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="relative overflow-hidden border-b border-sand text-white bg-[linear-gradient(145deg,#3d5c45_0%,#273E2B_42%,#1a2e1f_100%)]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(242,193,77,0.18),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(167,196,171,0.22),transparent_50%)]"
+        />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <p className="font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#F2C14D]">
             Independent Publishing Platform
           </p>
           <h1 className="mt-3 max-w-3xl font-display text-[1.85rem] font-bold leading-tight sm:text-4xl lg:text-5xl">
-            Your Books. Your Readers. 100% Your Earnings.
+            Easy Publishing for Businesses Built on Books
           </h1>
           <p className="mt-4 max-w-2xl font-sans text-base text-white/90 sm:text-lg">
-            Publish your book listings, reach new readers, and grow your author
-            brand with AuthorsPilot. Connect readers directly to your website or
-            preferred sales channels. No commissions. No middlemen. You stay in
-            control.
+            Submit your book details and share your book&apos;s purchase link so
+            readers can easily find and buy your book.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/publish/start/">Submit Your Book</Button>
-            <Button
-              href="/bookstore/"
-              variant="ghost"
-              className="!border-white/40 !bg-white/10 !text-white hover:!bg-white/20"
-            >
-              Explore Books
+            <Button href="/signup?google=1" className="cta-blink">
+              Signup
             </Button>
           </div>
         </div>
@@ -180,7 +177,7 @@ export function PublishLanding() {
             </li>
           </ul>
           <div className="mt-8">
-            <Button href="/publish/start/">List Your Book</Button>
+            <Button href="/signup?google=1">List Your Book</Button>
           </div>
         </div>
       </section>
@@ -225,7 +222,7 @@ export function PublishLanding() {
             Your Story. Your Books. Your Brand.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/publish/start/">Submit Your Book</Button>
+            <Button href="/signup?google=1">Submit Your Book</Button>
             <Button
               href="/book-publishing-author-website-design-agency/"
               variant="ghost"
@@ -250,7 +247,7 @@ export function PublishLanding() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <PricingNotice />
           <div className="mt-8 text-center">
-            <Button href="/publish/start/">Submit Your Book</Button>
+            <Button href="/signup?google=1">Submit Your Book</Button>
           </div>
         </div>
       </section>

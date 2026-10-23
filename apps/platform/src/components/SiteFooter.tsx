@@ -31,7 +31,7 @@ const columns = [
     title: "Publish With Us",
     links: [
       { href: "/publish", label: "Publish Your Book" },
-      { href: "/publish/start", label: "Submit Your Book" },
+      { href: "/signup", label: "Signup" },
       { href: "/bookstore", label: "BookStore" },
       { href: "/authors", label: "Browse Authors" },
       { href: "/pricing", label: "Pricing" },

@@ -11,13 +11,15 @@ export function getFirebasePublicConfig() {
   };
 }
 
-export function isFirebaseConfigured(): boolean {
+/** Public web keys only — enough to show Google / client Auth UI. */
+export function isFirebaseClientConfigured(): boolean {
   const c = getFirebasePublicConfig();
+  return Boolean(c.apiKey && c.authDomain && c.projectId && c.appId);
+}
+
+export function isFirebaseConfigured(): boolean {
   return Boolean(
-    c.apiKey &&
-      c.authDomain &&
-      c.projectId &&
-      c.appId &&
+    isFirebaseClientConfigured() &&
       process.env.FIREBASE_CLIENT_EMAIL &&
       process.env.FIREBASE_PRIVATE_KEY
   );

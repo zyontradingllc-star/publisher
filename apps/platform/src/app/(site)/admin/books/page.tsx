@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
+import { getPayloadClient, isPayloadConfigured } from "@/lib/payload";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BOOK_STATUS_LABELS, type BookStatus } from "@/types/database";
-import { formatDate } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
 
 export const metadata = { title: "Admin · Books" };
 
@@ -17,6 +16,31 @@ const STATUSES: BookStatus[] = [
   "unpublished",
 ];
 
+function mapSubmissionStatus(status: string | null | undefined): BookStatus {
+  switch (status) {
+    case "approved":
+      return "published";
+    case "changes_requested":
+      return "changes_requested";
+    case "rejected":
+      return "rejected";
+    case "under_review":
+    case "pending":
+    default:
+      return "pending_review";
+  }
+}
+
+type AdminRow = {
+  id: string;
+  title: string;
+  authorName: string;
+  authorEmail: string;
+  status: BookStatus;
+  updatedAt: string;
+  kind: "submission" | "book";
+};
+
 export default async function AdminBooksPage({
   searchParams,
 }: {
@@ -24,34 +48,95 @@ export default async function AdminBooksPage({
 }) {
   await requireAdmin();
   const { status: statusFilter } = await searchParams;
-  const supabase = await createClient();
 
-  let query = supabase
-    .from("books")
-    .select(
-      `
-      id,
-      title,
-      author_display_name,
-      status,
-      updated_at,
-      profiles:profiles!books_author_id_fkey(display_name, email)
-    `
-    )
-    .order("updated_at", { ascending: false })
-    .limit(100);
+  const rows: AdminRow[] = [];
 
-  if (statusFilter && STATUSES.includes(statusFilter as BookStatus)) {
-    query = query.eq("status", statusFilter);
+  if (isPayloadConfigured()) {
+    const payload = await getPayloadClient();
+
+    const submissions = await payload.find({
+      collection: "book-submissions",
+      limit: 100,
+      sort: "-updatedAt",
+      overrideAccess: true,
+      depth: 0,
+    });
+
+    for (const doc of submissions.docs) {
+      const d = doc as {
+        id: string | number;
+        title?: string | null;
+        authorDisplay?: string | null;
+        authorEmail?: string | null;
+        author?: { email?: string | null; firstName?: string; lastName?: string };
+        status?: string | null;
+        updatedAt?: string;
+      };
+      rows.push({
+        id: String(d.id),
+        title: d.title || "Untitled",
+        authorName:
+          d.authorDisplay ||
+          `${d.author?.firstName ?? ""} ${d.author?.lastName ?? ""}`.trim() ||
+          "-",
+        authorEmail: d.authorEmail || d.author?.email || "",
+        status: mapSubmissionStatus(d.status),
+        updatedAt: d.updatedAt || new Date().toISOString(),
+        kind: "submission",
+      });
+    }
+
+    const books = await payload.find({
+      collection: "books",
+      limit: 100,
+      sort: "-updatedAt",
+      overrideAccess: true,
+      depth: 1,
+    });
+
+    for (const doc of books.docs) {
+      const d = doc as {
+        id: string | number;
+        title?: string | null;
+        status?: string | null;
+        updatedAt?: string;
+        author?: {
+          displayName?: string | null;
+          email?: string | null;
+        } | null;
+      };
+      const status: BookStatus =
+        d.status === "published"
+          ? "published"
+          : d.status === "unpublished"
+            ? "unpublished"
+            : "draft";
+      rows.push({
+        id: String(d.id),
+        title: d.title || "Untitled",
+        authorName: d.author?.displayName || "-",
+        authorEmail: d.author?.email || "",
+        status,
+        updatedAt: d.updatedAt || new Date().toISOString(),
+        kind: "book",
+      });
+    }
   }
 
-  const { data: books } = await query;
+  const filtered =
+    statusFilter && STATUSES.includes(statusFilter as BookStatus)
+      ? rows.filter((r) => r.status === statusFilter)
+      : rows;
+
+  filtered.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 
   return (
     <div className="space-y-6">
       <header>
         <h1 className="heading-section">Books</h1>
-        <p className="mt-2 text-forest-muted">Filter by workflow status.</p>
+        <p className="mt-2 text-forest-muted">
+          Submissions and catalog books from Payload CMS.
+        </p>
       </header>
 
       <div className="flex flex-wrap gap-2">
@@ -78,40 +163,39 @@ export default async function AdminBooksPage({
             </tr>
           </thead>
           <tbody className="divide-y divide-sand">
-            {(books ?? []).map((book) => {
-              const author = book.profiles as {
-                display_name?: string | null;
-                email?: string | null;
-              } | null;
-              return (
-                <tr key={book.id}>
-                  <td className="px-4 py-3 font-semibold text-ink">{book.title}</td>
-                  <td className="hidden px-4 py-3 text-forest-muted md:table-cell">
-                    {author?.display_name ?? book.author_display_name}
-                    {author?.email ? (
-                      <span className="block text-xs">{author.email}</span>
-                    ) : null}
-                  </td>
-                  <td className="px-4 py-3">
-                    <StatusBadge status={book.status as BookStatus} />
-                  </td>
-                  <td className="hidden px-4 py-3 text-forest-muted sm:table-cell">
-                    {formatDate(book.updated_at)}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Link
-                      href={`/admin/books/${book.id}`}
-                      className="font-semibold text-coral hover:underline"
-                    >
-                      Review
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
+            {filtered.map((book) => (
+              <tr key={`${book.kind}-${book.id}`}>
+                <td className="px-4 py-3 font-semibold text-ink">
+                  {book.title}
+                  <span className="mt-0.5 block text-[10px] font-normal uppercase text-forest-muted">
+                    {book.kind}
+                  </span>
+                </td>
+                <td className="hidden px-4 py-3 text-forest-muted md:table-cell">
+                  {book.authorName}
+                  {book.authorEmail ? (
+                    <span className="block text-xs">{book.authorEmail}</span>
+                  ) : null}
+                </td>
+                <td className="px-4 py-3">
+                  <StatusBadge status={book.status} />
+                </td>
+                <td className="hidden px-4 py-3 text-forest-muted sm:table-cell">
+                  {formatDate(book.updatedAt)}
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <Link
+                    href={`/admin/books/${book.id}`}
+                    className="font-semibold text-coral hover:underline"
+                  >
+                    Review
+                  </Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        {(books ?? []).length === 0 ? (
+        {filtered.length === 0 ? (
           <p className="px-4 py-8 text-center text-forest-muted">
             No books match this filter.
           </p>

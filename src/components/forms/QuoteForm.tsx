@@ -22,7 +22,7 @@ const initial: FormState = {
 };
 
 const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const contactEmailLabel = "hello@AuthorsPilot.com";
+const contactEmailLabel = "info@authorspilot.com";
 
 function validate(values: FormState): FormErrors {
   const errors: FormErrors = {};

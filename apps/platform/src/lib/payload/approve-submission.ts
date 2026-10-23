@@ -75,14 +75,15 @@ export async function approveBookSubmission(args: {
   if (existing.docs[0]) {
     authorId = existing.docs[0].id;
     const existingAvatar = (existing.docs[0] as { avatar?: unknown }).avatar;
-    if (avatarId && !existingAvatar) {
-      await payload.update({
-        collection: "authors",
-        id: authorId,
-        data: { avatar: avatarId },
-        overrideAccess: true,
-      });
-    }
+    await payload.update({
+      collection: "authors",
+      id: authorId,
+      data: {
+        approvalStatus: "APPROVED",
+        ...(avatarId && !existingAvatar ? { avatar: avatarId } : {}),
+      },
+      overrideAccess: true,
+    });
   } else {
     const authorSlug = uniqueSlug(displayName, submission.id);
     const created = await payload.create({
@@ -93,6 +94,7 @@ export async function approveBookSubmission(args: {
         lastName,
         email,
         slug: authorSlug,
+        approvalStatus: "APPROVED",
         ...(avatarId ? { avatar: avatarId } : {}),
       },
       overrideAccess: true,
@@ -115,6 +117,7 @@ export async function approveBookSubmission(args: {
       editionNumber: submission.editionNumber || undefined,
       author: authorId,
       status: "published",
+      approvalStatus: "APPROVED",
       publishingRights: submission.publishingRights || undefined,
       primaryAudience: submission.primaryAudience || undefined,
       readingAgeMin: submission.readingAgeMin ?? undefined,

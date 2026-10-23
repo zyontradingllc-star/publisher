@@ -391,7 +391,7 @@ export function PublishBookDetailsForm({
               value="draft"
               disabled={pending}
               onClick={() => setSubmitIntent("draft")}
-              className="inline-flex items-center justify-center rounded-full border border-sand bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink transition hover:border-coral/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral disabled:opacity-60"
+              className="inline-flex items-center justify-center rounded-none border border-sand bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink transition hover:border-coral/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral disabled:opacity-60"
             >
               {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
             </button>
@@ -401,7 +401,7 @@ export function PublishBookDetailsForm({
               value="continue"
               disabled={pending}
               onClick={() => setSubmitIntent("continue")}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E08A2A] disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2 rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E08A2A] disabled:opacity-60"
             >
               {pending && submitIntent === "continue"
                 ? "Saving…"

@@ -208,7 +208,7 @@ export function PublishBookPricingForm({
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-sand bg-ivory/50 px-2 py-5 sm:px-4">
           <Link
             href="/dashboard/books/new/content"
-            className="inline-flex items-center rounded-full border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40"
+            className="inline-flex items-center rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40"
           >
             ← Back to Content
           </Link>
@@ -219,7 +219,7 @@ export function PublishBookPricingForm({
               value="draft"
               disabled={pending}
               onClick={() => setSubmitIntent("draft")}
-              className="rounded-full border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
+              className="rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
             >
               {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
             </button>
@@ -229,7 +229,7 @@ export function PublishBookPricingForm({
               value="publish"
               disabled={pending}
               onClick={() => setSubmitIntent("publish")}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
             >
               {pending && submitIntent === "publish"
                 ? "Publishing…"

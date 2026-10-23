@@ -8,7 +8,9 @@ import sharp from "sharp";
 import { Authors } from "./collections/Authors";
 import { BookSubmissions } from "./collections/BookSubmissions";
 import { Books } from "./collections/Books";
+import { LinkClicks } from "./collections/LinkClicks";
 import { Media } from "./collections/Media";
+import { SaleLinks } from "./collections/SaleLinks";
 import { Users } from "./collections/Users";
 
 const filename = fileURLToPath(import.meta.url);
@@ -32,7 +34,15 @@ export default buildConfig({
   routes: {
     admin: "/cms",
   },
-  collections: [Users, Media, BookSubmissions, Authors, Books],
+  collections: [
+    Users,
+    Media,
+    BookSubmissions,
+    Authors,
+    Books,
+    SaleLinks,
+    LinkClicks,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "CHANGE-ME-IN-ENV",
   typescript: {

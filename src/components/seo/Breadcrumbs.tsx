@@ -11,6 +11,13 @@ type BreadcrumbsProps = {
   items: BreadcrumbItem[];
 };
 
+function schemaItemUrl(item: BreadcrumbItem): string | undefined {
+  // Google expects Home → site root; UI may still link to marketing homeHref.
+  if (item.label === "Home") return canonicalUrl("/");
+  if (item.href) return canonicalUrl(item.href);
+  return undefined;
+}
+
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   if (items.length === 0) return null;
 
@@ -49,12 +56,15 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
         data={{
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          itemListElement: items.map((item, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            name: item.label,
-            ...(item.href ? { item: canonicalUrl(item.href) } : {}),
-          })),
+          itemListElement: items.map((item, index) => {
+            const itemUrl = schemaItemUrl(item);
+            return {
+              "@type": "ListItem",
+              position: index + 1,
+              name: item.label,
+              ...(itemUrl ? { item: itemUrl } : {}),
+            };
+          }),
         }}
       />
     </>

@@ -9,11 +9,14 @@
     "sitemap:ap": "node scripts/write-sitemap-authors-pilot.mjs",
     "prebuild": "npm run sitemap:ap",
     "build": "next build",
+    "build:platform": "npm run build --prefix apps/platform",
+    "build:all": "npm run build && npm run build:platform",
     "start": "next start",
     "lint": "next lint",
     "images:webp": "node scripts/convert-images-to-webp.mjs",
     "images:optimize": "node scripts/optimize-public-images.mjs",
-    "images:cleanup": "node scripts/cleanup-raster-duplicates.mjs"
+    "images:cleanup": "node scripts/cleanup-raster-duplicates.mjs",
+    "migrate:firestore": "npm run migrate:firestore --prefix apps/platform"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",

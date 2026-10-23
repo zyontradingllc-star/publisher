@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendAdminMail } from "@/lib/email/send-mail";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 type ContactBody = {
   name?: string;
@@ -7,6 +8,7 @@ type ContactBody = {
   creating?: string;
   alreadyHave?: string;
   message?: string;
+  captchaToken?: string;
 };
 
 export async function POST(request: Request) {
@@ -20,7 +22,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { name, email, creating, alreadyHave, message } = body;
+  const { name, email, creating, alreadyHave, message, captchaToken } = body;
 
   if (
     !name?.trim() ||
@@ -32,6 +34,15 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { success: false, message: "Please fill in all required fields." },
       { status: 400 },
+    );
+  }
+
+  const remoteip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const captcha = await verifyTurnstileToken(captchaToken, remoteip);
+  if (!captcha.success) {
+    return NextResponse.json(
+      { success: false, message: captcha.message || "Security check failed." },
+      { status: 403 },
     );
   }
 

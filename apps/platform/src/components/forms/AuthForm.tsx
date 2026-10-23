@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 import type { ActionState } from "@/app/actions/auth";
+import { GoogleContinueButton } from "@/components/forms/GoogleContinueButton";
 import { Alert } from "@/components/ui/Alert";
 import { Button } from "@/components/ui/Button";
 
@@ -29,6 +30,7 @@ export function AuthForm({
   hiddenFields,
 }: AuthFormProps) {
   const [state, formAction, pending] = useActionState(action, initialState);
+  const showGoogle = mode === "login" || mode === "signup";
 
   const titles: Record<AuthFormMode, string> = {
     login: "Log in to your account",
@@ -41,9 +43,10 @@ export function AuthForm({
     <div className="card-surface">
       <h1 className="heading-display text-2xl">{titles[mode]}</h1>
       <p className="mt-2 text-sm text-forest-muted">
-        {mode === "login" && "Access your dashboard to manage book listings."}
+        {mode === "login" &&
+          "Continue with Google, or use email and password."}
         {mode === "signup" &&
-          "Free during launch. You keep 100% of royalties from sales on your own channels."}
+          "Verify with Google to get started fast — or create an account with email."}
         {mode === "forgot" &&
           "Enter the email you used to sign up. We will send reset instructions if an account exists."}
         {mode === "reset" && "Use at least 8 characters for your new password."}
@@ -58,8 +61,30 @@ export function AuthForm({
         </Alert>
       ) : null}
 
-      <form action={formAction} className="mt-6 space-y-4">
-        {mode === "login" ? (
+      {showGoogle ? (
+        <div className="mt-6">
+          <GoogleContinueButton
+            nextPath={
+              mode === "signup" ? "/dashboard/books/new" : nextPath
+            }
+            label="Continue with Google"
+          />
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center" aria-hidden>
+              <div className="w-full border-t border-sand" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase tracking-wide">
+              <span className="bg-white px-3 text-forest-muted">or</span>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <form
+        action={formAction}
+        className={showGoogle ? "space-y-4" : "mt-6 space-y-4"}
+      >
+        {mode === "login" || mode === "signup" ? (
           <input type="hidden" name="next" value={nextPath} />
         ) : null}
         {hiddenFields

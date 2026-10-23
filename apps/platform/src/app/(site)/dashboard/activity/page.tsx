@@ -10,7 +10,7 @@ export const metadata = {
 
 export default async function ActivityPage() {
   const profile = await requireProfile("/dashboard/activity");
-  const activity = await getAuthorActivity(profile.id);
+  const activity = await getAuthorActivity(profile.id, profile.email);
 
   return (
     <div className="space-y-8">

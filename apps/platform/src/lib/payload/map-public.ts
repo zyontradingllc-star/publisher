@@ -11,6 +11,8 @@ type PayloadMedia = {
 
 type PayloadAuthor = {
   id: string | number;
+  firebaseUid?: string | null;
+  role?: string | null;
   displayName?: string | null;
   firstName?: string | null;
   lastName?: string | null;
@@ -18,6 +20,17 @@ type PayloadAuthor = {
   slug?: string | null;
   bio?: string | null;
   avatar?: string | number | PayloadMedia | null;
+  avatarPath?: string | null;
+  websiteUrl?: string | null;
+  hasAuthorWebsite?: boolean | null;
+  socialFacebook?: string | null;
+  socialInstagram?: string | null;
+  socialTwitter?: string | null;
+  socialLinkedin?: string | null;
+  socialWhatsapp?: string | null;
+  socialTiktok?: string | null;
+  isPublic?: boolean | null;
+  profileComplete?: boolean | null;
   createdAt?: string;
   updatedAt?: string;
 };
@@ -70,23 +83,24 @@ export function mapPayloadAuthor(doc: PayloadAuthor): Profile {
     `${doc.firstName || ""} ${doc.lastName || ""}`.trim() ||
     "Author";
   return {
-    id: String(doc.id),
-    role: "author",
+    id: String(doc.firebaseUid || doc.id),
+    role: doc.role === "admin" ? "admin" : "author",
     email: doc.email || null,
     display_name: name,
     slug: doc.slug || null,
     bio: doc.bio || null,
-    avatar_path: mediaUrl(doc.avatar, "thumbnail"),
-    website_url: null,
-    has_author_website: false,
-    social_facebook: null,
-    social_instagram: null,
-    social_twitter: null,
-    social_linkedin: null,
-    social_whatsapp: null,
-    social_tiktok: null,
-    is_public: true,
-    profile_complete: true,
+    avatar_path:
+      mediaUrl(doc.avatar, "thumbnail") || doc.avatarPath || null,
+    website_url: doc.websiteUrl || null,
+    has_author_website: Boolean(doc.hasAuthorWebsite),
+    social_facebook: doc.socialFacebook || null,
+    social_instagram: doc.socialInstagram || null,
+    social_twitter: doc.socialTwitter || null,
+    social_linkedin: doc.socialLinkedin || null,
+    social_whatsapp: doc.socialWhatsapp || null,
+    social_tiktok: doc.socialTiktok || null,
+    is_public: doc.isPublic !== false,
+    profile_complete: Boolean(doc.profileComplete),
     created_at: doc.createdAt || new Date().toISOString(),
     updated_at: doc.updatedAt || new Date().toISOString(),
   };
