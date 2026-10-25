@@ -15,6 +15,7 @@ const assetPrefix =
 const nextConfig: NextConfig = {
   // Node deploy bundle for app.authorspilot.com (Hostinger VPS / Railway / etc.)
   output: "standalone",
+  trailingSlash: true,
   outputFileTracingRoot: path.join(__dirname),
   ...(assetPrefix ? { assetPrefix } : {}),
   eslint: {

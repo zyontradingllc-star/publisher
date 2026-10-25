@@ -165,8 +165,19 @@ export async function reviewBookAction(
     revalidatePath("/admin");
     revalidatePath(`/admin/books/${book_id}`);
     revalidatePath("/books");
+    revalidatePath("/authors");
     if (submission.publicSlug) {
       revalidatePath(`/books/${submission.publicSlug}`);
+    }
+    const approvedAuthor = (
+      submission as { approvedAuthor?: string | number | { id?: string | number; slug?: string } | null }
+    ).approvedAuthor;
+    const authorSlug =
+      typeof approvedAuthor === "object" && approvedAuthor && "slug" in approvedAuthor
+        ? approvedAuthor.slug
+        : null;
+    if (authorSlug) {
+      revalidatePath(`/authors/${authorSlug}`);
     }
     return {
       ok: true,

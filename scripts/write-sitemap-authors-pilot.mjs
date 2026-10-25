@@ -49,14 +49,14 @@ function readSeoPaths() {
 }
 
 const staticPaths = [
-  "/book-publishing-author-website-design-agency",
+  "/",
   "/blog/author-publishing-blog-resources",
   "/blog/writing-resources-for-authors",
   "/contact-author-website-design-agency",
   "/about-authorspilot-publishing-agency",
   "/author-publishing-website-price",
-  "/privacy-policy",
-  "/terms-and-conditions",
+  "/privacy",
+  "/terms",
   "/self-publishing-agency-services",
   "/book-publishing-services-for-authors",
   "/audiobook-production-services-for-authors",

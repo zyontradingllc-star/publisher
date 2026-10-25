@@ -26,6 +26,8 @@ export type Profile = {
   slug: string | null;
   bio: string | null;
   avatar_path: string | null;
+  /** Cover banner URL or storage path for dashboard / author header */
+  banner_path: string | null;
   website_url: string | null;
   has_author_website: boolean;
   social_facebook: string | null;
@@ -35,6 +37,7 @@ export type Profile = {
   social_whatsapp: string | null;
   /** Preferred; falls back to social_whatsapp until migration applied */
   social_tiktok?: string | null;
+  social_reddit?: string | null;
   is_public: boolean;
   profile_complete: boolean;
   created_at: string;
@@ -129,7 +132,7 @@ export type ContentReport = {
 
 export const BOOK_STATUS_LABELS: Record<BookStatus, string> = {
   draft: "Draft",
-  pending_review: "Pending Review",
+  pending_review: "Waiting for Approval",
   changes_requested: "Changes Requested",
   published: "Published",
   rejected: "Rejected",

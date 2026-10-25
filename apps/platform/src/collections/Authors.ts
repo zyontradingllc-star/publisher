@@ -149,6 +149,11 @@ export const Authors: CollectionConfig = {
       validate: optionalHttpsUrl,
     },
     {
+      name: "socialReddit",
+      type: "text",
+      validate: optionalHttpsUrl,
+    },
+    {
       name: "isPublic",
       type: "checkbox",
       defaultValue: false,
@@ -173,6 +178,22 @@ export const Authors: CollectionConfig = {
       relationTo: "media",
       admin: {
         description: "Author profile picture shown on public author pages.",
+      },
+    },
+    {
+      name: "bannerPath",
+      type: "text",
+      admin: {
+        description:
+          "Optional Firebase Storage path for cover banner (used when not uploading via Media).",
+      },
+    },
+    {
+      name: "banner",
+      type: "upload",
+      relationTo: "media",
+      admin: {
+        description: "Author dashboard / profile cover banner image.",
       },
     },
     {

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import {
   MARKETING_HOME_URL,
   MARKETING_URL,
+  avatarUrl,
   platformPublicPath,
 } from "@/lib/utils";
 import type { Profile } from "@/types/database";
@@ -36,6 +37,7 @@ const SERVICES_CHILDREN = [
 const NAV_LINKS = [
   { href: "/publish", label: "Publish" },
   { href: "/bookstore", label: "BookStore" },
+  { href: "/blog", label: "Blog" },
   {
     href: MARKETING_HOME_URL,
     label: "Services",
@@ -57,6 +59,11 @@ export function SiteHeader({ profile }: Props) {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const photo = loggedIn ? avatarUrl(profile?.avatar_path) : null;
+  const initials = (profile?.display_name || profile?.email || "A")
+    .trim()
+    .charAt(0)
+    .toUpperCase();
 
   const linkClass = (mobile = false) =>
     mobile
@@ -84,13 +91,13 @@ export function SiteHeader({ profile }: Props) {
             className="inline-flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-3"
             aria-label="Authors Pilot home"
           >
-            <span className="relative block h-12 w-[52px] sm:h-14 sm:w-[60px]">
+            <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-full border border-sand bg-ivory sm:h-12 sm:w-12">
               <Image
                 src={platformPublicPath("/logo-authors-pilot.webp")}
                 alt=""
                 width={400}
                 height={400}
-                className="h-full w-full object-contain object-left"
+                className="h-full w-full object-cover"
                 priority
                 unoptimized
               />
@@ -190,9 +197,34 @@ export function SiteHeader({ profile }: Props) {
                     Admin
                   </Link>
                 ) : null}
-                <Button href="/dashboard" variant="ghost" className="!px-4 !py-2 !text-xs">
-                  Dashboard
-                </Button>
+                <div className="inline-flex items-center gap-2">
+                  <Link
+                    href="/dashboard"
+                    className="relative inline-flex h-8 w-8 shrink-0 overflow-hidden rounded-full border-2 border-white bg-ivory shadow-soft ring-1 ring-sand"
+                    aria-label="Your profile"
+                  >
+                    {photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={photo}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-xs font-bold text-ink">
+                        {initials}
+                      </span>
+                    )}
+                  </Link>
+                  <Button
+                    href="/dashboard"
+                    variant="ghost"
+                    className="!px-4 !py-2 !text-xs"
+                  >
+                    Dashboard
+                  </Button>
+                </div>
               </>
             ) : (
               <SignupCta className="!px-4 !py-2 !text-xs" />
@@ -314,11 +346,33 @@ export function SiteHeader({ profile }: Props) {
                   );
                 })}
               </ul>
-              <div className="flex justify-center pt-4">
+              <div className="flex items-center justify-center gap-2 pt-4">
                 {loggedIn ? (
-                  <Button href="/dashboard" variant="ghost">
-                    Dashboard
-                  </Button>
+                  <>
+                    <Link
+                      href="/dashboard"
+                      className="relative inline-flex h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-white bg-ivory shadow-soft ring-1 ring-sand"
+                      aria-label="Your profile"
+                      onClick={() => setOpen(false)}
+                    >
+                      {photo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={photo}
+                          alt=""
+                          className="h-full w-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <span className="flex h-full w-full items-center justify-center text-xs font-bold text-ink">
+                          {initials}
+                        </span>
+                      )}
+                    </Link>
+                    <Button href="/dashboard" variant="ghost">
+                      Dashboard
+                    </Button>
+                  </>
                 ) : (
                   <SignupCta />
                 )}

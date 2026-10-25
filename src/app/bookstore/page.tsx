@@ -24,7 +24,7 @@ export default function BookstoreComingSoonPage() {
       </p>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
         <Button href="/publish/">Submit Your Book</Button>
-        <Button href="/book-publishing-author-website-design-agency/" variant="ghost">
+        <Button href="/" variant="ghost">
           Back to Home
         </Button>
       </div>

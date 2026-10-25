@@ -11,11 +11,11 @@ type BrandLogoProps = {
   onClick?: () => void;
 };
 
-/** Full eagle lockup (~1.06:1) - keep navbar compact but readable. */
+/** Circular logo mark — keep navbar compact but readable. */
 const box = {
-  sm: "h-14 w-[59px]",
-  md: "h-16 w-[68px] sm:h-[4.25rem] sm:w-[72px]",
-  lg: "h-16 w-[68px] sm:h-[4.75rem] sm:w-[80px]",
+  sm: "h-11 w-11",
+  md: "h-12 w-12 sm:h-14 sm:w-14",
+  lg: "h-14 w-14 sm:h-16 sm:w-16",
 } as const;
 
 export function BrandLogo({
@@ -31,14 +31,16 @@ export function BrandLogo({
       className={`group inline-flex min-w-0 items-center gap-2.5 sm:gap-3 ${className}`}
       aria-label={`${brand.name} home`}
     >
-      <span className={`relative inline-block shrink-0 ${box[size]}`}>
+      <span
+        className={`relative inline-block shrink-0 overflow-hidden rounded-full border border-sand bg-ivory ${box[size]}`}
+      >
         <Image
           src="/logo-authors-pilot.webp?v=2"
           alt=""
           width={400}
           height={400}
           priority={priority}
-          className="h-full w-full object-contain object-left transition-transform group-hover:scale-[1.02]"
+          className="h-full w-full object-cover transition-transform group-hover:scale-[1.02]"
         />
       </span>
       <span className="font-display text-base font-bold tracking-tight text-[#273E2B] sm:text-lg lg:text-xl">

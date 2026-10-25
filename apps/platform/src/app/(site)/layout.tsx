@@ -6,17 +6,68 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { WebsiteDesignCta } from "@/components/WebsiteDesignCta";
 import { getCurrentProfile } from "@/lib/auth";
 import { logEnvStatus } from "@/lib/env";
+import {
+  APP_ORIGIN,
+  APP_SITE_NAME,
+  DEFAULT_OG_IMAGE,
+  appCanonical,
+} from "@/lib/seo";
+import { PRIMARY_KEYWORDS } from "@/lib/seo-content";
 import { siteFont } from "../fonts";
 
 logEnvStatus();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(APP_ORIGIN),
   title: {
-    default: "Authors Pilot Publishing Platform",
-    template: "%s · Authors Pilot",
+    default:
+      "Free Author Page & One Link to Sell Your Book | Authors Pilot",
+    template: `%s · ${APP_SITE_NAME}`,
   },
   description:
-    "Publish book listings on Authors Pilot, keep 100% of your earnings, and send readers to your own website or chosen sales channels.",
+    "Get a free author page and one shareable link to sell on Amazon or your website. Keep 100% book royalties—no commission. A free Booklinker / Books2Read-style alternative with a branded page and click tracking.",
+  keywords: [...PRIMARY_KEYWORDS],
+  authors: [{ name: APP_SITE_NAME, url: APP_ORIGIN }],
+  creator: APP_SITE_NAME,
+  publisher: APP_SITE_NAME,
+  alternates: {
+    canonical: appCanonical("/"),
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    title: "Free Author Page & One Link to Sell Your Book | Authors Pilot",
+    description:
+      "Branded author page, universal book link, click analytics, and 100% royalties. No commission—send readers to Amazon or your site.",
+    type: "website",
+    url: appCanonical("/"),
+    siteName: APP_SITE_NAME,
+    locale: "en_US",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Authors Pilot — free author page and book link",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Author Page & One Link to Sell Your Book | Authors Pilot",
+    description:
+      "Keep 100% royalties. Free author page + one link to Amazon or your website.",
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 export default async function SiteLayout({
@@ -32,17 +83,31 @@ export default async function SiteLayout({
   }
 
   const pathname = (await headers()).get("x-pathname") ?? "";
+  const isDashboard =
+    pathname === "/dashboard" || pathname.startsWith("/dashboard/");
   const hideWebsiteCta =
+    isDashboard ||
     pathname === "/bookstore" ||
     pathname.startsWith("/bookstore/") ||
     pathname === "/faq" ||
     pathname.startsWith("/faq/") ||
+    pathname === "/blog" ||
+    pathname.startsWith("/blog/") ||
+    pathname === "/guides" ||
+    pathname.startsWith("/guides/") ||
+    pathname.startsWith("/compare/") ||
     pathname === "/publish" ||
-    pathname.startsWith("/publish/");
+    pathname.startsWith("/publish/") ||
+    pathname === "/how-it-works" ||
+    pathname.startsWith("/how-it-works/") ||
+    pathname.startsWith("/vs-");
 
   return (
     <html lang="en" className={siteFont.variable}>
-      <body className="flex min-h-screen flex-col bg-page-wash font-sans text-ink antialiased">
+      <body
+        className="flex min-h-screen flex-col bg-page-wash font-sans text-ink antialiased"
+        suppressHydrationWarning
+      >
         <SiteHeader profile={profile} />
         <main className="flex-1">{children}</main>
         {!hideWebsiteCta ? (
@@ -50,7 +115,7 @@ export default async function SiteLayout({
             <WebsiteDesignCta />
           </div>
         ) : null}
-        <SiteFooter />
+        {!isDashboard ? <SiteFooter /> : null}
       </body>
     </html>
   );

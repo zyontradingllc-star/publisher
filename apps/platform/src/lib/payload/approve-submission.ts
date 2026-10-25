@@ -1,4 +1,5 @@
 import type { Payload } from "payload";
+import { revalidatePath } from "next/cache";
 import { slugify } from "@/lib/utils";
 
 type SubmissionDoc = {
@@ -75,11 +76,16 @@ export async function approveBookSubmission(args: {
   if (existing.docs[0]) {
     authorId = existing.docs[0].id;
     const existingAvatar = (existing.docs[0] as { avatar?: unknown }).avatar;
+    const existingDisplay = (existing.docs[0] as { displayName?: string | null })
+      .displayName;
     await payload.update({
       collection: "authors",
       id: authorId,
       data: {
         approvalStatus: "APPROVED",
+        isPublic: true,
+        // Keep profile display name if author already saved one in dashboard
+        ...(!existingDisplay && displayName ? { displayName } : {}),
         ...(avatarId && !existingAvatar ? { avatar: avatarId } : {}),
       },
       overrideAccess: true,
@@ -95,6 +101,7 @@ export async function approveBookSubmission(args: {
         email,
         slug: authorSlug,
         approvalStatus: "APPROVED",
+        isPublic: true,
         ...(avatarId ? { avatar: avatarId } : {}),
       },
       overrideAccess: true,
@@ -167,5 +174,13 @@ export async function approveBookSubmission(args: {
     context: { skipApproveHook: true },
   });
 
-  return { authorId, bookId: book.id, bookSlug };
+  const authorSlug =
+    (authorDoc as { slug?: string | null }).slug ||
+    uniqueSlug(displayName, submission.id);
+  revalidatePath("/books");
+  revalidatePath("/authors");
+  revalidatePath(`/books/${bookSlug}`);
+  revalidatePath(`/authors/${authorSlug}`);
+
+  return { authorId, bookId: book.id, bookSlug, authorSlug };
 }

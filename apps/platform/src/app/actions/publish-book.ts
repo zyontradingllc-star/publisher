@@ -437,7 +437,10 @@ export async function savePublishPricingAction(
   const primaryMarketplace = String(
     formData.get("primary_marketplace") || "author_website"
   );
-  const linkAuthor = String(formData.get("link_author_website") || "").trim();
+  const hasAuthorWebsite = formData.get("has_author_website") !== "no";
+  const linkAuthor = hasAuthorWebsite
+    ? String(formData.get("link_author_website") || "").trim()
+    : "";
   const linkAmazon = String(formData.get("link_amazon") || "").trim();
   const linkOther = String(formData.get("link_other") || "").trim();
   const termsAccepted = formData.get("terms_accepted") === "on";
@@ -483,12 +486,14 @@ export async function savePublishPricingAction(
   ) {
     try {
       const linkRows = [];
+      const selectAll = primaryMarketplace === "all";
       if (linkAuthor) {
         linkRows.push({
           link_type: "author_website" as const,
           label: "Author Website",
           url: linkAuthor,
-          is_primary: primaryMarketplace === "author_website",
+          is_primary:
+            selectAll || primaryMarketplace === "author_website",
           is_active: true,
           display_order: 0,
         });
@@ -498,7 +503,8 @@ export async function savePublishPricingAction(
           link_type: "amazon" as const,
           label: "Amazon",
           url: linkAmazon,
-          is_primary: primaryMarketplace.startsWith("amazon"),
+          is_primary:
+            selectAll || primaryMarketplace.startsWith("amazon"),
           is_active: true,
           display_order: 1,
         });
@@ -508,7 +514,7 @@ export async function savePublishPricingAction(
           link_type: "other" as const,
           label: "Other retailer",
           url: linkOther,
-          is_primary: primaryMarketplace === "other",
+          is_primary: selectAll || primaryMarketplace === "other",
           is_active: true,
           display_order: 2,
         });
@@ -566,5 +572,5 @@ export async function savePublishPricingAction(
     ]);
   });
 
-  redirect("/dashboard?submitted=1");
+  redirect("/dashboard/books?submitted=1");
 }

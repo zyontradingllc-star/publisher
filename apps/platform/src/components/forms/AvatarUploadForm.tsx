@@ -1,8 +1,10 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { uploadAvatarAction } from "@/app/actions/profile";
 import type { ActionState } from "@/app/actions/auth";
+import { platformPublicPath } from "@/lib/utils";
 
 const initialState: ActionState = { ok: false };
 
@@ -11,6 +13,7 @@ type Props = {
 };
 
 export function AvatarUploadForm({ initialUrl }: Props) {
+  const router = useRouter();
   const [state, formAction, pending] = useActionState(
     uploadAvatarAction,
     initialState
@@ -26,8 +29,17 @@ export function AvatarUploadForm({ initialUrl }: Props) {
   }, [initialUrl]);
 
   useEffect(() => {
-    if (state.ok) setAttached(true);
-  }, [state.ok]);
+    if (!state.ok) return;
+    setAttached(true);
+    if (state.url) {
+      const next = platformPublicPath(state.url);
+      setPreview((prev) => {
+        if (prev?.startsWith("blob:")) URL.revokeObjectURL(prev);
+        return next;
+      });
+    }
+    router.refresh();
+  }, [state, router]);
 
   useEffect(() => {
     return () => {

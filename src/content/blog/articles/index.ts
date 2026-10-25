@@ -150,7 +150,7 @@ const blogArticles = [
         level: 2,
         paragraphs: [
           "Self-publishing has moved from a last resort to a legitimate first choice for many authors. You set your own deadlines, keep creative control, and earn higher per-unit royalties than most traditional contracts offer. Still comparing paths? Start with [How to Publish a Book: Complete Guide (Traditional vs Self-Publishing)](/blog/how-to-publish-a-book), then come back here for the action steps.",
-          "The USA self-publishing market is mature. Tools for editing, design, formatting, and distribution are accessible and affordable. The authors who succeed treat self-publishing as a business - investing in quality and marketing from day one.",
+          "The USA self-publishing market is mature. Tools for editing, design, formatting, and distribution are accessible and affordable. The authors who succeed treat self-publishing as a business - investing in quality and marketing from day one. If you want hands-on help, see our [self-publishing services for authors](/self-publishing-services-for-authors/) and [KDP publishing services](/amazon-kdp-publishing-services/).",
         ],
       },
       {
@@ -405,7 +405,7 @@ const blogArticles = [
         heading: "Questions to Ask Before Hiring",
         level: 2,
         paragraphs: [
-          "Professional ghostwriting agencies like Authors Pilot offer vetted writers, project management, and contract protection. Freelance platforms (Reedsy, Upwork) provide access to individual writers at varying price points. Referrals from other authors, coaches, and industry contacts are often the most reliable source.",
+          "Professional ghostwriting agencies like Authors Pilot offer vetted writers, project management, and contract protection. Start with our [ghostwriting services for authors](/ghostwriting-services-for-authors/) if you want a managed match. Freelance platforms (Reedsy, Upwork) provide access to individual writers at varying price points. Referrals from other authors, coaches, and industry contacts are often the most reliable source.",
           "Avoid classified ads and cold outreach from unverified writers. Legitimate ghostwriters have portfolios, client testimonials, and clear processes - not vague promises and pressure to pay upfront.",
         ],
         bullets: [
@@ -504,7 +504,7 @@ const blogArticles = [
         heading: "Average Ghostwriting Rates",
         level: 2,
         paragraphs: [
-          "Ghostwriters price projects in three main ways: per word, flat project fee, or hourly. Per-word rates are most common for book-length work because they align cost with scope. Flat fees work when the project has a clearly defined outline and word count. Hourly rates appear for consulting, research-heavy phases, or shorter projects.",
+          "Ghostwriters price projects in three main ways: per word, flat project fee, or hourly. Per-word rates are most common for book-length work because they align cost with scope. Flat fees work when the project has a clearly defined outline and word count. Hourly rates appear for consulting, research-heavy phases, or shorter projects. For a managed quote, see [ghostwriting services for authors](/ghostwriting-services-for-authors/).",
           "Payment is usually split into milestones - a deposit at signing, payments at chapter deliveries, and a final payment upon completion. Avoid any writer who demands 100% upfront.",
         ],
       },

@@ -36,29 +36,56 @@ export function publicStorageUrl(bucket: string, path: string | null | undefined
   return null;
 }
 
-export function coverUrl(path: string | null | undefined): string | null {
+/** Payload + trailingSlash can store `/api/media/file/x.jpg/` — strip for Next/Image. */
+function normalizeMediaPath(path: string): string {
+  let p = path.trim();
+  if (p.length > 1 && p.endsWith("/")) p = p.replace(/\/+$/, "");
+  return p;
+}
+
+/**
+ * Public image URL for covers/avatars/banners.
+ * In dev, prefixes PLATFORM_ASSET_ORIGIN so marketing (:3000) can load platform media (:3001).
+ */
+function resolvePublicMediaUrl(path: string | null | undefined): string | null {
   if (!path) return null;
-  // Absolute / Payload media URLs (http, https, or /api/media/...)
+  const normalized = normalizeMediaPath(path);
   if (
-    path.startsWith("http://") ||
-    path.startsWith("https://") ||
-    path.startsWith("/")
+    normalized.startsWith("http://") ||
+    normalized.startsWith("https://")
   ) {
-    return path;
+    return normalized;
   }
+  if (normalized.startsWith("/")) {
+    // Payload media (and other local public paths) must hit the platform origin
+    // when the page is opened via the marketing proxy on :3000.
+    if (
+      normalized.startsWith("/api/media") ||
+      Boolean(PLATFORM_ASSET_ORIGIN)
+    ) {
+      return platformPublicPath(normalized);
+    }
+    return normalized;
+  }
+  return null;
+}
+
+export function coverUrl(path: string | null | undefined): string | null {
+  const resolved = resolvePublicMediaUrl(path);
+  if (resolved) return resolved;
   return publicStorageUrl("book-covers", path);
 }
 
 export function avatarUrl(path: string | null | undefined): string | null {
-  if (!path) return null;
-  if (
-    path.startsWith("http://") ||
-    path.startsWith("https://") ||
-    path.startsWith("/")
-  ) {
-    return path;
-  }
+  const resolved = resolvePublicMediaUrl(path);
+  if (resolved) return resolved;
   return publicStorageUrl("avatars", path);
+}
+
+export function bannerUrl(path: string | null | undefined): string | null {
+  const resolved = resolvePublicMediaUrl(path);
+  if (resolved) return resolved;
+  return publicStorageUrl("banners", path);
 }
 
 export function truncate(text: string, max = 160): string {
@@ -110,12 +137,12 @@ export const MARKETING_URL = (
   process.env.NEXT_PUBLIC_MARKETING_URL ??
   process.env.PUBLIC_SITE_URL ??
   (process.env.NODE_ENV === "production"
-    ? "https://www.authorspilot.com"
+    ? "https://authorspilot.com"
     : "http://localhost:3000")
 ).replace(/\/$/, "");
 
 /** Marketing home (logo back-link) - old website on :3000 locally */
-export const MARKETING_HOME_URL = `${MARKETING_URL}/book-publishing-author-website-design-agency/`;
+export const MARKETING_HOME_URL = `${MARKETING_URL}/`;
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_APP_URL ??
@@ -132,6 +159,9 @@ export const PLATFORM_ASSET_ORIGIN = (
 ).replace(/\/$/, "");
 
 export function platformPublicPath(path: string) {
-  const p = path.startsWith("/") ? path : `/${path}`;
+  if (!path) return path;
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  const cleaned = path.length > 1 && path.endsWith("/") ? path.replace(/\/+$/, "") : path;
+  const p = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
   return PLATFORM_ASSET_ORIGIN ? `${PLATFORM_ASSET_ORIGIN}${p}` : p;
 }

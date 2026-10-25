@@ -9,6 +9,7 @@ import { SocialShare } from "@/components/SocialShare";
 import { RecordBookView } from "@/components/RecordView";
 import { getAuthorBooks, getBookBySlug } from "@/lib/books";
 import { isPayloadConfigured } from "@/lib/payload";
+import { appCanonical, buildAppMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { avatarUrl, coverUrl, formatDate } from "@/lib/utils";
 
 type PageProps = {
@@ -17,8 +18,25 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  // Lightweight title only - avoid a second full Payload depth fetch on every request
-  return { title: slug.replace(/-/g, " ") };
+  if (!isPayloadConfigured()) {
+    return { title: slug.replace(/-/g, " ") };
+  }
+  try {
+    const { book } = await getBookBySlug(slug);
+    if (!book) return { title: "Book not found" };
+    const description =
+      book.description?.slice(0, 160) ||
+      `${book.title} by ${book.author_display_name} on Authors Pilot.`;
+    const image = coverUrl(book.cover_path) || DEFAULT_OG_IMAGE;
+    return buildAppMetadata({
+      title: `${book.title} | Authors Pilot`,
+      description,
+      path: `/books/${slug}/`,
+      image,
+    });
+  } catch {
+    return { title: slug.replace(/-/g, " ") };
+  }
 }
 
 export default async function BookDetailPage({ params }: PageProps) {
@@ -63,8 +81,39 @@ export default async function BookDetailPage({ params }: PageProps) {
     <span className="font-semibold text-ink">{book.author_display_name}</span>
   );
 
+  const buyUrl =
+    book.sales_links?.find((l) => l.is_primary && l.is_active)?.url ||
+    book.sales_links?.find((l) => l.is_active)?.url ||
+    undefined;
+  const bookLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: book.title,
+    description: book.description,
+    image: cover || undefined,
+    author: {
+      "@type": "Person",
+      name: book.author_display_name,
+      url: authorSlug ? appCanonical(`/authors/${authorSlug}/`) : undefined,
+    },
+    url: appCanonical(`/books/${slug}/`),
+    ...(buyUrl
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: buyUrl,
+            availability: "https://schema.org/InStock",
+          },
+        }
+      : {}),
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bookLd) }}
+      />
       <RecordBookView bookId={book.id} />
       <nav className="text-sm text-forest-muted">
         <Link href="/books" className="hover:text-coral">

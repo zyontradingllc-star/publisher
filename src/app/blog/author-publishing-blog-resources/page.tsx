@@ -24,7 +24,7 @@ export default function BlogPage() {
     <>
       <Breadcrumbs
         items={[
-          { label: "Home", href: "/book-publishing-author-website-design-agency" },
+          { label: "Home", href: "/" },
           { label: "Blog", href: "/blog/author-publishing-blog-resources" },
         ]}
       />

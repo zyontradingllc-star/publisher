@@ -1,0 +1,16 @@
+Options -Indexes -MultiViews
+RewriteEngine On
+
+# Allow Google to crawl so it can see 410 responses (do NOT Disallow: /)
+RewriteRule ^robots\.txt$ - [L]
+
+# Every other URL: HTTP 410 Gone + noindex
+ErrorDocument 410 /gone.html
+
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+
+RewriteCond %{REQUEST_URI} !^/robots\.txt$ [NC]
+RewriteCond %{REQUEST_URI} !^/gone\.html$ [NC]
+RewriteRule ^ - [G,L]

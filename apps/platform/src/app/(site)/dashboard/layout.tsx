@@ -1,15 +1,13 @@
-import { requireProfile } from "@/lib/auth";
+import type { Metadata } from "next";
 
-export default async function DashboardLayout({
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
+
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  await requireProfile("/dashboard");
-
-  return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {children}
-    </div>
-  );
+  return children;
 }

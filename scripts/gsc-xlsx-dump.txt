@@ -1,0 +1,467 @@
+
+================================================================================
+authorspilot.com-Coverage-2026-10-20.xlsx
+================================================================================
+
+--- Sheet: Chart (rows=51, cols=4) ---
+000| Date || Not indexed || Indexed || Impressions
+001| 2026-08-23 ||  ||  || 0.0
+002| 2026-08-24 ||  ||  || 0.0
+003| 2026-08-25 ||  ||  || 1.0
+004| 2026-08-26 ||  ||  || 1.0
+005| 2026-08-27 || 11.0 || 2.0 || 9.0
+006| 2026-08-28 || 39.0 || 1.0 || 2.0
+007| 2026-08-29 || 39.0 || 1.0 || 2.0
+008| 2026-08-30 || 39.0 || 1.0 || 5.0
+009| 2026-08-31 || 39.0 || 1.0 || 5.0
+010| 2026-09-01 || 39.0 || 1.0 || 0.0
+011| 2026-09-02 || 39.0 || 1.0 || 2.0
+012| 2026-09-03 || 39.0 || 1.0 || 3.0
+013| 2026-09-04 || 39.0 || 1.0 || 0.0
+014| 2026-09-05 || 39.0 || 1.0 || 1.0
+015| 2026-09-06 || 39.0 || 1.0 || 0.0
+016| 2026-09-07 || 39.0 || 1.0 || 12.0
+017| 2026-09-08 || 39.0 || 1.0 || 0.0
+018| 2026-09-09 || 39.0 || 1.0 || 4.0
+019| 2026-09-10 || 39.0 || 1.0 || 1.0
+020| 2026-09-11 || 39.0 || 1.0 || 1.0
+021| 2026-09-12 || 39.0 || 1.0 || 0.0
+022| 2026-09-13 || 39.0 || 1.0 || 2.0
+023| 2026-09-14 || 39.0 || 1.0 || 0.0
+024| 2026-09-15 || 39.0 || 1.0 || 1.0
+025| 2026-09-16 || 39.0 || 1.0 || 0.0
+026| 2026-09-17 || 39.0 || 1.0 || 4.0
+027| 2026-09-18 || 46.0 || 36.0 || 1.0
+028| 2026-09-19 || 46.0 || 36.0 || 1.0
+029| 2026-09-20 || 46.0 || 36.0 || 2.0
+030| 2026-09-21 || 51.0 || 38.0 || 3.0
+031| 2026-09-22 || 51.0 || 38.0 || 38.0
+032| 2026-09-23 || 51.0 || 38.0 || 8.0
+033| 2026-09-24 || 51.0 || 38.0 || 17.0
+034| 2026-09-25 || 51.0 || 38.0 || 4.0
+035| 2026-09-26 || 51.0 || 38.0 || 9.0
+036| 2026-09-27 || 51.0 || 38.0 || 16.0
+037| 2026-09-28 || 51.0 || 38.0 || 6.0
+038| 2026-09-29 || 51.0 || 38.0 || 8.0
+039| 2026-09-30 || 51.0 || 38.0 || 4.0
+040| 2026-10-01 || 51.0 || 38.0 || 11.0
+041| 2026-10-02 || 51.0 || 38.0 || 4.0
+042| 2026-10-03 || 51.0 || 38.0 || 10.0
+043| 2026-10-04 || 52.0 || 38.0 || 7.0
+044| 2026-10-05 || 52.0 || 38.0 || 2.0
+045| 2026-10-06 || 52.0 || 38.0 || 0.0
+046| 2026-10-07 || 52.0 || 38.0 || 3.0
+047| 2026-10-08 || 52.0 || 38.0 || 3.0
+048| 2026-10-09 || 53.0 || 37.0 || 2.0
+049| 2026-10-10 || 53.0 || 37.0 || 1.0
+050| 2026-10-11 || 53.0 || 37.0 || 0.0
+
+--- Sheet: Critical issues (rows=7, cols=4) ---
+000| Reason || Source || Validation || Pages
+001| Page with redirect || Website || Failed || 24.0
+002| Redirect error || Website || Failed || 10.0
+003| Crawled - currently not indexed || Google systems || Not Started || 2.0
+004| Alternate page with proper canonical tag || Website || Started || 10.0
+005| Blocked due to access forbidden (403) || Website || Started || 6.0
+006| Discovered - currently not indexed || Google systems || Started || 1.0
+
+--- Sheet: Non-critical issues (rows=1, cols=4) ---
+000| Reason || Source || Validation || Pages
+
+--- Sheet: Metadata (rows=2, cols=2) ---
+000| Property || Value
+001| Sitemap || All known pages
+
+================================================================================
+authorspilot.com-Coverage-Drilldown-2026-10-20.xlsx
+================================================================================
+
+--- Sheet: Chart (rows=47, cols=2) ---
+000| Date || Affected pages
+001| 2026-08-27 || 2.0
+002| 2026-08-28 || 2.0
+003| 2026-08-29 || 2.0
+004| 2026-08-30 || 2.0
+005| 2026-08-31 || 2.0
+006| 2026-09-01 || 2.0
+007| 2026-09-02 || 2.0
+008| 2026-09-03 || 2.0
+009| 2026-09-04 || 2.0
+010| 2026-09-05 || 2.0
+011| 2026-09-06 || 2.0
+012| 2026-09-07 || 2.0
+013| 2026-09-08 || 2.0
+014| 2026-09-09 || 2.0
+015| 2026-09-10 || 2.0
+016| 2026-09-11 || 2.0
+017| 2026-09-12 || 2.0
+018| 2026-09-13 || 2.0
+019| 2026-09-14 || 1.0
+020| 2026-09-15 || 1.0
+021| 2026-09-16 || 1.0
+022| 2026-09-17 || 1.0
+023| 2026-09-18 || 4.0
+024| 2026-09-19 || 4.0
+025| 2026-09-20 || 4.0
+026| 2026-09-21 || 18.0
+027| 2026-09-22 || 18.0
+028| 2026-09-23 || 18.0
+029| 2026-09-24 || 18.0
+030| 2026-09-25 || 18.0
+031| 2026-09-26 || 18.0
+032| 2026-09-27 || 18.0
+033| 2026-09-28 || 18.0
+034| 2026-09-29 || 18.0
+035| 2026-09-30 || 18.0
+036| 2026-10-01 || 18.0
+037| 2026-10-02 || 18.0
+038| 2026-10-03 || 18.0
+039| 2026-10-04 || 21.0
+040| 2026-10-05 || 21.0
+041| 2026-10-06 || 21.0
+042| 2026-10-07 || 21.0
+043| 2026-10-08 || 21.0
+044| 2026-10-09 || 24.0
+045| 2026-10-10 || 24.0
+046| 2026-10-11 || 24.0
+
+--- Sheet: Table (rows=25, cols=2) ---
+000| URL || Last crawled
+001| https://www.authorspilot.com/book-publishing-services-for-authors/ || 2026-10-11 00:00:00
+002| https://www.authorspilot.com/book-publishing/ || 2026-10-11 00:00:00
+003| http://www.authorspilot.com/ || 2026-10-10 00:00:00
+004| https://authorspilot.com/ || 2026-10-10 00:00:00
+005| https://www.authorspilot.com/ || 2026-10-10 00:00:00
+006| https://www.authorspilot.com/book-publishing || 2026-10-06 00:00:00
+007| https://www.authorspilot.com/book-marketing-services-for-authors/ || 2026-10-06 00:00:00
+008| https://www.authorspilot.com/book-marketing/ || 2026-10-06 00:00:00
+009| https://www.authorspilot.com/book-marketing || 2026-10-05 00:00:00
+010| https://www.authorspilot.com/book-writing-services-for-authors/ || 2026-10-02 00:00:00
+011| https://www.authorspilot.com/writing/ || 2026-10-02 00:00:00
+012| https://www.authorspilot.com/audiobook || 2026-09-30 00:00:00
+013| https://www.authorspilot.com/audiobook-publishing-services/ || 2026-09-30 00:00:00
+014| http://authorspilot.com/ || 2026-09-27 00:00:00
+015| https://www.authorspilot.com/contact-author-website-design-agency/ || 2026-09-27 00:00:00
+016| https://www.authorspilot.com/contact/ || 2026-09-27 00:00:00
+017| https://authorspilot.com/book-writing-services-for-authors || 2026-09-22 00:00:00
+018| https://authorspilot.com/blog/what-makes-a-good-book-cover || 2026-09-22 00:00:00
+019| https://authorspilot.com/blog/how-to-design-a-book-cover || 2026-09-21 00:00:00
+020| https://authorspilot.com/book-cover-design-services || 2026-09-21 00:00:00
+021| https://authorspilot.com/self-publishing-services-for-authors || 2026-09-21 00:00:00
+022| https://authorspilot.com/contact-author-website-design-agency || 2026-09-20 00:00:00
+023| https://authorspilot.com/blog/how-much-does-it-cost-to-publish-a-book || 2026-09-20 00:00:00
+024| https://authorspilot.com/amazon-kdp-publishing-services || 2026-09-20 00:00:00
+
+--- Sheet: Metadata (rows=3, cols=2) ---
+000| Property || Value
+001| Sitemap || All known pages
+002| Issue || Page with redirect
+
+================================================================================
+authorspilot.com-Coverage-Valid-2026-10-20.xlsx
+================================================================================
+
+--- Sheet: Chart (rows=47, cols=2) ---
+000| Date || Affected pages
+001| 2026-08-27 || 2.0
+002| 2026-08-28 || 1.0
+003| 2026-08-29 || 1.0
+004| 2026-08-30 || 1.0
+005| 2026-08-31 || 1.0
+006| 2026-09-01 || 1.0
+007| 2026-09-02 || 1.0
+008| 2026-09-03 || 1.0
+009| 2026-09-04 || 1.0
+010| 2026-09-05 || 1.0
+011| 2026-09-06 || 1.0
+012| 2026-09-07 || 1.0
+013| 2026-09-08 || 1.0
+014| 2026-09-09 || 1.0
+015| 2026-09-10 || 1.0
+016| 2026-09-11 || 1.0
+017| 2026-09-12 || 1.0
+018| 2026-09-13 || 1.0
+019| 2026-09-14 || 1.0
+020| 2026-09-15 || 1.0
+021| 2026-09-16 || 1.0
+022| 2026-09-17 || 1.0
+023| 2026-09-18 || 36.0
+024| 2026-09-19 || 36.0
+025| 2026-09-20 || 36.0
+026| 2026-09-21 || 38.0
+027| 2026-09-22 || 38.0
+028| 2026-09-23 || 38.0
+029| 2026-09-24 || 38.0
+030| 2026-09-25 || 38.0
+031| 2026-09-26 || 38.0
+032| 2026-09-27 || 38.0
+033| 2026-09-28 || 38.0
+034| 2026-09-29 || 38.0
+035| 2026-09-30 || 38.0
+036| 2026-10-01 || 38.0
+037| 2026-10-02 || 38.0
+038| 2026-10-03 || 38.0
+039| 2026-10-04 || 38.0
+040| 2026-10-05 || 38.0
+041| 2026-10-06 || 38.0
+042| 2026-10-07 || 38.0
+043| 2026-10-08 || 38.0
+044| 2026-10-09 || 37.0
+045| 2026-10-10 || 37.0
+046| 2026-10-11 || 37.0
+
+--- Sheet: Table (rows=38, cols=2) ---
+000| URL || Last crawled
+001| https://authorspilot.com/book-publishing-services-for-authors/ || 2026-10-11 00:00:00
+002| https://authorspilot.com/book-publishing-author-website-design-agency/ || 2026-10-10 00:00:00
+003| https://authorspilot.com/ghostwriting-services-for-authors/ || 2026-10-07 00:00:00
+004| https://authorspilot.com/book-marketing-services-for-authors/ || 2026-10-06 00:00:00
+005| https://authorspilot.com/blog/how-to-design-a-book-cover/ || 2026-10-06 00:00:00
+006| https://authorspilot.com/book-writing-services-for-authors/ || 2026-10-02 00:00:00
+007| https://authorspilot.com/audiobook-publishing-services/ || 2026-09-30 00:00:00
+008| https://authorspilot.com/contact-author-website-design-agency/ || 2026-09-27 00:00:00
+009| https://freelancer.authorspilot.com/ || 2026-09-26 00:00:00
+010| https://authorspilot.com/book-animation-video-services/ || 2026-09-26 00:00:00
+011| https://authorspilot.com/blog/what-makes-a-good-book-cover/ || 2026-09-22 00:00:00
+012| https://authorspilot.com/blog/how-to-format-a-book/ || 2026-09-21 00:00:00
+013| https://authorspilot.com/amazon-kdp-publishing-services/ || 2026-09-21 00:00:00
+014| https://authorspilot.com/blog/how-to-publish-on-amazon-kdp/ || 2026-09-21 00:00:00
+015| https://authorspilot.com/self-publishing-services-for-authors/ || 2026-09-21 00:00:00
+016| https://authorspilot.com/book-cover-design-services/ || 2026-09-21 00:00:00
+017| https://authorspilot.com/blog/how-much-does-a-ghostwriter-cost/ || 2026-09-20 00:00:00
+018| https://authorspilot.com/blog/how-to-turn-a-book-into-an-audiobook/ || 2026-09-20 00:00:00
+019| https://authorspilot.com/blog/self-publishing-vs-traditional-publishing/ || 2026-09-20 00:00:00
+020| https://authorspilot.com/blog/writing-resources-for-authors/ || 2026-09-20 00:00:00
+021| https://authorspilot.com/blog/how-to-self-publish-a-book/ || 2026-09-20 00:00:00
+022| https://authorspilot.com/blog/author-publishing-blog-resources/ || 2026-09-20 00:00:00
+023| https://authorspilot.com/blog/how-to-publish-a-book/ || 2026-09-20 00:00:00
+024| https://authorspilot.com/author-website-design-agency-usa/ || 2026-09-20 00:00:00
+025| https://authorspilot.com/blog/how-to-find-a-ghostwriter/ || 2026-09-20 00:00:00
+026| https://authorspilot.com/blog/how-to-write-a-book/ || 2026-09-20 00:00:00
+027| https://authorspilot.com/book-formatting-services-for-authors/ || 2026-09-20 00:00:00
+028| https://authorspilot.com/blog/how-much-does-it-cost-to-publish-a-book/ || 2026-09-20 00:00:00
+029| https://authorspilot.com/professional-book-editing-services/ || 2026-09-20 00:00:00
+030| https://authorspilot.com/audiobook-production-services-for-authors/ || 2026-09-20 00:00:00
+031| https://authorspilot.com/about-authorspilot-publishing-agency/ || 2026-09-20 00:00:00
+032| https://authorspilot.com/self-publishing-agency-services/ || 2026-09-20 00:00:00
+033| https://authorspilot.com/terms-and-conditions/ || 2026-09-20 00:00:00
+034| https://authorspilot.com/privacy-policy/ || 2026-09-20 00:00:00
+035| https://authorspilot.com/ghostwriting-services-for-authors || 2026-09-20 00:00:00
+036| https://authorspilot.com/author-publishing-website-price/ || 2026-09-20 00:00:00
+037| https://authorspilot.com/author-website-design-usa/ || 2026-09-19 00:00:00
+
+--- Sheet: Metadata (rows=2, cols=2) ---
+000| Property || Value
+001| Sitemap || All known pages
+
+================================================================================
+authorspilot.com-Coverage-Valid-2026-10-20 (1).xlsx
+================================================================================
+
+--- Sheet: Chart (rows=47, cols=2) ---
+000| Date || Affected pages
+001| 2026-08-27 || 2.0
+002| 2026-08-28 || 1.0
+003| 2026-08-29 || 1.0
+004| 2026-08-30 || 1.0
+005| 2026-08-31 || 1.0
+006| 2026-09-01 || 1.0
+007| 2026-09-02 || 1.0
+008| 2026-09-03 || 1.0
+009| 2026-09-04 || 1.0
+010| 2026-09-05 || 1.0
+011| 2026-09-06 || 1.0
+012| 2026-09-07 || 1.0
+013| 2026-09-08 || 1.0
+014| 2026-09-09 || 1.0
+015| 2026-09-10 || 1.0
+016| 2026-09-11 || 1.0
+017| 2026-09-12 || 1.0
+018| 2026-09-13 || 1.0
+019| 2026-09-14 || 1.0
+020| 2026-09-15 || 1.0
+021| 2026-09-16 || 1.0
+022| 2026-09-17 || 1.0
+023| 2026-09-18 || 36.0
+024| 2026-09-19 || 36.0
+025| 2026-09-20 || 36.0
+026| 2026-09-21 || 38.0
+027| 2026-09-22 || 38.0
+028| 2026-09-23 || 38.0
+029| 2026-09-24 || 38.0
+030| 2026-09-25 || 38.0
+031| 2026-09-26 || 38.0
+032| 2026-09-27 || 38.0
+033| 2026-09-28 || 38.0
+034| 2026-09-29 || 38.0
+035| 2026-09-30 || 38.0
+036| 2026-10-01 || 38.0
+037| 2026-10-02 || 38.0
+038| 2026-10-03 || 38.0
+039| 2026-10-04 || 38.0
+040| 2026-10-05 || 38.0
+041| 2026-10-06 || 38.0
+042| 2026-10-07 || 38.0
+043| 2026-10-08 || 38.0
+044| 2026-10-09 || 37.0
+045| 2026-10-10 || 37.0
+046| 2026-10-11 || 37.0
+
+--- Sheet: Table (rows=38, cols=2) ---
+000| URL || Last crawled
+001| https://authorspilot.com/book-publishing-services-for-authors/ || 2026-10-11 00:00:00
+002| https://authorspilot.com/book-publishing-author-website-design-agency/ || 2026-10-10 00:00:00
+003| https://authorspilot.com/ghostwriting-services-for-authors/ || 2026-10-07 00:00:00
+004| https://authorspilot.com/book-marketing-services-for-authors/ || 2026-10-06 00:00:00
+005| https://authorspilot.com/blog/how-to-design-a-book-cover/ || 2026-10-06 00:00:00
+006| https://authorspilot.com/book-writing-services-for-authors/ || 2026-10-02 00:00:00
+007| https://authorspilot.com/audiobook-publishing-services/ || 2026-09-30 00:00:00
+008| https://authorspilot.com/contact-author-website-design-agency/ || 2026-09-27 00:00:00
+009| https://freelancer.authorspilot.com/ || 2026-09-26 00:00:00
+010| https://authorspilot.com/book-animation-video-services/ || 2026-09-26 00:00:00
+011| https://authorspilot.com/blog/what-makes-a-good-book-cover/ || 2026-09-22 00:00:00
+012| https://authorspilot.com/blog/how-to-format-a-book/ || 2026-09-21 00:00:00
+013| https://authorspilot.com/amazon-kdp-publishing-services/ || 2026-09-21 00:00:00
+014| https://authorspilot.com/blog/how-to-publish-on-amazon-kdp/ || 2026-09-21 00:00:00
+015| https://authorspilot.com/self-publishing-services-for-authors/ || 2026-09-21 00:00:00
+016| https://authorspilot.com/book-cover-design-services/ || 2026-09-21 00:00:00
+017| https://authorspilot.com/blog/how-much-does-a-ghostwriter-cost/ || 2026-09-20 00:00:00
+018| https://authorspilot.com/blog/how-to-turn-a-book-into-an-audiobook/ || 2026-09-20 00:00:00
+019| https://authorspilot.com/blog/self-publishing-vs-traditional-publishing/ || 2026-09-20 00:00:00
+020| https://authorspilot.com/blog/writing-resources-for-authors/ || 2026-09-20 00:00:00
+021| https://authorspilot.com/blog/how-to-self-publish-a-book/ || 2026-09-20 00:00:00
+022| https://authorspilot.com/blog/author-publishing-blog-resources/ || 2026-09-20 00:00:00
+023| https://authorspilot.com/blog/how-to-publish-a-book/ || 2026-09-20 00:00:00
+024| https://authorspilot.com/author-website-design-agency-usa/ || 2026-09-20 00:00:00
+025| https://authorspilot.com/blog/how-to-find-a-ghostwriter/ || 2026-09-20 00:00:00
+026| https://authorspilot.com/blog/how-to-write-a-book/ || 2026-09-20 00:00:00
+027| https://authorspilot.com/book-formatting-services-for-authors/ || 2026-09-20 00:00:00
+028| https://authorspilot.com/blog/how-much-does-it-cost-to-publish-a-book/ || 2026-09-20 00:00:00
+029| https://authorspilot.com/professional-book-editing-services/ || 2026-09-20 00:00:00
+030| https://authorspilot.com/audiobook-production-services-for-authors/ || 2026-09-20 00:00:00
+031| https://authorspilot.com/about-authorspilot-publishing-agency/ || 2026-09-20 00:00:00
+032| https://authorspilot.com/self-publishing-agency-services/ || 2026-09-20 00:00:00
+033| https://authorspilot.com/terms-and-conditions/ || 2026-09-20 00:00:00
+034| https://authorspilot.com/privacy-policy/ || 2026-09-20 00:00:00
+035| https://authorspilot.com/ghostwriting-services-for-authors || 2026-09-20 00:00:00
+036| https://authorspilot.com/author-publishing-website-price/ || 2026-09-20 00:00:00
+037| https://authorspilot.com/author-website-design-usa/ || 2026-09-19 00:00:00
+
+--- Sheet: Metadata (rows=2, cols=2) ---
+000| Property || Value
+001| Sitemap || All known pages
+
+================================================================================
+authorspilot_seo_100_page_implementation_plan.xlsx
+================================================================================
+
+--- Sheet: 100 Page Roadmap (rows=101, cols=12) ---
+000| No || Cluster || Primary keyword (not volume-verified) || Proposed URL || Priority || Page intent || SEO title draft || Meta description draft || Content outline / H2 themes || Internal links / CTA || Overlap / QA || Status
+001| 1 || Free publishing foundations || how to publish a book for free || https://authorspilot.com/publish-book-for-free/ || Phase 1 || Informational / DIY || How To Publish A Book For Free | Authors Pilot || Learn about how to publish a book for free, including requirements, possible costs, step-by-step guidance and official p || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Review existing /blog/how-to-self-publish-a-book/ and /blog/how-to-publish-a-book/ || Proposed — not published
+002| 2 || Free publishing foundations || free self publishing platforms || https://authorspilot.com/free-self-publishing-platforms/ || Phase 1 || Informational / DIY || Free Self Publishing Platforms | Authors Pilot || Learn about free self publishing platforms, including requirements, possible costs, step-by-step guidance and official p || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Review existing /blog/how-to-self-publish-a-book/ and /blog/how-to-publish-a-book/ || Proposed — not published
+003| 3 || Free publishing foundations || free book publishing websites || https://authorspilot.com/free-book-publishing-websites/ || Phase 1 || Informational / DIY || Free Book Publishing Websites | Authors Pilot || Learn about free book publishing websites, including requirements, possible costs, step-by-step guidance and official pu || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+004| 4 || Free publishing foundations || self publish a book with no money || https://authorspilot.com/self-publish-book-no-money/ || Phase 2 || Informational / DIY || Self Publish A Book With No Money | Authors Pilot || Learn about self publish a book with no money, including requirements, possible costs, step-by-step guidance and officia || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Review existing /blog/how-to-self-publish-a-book/ and /blog/how-to-publish-a-book/ || Proposed — not published
+005| 5 || Free publishing foundations || publish first book for free || https://authorspilot.com/publish-first-book-free/ || Phase 2 || Informational / DIY || Publish First Book For Free | Authors Pilot || Learn about publish first book for free, including requirements, possible costs, step-by-step guidance and official publ || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+006| 6 || Free publishing foundations || publish ebook for free || https://authorspilot.com/publish-ebook-for-free/ || Phase 1 || Informational / DIY || Publish Ebook For Free | Authors Pilot || Learn about publish ebook for free, including requirements, possible costs, step-by-step guidance and official publishin || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+007| 7 || Free publishing foundations || publish paperback with no upfront cost || https://authorspilot.com/publish-paperback-no-upfront-cost/ || Backlog || Informational / DIY || Publish Paperback With No Upfront Cost | Authors Pilot || Learn about publish paperback with no upfront cost, including requirements, possible costs, step-by-step guidance and of || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+008| 8 || Free publishing foundations || free online book publishing || https://authorspilot.com/free-online-book-publishing/ || Phase 2 || Informational / DIY || Free Online Book Publishing | Authors Pilot || Learn about free online book publishing, including requirements, possible costs, step-by-step guidance and official publ || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+009| 9 || Free publishing foundations || publish novel for free || https://authorspilot.com/publish-novel-for-free/ || Phase 2 || Informational / DIY || Publish Novel For Free | Authors Pilot || Learn about publish novel for free, including requirements, possible costs, step-by-step guidance and official publishin || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+010| 10 || Free publishing foundations || publish poetry book for free || https://authorspilot.com/publish-poetry-book-for-free/ || Phase 2 || Informational / DIY || Publish Poetry Book For Free | Authors Pilot || Learn about publish poetry book for free, including requirements, possible costs, step-by-step guidance and official pub || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+011| 11 || Free publishing foundations || publish children book for free || https://authorspilot.com/publish-childrens-book-for-free/ || Phase 2 || Informational / DIY || Publish Children Book For Free | Authors Pilot || Learn about publish children book for free, including requirements, possible costs, step-by-step guidance and official p || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+012| 12 || Free publishing foundations || publish short stories online free || https://authorspilot.com/publish-short-stories-online-free/ || Phase 2 || Informational / DIY || Publish Short Stories Online Free | Authors Pilot || Learn about publish short stories online free, including requirements, possible costs, step-by-step guidance and officia || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+013| 13 || Free publishing foundations || publish memoir for free || https://authorspilot.com/publish-memoir-for-free/ || Phase 2 || Informational / DIY || Publish Memoir For Free | Authors Pilot || Learn about publish memoir for free, including requirements, possible costs, step-by-step guidance and official publishi || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+014| 14 || Free publishing foundations || publish nonfiction book for free || https://authorspilot.com/publish-nonfiction-book-for-free/ || Phase 2 || Informational / DIY || Publish Nonfiction Book For Free | Authors Pilot || Learn about publish nonfiction book for free, including requirements, possible costs, step-by-step guidance and official || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+015| 15 || Free publishing foundations || publish cookbook for free || https://authorspilot.com/publish-cookbook-for-free/ || Phase 2 || Informational / DIY || Publish Cookbook For Free | Authors Pilot || Learn about publish cookbook for free, including requirements, possible costs, step-by-step guidance and official publis || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+016| 16 || Free publishing foundations || publish workbook for free || https://authorspilot.com/publish-workbook-for-free/ || Phase 2 || Informational / DIY || Publish Workbook For Free | Authors Pilot || Learn about publish workbook for free, including requirements, possible costs, step-by-step guidance and official publis || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+017| 17 || Free publishing foundations || publish low content book for free || https://authorspilot.com/publish-low-content-book-free/ || Phase 2 || Informational / DIY || Publish Low Content Book For Free | Authors Pilot || Learn about publish low content book for free, including requirements, possible costs, step-by-step guidance and officia || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+018| 18 || Free publishing foundations || free publishing for students || https://authorspilot.com/free-publishing-for-students/ || Phase 2 || Informational / DIY || Free Publishing For Students | Authors Pilot || Learn about free publishing for students, including requirements, possible costs, step-by-step guidance and official pub || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+019| 19 || Amazon KDP free guides || publish on amazon kdp for free || https://authorspilot.com/publish-on-amazon-kdp-for-free/ || Phase 1 || Informational / DIY || Publish On Amazon KDP For Free | Authors Pilot || Learn about publish on amazon kdp for free, including requirements, possible costs, step-by-step guidance and official p || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+020| 20 || Amazon KDP free guides || is amazon kdp free || https://authorspilot.com/is-amazon-kdp-free/ || Phase 2 || Informational / DIY || Is Amazon KDP Free | Authors Pilot || Learn about is amazon kdp free, including requirements, possible costs, step-by-step guidance and official publishing li || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+021| 21 || Amazon KDP free guides || how to create an amazon kdp account || https://authorspilot.com/how-to-create-kdp-account/ || Backlog || Informational / DIY || How To Create An Amazon KDP Account | Authors Pilot || Learn about how to create an amazon kdp account, including requirements, possible costs, step-by-step guidance and offic || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+022| 22 || Amazon KDP free guides || publish kindle ebook for free || https://authorspilot.com/publish-kindle-ebook-free/ || Phase 2 || Informational / DIY || Publish Kindle Ebook For Free | Authors Pilot || Learn about publish kindle ebook for free, including requirements, possible costs, step-by-step guidance and official pu || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+023| 23 || Amazon KDP free guides || publish paperback on amazon for free || https://authorspilot.com/publish-paperback-amazon-free/ || Phase 2 || Informational / DIY || Publish Paperback On Amazon For Free | Authors Pilot || Learn about publish paperback on amazon for free, including requirements, possible costs, step-by-step guidance and offi || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+024| 24 || Amazon KDP free guides || amazon kdp free isbn || https://authorspilot.com/kdp-free-isbn/ || Phase 2 || Informational / DIY || Amazon KDP Free ISBN | Authors Pilot || Learn about amazon kdp free isbn, including requirements, possible costs, step-by-step guidance and official publishing  || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+025| 25 || Amazon KDP free guides || amazon kdp cover size guide || https://authorspilot.com/amazon-kdp-cover-size-guide/ || Backlog || Informational / DIY || Amazon KDP Cover Size Guide | Authors Pilot || Learn about amazon kdp cover size guide, including requirements, possible costs, step-by-step guidance and official publ || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+026| 26 || Amazon KDP free guides || amazon kdp ebook file formats || https://authorspilot.com/kdp-ebook-file-formats/ || Backlog || Informational / DIY || Amazon KDP Ebook File Formats | Authors Pilot || Learn about amazon kdp ebook file formats, including requirements, possible costs, step-by-step guidance and official pu || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+027| 27 || Amazon KDP free guides || amazon kdp book description tips || https://authorspilot.com/amazon-kdp-book-description-tips/ || Backlog || Informational / DIY || Amazon KDP Book Description Tips | Authors Pilot || Learn about amazon kdp book description tips, including requirements, possible costs, step-by-step guidance and official || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+028| 28 || Amazon KDP free guides || amazon kdp keywords and categories || https://authorspilot.com/amazon-kdp-keywords-categories/ || Backlog || Informational / DIY || Amazon KDP Keywords And Categories | Authors Pilot || Learn about amazon kdp keywords and categories, including requirements, possible costs, step-by-step guidance and offici || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+029| 29 || Amazon KDP free guides || amazon kdp royalties explained || https://authorspilot.com/kdp-royalties-explained/ || Backlog || Informational / DIY || Amazon KDP Royalties Explained | Authors Pilot || Learn about amazon kdp royalties explained, including requirements, possible costs, step-by-step guidance and official p || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+030| 30 || Amazon KDP free guides || amazon kdp printing costs || https://authorspilot.com/kdp-print-costs-explained/ || Backlog || Informational / DIY || Amazon KDP Printing Costs | Authors Pilot || Learn about amazon kdp printing costs, including requirements, possible costs, step-by-step guidance and official publis || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+031| 31 || Amazon KDP free guides || publish on kdp without isbn || https://authorspilot.com/publish-kdp-without-isbn/ || Backlog || Informational / DIY || Publish On KDP Without ISBN | Authors Pilot || Learn about publish on kdp without isbn, including requirements, possible costs, step-by-step guidance and official publ || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+032| 32 || Amazon KDP free guides || how long does kdp take to publish || https://authorspilot.com/amazon-kdp-review-time/ || Backlog || Informational / DIY || How Long Does KDP Take To Publish | Authors Pilot || Learn about how long does kdp take to publish, including requirements, possible costs, step-by-step guidance and officia || Eligibility and KDP setup; ebook vs paperback; file requirements; metadata; royalty and printing-cost caveats; common er || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+033| 33 || Kobo publishing free guides || publish on kobo for free || https://authorspilot.com/publish-on-kobo-for-free/ || Phase 1 || Informational / DIY || Publish On Kobo For Free | Authors Pilot || Learn about publish on kobo for free, including requirements, possible costs, step-by-step guidance and official publish || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+034| 34 || Kobo publishing free guides || is kobo writing life free || https://authorspilot.com/is-kobo-writing-life-free/ || Backlog || Informational / DIY || Is Kobo Writing Life Free | Authors Pilot || Learn about is kobo writing life free, including requirements, possible costs, step-by-step guidance and official publis || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+035| 35 || Kobo publishing free guides || how to create kobo writing life account || https://authorspilot.com/create-kobo-writing-life-account/ || Backlog || Informational / DIY || How To Create Kobo Writing Life Account | Authors Pilot || Learn about how to create kobo writing life account, including requirements, possible costs, step-by-step guidance and o || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+036| 36 || Kobo publishing free guides || how to upload ebook to kobo || https://authorspilot.com/upload-ebook-to-kobo/ || Backlog || Informational / DIY || How To Upload Ebook To Kobo | Authors Pilot || Learn about how to upload ebook to kobo, including requirements, possible costs, step-by-step guidance and official publ || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+037| 37 || Kobo publishing free guides || kobo writing life epub format || https://authorspilot.com/kobo-writing-life-epub-format/ || Backlog || Informational / DIY || Kobo Writing Life EPUB Format | Authors Pilot || Learn about kobo writing life epub format, including requirements, possible costs, step-by-step guidance and official pu || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+038| 38 || Kobo publishing free guides || kobo ebook cover requirements || https://authorspilot.com/kobo-ebook-cover-requirements/ || Backlog || Informational / DIY || Kobo Ebook Cover Requirements | Authors Pilot || Learn about kobo ebook cover requirements, including requirements, possible costs, step-by-step guidance and official pu || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+039| 39 || Kobo publishing free guides || kobo writing life royalties || https://authorspilot.com/kobo-writing-life-royalties/ || Backlog || Informational / DIY || Kobo Writing Life Royalties | Authors Pilot || Learn about kobo writing life royalties, including requirements, possible costs, step-by-step guidance and official publ || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+040| 40 || Kobo publishing free guides || kobo writing life vs amazon kdp || https://authorspilot.com/kobo-writing-life-vs-kdp/ || Backlog || Informational / DIY || Kobo Writing Life Vs Amazon KDP | Authors Pilot || Learn about kobo writing life vs amazon kdp, including requirements, possible costs, step-by-step guidance and official  || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+041| 41 || Kobo publishing free guides || how to price an ebook on kobo || https://authorspilot.com/kobo-ebook-pricing-guide/ || Backlog || Informational / DIY || How To Price An Ebook On Kobo | Authors Pilot || Learn about how to price an ebook on kobo, including requirements, possible costs, step-by-step guidance and official pu || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+042| 42 || Kobo publishing free guides || kobo writing life book metadata || https://authorspilot.com/kobo-publishing-metadata/ || Backlog || Informational / DIY || Kobo Writing Life Book Metadata | Authors Pilot || Learn about kobo writing life book metadata, including requirements, possible costs, step-by-step guidance and official  || Kobo Writing Life setup; EPUB and cover; pricing; territories; review; official Kobo link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+043| 43 || Lulu free / print guides || publish on lulu for free || https://authorspilot.com/publish-on-lulu-for-free/ || Phase 1 || Informational / DIY || Publish On Lulu For Free | Authors Pilot || Learn about publish on lulu for free, including requirements, possible costs, step-by-step guidance and official publish || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+044| 44 || Lulu free / print guides || is lulu publishing free || https://authorspilot.com/is-lulu-publishing-free/ || Backlog || Informational / DIY || Is Lulu Publishing Free | Authors Pilot || Learn about is lulu publishing free, including requirements, possible costs, step-by-step guidance and official publishi || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+045| 45 || Lulu free / print guides || lulu print on demand costs || https://authorspilot.com/lulu-print-on-demand-costs/ || Backlog || Informational / DIY || Lulu Print On Demand Costs | Authors Pilot || Learn about lulu print on demand costs, including requirements, possible costs, step-by-step guidance and official publi || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+046| 46 || Lulu free / print guides || lulu book formatting requirements || https://authorspilot.com/lulu-book-formatting-requirements/ || Backlog || Informational / DIY || Lulu Book Formatting Requirements | Authors Pilot || Learn about lulu book formatting requirements, including requirements, possible costs, step-by-step guidance and officia || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+047| 47 || Lulu free / print guides || lulu print ready pdf guide || https://authorspilot.com/lulu-print-ready-pdf-guide/ || Backlog || Informational / DIY || Lulu Print Ready PDF Guide | Authors Pilot || Learn about lulu print ready pdf guide, including requirements, possible costs, step-by-step guidance and official publi || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+048| 48 || Lulu free / print guides || lulu book cover template guide || https://authorspilot.com/lulu-book-cover-template-guide/ || Backlog || Informational / DIY || Lulu Book Cover Template Guide | Authors Pilot || Learn about lulu book cover template guide, including requirements, possible costs, step-by-step guidance and official p || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+049| 49 || Lulu free / print guides || lulu vs amazon kdp printing || https://authorspilot.com/lulu-vs-amazon-kdp-print/ || Backlog || Informational / DIY || Lulu Vs Amazon KDP Printing | Authors Pilot || Learn about lulu vs amazon kdp printing, including requirements, possible costs, step-by-step guidance and official publ || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+050| 50 || Lulu free / print guides || lulu self publishing royalties || https://authorspilot.com/lulu-self-publishing-royalties/ || Backlog || Informational / DIY || Lulu Self Publishing Royalties | Authors Pilot || Learn about lulu self publishing royalties, including requirements, possible costs, step-by-step guidance and official p || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Review existing /blog/how-to-self-publish-a-book/ and /blog/how-to-publish-a-book/ || Proposed — not published
+051| 51 || Lulu free / print guides || lulu free isbn options || https://authorspilot.com/lulu-isbn-options/ || Backlog || Informational / DIY || Lulu Free ISBN Options | Authors Pilot || Learn about lulu free isbn options, including requirements, possible costs, step-by-step guidance and official publishin || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+052| 52 || Lulu free / print guides || lulu book distribution explained || https://authorspilot.com/lulu-book-distribution-explained/ || Backlog || Informational / DIY || Lulu Book Distribution Explained | Authors Pilot || Learn about lulu book distribution explained, including requirements, possible costs, step-by-step guidance and official || Lulu account; print and ebook formats; print-on-demand costs; distribution limits; official Lulu link || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+053| 53 || Apple Books / iBooks || publish on apple books for free || https://authorspilot.com/publish-on-apple-books-for-free/ || Phase 1 || Informational / DIY || Publish On Apple Books For Free | Authors Pilot || Learn about publish on apple books for free, including requirements, possible costs, step-by-step guidance and official  || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+054| 54 || Apple Books / iBooks || is apple books publishing free || https://authorspilot.com/is-apple-books-publishing-free/ || Backlog || Informational / DIY || Is Apple Books Publishing Free | Authors Pilot || Learn about is apple books publishing free, including requirements, possible costs, step-by-step guidance and official p || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+055| 55 || Apple Books / iBooks || apple books for authors account setup || https://authorspilot.com/apple-books-for-authors-account/ || Backlog || Informational / DIY || Apple Books For Authors Account Setup | Authors Pilot || Learn about apple books for authors account setup, including requirements, possible costs, step-by-step guidance and off || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+056| 56 || Apple Books / iBooks || how to upload epub to apple books || https://authorspilot.com/upload-epub-to-apple-books/ || Backlog || Informational / DIY || How To Upload EPUB To Apple Books | Authors Pilot || Learn about how to upload epub to apple books, including requirements, possible costs, step-by-step guidance and officia || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+057| 57 || Apple Books / iBooks || apple books epub requirements || https://authorspilot.com/apple-books-epub-requirements/ || Backlog || Informational / DIY || Apple Books EPUB Requirements | Authors Pilot || Learn about apple books epub requirements, including requirements, possible costs, step-by-step guidance and official pu || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+058| 58 || Apple Books / iBooks || apple books cover requirements || https://authorspilot.com/apple-books-cover-requirements/ || Backlog || Informational / DIY || Apple Books Cover Requirements | Authors Pilot || Learn about apple books cover requirements, including requirements, possible costs, step-by-step guidance and official p || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+059| 59 || Apple Books / iBooks || apple books royalties authors || https://authorspilot.com/apple-books-royalties/ || Backlog || Informational / DIY || Apple Books Royalties Authors | Authors Pilot || Learn about apple books royalties authors, including requirements, possible costs, step-by-step guidance and official pu || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+060| 60 || Apple Books / iBooks || apple books vs kindle publishing || https://authorspilot.com/apple-books-vs-kindle-publishing/ || Backlog || Informational / DIY || Apple Books Vs Kindle Publishing | Authors Pilot || Learn about apple books vs kindle publishing, including requirements, possible costs, step-by-step guidance and official || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+061| 61 || Apple Books / iBooks || publish on ibooks for free || https://authorspilot.com/publish-ibooks-for-free/ || Backlog || Informational / DIY || Publish On Ibooks For Free | Authors Pilot || Learn about publish on ibooks for free, including requirements, possible costs, step-by-step guidance and official publi || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+062| 62 || Apple Books / iBooks || apple books author metadata || https://authorspilot.com/apple-books-author-metadata/ || Backlog || Informational / DIY || Apple Books Author Metadata | Authors Pilot || Learn about apple books author metadata, including requirements, possible costs, step-by-step guidance and official publ || Apple Books for Authors setup; EPUB validation; metadata; availability and payment requirements; official Apple Books li || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+063| 63 || Other free publishing channels || publish on google play books free || https://authorspilot.com/publish-on-google-play-books-free/ || Backlog || Informational / DIY || Publish On Google Play Books Free | Authors Pilot || Learn about publish on google play books free, including requirements, possible costs, step-by-step guidance and officia || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+064| 64 || Other free publishing channels || google play books partner center guide || https://authorspilot.com/google-play-books-partner-center-guide/ || Backlog || Informational / DIY || Google Play Books Partner Center Guide | Authors Pilot || Learn about google play books partner center guide, including requirements, possible costs, step-by-step guidance and of || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+065| 65 || Other free publishing channels || publish barnes and noble press free || https://authorspilot.com/publish-barnes-noble-press-free/ || Backlog || Informational / DIY || Publish Barnes And Noble Press Free | Authors Pilot || Learn about publish barnes and noble press free, including requirements, possible costs, step-by-step guidance and offic || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+066| 66 || Other free publishing channels || barnes and noble press vs kdp || https://authorspilot.com/barnes-noble-press-vs-kdp/ || Backlog || Informational / DIY || Barnes And Noble Press Vs KDP | Authors Pilot || Learn about barnes and noble press vs kdp, including requirements, possible costs, step-by-step guidance and official pu || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+067| 67 || Other free publishing channels || publish with draft2digital free || https://authorspilot.com/publish-with-draft2digital-free/ || Backlog || Informational / DIY || Publish With Draft2digital Free | Authors Pilot || Learn about publish with draft2digital free, including requirements, possible costs, step-by-step guidance and official  || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+068| 68 || Other free publishing channels || draft2digital fees and royalties || https://authorspilot.com/draft2digital-fees-royalties/ || Backlog || Informational / DIY || Draft2digital Fees And Royalties | Authors Pilot || Learn about draft2digital fees and royalties, including requirements, possible costs, step-by-step guidance and official || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+069| 69 || Other free publishing channels || draft2digital vs amazon kdp || https://authorspilot.com/draft2digital-vs-kdp/ || Backlog || Informational / DIY || Draft2digital Vs Amazon KDP | Authors Pilot || Learn about draft2digital vs amazon kdp, including requirements, possible costs, step-by-step guidance and official publ || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Review existing /blog/how-to-publish-on-amazon-kdp/ before launch || Proposed — not published
+070| 70 || Other free publishing channels || publish on smashwords for free || https://authorspilot.com/publish-on-smashwords-free/ || Backlog || Informational / DIY || Publish On Smashwords For Free | Authors Pilot || Learn about publish on smashwords for free, including requirements, possible costs, step-by-step guidance and official p || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+071| 71 || Other free publishing channels || free ebook distribution platforms || https://authorspilot.com/free-ebook-distribution-platforms/ || Backlog || Informational / DIY || Free Ebook Distribution Platforms | Authors Pilot || Learn about free ebook distribution platforms, including requirements, possible costs, step-by-step guidance and officia || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+072| 72 || Other free publishing channels || publish ebook on multiple platforms || https://authorspilot.com/sell-ebook-on-multiple-platforms/ || Backlog || Informational / DIY || Publish Ebook On Multiple Platforms | Authors Pilot || Learn about publish ebook on multiple platforms, including requirements, possible costs, step-by-step guidance and offic || Who this is for; truly free vs costs; platform comparison; step-by-step walkthrough; FAQ; platform-specific internal lin || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+073| 73 || Free tools and preparation || free ebook formatting tools || https://authorspilot.com/free-ebook-formatting-tools/ || Backlog || Informational / DIY || Free Ebook Formatting Tools | Authors Pilot || Learn about free ebook formatting tools, including requirements, possible costs, step-by-step guidance and official publ || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+074| 74 || Free tools and preparation || how to format a book for free || https://authorspilot.com/format-book-for-free/ || Backlog || Informational / DIY || How To Format A Book For Free | Authors Pilot || Learn about how to format a book for free, including requirements, possible costs, step-by-step guidance and official pu || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+075| 75 || Free tools and preparation || convert word to epub free || https://authorspilot.com/convert-word-to-epub-free/ || Backlog || Informational / DIY || Convert Word To EPUB Free | Authors Pilot || Learn about convert word to epub free, including requirements, possible costs, step-by-step guidance and official publis || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+076| 76 || Free tools and preparation || how to create an epub file for free || https://authorspilot.com/create-epub-file-free/ || Backlog || Informational / DIY || How To Create An EPUB File For Free | Authors Pilot || Learn about how to create an epub file for free, including requirements, possible costs, step-by-step guidance and offic || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+077| 77 || Free tools and preparation || free book cover design tools || https://authorspilot.com/free-book-cover-design-tools/ || Backlog || Informational / DIY || Free Book Cover Design Tools | Authors Pilot || Learn about free book cover design tools, including requirements, possible costs, step-by-step guidance and official pub || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+078| 78 || Free tools and preparation || how to make a book cover for free || https://authorspilot.com/make-book-cover-for-free/ || Backlog || Informational / DIY || How To Make A Book Cover For Free | Authors Pilot || Learn about how to make a book cover for free, including requirements, possible costs, step-by-step guidance and officia || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+079| 79 || Free tools and preparation || free manuscript editing tools || https://authorspilot.com/free-manuscript-editing-tools/ || Backlog || Informational / DIY || Free Manuscript Editing Tools | Authors Pilot || Learn about free manuscript editing tools, including requirements, possible costs, step-by-step guidance and official pu || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+080| 80 || Free tools and preparation || free grammar checker for authors || https://authorspilot.com/free-grammar-checker-for-authors/ || Backlog || Informational / DIY || Free Grammar Checker For Authors | Authors Pilot || Learn about free grammar checker for authors, including requirements, possible costs, step-by-step guidance and official || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+081| 81 || Free tools and preparation || free isbn for self publishing || https://authorspilot.com/free-isbn-for-self-publishing/ || Backlog || Informational / DIY || Free ISBN For Self Publishing | Authors Pilot || Learn about free isbn for self publishing, including requirements, possible costs, step-by-step guidance and official pu || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Review existing /blog/how-to-self-publish-a-book/ and /blog/how-to-publish-a-book/ || Proposed — not published
+082| 82 || Free tools and preparation || do you need isbn for ebook || https://authorspilot.com/do-you-need-isbn-for-ebook/ || Backlog || Informational / DIY || Do You Need ISBN For Ebook | Authors Pilot || Learn about do you need isbn for ebook, including requirements, possible costs, step-by-step guidance and official publi || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+083| 83 || Free tools and preparation || author bio examples for first time authors || https://authorspilot.com/free-author-bio-examples/ || Backlog || Informational / DIY || Author Bio Examples For First Time Authors | Authors Pilot || Learn about author bio examples for first time authors, including requirements, possible costs, step-by-step guidance an || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+084| 84 || Free tools and preparation || how to write book description for free || https://authorspilot.com/write-book-description-for-free/ || Backlog || Informational / DIY || How To Write Book Description For Free | Authors Pilot || Learn about how to write book description for free, including requirements, possible costs, step-by-step guidance and of || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+085| 85 || Free tools and preparation || book metadata checklist || https://authorspilot.com/free-book-metadata-checklist/ || Backlog || Informational / DIY || Book Metadata Checklist | Authors Pilot || Learn about book metadata checklist, including requirements, possible costs, step-by-step guidance and official publishi || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+086| 86 || Free tools and preparation || free book launch checklist || https://authorspilot.com/free-book-launch-checklist/ || Backlog || Informational / DIY || Free Book Launch Checklist | Authors Pilot || Learn about free book launch checklist, including requirements, possible costs, step-by-step guidance and official publi || Compare free tools and limitations; step-by-step use; export requirements; accessibility; official tools links || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+087| 87 || Free promotion and author visibility || free book listing for authors || https://authorspilot.com/free-book-listing/ || Phase 1 || Book listing || Free Book Listing For Authors | Authors Pilot || Learn about free book listing for authors, including requirements, possible costs, step-by-step guidance and official pu || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+088| 88 || Free promotion and author visibility || how to promote your book for free || https://authorspilot.com/promote-your-book-for-free/ || Phase 1 || Informational / DIY || How To Promote Your Book For Free | Authors Pilot || Learn about how to promote your book for free, including requirements, possible costs, step-by-step guidance and officia || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+089| 89 || Free promotion and author visibility || free book promotion websites || https://authorspilot.com/free-book-promotion-websites/ || Phase 2 || Informational / DIY || Free Book Promotion Websites | Authors Pilot || Learn about free book promotion websites, including requirements, possible costs, step-by-step guidance and official pub || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+090| 90 || Free promotion and author visibility || free author profile websites || https://authorspilot.com/free-author-profile-websites/ || Phase 2 || Informational / DIY || Free Author Profile Websites | Authors Pilot || Learn about free author profile websites, including requirements, possible costs, step-by-step guidance and official pub || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+091| 91 || Free promotion and author visibility || promote kindle book for free || https://authorspilot.com/promote-kindle-book-for-free/ || Phase 2 || Informational / DIY || Promote Kindle Book For Free | Authors Pilot || Learn about promote kindle book for free, including requirements, possible costs, step-by-step guidance and official pub || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+092| 92 || Free promotion and author visibility || free ebook promotion ideas || https://authorspilot.com/free-ebook-promotion-ideas/ || Phase 2 || Informational / DIY || Free Ebook Promotion Ideas | Authors Pilot || Learn about free ebook promotion ideas, including requirements, possible costs, step-by-step guidance and official publi || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+093| 93 || Free promotion and author visibility || promote book on social media for free || https://authorspilot.com/book-promotion-on-social-media-free/ || Phase 2 || Informational / DIY || Promote Book On Social Media For Free | Authors Pilot || Learn about promote book on social media for free, including requirements, possible costs, step-by-step guidance and off || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+094| 94 || Free promotion and author visibility || how to get book reviews ethically || https://authorspilot.com/get-book-reviews-ethically/ || Backlog || Informational / DIY || How To Get Book Reviews Ethically | Authors Pilot || Learn about how to get book reviews ethically, including requirements, possible costs, step-by-step guidance and officia || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+095| 95 || Free promotion and author visibility || free book launch marketing ideas || https://authorspilot.com/free-book-launch-marketing-ideas/ || Phase 2 || Informational / DIY || Free Book Launch Marketing Ideas | Authors Pilot || Learn about free book launch marketing ideas, including requirements, possible costs, step-by-step guidance and official || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+096| 96 || Free promotion and author visibility || free author website options || https://authorspilot.com/free-author-website-options/ || Phase 2 || Informational / DIY || Free Author Website Options | Authors Pilot || Learn about free author website options, including requirements, possible costs, step-by-step guidance and official publ || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+097| 97 || Free promotion and author visibility || create author page for free || https://authorspilot.com/create-author-page-free/ || Phase 2 || Informational / DIY || Create Author Page For Free | Authors Pilot || Learn about create author page for free, including requirements, possible costs, step-by-step guidance and official publ || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+098| 98 || Free promotion and author visibility || free book marketing checklist || https://authorspilot.com/free-book-marketing-checklist/ || Phase 2 || Informational / DIY || Free Book Marketing Checklist | Authors Pilot || Learn about free book marketing checklist, including requirements, possible costs, step-by-step guidance and official pu || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || View official publishing platform / Read related guide || Check existing pages and search intent before publishing || Proposed — not published
+099| 99 || Free promotion and author visibility || promote book on goodreads for free || https://authorspilot.com/promote-book-on-goodreads-free/ || Phase 2 || Informational / DIY || Promote Book On Goodreads For Free | Authors Pilot || Learn about promote book on goodreads for free, including requirements, possible costs, step-by-step guidance and offici || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+100| 100 || Free promotion and author visibility || book listing vs book publishing || https://authorspilot.com/book-listing-vs-book-publishing/ || Backlog || Book listing || Book Listing Vs Book Publishing | Authors Pilot || Learn about book listing vs book publishing, including requirements, possible costs, step-by-step guidance and official  || Free discovery channels; ethical promotion; author profile; external retailer links; measurable outbound clicks; no guar || Submit your published book (launch terms apply) || Check existing pages and search intent before publishing || Proposed — not published
+
+--- Sheet: Launch Sequence (rows=6, cols=5) ---
+000| Stage || Pages || Action || Quality gate || Publish condition
+001| Audit || 0 || Confirm live URLs, canonicals, existing sitemap, GSC index report || Avoid duplicate intent and slugs || No publication
+002| Pilot || 5 || Create foundation, KDP, Kobo, listing, promotion pages || Original practical guides; official citations; clear cost caveats || Only after pages return 200 and indexable
+003| Expand || 5 || Publish Lulu, Apple, ebook, platform comparisons || Internal links, FAQ, unique content || Update sitemap for live URLs
+004| Scale || 20 || Add tools, formats and genre guides || Check impressions and query overlap || Only live canonical pages
+005| Long tail || 70 || Publish remaining validated topics gradually || Consolidate similar intents; prune low-value ideas || No mass empty URL creation

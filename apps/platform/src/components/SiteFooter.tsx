@@ -14,12 +14,12 @@ const columns = [
         href: `${MARKETING_URL}/about-authorspilot-publishing-agency/`,
         label: "About Authors Pilot",
       },
-      {
-        href: `${MARKETING_URL}/blog/author-publishing-blog-resources/`,
-        label: "Blog",
-      },
-      { href: "/how-publishing-works", label: "How Publishing Works" },
-      { href: "/faq", label: "FAQ" },
+      { href: "/blog/", label: "Blog" },
+      { href: "/guides/", label: "Guides" },
+      { href: "/how-it-works/", label: "How It Works" },
+      { href: "/faq/", label: "FAQ" },
+      { href: "/vs-books2read/", label: "vs Books2Read" },
+      { href: "/vs-booklinker/", label: "vs Booklinker" },
       {
         href: `${MARKETING_URL}/contact-author-website-design-agency/`,
         label: "Contact Us",
@@ -123,7 +123,7 @@ export function SiteFooter() {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-4 px-4 py-6 sm:gap-6 sm:px-6 lg:px-8">
           <a
             href={MARKETING_HOME_URL}
-            className="relative block h-12 w-12 shrink-0"
+            className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-full border border-white/25 bg-white/10"
             aria-label="Authors Pilot"
           >
             <Image
@@ -131,7 +131,7 @@ export function SiteFooter() {
               alt="Authors Pilot"
               width={80}
               height={80}
-              className="h-full w-full object-contain"
+              className="h-full w-full object-cover"
               unoptimized
             />
           </a>
@@ -161,8 +161,7 @@ export function SiteFooter() {
           </p>
         </div>
         <p className="pb-6 text-center text-xs text-white/55">
-          © {year} Authors Pilot. Keep 100% of your book royalties. Legal pages
-          are drafts and do not constitute legal advice.
+          © {year} Authors Pilot. Keep 100% of your book royalties.
         </p>
       </div>
     </footer>

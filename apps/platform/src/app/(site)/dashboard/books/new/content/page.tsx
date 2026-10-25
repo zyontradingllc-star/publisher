@@ -35,7 +35,7 @@ export default async function PublishBookContentPage({
         <p className="mt-2 text-forest-muted">
           {title
             ? title
-            : "Manuscript, cover, ISBN, and accessibility - like a KDP content step, for Authors Pilot."}
+            : "Table of contents, cover, ISBN, and accessibility - like a KDP content step, for Authors Pilot."}
         </p>
       </header>
 

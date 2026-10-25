@@ -8,7 +8,7 @@ import { canonicalUrl } from "@/lib/seo";
 export function getSitemapEntries(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: canonicalUrl("/book-publishing-author-website-design-agency"),
+      url: canonicalUrl("/"),
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
@@ -44,13 +44,13 @@ export function getSitemapEntries(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: canonicalUrl("/privacy-policy"),
+      url: canonicalUrl("/privacy"),
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: canonicalUrl("/terms-and-conditions"),
+      url: canonicalUrl("/terms"),
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.3,

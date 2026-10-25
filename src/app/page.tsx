@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: homeSeo.title,
   description: homeSeo.description,
-  path: "/book-publishing-author-website-design-agency",
+  path: "/",
 });
 
 const organizationSchema = {

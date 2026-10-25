@@ -94,7 +94,7 @@ export function TermsView() {
       <section className="bg-warm-wash py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <p className="font-sans text-xs text-charcoal">
-            <Link href="/book-publishing-author-website-design-agency" className="hover:text-[#273E2B]">
+            <Link href="/" className="hover:text-[#273E2B]">
               Home
             </Link>
             <span className="mx-1.5">/</span>

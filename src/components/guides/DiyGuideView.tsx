@@ -108,7 +108,7 @@ export function DiyGuideView({ guide }: Props) {
       {faqSchema && <JsonLd data={faqSchema} />}
       <Breadcrumbs
         items={[
-          { label: "Home", href: "/book-publishing-author-website-design-agency" },
+          { label: "Home", href: "/" },
           { label: "Free Guides", href: "/publish-book-for-free" },
           { label: guide.title, href: `/${guide.slug}` },
         ]}

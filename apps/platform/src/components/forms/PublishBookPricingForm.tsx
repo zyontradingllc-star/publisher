@@ -5,7 +5,12 @@ import Link from "next/link";
 import { savePublishPricingAction } from "@/app/actions/publish-book";
 import type { ActionState } from "@/app/actions/auth";
 import { Alert } from "@/components/ui/Alert";
+import { Button } from "@/components/ui/Button";
+import { MARKETING_URL } from "@/lib/utils";
+
 const initialState: ActionState = { ok: false };
+
+const AUTHOR_WEBSITE_HREF = `${MARKETING_URL}/author-website-design-agency-usa/`;
 
 const MARKETPLACES = [
   { id: "author_website", label: "Author website / own store" },
@@ -15,6 +20,7 @@ const MARKETPLACES = [
   { id: "amazon_de", label: "Amazon.de" },
   { id: "amazon_ca", label: "Amazon.ca" },
   { id: "other", label: "Other retailer" },
+  { id: "all", label: "Select All" },
 ];
 
 type Props = {
@@ -33,6 +39,7 @@ export function PublishBookPricingForm({
   const [submitIntent, setSubmitIntent] = useState<"draft" | "publish" | null>(
     null
   );
+  const [hasAuthorWebsite, setHasAuthorWebsite] = useState<"yes" | "no">("yes");
 
   useEffect(() => {
     if (!pending) setSubmitIntent(null);
@@ -126,18 +133,61 @@ export function PublishBookPricingForm({
             only - payment happens on those sites.
           </p>
           <div className="space-y-4">
-            <div>
-              <label className="label-field" htmlFor="link_author">
-                Author website / store URL
+            <fieldset className="space-y-3">
+              <legend className="label-field mb-2">
+                Do you have an author website?
+              </legend>
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="radio"
+                  name="has_author_website"
+                  value="yes"
+                  checked={hasAuthorWebsite === "yes"}
+                  onChange={() => setHasAuthorWebsite("yes")}
+                />
+                Yes
               </label>
-              <input
-                id="link_author"
-                name="link_author_website"
-                type="url"
-                className="input-field"
-                placeholder="https://yourstore.com/book"
-              />
-            </div>
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="radio"
+                  name="has_author_website"
+                  value="no"
+                  checked={hasAuthorWebsite === "no"}
+                  onChange={() => setHasAuthorWebsite("no")}
+                />
+                No
+              </label>
+            </fieldset>
+
+            {hasAuthorWebsite === "yes" ? (
+              <div>
+                <label className="label-field" htmlFor="link_author">
+                  Author website / store URL
+                </label>
+                <input
+                  id="link_author"
+                  name="link_author_website"
+                  type="url"
+                  className="input-field"
+                  placeholder="https://yourstore.com/book"
+                />
+              </div>
+            ) : (
+              <div
+                className="space-y-3 rounded-none border border-sand bg-ivory/80 p-4"
+                role="region"
+                aria-label="Author website suggestion"
+              >
+                <p className="text-sm text-charcoal">
+                  A professional author site helps readers find your books and
+                  brand.
+                </p>
+                <Button href={AUTHOR_WEBSITE_HREF} external>
+                  Interested in Author Website?
+                </Button>
+              </div>
+            )}
+
             <div>
               <label className="label-field" htmlFor="link_amazon">
                 Amazon / Kindle URL

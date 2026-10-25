@@ -150,15 +150,17 @@ export function CreateAccountForm() {
     <div className="w-full">
       <div className="mb-6 flex flex-col items-center text-center">
         <Link href="/" className="inline-flex flex-col items-center gap-2">
-          <Image
-            src={platformPublicPath("/logo-authors-pilot.webp")}
-            alt="Authors Pilot"
-            width={72}
-            height={72}
-            className="h-14 w-14 object-contain"
-            priority
-            unoptimized
-          />
+          <span className="relative block h-14 w-14 overflow-hidden rounded-full border border-sand bg-ivory">
+            <Image
+              src={platformPublicPath("/logo-authors-pilot.webp")}
+              alt="Authors Pilot"
+              width={72}
+              height={72}
+              className="h-full w-full object-cover"
+              priority
+              unoptimized
+            />
+          </span>
           <span className="font-display text-lg font-bold tracking-tight text-[#273E2B]">
             Authors Pilot
           </span>

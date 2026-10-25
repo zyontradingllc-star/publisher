@@ -15,7 +15,21 @@ type AuthorDoc = {
   avatar?:
     | string
     | number
-    | { url?: string | null; id?: string | number }
+    | {
+        url?: string | null;
+        id?: string | number;
+        filename?: string | null;
+      }
+    | null;
+  bannerPath?: string | null;
+  banner?:
+    | string
+    | number
+    | {
+        url?: string | null;
+        id?: string | number;
+        filename?: string | null;
+      }
     | null;
   websiteUrl?: string | null;
   hasAuthorWebsite?: boolean | null;
@@ -25,6 +39,7 @@ type AuthorDoc = {
   socialLinkedin?: string | null;
   socialWhatsapp?: string | null;
   socialTiktok?: string | null;
+  socialReddit?: string | null;
   isPublic?: boolean | null;
   profileComplete?: boolean | null;
   approvalStatus?: string | null;
@@ -32,15 +47,36 @@ type AuthorDoc = {
   updatedAt?: string;
 };
 
-function avatarFromDoc(doc: AuthorDoc): string | null {
-  if (doc.avatar && typeof doc.avatar === "object") {
-    return (
-      doc.avatar.url ||
-      (doc.avatar.id ? `/api/media/file/${doc.avatar.id}` : null)
-    );
+function mediaUrlFromRelation(
+  rel:
+    | string
+    | number
+    | { url?: string | null; id?: string | number; filename?: string | null }
+    | null
+    | undefined,
+  legacyPath?: string | null
+): string | null {
+  const strip = (u: string | null | undefined) =>
+    u && u.length > 1 && u.endsWith("/") ? u.replace(/\/+$/, "") : u || null;
+
+  if (rel && typeof rel === "object") {
+    if (rel.url) return strip(rel.url);
+    if (rel.filename) return strip(`/api/media/file/${rel.filename}`);
+    // Bare id without url/filename cannot be served by Payload file route
+    return null;
   }
-  if (doc.avatar) return `/api/media/file/${doc.avatar}`;
-  return firebasePublicUrl(doc.avatarPath) || doc.avatarPath || null;
+  if (typeof rel === "string" && rel.includes(".")) {
+    return strip(`/api/media/file/${rel}`);
+  }
+  return firebasePublicUrl(legacyPath) || legacyPath || null;
+}
+
+function avatarFromDoc(doc: AuthorDoc): string | null {
+  return mediaUrlFromRelation(doc.avatar, doc.avatarPath);
+}
+
+function bannerFromDoc(doc: AuthorDoc): string | null {
+  return mediaUrlFromRelation(doc.banner, doc.bannerPath);
 }
 
 function mapAuthorToProfile(doc: AuthorDoc): Profile {
@@ -53,6 +89,7 @@ function mapAuthorToProfile(doc: AuthorDoc): Profile {
     slug: doc.slug || null,
     bio: doc.bio || null,
     avatar_path: avatarFromDoc(doc),
+    banner_path: bannerFromDoc(doc),
     website_url: doc.websiteUrl || null,
     has_author_website: Boolean(doc.hasAuthorWebsite),
     social_facebook: doc.socialFacebook || null,
@@ -61,6 +98,7 @@ function mapAuthorToProfile(doc: AuthorDoc): Profile {
     social_linkedin: doc.socialLinkedin || null,
     social_whatsapp: doc.socialWhatsapp || null,
     social_tiktok: doc.socialTiktok || null,
+    social_reddit: doc.socialReddit || null,
     is_public:
       doc.isPublic === true || doc.approvalStatus === "APPROVED",
     profile_complete: Boolean(doc.profileComplete),
@@ -185,6 +223,8 @@ export async function updateProfilePayload(
     data.socialWhatsapp = patch.social_whatsapp;
   if (patch.social_tiktok !== undefined)
     data.socialTiktok = patch.social_tiktok;
+  if (patch.social_reddit !== undefined)
+    data.socialReddit = patch.social_reddit;
   if (patch.is_public !== undefined) {
     data.isPublic = patch.is_public;
     if (patch.is_public) data.approvalStatus = "APPROVED";
@@ -192,6 +232,7 @@ export async function updateProfilePayload(
   if (patch.profile_complete !== undefined)
     data.profileComplete = patch.profile_complete;
   if (patch.avatar_path !== undefined) data.avatarPath = patch.avatar_path;
+  if (patch.banner_path !== undefined) data.bannerPath = patch.banner_path;
   if (patch.role !== undefined) data.role = patch.role;
 
   const updated = await payload.update({
@@ -208,4 +249,115 @@ export async function resolvePayloadAuthorId(
 ): Promise<string | null> {
   const doc = await findAuthorByFirebaseUid(firebaseUid);
   return doc ? String(doc.id) : null;
+}
+
+function pathFromMediaDoc(media: {
+  url?: string | null;
+  filename?: string | null;
+  id?: string | number;
+}): string | null {
+  return mediaUrlFromRelation(media, null);
+}
+
+/** Upload avatar to Payload Media and attach it to the author row. */
+export async function uploadAvatarPayload(
+  uid: string,
+  file: File
+): Promise<Profile> {
+  const payload = await getPayloadClient();
+  let doc = await findAuthorByFirebaseUid(uid);
+  if (!doc) {
+    throw new Error("Author profile not found. Save your profile details first.");
+  }
+
+  const bytes = Buffer.from(await file.arrayBuffer());
+  const media = (await payload.create({
+    collection: "media",
+    data: {
+      alt: `${doc.displayName || "Author"} profile photo`,
+    },
+    file: {
+      data: bytes,
+      mimetype: file.type || "image/webp",
+      name:
+        file.name.replace(/[^a-zA-Z0-9._-]/g, "_") || "avatar.webp",
+      size: bytes.length,
+    },
+    overrideAccess: true,
+  })) as {
+    id: string | number;
+    url?: string | null;
+    filename?: string | null;
+  };
+
+  const mediaPath = pathFromMediaDoc(media);
+
+  const updated = await payload.update({
+    collection: "authors",
+    id: doc.id,
+    data: {
+      avatar: media.id,
+      // Prefer Media relation over legacy Firebase path
+      avatarPath: null,
+    },
+    overrideAccess: true,
+    depth: 1,
+  });
+
+  const profile = mapAuthorToProfile(updated as AuthorDoc);
+  if (!profile.avatar_path && mediaPath) {
+    profile.avatar_path = mediaPath;
+  }
+  return profile;
+}
+
+/** Upload cover banner to Payload Media and attach it to the author row. */
+export async function uploadBannerPayload(
+  uid: string,
+  file: File
+): Promise<Profile> {
+  const payload = await getPayloadClient();
+  const doc = await findAuthorByFirebaseUid(uid);
+  if (!doc) {
+    throw new Error("Author profile not found. Save your profile details first.");
+  }
+
+  const bytes = Buffer.from(await file.arrayBuffer());
+  const media = (await payload.create({
+    collection: "media",
+    data: {
+      alt: `${doc.displayName || "Author"} cover banner`,
+    },
+    file: {
+      data: bytes,
+      mimetype: file.type || "image/webp",
+      name:
+        file.name.replace(/[^a-zA-Z0-9._-]/g, "_") || "banner.webp",
+      size: bytes.length,
+    },
+    overrideAccess: true,
+  })) as {
+    id: string | number;
+    url?: string | null;
+    filename?: string | null;
+  };
+
+  const mediaPath = pathFromMediaDoc(media);
+
+  const updated = await payload.update({
+    collection: "authors",
+    id: doc.id,
+    data: {
+      banner: media.id,
+      bannerPath: null,
+    },
+    overrideAccess: true,
+    depth: 1,
+  });
+
+  const profile = mapAuthorToProfile(updated as AuthorDoc);
+  if (!profile.banner_path && mediaPath) {
+    profile.banner_path = mediaPath;
+  }
+  return profile;
 }

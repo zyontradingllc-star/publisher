@@ -224,7 +224,7 @@ export function PublishLanding() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button href="/signup?google=1">Submit Your Book</Button>
             <Button
-              href="/book-publishing-author-website-design-agency/"
+              href="/"
               variant="ghost"
             >
               Explore Author Services

@@ -6,9 +6,11 @@ import type { ActionState } from "@/app/actions/auth";
 import { Alert } from "@/components/ui/Alert";
 import { Button } from "@/components/ui/Button";
 import type { Profile } from "@/types/database";
-import { slugify } from "@/lib/utils";
+import { MARKETING_URL, slugify } from "@/lib/utils";
 
 const initialState: ActionState = { ok: false };
+
+const AUTHOR_WEBSITE_HREF = `${MARKETING_URL}/author-website-design-agency-usa/`;
 
 function FieldError({
   errors,
@@ -27,9 +29,8 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     updateProfileAction,
     initialState
   );
-  const [hasWebsite, setHasWebsite] = useState(
-    profile.has_author_website ? "yes" : "no"
-  );
+  // Default Yes on the profile page (URL field shown until they pick No).
+  const [hasWebsite, setHasWebsite] = useState<"yes" | "no">("yes");
   const [displayName, setDisplayName] = useState(profile.display_name ?? "");
 
   return (
@@ -68,6 +69,18 @@ export function ProfileForm({ profile }: { profile: Profile }) {
               defaultValue={profile.slug ?? slugify(displayName)}
             />
           </div>
+          {profile.slug ? (
+            <p className="mt-2 text-sm">
+              <a
+                href={`/authors/${profile.slug}`}
+                className="font-semibold text-coral hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open public author page
+              </a>
+            </p>
+          ) : null}
           <FieldError errors={state.fieldErrors} name="slug" />
         </div>
 
@@ -127,7 +140,20 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             />
             <FieldError errors={state.fieldErrors} name="website_url" />
           </div>
-        ) : null}
+        ) : (
+          <div
+            className="space-y-3 rounded-none border border-sand bg-ivory/80 p-4"
+            role="region"
+            aria-label="Author website suggestion"
+          >
+            <p className="text-sm text-charcoal">
+              A professional author site helps readers find your books and brand.
+            </p>
+            <Button href={AUTHOR_WEBSITE_HREF} external>
+              Interested in Author Website?
+            </Button>
+          </div>
+        )}
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -174,7 +200,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
               defaultValue={profile.social_linkedin ?? ""}
             />
           </div>
-          <div className="sm:col-span-2">
+          <div>
             <label className="label-field" htmlFor="social_tiktok">
               TikTok link
             </label>
@@ -185,6 +211,19 @@ export function ProfileForm({ profile }: { profile: Profile }) {
               type="url"
               defaultValue={profile.social_tiktok ?? profile.social_whatsapp ?? ""}
               placeholder="https://www.tiktok.com/@username"
+            />
+          </div>
+          <div>
+            <label className="label-field" htmlFor="social_reddit">
+              Reddit link
+            </label>
+            <input
+              id="social_reddit"
+              name="social_reddit"
+              className="input-field"
+              type="url"
+              defaultValue={profile.social_reddit ?? ""}
+              placeholder="https://www.reddit.com/user/username"
             />
           </div>
         </div>

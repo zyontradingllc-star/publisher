@@ -1,4 +1,11 @@
+import path from "path";
 import type { CollectionConfig } from "payload";
+
+/** Writable upload root — Docker creates /app/media owned by nextjs. */
+const mediaDir = path.resolve(
+  process.cwd(),
+  process.env.MEDIA_DIR || "media"
+);
 
 export const Media: CollectionConfig = {
   slug: "media",
@@ -9,7 +16,7 @@ export const Media: CollectionConfig = {
     delete: ({ req }) => Boolean(req.user),
   },
   upload: {
-    staticDir: "media",
+    staticDir: mediaDir,
     mimeTypes: ["image/*"],
     // One small derivative only - full-size original is used for book covers.
     // Generating multiple sharp sizes on every upload made Content step slow.

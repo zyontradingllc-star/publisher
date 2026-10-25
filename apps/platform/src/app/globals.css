@@ -98,8 +98,12 @@ body {
     @apply heading-display text-[1.7rem] sm:text-[2.4rem];
   }
 
+  .heading-section-sm {
+    @apply heading-display text-2xl sm:text-3xl;
+  }
+
   .input-field {
-    @apply w-full rounded-xl border border-sand bg-white px-4 py-2.5 text-ink shadow-sm transition placeholder:text-forest-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/30;
+    @apply w-full rounded-none border border-sand bg-white px-4 py-2.5 text-ink shadow-sm transition placeholder:text-forest-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/30;
   }
 
   .label-field {
@@ -115,6 +119,6 @@ body {
   }
 
   .card-surface {
-    @apply rounded-2xl border border-sand bg-white p-5 shadow-soft;
+    @apply rounded-none border border-sand bg-white p-5 shadow-soft;
   }
 }

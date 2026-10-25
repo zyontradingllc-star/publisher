@@ -21,6 +21,8 @@ type PayloadAuthor = {
   bio?: string | null;
   avatar?: string | number | PayloadMedia | null;
   avatarPath?: string | null;
+  banner?: string | number | PayloadMedia | null;
+  bannerPath?: string | null;
   websiteUrl?: string | null;
   hasAuthorWebsite?: boolean | null;
   socialFacebook?: string | null;
@@ -29,6 +31,7 @@ type PayloadAuthor = {
   socialLinkedin?: string | null;
   socialWhatsapp?: string | null;
   socialTiktok?: string | null;
+  socialReddit?: string | null;
   isPublic?: boolean | null;
   profileComplete?: boolean | null;
   createdAt?: string;
@@ -50,31 +53,40 @@ type PayloadBook = {
   cover?: string | number | PayloadMedia | null;
 };
 
+function stripTrailingSlash(url: string | null | undefined): string | null {
+  if (!url) return null;
+  return url.length > 1 && url.endsWith("/") ? url.replace(/\/+$/, "") : url;
+}
+
 function mediaUrl(
   media: string | number | PayloadMedia | null | undefined,
   prefer: "cover" | "thumbnail" | "original" = "original"
 ): string | null {
   if (!media) return null;
   if (typeof media === "object") {
+    // Prefer filename-based Payload URLs (not document id — id routes 404/308).
+    const byFilename = media.url
+      ? media.url
+      : media.id
+        ? null
+        : null;
     if (prefer === "cover") {
-      // Prefer original for crisp covers; thumbnail is only a small derivative.
-      return (
-        media.url ||
-        media.sizes?.cover?.url ||
-        media.sizes?.thumbnail?.url ||
-        (media.id ? `/api/media/file/${media.id}` : null)
+      return stripTrailingSlash(
+        byFilename ||
+          media.sizes?.cover?.url ||
+          media.sizes?.thumbnail?.url ||
+          null
       );
     }
     if (prefer === "thumbnail") {
-      return (
-        media.sizes?.thumbnail?.url ||
-        media.url ||
-        (media.id ? `/api/media/file/${media.id}` : null)
+      return stripTrailingSlash(
+        media.sizes?.thumbnail?.url || byFilename || null
       );
     }
-    return media.url || (media.id ? `/api/media/file/${media.id}` : null);
+    return stripTrailingSlash(byFilename);
   }
-  return `/api/media/file/${media}`;
+  // Bare id without populated media — cannot resolve filename here.
+  return null;
 }
 
 export function mapPayloadAuthor(doc: PayloadAuthor): Profile {
@@ -91,6 +103,8 @@ export function mapPayloadAuthor(doc: PayloadAuthor): Profile {
     bio: doc.bio || null,
     avatar_path:
       mediaUrl(doc.avatar, "thumbnail") || doc.avatarPath || null,
+    banner_path:
+      mediaUrl(doc.banner, "original") || doc.bannerPath || null,
     website_url: doc.websiteUrl || null,
     has_author_website: Boolean(doc.hasAuthorWebsite),
     social_facebook: doc.socialFacebook || null,
@@ -99,6 +113,7 @@ export function mapPayloadAuthor(doc: PayloadAuthor): Profile {
     social_linkedin: doc.socialLinkedin || null,
     social_whatsapp: doc.socialWhatsapp || null,
     social_tiktok: doc.socialTiktok || null,
+    social_reddit: doc.socialReddit || null,
     is_public: doc.isPublic !== false,
     profile_complete: Boolean(doc.profileComplete),
     created_at: doc.createdAt || new Date().toISOString(),

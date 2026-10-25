@@ -33,7 +33,7 @@ export const socialLinks = [
   },
 ] as const;
 
-export const homeHref = "/book-publishing-author-website-design-agency";
+export const homeHref = "/";
 
 /** Platform guest publish flow (Book Details → Content → Sales) */
 export const publishHref = platformHref("/publish");
@@ -48,6 +48,7 @@ export const servicesNavChildren = [
 export const navLinks = [
   { href: publishHref, label: "Publish" },
   { href: platformHref("/bookstore"), label: "BookStore" },
+  { href: platformHref("/blog"), label: "Blog" },
   {
     href: homeHref,
     label: "Services",

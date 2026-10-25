@@ -76,7 +76,7 @@ export function BlogArticleView({ article, related }: Props) {
       {faqSchema && <JsonLd data={faqSchema} />}
       <Breadcrumbs
         items={[
-          { label: "Home", href: "/book-publishing-author-website-design-agency" },
+          { label: "Home", href: "/" },
           { label: "Blog", href: "/blog/author-publishing-blog-resources" },
           { label: article.title, href: `/blog/${article.slug}` },
         ]}
@@ -208,7 +208,7 @@ export function BlogArticleView({ article, related }: Props) {
                       href={link.href}
                       className="inline-flex rounded-full border border-sand bg-white px-4 py-2 text-sm font-medium text-ink transition hover:border-coral hover:text-[#E08A2A]"
                     >
-                      {link.label} →
+                      {link.label} ?
                     </Link>
                   </li>
                 ))}

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function AudiobookLegacyRedirect() {
-  redirect("/audiobook-publishing-services");
+  redirect("/audiobook-production-services-for-authors/");
 }

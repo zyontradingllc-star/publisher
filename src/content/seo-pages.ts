@@ -26,7 +26,7 @@ export const seoPages = {
     keywords:
       "book writing services, manuscript writing, professional book writers, author writing services, fiction writing services",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       { label: "Book Writing", href: "/book-writing-services-for-authors" },
     ],
     relatedLinks: [
@@ -47,7 +47,7 @@ export const seoPages = {
     keywords:
       "self publishing services, independent author publishing, self published authors, publish your own book",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       { label: "Self Publishing", href: "/self-publishing-services-for-authors" },
     ],
     relatedLinks: [
@@ -68,7 +68,7 @@ export const seoPages = {
     keywords:
       "book cover design, ebook cover design, Kindle cover design, professional book covers, custom book covers",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       { label: "Book Cover Design", href: "/book-cover-design-services" },
     ],
     relatedLinks: [
@@ -89,7 +89,7 @@ export const seoPages = {
     keywords:
       "book editing services, developmental editing, copy editing, proofreading services, manuscript editing",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       { label: "Book Editing", href: "/professional-book-editing-services" },
     ],
     relatedLinks: [
@@ -110,7 +110,7 @@ export const seoPages = {
     keywords:
       "book formatting services, ebook formatting, Kindle formatting, print book formatting, manuscript formatting",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       { label: "Book Formatting", href: "/book-formatting-services-for-authors" },
     ],
     relatedLinks: [
@@ -120,7 +120,7 @@ export const seoPages = {
     ],
   },
   audiobook: {
-    path: "/audiobook-publishing-services",
+    path: "/audiobook-production-services-for-authors",
     serviceSlug: "audiobook-production",
     pageTitle: "Audiobook Publishing Services | Authors Pilot",
     pageDescription:
@@ -131,8 +131,8 @@ export const seoPages = {
     keywords:
       "audiobook publishing, publish an audiobook, turn a book into an audiobook, Audible publishing, ACX audiobook",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
-      { label: "Audiobook Publishing", href: "/audiobook-publishing-services" },
+      { label: "Home", href: "/" },
+      { label: "Audiobook Publishing", href: "/audiobook-production-services-for-authors" },
     ],
     relatedLinks: [
       { href: "/audiobook-production-services-for-authors", label: "Audiobook Production" },
@@ -143,16 +143,16 @@ export const seoPages = {
   "amazon-kdp-publishing": {
     path: "/amazon-kdp-publishing-services",
     serviceSlug: "book-publishing",
-    pageTitle: "Amazon KDP Publishing Services | Authors Pilot",
+    pageTitle: "KDP Publishing Services for Amazon Kindle & Print | Authors Pilot",
     pageDescription:
-      "Amazon KDP publishing services for Kindle and paperback. We handle files, metadata, and listing setup so your book goes live the right way.",
-    schemaName: "Amazon KDP Publishing Services",
-    serviceType: "Amazon KDP Publishing",
-    h1: "Amazon KDP Publishing Services",
+      "Professional KDP publishing services for Amazon Kindle and paperback. Files, metadata, and listing setup so your book goes live the right way — without giving up your royalties.",
+    schemaName: "KDP Publishing Services",
+    serviceType: "KDP Publishing Services",
+    h1: "KDP Publishing Services for Amazon Authors",
     keywords:
-      "Amazon KDP publishing, Kindle publishing services, KDP publishing, self publish on Amazon, Kindle Direct Publishing",
+      "kdp publishing services, Amazon KDP publishing, Kindle publishing services, KDP publishing, self publish on Amazon, Kindle Direct Publishing",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       {
         label: "Amazon KDP Publishing",
         href: "/amazon-kdp-publishing-services",
@@ -176,7 +176,7 @@ export const seoPages = {
     keywords:
       "ghostwriting services, book ghostwriting, professional ghostwriters, nonfiction ghostwriting",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       { label: "Ghostwriting", href: "/ghostwriting-services-for-authors" },
     ],
     relatedLinks: [
@@ -197,7 +197,7 @@ export const seoPages = {
     keywords:
       "author website design agency USA, author website designer, author website mockup, writer website design",
     breadcrumbs: [
-      { label: "Home", href: "/book-publishing-author-website-design-agency" },
+      { label: "Home", href: "/" },
       {
         label: "Author Website Design USA",
         href: "/author-website-design-agency-usa",

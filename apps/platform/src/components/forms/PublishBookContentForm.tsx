@@ -29,8 +29,6 @@ export function PublishBookContentForm({
   const [manuscriptName, setManuscriptName] = useState<string | null>(null);
   const [coverName, setCoverName] = useState<string | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
-  const [avatarName, setAvatarName] = useState<string | null>(null);
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (!pending) setSubmitIntent(null);
@@ -49,15 +47,15 @@ export function PublishBookContentForm({
         ) : null}
         <input type="hidden" name="book_title" value={bookTitle} />
 
-        {/* Manuscript */}
-        <Section title="Manuscript">
+        {/* Table of Contents (stored as manuscript file for admin review) */}
+        <Section title="Table of Contents">
           <p className="mb-4 text-sm text-forest-muted">
-            Upload your manuscript for private admin review (PDF, EPUB, or DOCX).
-            This file is never sold through Authors Pilot - readers buy on your
-            own website or retailer.
+            Upload your table of contents for private admin review (PDF, EPUB, or
+            DOCX). This file is never sold through Authors Pilot - readers buy on
+            your own website or retailer.
           </p>
           <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
-            Upload manuscript
+            Upload table of contents
             <input
               type="file"
               name="manuscript"
@@ -72,14 +70,16 @@ export function PublishBookContentForm({
           {manuscriptName ? (
             <div className="mt-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900">
               <p className="font-semibold">
-                Manuscript &quot;{manuscriptName}&quot; selected
+                Table of contents &quot;{manuscriptName}&quot; selected
               </p>
               <p className="mt-1 text-xs">
                 It will be sent with this step (private review only).
               </p>
             </div>
           ) : (
-            <p className="mt-3 text-xs text-forest-muted">No manuscript selected yet.</p>
+            <p className="mt-3 text-xs text-forest-muted">
+              No table of contents selected yet.
+            </p>
           )}
 
           <div className="mt-6 border-t border-sand pt-5">
@@ -172,59 +172,6 @@ export function PublishBookContentForm({
           </div>
         </Section>
 
-        {/* Profile picture */}
-        <Section title="Profile picture">
-          <p className="mb-4 text-sm text-forest-muted">
-            Upload a photo for your author page (JPEG, PNG, or WebP). Shown
-            separately from the book cover.
-          </p>
-          <div className="rounded-xl border border-sand bg-ivory/40 p-4">
-            <div className="flex flex-wrap items-start gap-4">
-              {avatarPreview ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={avatarPreview}
-                  alt="Profile preview"
-                  className="h-28 w-28 rounded-full object-cover shadow-soft"
-                />
-              ) : (
-                <div className="flex h-28 w-28 items-center justify-center rounded-full bg-sand text-xs text-forest-muted">
-                  Preview
-                </div>
-              )}
-              <div>
-                <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
-                  Upload profile picture
-                  <input
-                    type="file"
-                    name="avatar"
-                    accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp"
-                    className="sr-only"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      setAvatarName(f ? f.name : null);
-                      if (f) {
-                        setAvatarPreview(URL.createObjectURL(f));
-                      } else {
-                        setAvatarPreview(null);
-                      }
-                    }}
-                  />
-                </label>
-                {avatarName ? (
-                  <div className="mt-3 rounded-xl border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-900">
-                    Profile picture &quot;{avatarName}&quot; selected
-                  </div>
-                ) : (
-                  <p className="mt-3 text-xs text-forest-muted">
-                    Optional - you can add this later from your profile.
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        </Section>
-
         {/* AI disclosure */}
         <Section title="AI-generated content">
           <p className="mb-3 text-sm text-forest-muted">
@@ -250,7 +197,7 @@ export function PublishBookContentForm({
         {/* Preview */}
         <Section title="eBook preview">
           <p className="mb-3 text-sm text-forest-muted">
-            Online previewer will be available after manuscript processing is
+            Online previewer will be available after table of contents processing is
             connected. For now, review your files locally before continuing.
           </p>
           <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900">

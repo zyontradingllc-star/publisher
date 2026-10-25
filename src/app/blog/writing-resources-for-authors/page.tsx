@@ -16,7 +16,7 @@ export default function WriteBlogPage() {
     <>
       <Breadcrumbs
         items={[
-          { label: "Home", href: "/book-publishing-author-website-design-agency" },
+          { label: "Home", href: "/" },
           { label: "Blog", href: "/blog/author-publishing-blog-resources" },
           { label: "Write", href: "/blog/writing-resources-for-authors" },
         ]}

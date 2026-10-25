@@ -18,6 +18,7 @@ function leadAsProfile(lead: {
     slug: null,
     bio: null,
     avatar_path: null,
+    banner_path: null,
     website_url: null,
     has_author_website: false,
     social_facebook: null,
@@ -26,6 +27,7 @@ function leadAsProfile(lead: {
     social_linkedin: null,
     social_whatsapp: null,
     social_tiktok: null,
+    social_reddit: null,
     is_public: false,
     profile_complete: false,
     created_at: lead.createdAt,
@@ -37,7 +39,13 @@ export async function getSessionUser() {
   if (isFirebaseConfigured()) {
     try {
       const user = await getFirebaseSessionUser();
-      if (user) return { id: user.uid, email: user.email };
+      if (user) {
+        return {
+          id: user.uid,
+          email: user.email,
+          picture: user.picture ?? null,
+        };
+      }
     } catch {
       // fall through
     }
@@ -51,16 +59,25 @@ export async function getCurrentProfile(): Promise<Profile | null> {
       const user = await getFirebaseSessionUser();
       if (user) {
         const profile = await getProfileById(user.uid);
-        if (profile) return profile;
+        const googlePhoto = user.picture || null;
+        if (profile) {
+          // Prefer uploaded avatar; fall back to Google profile photo
+          if (!profile.avatar_path && googlePhoto) {
+            return { ...profile, avatar_path: googlePhoto };
+          }
+          return profile;
+        }
         // Auth exists but profile missing - synthesize minimal profile
         return {
           id: user.uid,
           role: "author",
           email: user.email,
-          display_name: user.email?.split("@")[0] ?? "Author",
+          display_name:
+            user.name || user.email?.split("@")[0] || "Author",
           slug: null,
           bio: null,
-          avatar_path: null,
+          avatar_path: googlePhoto,
+          banner_path: null,
           website_url: null,
           has_author_website: false,
           social_facebook: null,
@@ -69,6 +86,7 @@ export async function getCurrentProfile(): Promise<Profile | null> {
           social_linkedin: null,
           social_whatsapp: null,
           social_tiktok: null,
+          social_reddit: null,
           is_public: false,
           profile_complete: false,
           created_at: new Date().toISOString(),

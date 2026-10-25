@@ -1,22 +1,28 @@
 import Link from "next/link";
 import { requireProfile } from "@/lib/auth";
+import { getMyBooks } from "@/lib/books";
 import { getAuthorActivity } from "@/lib/activity";
 import { Alert } from "@/components/ui/Alert";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export const metadata = {
-  title: "Activity",
+  title: "Messages",
 };
 
 export default async function ActivityPage() {
   const profile = await requireProfile("/dashboard/activity");
+  const books = await getMyBooks(profile.id, profile.email);
   const activity = await getAuthorActivity(profile.id, profile.email);
 
   return (
-    <div className="space-y-8">
+    <DashboardShell books={books}>
+    <div className="space-y-6">
       <header>
-        <h1 className="heading-section">Activity</h1>
-        <p className="mt-2 max-w-2xl text-forest-muted">
+        <h1 className="heading-display text-2xl font-bold text-ink">
+          Messages & activity
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm text-forest-muted">
           Privacy-conscious totals for your public listings only. Outbound link
           clicks are not purchases, orders, or revenue.
         </p>
@@ -53,7 +59,7 @@ export default async function ActivityPage() {
             />
           </div>
         ) : (
-          <div className="mt-4 overflow-x-auto rounded-2xl border border-sand bg-white">
+          <div className="mt-4 overflow-x-auto rounded-none border border-sand bg-white">
             <table className="min-w-full text-left text-sm">
               <thead className="border-b border-sand bg-ivory/80 text-xs uppercase tracking-wide text-forest-muted">
                 <tr>
@@ -85,6 +91,7 @@ export default async function ActivityPage() {
         )}
       </section>
     </div>
+    </DashboardShell>
   );
 }
 

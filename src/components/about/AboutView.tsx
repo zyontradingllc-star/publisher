@@ -101,7 +101,7 @@ export function AboutView() {
       <section className="relative overflow-hidden bg-warm-wash pb-16 pt-8 sm:pb-20 sm:pt-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <p className="font-sans text-xs text-charcoal">
-            <Link href="/book-publishing-author-website-design-agency" className="hover:text-[#E08A2A]">
+            <Link href="/" className="hover:text-[#E08A2A]">
               Home
             </Link>
             <span className="mx-1.5">/</span>

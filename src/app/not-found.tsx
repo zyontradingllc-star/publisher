@@ -13,7 +13,7 @@ export default function NotFound() {
         of the links below or return to the homepage.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <Button href="/book-publishing-author-website-design-agency">Back to Home</Button>
+        <Button href="/">Back to Home</Button>
         <Link
           href="/contact-author-website-design-agency"
           className="inline-flex items-center rounded-full border border-sand bg-white px-6 py-3 font-sans text-sm font-semibold text-ink transition hover:border-coral"

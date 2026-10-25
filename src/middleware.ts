@@ -19,8 +19,14 @@ const PLATFORM_PREFIXES = [
   "/reset-password",
   "/verify-email",
   "/how-publishing-works",
+  "/how-it-works",
+  "/vs-books2read",
+  "/vs-booklinker",
   "/genres",
   "/faq",
+  "/blog",
+  "/guides",
+  "/compare",
   "/pricing",
   "/author-guidelines",
   "/community-policy",
@@ -66,7 +72,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const destPath = normalizePath(pathname) + search;
+  // Platform uses trailingSlash: true — keep a trailing slash so we don't
+  // rewrite /blog/ → /blog and trigger an endless 308 loop back to :3000.
+  const base = normalizePath(pathname);
+  const isApi = base.startsWith("/api/");
+  const destPath = (isApi || base === "/" ? base : `${base}/`) + search;
   const destination = new URL(destPath, PLATFORM);
 
   const requestHeaders = new Headers(request.headers);

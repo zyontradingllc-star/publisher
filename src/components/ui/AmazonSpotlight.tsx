@@ -1,31 +1,29 @@
 import Image from "next/image";
-import Link from "next/link";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { AMAZON_BESTSELLERS_URL } from "@/components/portfolio/AmazonBestsellers";
 
 const spotlight = [
   "Speak With No Fear",
-  "Cover Design 2",
+  "Midnight Harbor Mystery",
   "Journey of Life",
-  "Cover Design 4",
+  "Letters Across the Atlantic",
   "They Hunt",
-  "Cover Design 6",
-  "Cover Design 7",
-  "Cover Design 8",
+  "Starlight Protocol",
+  "Crown of Embers",
+  "Shadow Circuit",
   "Our Deadly Designs",
-  "Cover Design 10",
-  "Cover Design 11",
-  "Cover Design 12",
-  "Cover Design 13",
+  "Garden of Quiet Wars",
+  "The Last Witness",
+  "Ledger of Small Mercies",
+  "Orbit of Glass",
   "Rhapsody of Fire",
-  "Cover Design 15",
-  "Cover Design 16",
-  "Cover Design 17",
-  "Cover Design 18",
-  "Cover Design 19",
+  "Winter Knife",
+  "Portrait of a Quiet Year",
+  "Saltwater Promises",
+  "Case of the Hollow Bell",
+  "Field Notes for Founders",
   "Painted With Plum and Silence",
-  "Cover Design 21",
-  "Cover Design 22",
+  "Redline Express",
+  "Colony Nine",
 ].map((title, i) => ({
   title,
   src: `/covers-that-sell/cover-${i + 1}.webp`,
@@ -52,8 +50,6 @@ const spotlight = [
     "Romance",
     "Thriller",
     "Sci-Fi",
-    "Fantasy",
-    "Biography",
   ][i],
 }));
 
@@ -93,7 +89,7 @@ export function AmazonSpotlight() {
                   <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl shadow-book ring-1 ring-sand">
                     <Image
                       src={book.src}
-                      alt={book.title}
+                      alt={`${book.title} — ${book.genre} book cover design example by Authors Pilot`}
                       fill
                       sizes="160px"
                       loading="lazy"
@@ -104,14 +100,9 @@ export function AmazonSpotlight() {
                     <span className="font-sans text-[10px] font-bold uppercase tracking-[0.12em] text-charcoal">
                       {book.genre}
                     </span>
-                    <Link
-                      href={AMAZON_BESTSELLERS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 font-sans text-[10px] font-semibold text-[#E08A2A] underline-offset-2 hover:underline"
-                    >
-                      View on Amazon
-                    </Link>
+                    <span className="shrink-0 font-sans text-[10px] font-semibold text-forest-muted">
+                      Cover example
+                    </span>
                   </figcaption>
                 </figure>
               ))}

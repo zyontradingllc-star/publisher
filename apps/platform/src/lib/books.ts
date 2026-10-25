@@ -110,9 +110,24 @@ export async function getAuthorBooks(authorId: string, excludeBookId?: string) {
       where: { and },
       depth: 1,
       limit: 24,
+      sort: "-publishedAt",
       overrideAccess: true,
     });
-    return result.docs.map((d) => mapPayloadBook(d as never));
+    const { getSalesLinksForBookPayload } = await import(
+      "@/lib/data/books-payload"
+    );
+    const books = await Promise.all(
+      result.docs.map(async (d) => {
+        const book = mapPayloadBook(d as never);
+        try {
+          book.sales_links = await getSalesLinksForBookPayload(String(d.id));
+        } catch {
+          book.sales_links = [];
+        }
+        return book;
+      })
+    );
+    return books;
   } catch {
     return [];
   }
@@ -172,24 +187,43 @@ export async function getAuthorBySlug(slug: string) {
       const payload = await getPayloadClient();
       const result = await payload.find({
         collection: "authors",
-        where: { slug: { equals: slug } },
+        where: {
+          and: [
+            { slug: { equals: slug } },
+            {
+              or: [
+                { isPublic: { equals: true } },
+                { approvalStatus: { equals: "APPROVED" } },
+              ],
+            },
+          ],
+        },
         limit: 1,
         depth: 1,
         overrideAccess: true,
       });
-      const doc = result.docs[0];
+      const doc = result.docs[0] as
+        | ({ id: string | number } & Record<string, unknown>)
+        | undefined;
       return {
         author: doc ? mapPayloadAuthor(doc as never) : null,
+        /** Payload authors collection id (for book relation queries) */
+        payloadAuthorId: doc ? String(doc.id) : null,
         error: null as string | null,
       };
     } catch (err) {
       return {
         author: null as Profile | null,
+        payloadAuthorId: null as string | null,
         error: err instanceof Error ? err.message : "Could not load author",
       };
     }
   }
-  return { author: null as Profile | null, error: null as string | null };
+  return {
+    author: null as Profile | null,
+    payloadAuthorId: null as string | null,
+    error: null as string | null,
+  };
 }
 
 const FALLBACK_GENRES: Genre[] = [
@@ -269,13 +303,17 @@ export async function getMyBooks(
         if (seen.has(id)) continue;
         seen.add(id);
 
-        const cover =
+        const coverRaw =
           d.cover && typeof d.cover === "object"
             ? d.cover.url ||
-              (d.cover.id ? `/api/media/file/${d.cover.id}` : null)
-            : d.cover
-              ? `/api/media/file/${d.cover}`
-              : null;
+              (typeof (d.cover as { filename?: string }).filename === "string"
+                ? `/api/media/file/${(d.cover as { filename: string }).filename}`
+                : null)
+            : null;
+        const cover =
+          coverRaw && coverRaw.endsWith("/")
+            ? coverRaw.replace(/\/+$/, "")
+            : coverRaw;
         const authorName =
           `${d.author?.firstName || ""} ${d.author?.lastName || ""}`.trim() ||
           "Author";

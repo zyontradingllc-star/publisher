@@ -271,6 +271,7 @@ export function PublishBookDetailsForm({
                   <option value="author_website">Author website / own store</option>
                   <option value="amazon">Amazon / Kindle</option>
                   <option value="other">Other retailer</option>
+                  <option value="all">Select All</option>
                 </select>
               </div>
               <div className="sm:col-span-2 space-y-2">
@@ -420,7 +421,7 @@ export function PublishBookDetailsForm({
             on your website or retailer.
           </TipCard>
           <TipCard title="Next up">
-            Step 2 adds cover, profile picture, and manuscript. Step 3 adds
+            Step 2 adds cover and table of contents. Step 3 adds
             sales links, then Pending Review.
           </TipCard>
         </aside>

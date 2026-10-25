@@ -16,6 +16,17 @@ function friendlyNetworkError(err: unknown): string {
   if (/fetch failed|Failed to fetch|NetworkError|ECONNREFUSED/i.test(msg)) {
     return "Account database is not connected yet. Your details were emailed to no-reply@authorspilot.com instead.";
   }
+  if (
+    /bucket does not exist|No such object|storage\.googleapis|code":\s*404/i.test(
+      msg
+    )
+  ) {
+    return "Photo storage is not set up yet. Please try again in a moment, or contact support if this continues.";
+  }
+  // Avoid dumping raw Google/Firebase JSON into the UI
+  if (msg.trimStart().startsWith("{") && /"error"\s*:/.test(msg)) {
+    return "Could not upload the photo. Please try a smaller JPEG or PNG.";
+  }
   return msg;
 }
 
@@ -36,6 +47,7 @@ export async function updateProfileAction(
     social_twitter: formData.get("social_twitter") || "",
     social_linkedin: formData.get("social_linkedin") || "",
     social_tiktok: formData.get("social_tiktok") || "",
+    social_reddit: formData.get("social_reddit") || "",
     is_public: formData.get("is_public") !== "false",
   });
 
@@ -88,6 +100,7 @@ export async function updateProfileAction(
         `X: ${data.social_twitter ?? "-"}`,
         `LinkedIn: ${data.social_linkedin ?? "-"}`,
         `TikTok: ${data.social_tiktok ?? "-"}`,
+        `Reddit: ${data.social_reddit ?? "-"}`,
         `Public: ${data.is_public ? "yes" : "no"}`,
         `Profile complete: ${profileComplete ? "yes" : "no"}`,
         "",
@@ -119,6 +132,7 @@ export async function updateProfileAction(
       social_twitter: data.social_twitter ?? null,
       social_linkedin: data.social_linkedin ?? null,
       social_tiktok: data.social_tiktok ?? null,
+      social_reddit: data.social_reddit ?? null,
       is_public: data.is_public,
       profile_complete: profileComplete,
     });
@@ -147,17 +161,33 @@ export async function uploadAvatarAction(
   formData: FormData
 ): Promise<ActionState> {
   const profile = await requireProfile("/dashboard/profile");
-  const file = formData.get("avatar") as File | null;
-  if (!file || file.size === 0) {
+  const raw = formData.get("avatar") as File | null;
+  if (!raw || raw.size === 0) {
     return { ok: false, message: "Choose an image file." };
   }
 
-  const allowed = ["image/jpeg", "image/png", "image/webp"];
-  if (!allowed.includes(file.type)) {
-    return { ok: false, message: "Avatar must be JPEG, PNG, or WebP." };
+  const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+  if (!allowed.includes(raw.type)) {
+    return { ok: false, message: "Avatar must be JPEG, PNG, GIF, or WebP." };
   }
-  if (file.size > 2_097_152) {
-    return { ok: false, message: "Avatar must be 2 MB or smaller." };
+  if (raw.size > 5_242_880) {
+    return { ok: false, message: "Avatar must be 5 MB or smaller." };
+  }
+
+  let file: File;
+  try {
+    const { fileToWebp } = await import("@/lib/image-webp");
+    file = await fileToWebp(raw, {
+      maxWidth: 800,
+      maxHeight: 800,
+      quality: 82,
+      basename: "avatar",
+    });
+  } catch {
+    return {
+      ok: false,
+      message: "Could not convert the image. Try a different JPEG or PNG.",
+    };
   }
 
   const { usePayloadData: usePayloadForAvatar } = await import(
@@ -179,18 +209,37 @@ export async function uploadAvatarAction(
         `File type: ${file.type}`,
         `File size: ${Math.round(file.size / 1024)} KB`,
         "",
-        "Connect Firebase Storage to store avatars permanently.",
+        "Connect Payload media / storage to store avatars permanently.",
       ],
     });
     return {
       ok: true,
       message: inbox.ok
-        ? `Avatar info emailed (${file.name}). Connect Firebase to store the photo.`
+        ? `Avatar info emailed (${file.name}). Connect storage to keep the photo.`
         : "Avatar noted for this session.",
     };
   }
 
   try {
+    if (usePayloadForAvatar()) {
+      const { uploadAvatarPayload } = await import(
+        "@/lib/data/profiles-payload"
+      );
+      const { avatarUrl } = await import("@/lib/utils");
+      const updated = await uploadAvatarPayload(profile.id, file);
+      revalidatePath("/dashboard/profile");
+      revalidatePath("/dashboard");
+      if (profile.slug) revalidatePath(`/authors/${profile.slug}`);
+      const resolved = avatarUrl(updated.avatar_path);
+      return {
+        ok: true,
+        message: "Avatar updated.",
+        url: resolved
+          ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}`
+          : undefined,
+      };
+    }
+
     const path = await uploadAuthorFile({
       authorId: profile.id,
       bookId: "profile",
@@ -199,7 +248,123 @@ export async function uploadAvatarAction(
     });
     await updateProfile(profile.id, { avatar_path: path });
     revalidatePath("/dashboard/profile");
-    return { ok: true, message: "Avatar updated." };
+    revalidatePath("/dashboard");
+    const { avatarUrl } = await import("@/lib/utils");
+    const resolved = avatarUrl(path);
+    return {
+      ok: true,
+      message: "Avatar updated.",
+      url: resolved
+        ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}`
+        : undefined,
+    };
+  } catch (err) {
+    return { ok: false, message: friendlyNetworkError(err) };
+  }
+}
+
+export async function uploadBannerAction(
+  _prev: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  const profile = await requireProfile("/dashboard");
+  const raw = formData.get("banner") as File | null;
+  if (!raw || raw.size === 0) {
+    return { ok: false, message: "Choose an image file." };
+  }
+
+  const allowed = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+  if (!allowed.includes(raw.type)) {
+    return { ok: false, message: "Banner must be JPEG, PNG, GIF, or WebP." };
+  }
+  if (raw.size > 8_388_608) {
+    return { ok: false, message: "Banner must be 8 MB or smaller." };
+  }
+
+  let file: File;
+  try {
+    const { fileToWebp } = await import("@/lib/image-webp");
+    file = await fileToWebp(raw, {
+      maxWidth: 2400,
+      maxHeight: 900,
+      quality: 80,
+      basename: "banner",
+    });
+  } catch {
+    return {
+      ok: false,
+      message: "Could not convert the image. Try a different JPEG or PNG.",
+    };
+  }
+
+  const { usePayloadData: usePayloadForBanner } = await import(
+    "@/lib/data/flags"
+  );
+  const leadOnly =
+    (await isLeadOnlySession()) ||
+    (!usePayloadForBanner() && !isFirebaseConfigured()) ||
+    profile.id === "lead-session";
+
+  if (leadOnly) {
+    const inbox = await dropInfoToInbox({
+      subject: `Banner upload - ${profile.display_name ?? profile.email}`,
+      lines: [
+        "Author cover banner selected (storage not connected yet)",
+        "",
+        `Email: ${profile.email ?? "-"}`,
+        `File name: ${file.name}`,
+        `File type: ${file.type}`,
+        `File size: ${Math.round(file.size / 1024)} KB`,
+        "",
+        "Connect Payload media / storage to store banners permanently.",
+      ],
+    });
+    return {
+      ok: true,
+      message: inbox.ok
+        ? `Banner info emailed (${file.name}). Connect storage to keep the image.`
+        : "Banner noted for this session.",
+    };
+  }
+
+  try {
+    if (usePayloadForBanner()) {
+      const { uploadBannerPayload } = await import(
+        "@/lib/data/profiles-payload"
+      );
+      const { bannerUrl } = await import("@/lib/utils");
+      const updated = await uploadBannerPayload(profile.id, file);
+      revalidatePath("/dashboard");
+      revalidatePath("/dashboard/profile");
+      if (profile.slug) revalidatePath(`/authors/${profile.slug}`);
+      const resolved = bannerUrl(updated.banner_path);
+      return {
+        ok: true,
+        message: "Cover photo updated.",
+        url: resolved
+          ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}`
+          : undefined,
+      };
+    }
+
+    const path = await uploadAuthorFile({
+      authorId: profile.id,
+      bookId: "profile",
+      kind: "avatar",
+      file,
+    });
+    await updateProfile(profile.id, { banner_path: path });
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/profile");
+    const { bannerUrl } = await import("@/lib/utils");
+    const resolved = bannerUrl(path);
+    return {
+      ok: true,
+      message: "Cover photo updated.",
+      url: resolved
+        ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}`
+        : undefined,
+    };
   } catch (err) {
     return { ok: false, message: friendlyNetworkError(err) };
   }

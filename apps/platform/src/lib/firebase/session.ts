@@ -64,6 +64,9 @@ export async function getSessionUser() {
     return {
       uid: decoded.uid,
       email: decoded.email ?? null,
+      /** Google (or other IdP) profile photo from ID token claims */
+      picture: (decoded.picture as string | undefined) ?? null,
+      name: (decoded.name as string | undefined) ?? null,
     };
   } catch {
     return null;
