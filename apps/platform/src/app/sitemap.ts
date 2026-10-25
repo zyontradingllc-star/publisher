@@ -39,6 +39,12 @@ const STATIC_PATHS: ReadonlyArray<{ path: string; priority: number }> = [
   })),
 ];
 
+function safeDate(value: string | Date | null | undefined): Date {
+  if (!value) return new Date();
+  const d = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(d.getTime()) ? new Date() : d;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const seen = new Set<string>();
   const staticEntries: MetadataRoute.Sitemap = [];
@@ -61,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     seen.add(url);
     staticEntries.push({
       url,
-      lastModified: new Date(post.publishedAt),
+      lastModified: safeDate(post.publishedAt),
       changeFrequency: "monthly",
       priority: 0.7,
     });
@@ -83,7 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       seen.add(url);
       bookEntries.push({
         url,
-        lastModified: b.updated_at ? new Date(b.updated_at) : new Date(),
+        lastModified: safeDate(b.updated_at),
         changeFrequency: "weekly",
         priority: 0.7,
       });
@@ -97,7 +103,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       seen.add(url);
       authorEntries.push({
         url,
-        lastModified: a.updated_at ? new Date(a.updated_at) : new Date(),
+        lastModified: safeDate(a.updated_at),
         changeFrequency: "weekly",
         priority: 0.7,
       });
