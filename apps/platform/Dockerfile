@@ -55,5 +55,6 @@ RUN mkdir -p /app/media \
   && chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 3000
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
+# Use sh so Windows CRLF checkouts cannot break the shebang.
+ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]
 
