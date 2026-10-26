@@ -12,6 +12,26 @@ RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.authorspilot\.com$ [NC]
 RewriteRule ^ https://authorspilot.com%{REQUEST_URI} [L,R=301]
 
+# Publishing platform (Node) — send guests to app.authorspilot.com
+RewriteRule ^publish/?$ https://app.authorspilot.com/publish/ [R=301,L]
+RewriteRule ^publish/(.+)$ https://app.authorspilot.com/publish/$1 [R=301,L]
+RewriteRule ^bookstore/?$ https://app.authorspilot.com/bookstore/ [R=301,L]
+RewriteRule ^bookstore/(.+)$ https://app.authorspilot.com/bookstore/$1 [R=301,L]
+RewriteRule ^dashboard(?:/(.*))?$ https://app.authorspilot.com/dashboard/$1 [R=301,L]
+RewriteRule ^signup(?:/(.*))?$ https://app.authorspilot.com/signup/$1 [R=301,L]
+RewriteRule ^login(?:/(.*))?$ https://app.authorspilot.com/login/$1 [R=301,L]
+RewriteRule ^books(?:/(.*))?$ https://app.authorspilot.com/books/$1 [R=301,L]
+RewriteRule ^authors(?:/(.*))?$ https://app.authorspilot.com/authors/$1 [R=301,L]
+RewriteRule ^guides(?:/(.*))?$ https://app.authorspilot.com/guides/$1 [R=301,L]
+RewriteRule ^compare(?:/(.*))?$ https://app.authorspilot.com/compare/$1 [R=301,L]
+RewriteRule ^how-it-works/?$ https://app.authorspilot.com/how-it-works/ [R=301,L]
+RewriteRule ^how-publishing-works/?$ https://app.authorspilot.com/how-publishing-works/ [R=301,L]
+RewriteRule ^vs-books2read/?$ https://app.authorspilot.com/vs-books2read/ [R=301,L]
+RewriteRule ^vs-booklinker/?$ https://app.authorspilot.com/vs-booklinker/ [R=301,L]
+RewriteRule ^pricing/?$ https://app.authorspilot.com/pricing/ [R=301,L]
+RewriteRule ^author-guidelines/?$ https://app.authorspilot.com/author-guidelines/ [R=301,L]
+RewriteRule ^faq/?$ https://app.authorspilot.com/faq/ [R=301,L]
+
 # Homepage: old long slug → /
 RewriteRule ^book-publishing-author-website-design-agency/?$ / [R=301,L]
 

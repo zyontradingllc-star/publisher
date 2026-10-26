@@ -2,9 +2,8 @@
  * Publishing platform links.
  *
  * Local: empty PLATFORM_URL → same origin on :3000 (middleware proxies /publish → :3001).
- * Production: leave empty until https://app.authorspilot.com is actually deployed.
- *   Set NEXT_PUBLIC_PLATFORM_URL=https://app.authorspilot.com in .env.production
- *   only after the Node platform is live there.
+ * Production: NEXT_PUBLIC_PLATFORM_URL=https://app.authorspilot.com
+ *   (set in .env.production once app.* is live).
  *
  * Never bake localhost into a production / static-export build.
  */
