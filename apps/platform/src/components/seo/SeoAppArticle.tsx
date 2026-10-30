@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AeoAnswer } from "@/components/seo/AeoAnswer";
 import {
   JsonLd,
+  breadcrumbListSchema,
   faqPageSchema,
   organizationSchema,
 } from "@/components/seo/JsonLd";
@@ -34,6 +35,19 @@ export function SeoAppArticle({ page, related = [] }: Props) {
       <JsonLd
         data={[
           organizationSchema(APP_ORIGIN),
+          breadcrumbListSchema(APP_ORIGIN, [
+            { name: "Home", path: "/publish/" },
+            {
+              name: page.kind === "compare" ? "Compare" : page.kind === "bookstore" ? "Bookstore" : "Guides",
+              path:
+                page.kind === "compare"
+                  ? "/compare/indie-author-platforms/"
+                  : page.kind === "bookstore"
+                    ? "/bookstore/"
+                    : "/guides/",
+            },
+            { name: page.h1, path: page.path },
+          ]),
           faqPageSchema(faqs),
           {
             "@context": "https://schema.org",
@@ -43,6 +57,10 @@ export function SeoAppArticle({ page, related = [] }: Props) {
             author: { "@type": "Organization", name: "Authors Pilot" },
             publisher: { "@id": `${APP_ORIGIN}/#organization` },
             mainEntityOfPage: `${APP_ORIGIN}${page.path}`,
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: [".aeo-short-answer", "h1"],
+            },
           },
         ]}
       />
@@ -53,7 +71,7 @@ export function SeoAppArticle({ page, related = [] }: Props) {
         <h1 className="mt-3 heading-section">{page.h1}</h1>
         <p className="mt-4 text-charcoal leading-relaxed">{page.description}</p>
 
-        <div className="mt-10">
+        <div className="aeo-short-answer mt-10">
           <AeoAnswer question={page.question} answer={page.answer} />
         </div>
 

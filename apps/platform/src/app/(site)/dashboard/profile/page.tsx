@@ -2,6 +2,7 @@ import { requireProfile } from "@/lib/auth";
 import { getMyBooks } from "@/lib/books";
 import { ProfileForm } from "@/components/forms/ProfileForm";
 import { AvatarUploadForm } from "@/components/forms/AvatarUploadForm";
+import { DashboardSalesChannels } from "@/components/dashboard/DashboardSalesChannels";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { avatarUrl } from "@/lib/utils";
 
@@ -30,6 +31,11 @@ export default async function DashboardProfilePage() {
         </section>
 
         <ProfileForm profile={profile} />
+
+        <DashboardSalesChannels
+          websiteUrl={profile.website_url}
+          manageHref="/dashboard/books/new"
+        />
       </div>
     </DashboardShell>
   );

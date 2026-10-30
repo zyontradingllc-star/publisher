@@ -1,12 +1,48 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { savePublishContentAction } from "@/app/actions/publish-book";
 import type { ActionState } from "@/app/actions/auth";
 import { Alert } from "@/components/ui/Alert";
+import { PublishBookContentFields } from "@/components/forms/PublishBookContentFields";
 
 const initialState: ActionState = { ok: false };
+
+/** Remaining tip cards from AuthorsPilot CRO / social content (posts 5–9). */
+const CONTENT_TIP_CARDS = [
+  {
+    title: "First-time author?",
+    body: "You don't need to wait until you're famous. Present your books professionally, give readers a page to explore, and make your book links easier to share.",
+    image: "/publish-tips/5.webp",
+    imageAlt: "First-time author building an online presence",
+  },
+  {
+    title: "Promote your book online",
+    body: "Share useful topic content, post short excerpts, build an author page readers can revisit, add your link to social profiles, and ask readers to share.",
+    image: "/publish-tips/6.webp",
+    imageAlt: "Simple ways to promote a book online",
+  },
+  {
+    title: "Build your author brand",
+    body: "Readers may discover one book today and look for your next tomorrow. A clear author profile presents your work together in one consistent place.",
+    image: "/publish-tips/7.webp",
+    imageAlt: "Author brand and profile presence",
+  },
+  {
+    title: "Already published?",
+    body: "List your book, create a shareable discovery page, and keep your existing sales channels while giving readers another way to find your work.",
+    image: "/publish-tips/8.webp",
+    imageAlt: "Published book ready for more discovery",
+  },
+  {
+    title: "Every book has a reader",
+    body: "Fiction, fantasy, romance, poetry, business, memoir—every book starts with an idea worth sharing. Your next reader could be one shared link away.",
+    image: "/publish-tips/9.webp",
+    imageAlt: "Readers discovering indie books",
+  },
+] as const;
 
 type Props = {
   bookId?: string | null;
@@ -26,9 +62,6 @@ export function PublishBookContentForm({
   const [submitIntent, setSubmitIntent] = useState<"draft" | "continue" | null>(
     null
   );
-  const [manuscriptName, setManuscriptName] = useState<string | null>(null);
-  const [coverName, setCoverName] = useState<string | null>(null);
-  const [coverPreview, setCoverPreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (!pending) setSubmitIntent(null);
@@ -40,305 +73,106 @@ export function PublishBookContentForm({
         <Alert variant={state.ok ? "success" : "error"}>{state.message}</Alert>
       ) : null}
 
-      <form action={formAction} className="space-y-5" encType="multipart/form-data">
+      <form
+        action={formAction}
+        className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start"
+        encType="multipart/form-data"
+      >
         {bookId ? <input type="hidden" name="book_id" value={bookId} /> : null}
         {submissionId ? (
           <input type="hidden" name="submission_id" value={submissionId} />
         ) : null}
         <input type="hidden" name="book_title" value={bookTitle} />
 
-        {/* Table of Contents (stored as manuscript file for admin review) */}
-        <Section title="Table of Contents">
-          <p className="mb-4 text-sm text-forest-muted">
-            Upload your table of contents for private admin review (PDF, EPUB, or
-            DOCX). This file is never sold through Authors Pilot - readers buy on
-            your own website or retailer.
-          </p>
-          <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
-            Upload table of contents
-            <input
-              type="file"
-              name="manuscript"
-              accept=".pdf,.epub,.doc,.docx,application/pdf,application/epub+zip,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              className="sr-only"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                setManuscriptName(f ? f.name : null);
-              }}
-            />
-          </label>
-          {manuscriptName ? (
-            <div className="mt-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900">
-              <p className="font-semibold">
-                Table of contents &quot;{manuscriptName}&quot; selected
-              </p>
-              <p className="mt-1 text-xs">
-                It will be sent with this step (private review only).
-              </p>
-            </div>
-          ) : (
-            <p className="mt-3 text-xs text-forest-muted">
-              No table of contents selected yet.
-            </p>
-          )}
+        <div className="space-y-5">
+          <PublishBookContentFields />
 
-          <div className="mt-6 border-t border-sand pt-5">
-            <p className="label-field">Digital Rights Management (DRM)</p>
-            <p className="mb-3 text-sm text-forest-muted">
-              DRM is controlled by your sales channel (Amazon, your store, etc.).
-              Authors Pilot listings only link out - we do not wrap your files.
-            </p>
-            <div className="space-y-2 rounded-xl border border-sand bg-ivory/40 p-4">
-              <label className="flex cursor-pointer items-start gap-3 text-sm">
-                <input
-                  type="radio"
-                  name="drm"
-                  value="yes"
-                  className="mt-1"
-                />
-                Yes - I will apply DRM on my sales channel where available
-              </label>
-              <label className="flex cursor-pointer items-start gap-3 text-sm">
-                <input
-                  type="radio"
-                  name="drm"
-                  value="no"
-                  defaultChecked
-                  className="mt-1"
-                />
-                No - do not apply DRM (or not applicable)
-              </label>
-            </div>
-          </div>
-        </Section>
-
-        {/* Cover */}
-        <Section title="eBook cover">
-          <p className="mb-4 text-sm text-forest-muted">
-            Upload a cover you already have (JPEG, PNG, or WebP recommended).
-            Required before final submission for review.
-          </p>
-          <div className="rounded-xl border border-sand bg-ivory/40 p-4">
-            <label className="flex cursor-pointer items-start gap-3 text-sm">
-              <input
-                type="radio"
-                name="cover_source"
-                value="upload"
-                defaultChecked
-                className="mt-1"
-              />
-              <span>Upload a cover you already have</span>
-            </label>
-            <div className="mt-4 flex flex-wrap items-start gap-4 pl-7">
-              {coverPreview ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={coverPreview}
-                  alt="Cover preview"
-                  className="h-40 w-28 rounded-md object-cover shadow-book"
-                />
-              ) : (
-                <div className="flex h-40 w-28 items-center justify-center rounded-md bg-sand text-xs text-forest-muted">
-                  Preview
-                </div>
-              )}
-              <div>
-                <label className="inline-flex cursor-pointer items-center justify-center rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-ink shadow-cta">
-                  Upload Book Cover
-                  <input
-                    type="file"
-                    name="cover"
-                    accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp"
-                    className="sr-only"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      setCoverName(f ? f.name : null);
-                      if (f) {
-                        const url = URL.createObjectURL(f);
-                        setCoverPreview(url);
-                      } else {
-                        setCoverPreview(null);
-                      }
-                    }}
-                  />
-                </label>
-                {coverName ? (
-                  <div className="mt-3 rounded-xl border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-900">
-                    Cover &quot;{coverName}&quot; selected
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* AI disclosure */}
-        <Section title="AI-generated content">
-          <p className="mb-3 text-sm text-forest-muted">
-            Tell us if AI tools helped create text, images, or translations in
-            this book. This is for transparency - it does not block publishing
-            on Authors Pilot by itself.
-          </p>
-          <div className="space-y-2 rounded-xl border border-sand bg-ivory/40 p-4">
-            <p className="mb-2 text-sm font-semibold text-ink">
-              Did you use AI tools in creating texts, images, and/or translations?
-            </p>
-            <label className="flex cursor-pointer items-center gap-3 text-sm">
-              <input type="radio" name="ai_used" value="yes" />
-              Yes
-            </label>
-            <label className="flex cursor-pointer items-center gap-3 text-sm">
-              <input type="radio" name="ai_used" value="no" defaultChecked />
-              No
-            </label>
-          </div>
-        </Section>
-
-        {/* Preview */}
-        <Section title="eBook preview">
-          <p className="mb-3 text-sm text-forest-muted">
-            Online previewer will be available after table of contents processing is
-            connected. For now, review your files locally before continuing.
-          </p>
-          <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900">
-            Tip: Open your PDF/EPUB on your device to check formatting before
-            you submit for review.
-          </div>
-          <button
-            type="button"
-            disabled
-            className="mt-4 rounded-none border border-sand bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-forest-muted opacity-70"
-          >
-            Launch Previewer (coming soon)
-          </button>
-        </Section>
-
-        {/* ISBN */}
-        <Section title="eBook ISBN">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="label-field" htmlFor="isbn">
-                ISBN <span className="font-normal text-forest-muted">(optional)</span>
-              </label>
-              <input id="isbn" name="isbn" className="input-field" placeholder="ISBN" />
-            </div>
-            <div>
-              <label className="label-field" htmlFor="publisher">
-                Publisher{" "}
-                <span className="font-normal text-forest-muted">(optional)</span>
-              </label>
-              <input
-                id="publisher"
-                name="publisher"
-                className="input-field"
-                placeholder="Publisher name"
-              />
-            </div>
-          </div>
-        </Section>
-
-        {/* Accessibility */}
-        <Section title="Accessibility features">
-          <p className="mb-3 text-sm text-forest-muted">
-            These details help readers understand image accessibility on your
-            listing.
-          </p>
-          <p className="mb-2 text-sm font-semibold text-ink">
-            Are your images accessible?
-          </p>
-          <div className="space-y-2 rounded-xl border border-sand bg-ivory/40 p-4">
-            <label className="flex cursor-pointer items-start gap-3 text-sm">
-              <input
-                type="radio"
-                name="image_accessibility"
-                value="unknown"
-                className="mt-1"
-              />
-              I don&apos;t know / not sure
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 text-sm">
-              <input
-                type="radio"
-                name="image_accessibility"
-                value="none"
-                defaultChecked
-                className="mt-1"
-              />
-              None of the informative images have descriptions
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 text-sm">
-              <input
-                type="radio"
-                name="image_accessibility"
-                value="some"
-                className="mt-1"
-              />
-              Some informative images have descriptions
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 text-sm">
-              <input
-                type="radio"
-                name="image_accessibility"
-                value="all"
-                className="mt-1"
-              />
-              All informative images have descriptions
-            </label>
-          </div>
-        </Section>
-
-        {/* Footer actions */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-sand pt-6">
-          <Link
-            href="/dashboard/books/new"
-            className="inline-flex items-center rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40"
-          >
-            ← Back to Details
-          </Link>
-          <div className="flex flex-wrap gap-3">
-            <button
-              type="submit"
-              name="intent"
-              value="draft"
-              disabled={pending}
-              onClick={() => setSubmitIntent("draft")}
-              className="rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-sand pt-6">
+            <Link
+              href="/dashboard/books/new"
+              className="inline-flex items-center rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40"
             >
-              {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
-            </button>
-            <button
-              type="submit"
-              name="intent"
-              value="continue"
-              disabled={pending}
-              onClick={() => setSubmitIntent("continue")}
-              className="inline-flex items-center gap-2 rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
-            >
-              {pending && submitIntent === "continue"
-                ? "Saving…"
-                : "Save and Continue"}
-            </button>
+              ← Back to Details
+            </Link>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="submit"
+                name="intent"
+                value="draft"
+                disabled={pending}
+                onClick={() => setSubmitIntent("draft")}
+                className="rounded-none border border-sand bg-white px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink hover:border-coral/40 disabled:opacity-60"
+              >
+                {pending && submitIntent === "draft"
+                  ? "Saving…"
+                  : "Save as Draft"}
+              </button>
+              <button
+                type="submit"
+                name="intent"
+                value="continue"
+                disabled={pending}
+                onClick={() => setSubmitIntent("continue")}
+                className="inline-flex items-center gap-2 rounded-none bg-gradient-to-r from-[#E08A2A] to-[#F2C14D] px-5 py-3 text-sm font-bold uppercase tracking-wide text-ink shadow-cta hover:brightness-105 disabled:opacity-60"
+              >
+                {pending && submitIntent === "continue"
+                  ? "Saving…"
+                  : "Save and Continue"}
+              </button>
+            </div>
           </div>
+          <p className="text-right text-xs text-forest-muted">
+            Next step: Sales Links
+          </p>
         </div>
-        <p className="text-right text-xs text-forest-muted">
-          Next step: Sales Links
-        </p>
+
+        <aside className="space-y-3 lg:sticky lg:top-24">
+          {CONTENT_TIP_CARDS.map((card) => (
+            <TipCard
+              key={card.title}
+              title={card.title}
+              image={card.image}
+              imageAlt={card.imageAlt}
+            >
+              {card.body}
+            </TipCard>
+          ))}
+        </aside>
       </form>
     </div>
   );
 }
 
-function Section({
+function TipCard({
   title,
   children,
+  image,
+  imageAlt = "",
 }: {
   title: string;
   children: React.ReactNode;
+  image?: string;
+  imageAlt?: string;
 }) {
   return (
-    <section className="rounded-2xl border border-sand bg-white p-5 shadow-soft sm:p-6">
-      <h2 className="font-display text-lg font-bold text-ink">{title}</h2>
-      <div className="mt-4">{children}</div>
-    </section>
+    <div className="overflow-hidden rounded-2xl border border-sand bg-[#EDEDED] shadow-soft">
+      {image ? (
+        <div className="relative aspect-[16/9] w-full bg-sand/40">
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            sizes="240px"
+            className="object-cover object-center"
+          />
+        </div>
+      ) : null}
+      <div className="p-4">
+        <p className="text-xs font-bold uppercase tracking-[0.14em] text-ink">
+          {title}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-charcoal">{children}</p>
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { PricingNotice } from "@/components/PricingNotice";
-
 export const metadata: Metadata = {
   title: "Pricing",
 };
@@ -42,10 +40,6 @@ export default function PricingPage() {
             to your checkout elsewhere.
           </p>
         </section>
-      </div>
-
-      <div className="mt-8">
-        <PricingNotice />
       </div>
 
     </article>

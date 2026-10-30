@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -61,20 +61,18 @@ export function Navbar() {
 
   return (
     <>
-      <div className="relative z-50 bg-cta-wash px-4 py-2 text-center text-xs text-white/80 sm:text-sm">
+      <div className="relative z-50 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 bg-cta-wash px-3 py-2 text-center text-[11px] leading-snug text-white/80 sm:px-4 sm:text-sm sm:leading-normal">
         <Link
           href={homeHref}
           onClick={() => handleNavClick(homeHref)}
           className="transition hover:text-white"
         >
           {brand.tagline}
-        </Link>{" "}
-        <Link
-          href="/contact-author-website-design-agency"
-          className="font-medium text-[#273E2B] underline-offset-2 hover:underline"
-        >
-          Start a conversation →
         </Link>
+        <SignupCta
+          label="Get Your Free Link"
+          className="cta-blink !px-3 !py-1.5 !text-[11px] sm:!text-xs"
+        />
       </div>
       <header className="relative sticky top-0 z-50 border-b border-sand/40 bg-white/85 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80">
         <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-1 sm:gap-4 sm:px-6 lg:px-8">

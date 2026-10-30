@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import {
   getFirebaseAuth,
   isFirebaseClientConfigured,
 } from "@/lib/firebase/client";
-import { platformPublicPath } from "@/lib/utils";
+import { MARKETING_URL, platformPublicPath } from "@/lib/utils";
 
 const initialState: ActionState = { ok: true };
 const PUBLISH_FORM = "/dashboard/books/new";
@@ -149,7 +149,7 @@ export function CreateAccountForm() {
   return (
     <div className="w-full">
       <div className="mb-6 flex flex-col items-center text-center">
-        <Link href="/" className="inline-flex flex-col items-center gap-2">
+        <Link href="/publish/" className="inline-flex flex-col items-center gap-2">
           <span className="relative block h-14 w-14 overflow-hidden rounded-full border border-sand bg-ivory">
             <Image
               src={platformPublicPath("/logo-authors-pilot.webp")}
@@ -285,13 +285,19 @@ export function CreateAccountForm() {
 
           <p className="text-xs leading-relaxed text-forest-muted">
             By clicking &quot;Continue&quot; you agree to our{" "}
-            <Link href="/terms" className="underline hover:text-ink">
+            <a
+              href={`${MARKETING_URL}/terms/`}
+              className="underline hover:text-ink"
+            >
               Terms of Use
-            </Link>{" "}
+            </a>{" "}
             and{" "}
-            <Link href="/privacy" className="underline hover:text-ink">
+            <a
+              href={`${MARKETING_URL}/privacy/`}
+              className="underline hover:text-ink"
+            >
               Privacy Policy
-            </Link>
+            </a>
             .
           </p>
 
@@ -306,20 +312,26 @@ export function CreateAccountForm() {
 
         <p className="mt-5 text-center text-sm text-charcoal">
           Have an account?{" "}
-          <Link href="/login" className="font-semibold underline hover:text-coral">
+          <Link href="/login/" className="font-semibold underline hover:text-coral">
             Sign In
           </Link>
         </p>
       </div>
 
       <p className="mt-6 text-center text-xs text-forest-muted">
-        <Link href="/terms" className="underline hover:text-ink">
+        <a
+          href={`${MARKETING_URL}/terms/`}
+          className="underline hover:text-ink"
+        >
           Terms of Use
-        </Link>
+        </a>
         <span className="mx-2">·</span>
-        <Link href="/privacy" className="underline hover:text-ink">
+        <a
+          href={`${MARKETING_URL}/privacy/`}
+          className="underline hover:text-ink"
+        >
           Privacy Policy
-        </Link>
+        </a>
       </p>
       <p className="mt-2 text-center text-xs text-forest-muted">
         This site uses Firebase for secure sign-in.

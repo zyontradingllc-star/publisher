@@ -30,11 +30,11 @@ export default function CommunityPolicyPage() {
           </p>
         </section>
         <section>
-          <h2 className="font-display text-lg font-bold text-ink">Reporting</h2>
+          <h2 className="font-display text-lg font-bold text-ink">Concerns</h2>
           <p className="mt-2">
-            Readers and rights holders can flag listings from any book detail page. We review reports
-            and may unpublish content, request edits, or suspend accounts. See also our{" "}
-            <Link href="/copyright" className="text-coral hover:underline">
+            Rights holders and readers can contact us about listings that may violate these
+            standards. We may unpublish content, request edits, or suspend accounts. See also our{" "}
+            <Link href="/copyright/" className="text-coral hover:underline">
               copyright page
             </Link>
             .

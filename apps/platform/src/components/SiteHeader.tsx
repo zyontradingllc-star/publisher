@@ -1,7 +1,8 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SignupCta } from "@/components/forms/SignupCta";
 import { Button } from "@/components/ui/Button";
@@ -12,6 +13,15 @@ import {
   platformPublicPath,
 } from "@/lib/utils";
 import type { Profile } from "@/types/database";
+
+/** Public share URLs — no Dashboard chrome for visitors. */
+function isPublicSharePath(pathname: string | null) {
+  if (!pathname) return false;
+  return (
+    /^\/books\/[^/]+\/?$/.test(pathname) ||
+    /^\/authors\/[^/]+\/?$/.test(pathname)
+  );
+}
 
 const CONTACT_HREF = `${MARKETING_URL}/contact-author-website-design-agency/`;
 
@@ -35,9 +45,9 @@ const SERVICES_CHILDREN = [
 ] as const;
 
 const NAV_LINKS = [
-  { href: "/publish", label: "Publish" },
-  { href: "/bookstore", label: "BookStore" },
-  { href: "/blog", label: "Blog" },
+  { href: "/publish/", label: "Publish" },
+  { href: "/bookstore/", label: "BookStore" },
+  { href: "/blog/", label: "Blog" },
   {
     href: MARKETING_HOME_URL,
     label: "Services",
@@ -55,7 +65,10 @@ type Props = {
 };
 
 export function SiteHeader({ profile }: Props) {
+  const pathname = usePathname();
+  const hideDashboard = isPublicSharePath(pathname);
   const loggedIn = Boolean(profile && profile.id !== "lead-session");
+  const showDashboard = loggedIn && !hideDashboard;
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -72,22 +85,20 @@ export function SiteHeader({ profile }: Props) {
 
   return (
     <>
-      <div className="relative z-50 bg-cta-wash px-4 py-2 text-center text-xs text-white/80 sm:text-sm">
+      <div className="relative z-50 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 bg-cta-wash px-3 py-2 text-center text-[11px] leading-snug text-white/80 sm:px-4 sm:text-sm sm:leading-normal">
         <a href={MARKETING_HOME_URL} className="transition hover:text-white">
           Pilot Your Story. Self-Publishing Story System.
-        </a>{" "}
-        <a
-          href={CONTACT_HREF}
-          className="font-medium text-[#273E2B] underline-offset-2 hover:underline"
-        >
-          Start a conversation →
         </a>
+        <SignupCta
+          label="Get Your Free Link"
+          className="!px-3 !py-1.5 !text-[11px] sm:!text-xs"
+        />
       </div>
 
       <header className="relative sticky top-0 z-50 border-b border-sand/40 bg-white/85 backdrop-blur-sm supports-[backdrop-filter]:bg-white/80">
         <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-1 sm:gap-4 sm:px-6 lg:px-8">
-          <a
-            href={MARKETING_HOME_URL}
+          <Link
+            href="/publish/"
             className="inline-flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-3"
             aria-label="Authors Pilot home"
           >
@@ -105,7 +116,7 @@ export function SiteHeader({ profile }: Props) {
             <span className="font-display text-base font-bold tracking-tight text-[#273E2B] sm:text-lg lg:text-xl">
               Authors Pilot
             </span>
-          </a>
+          </Link>
 
           <ul className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => {
@@ -187,7 +198,7 @@ export function SiteHeader({ profile }: Props) {
           </ul>
 
           <div className="hidden items-center gap-2 lg:flex">
-            {loggedIn ? (
+            {showDashboard ? (
               <>
                 {profile?.role === "admin" ? (
                   <Link
@@ -199,7 +210,7 @@ export function SiteHeader({ profile }: Props) {
                 ) : null}
                 <div className="inline-flex items-center gap-2">
                   <Link
-                    href="/dashboard"
+                    href="/dashboard/"
                     className="relative inline-flex h-8 w-8 shrink-0 overflow-hidden rounded-full border-2 border-white bg-ivory shadow-soft ring-1 ring-sand"
                     aria-label="Your profile"
                   >
@@ -218,7 +229,7 @@ export function SiteHeader({ profile }: Props) {
                     )}
                   </Link>
                   <Button
-                    href="/dashboard"
+                    href="/dashboard/"
                     variant="ghost"
                     className="!px-4 !py-2 !text-xs"
                   >
@@ -347,10 +358,10 @@ export function SiteHeader({ profile }: Props) {
                 })}
               </ul>
               <div className="flex items-center justify-center gap-2 pt-4">
-                {loggedIn ? (
+                {showDashboard ? (
                   <>
                     <Link
-                      href="/dashboard"
+                      href="/dashboard/"
                       className="relative inline-flex h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-white bg-ivory shadow-soft ring-1 ring-sand"
                       aria-label="Your profile"
                       onClick={() => setOpen(false)}
@@ -369,7 +380,7 @@ export function SiteHeader({ profile }: Props) {
                         </span>
                       )}
                     </Link>
-                    <Button href="/dashboard" variant="ghost">
+                    <Button href="/dashboard/" variant="ghost">
                       Dashboard
                     </Button>
                   </>

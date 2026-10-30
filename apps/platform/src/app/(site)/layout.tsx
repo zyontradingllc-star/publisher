@@ -4,6 +4,11 @@ import "../globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { WebsiteDesignCta } from "@/components/WebsiteDesignCta";
+import {
+  JsonLd,
+  organizationSchema,
+  webSiteSchema,
+} from "@/components/seo/JsonLd";
 import { getCurrentProfile } from "@/lib/auth";
 import { logEnvStatus } from "@/lib/env";
 import {
@@ -82,25 +87,13 @@ export default async function SiteLayout({
     profile = null;
   }
 
-  const pathname = (await headers()).get("x-pathname") ?? "";
+  const headerList = await headers();
+  const pathname =
+    headerList.get("x-pathname") ||
+    headerList.get("x-invoke-path") ||
+    "";
   const isDashboard =
     pathname === "/dashboard" || pathname.startsWith("/dashboard/");
-  const hideWebsiteCta =
-    isDashboard ||
-    pathname === "/bookstore" ||
-    pathname.startsWith("/bookstore/") ||
-    pathname === "/faq" ||
-    pathname.startsWith("/faq/") ||
-    pathname === "/blog" ||
-    pathname.startsWith("/blog/") ||
-    pathname === "/guides" ||
-    pathname.startsWith("/guides/") ||
-    pathname.startsWith("/compare/") ||
-    pathname === "/publish" ||
-    pathname.startsWith("/publish/") ||
-    pathname === "/how-it-works" ||
-    pathname.startsWith("/how-it-works/") ||
-    pathname.startsWith("/vs-");
 
   return (
     <html lang="en" className={siteFont.variable}>
@@ -108,14 +101,18 @@ export default async function SiteLayout({
         className="flex min-h-screen flex-col bg-page-wash font-sans text-ink antialiased"
         suppressHydrationWarning
       >
+        <JsonLd
+          data={[organizationSchema(APP_ORIGIN), webSiteSchema(APP_ORIGIN)]}
+        />
         <SiteHeader profile={profile} />
         <main className="flex-1">{children}</main>
-        {!hideWebsiteCta ? (
+        {/* Promo CTA: hidden on all /dashboard routes (client + server). */}
+        {isDashboard ? null : (
           <div className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6">
             <WebsiteDesignCta />
           </div>
-        ) : null}
-        {!isDashboard ? <SiteFooter /> : null}
+        )}
+        <SiteFooter />
       </body>
     </html>
   );

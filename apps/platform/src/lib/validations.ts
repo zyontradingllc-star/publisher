@@ -93,6 +93,8 @@ export const profileSchema = z.object({
   social_linkedin: optionalHttpUrl,
   social_tiktok: optionalHttpUrl,
   social_reddit: optionalHttpUrl,
+  social_youtube: optionalHttpUrl,
+  social_pinterest: optionalHttpUrl,
   is_public: z.boolean(),
 });
 

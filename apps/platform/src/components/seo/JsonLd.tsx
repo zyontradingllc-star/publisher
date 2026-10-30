@@ -20,7 +20,7 @@ export function organizationSchema(origin: string) {
     name: "Authors Pilot",
     url: origin,
     email: "info@authorspilot.com",
-    telephone: "+1-346-421-2554",
+    telephone: "+1-771-221-0508",
     logo: `${origin}/logo-authors-pilot.webp`,
     description:
       "Independent publishing platform: free author page, one shareable book link to Amazon or your website, and 100% royalties with no commission.",
@@ -34,7 +34,7 @@ export function organizationSchema(origin: string) {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+1-346-421-2554",
+      telephone: "+1-771-221-0508",
       contactType: "customer support",
       areaServed: "US",
       availableLanguage: ["English"],
@@ -66,5 +66,23 @@ export function webSiteSchema(origin: string) {
     name: "Authors Pilot",
     url: origin,
     publisher: { "@id": `${origin}/#organization` },
+  };
+}
+
+export function breadcrumbListSchema(
+  origin: string,
+  items: ReadonlyArray<{ name: string; path: string }>
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.path.startsWith("http")
+        ? item.path
+        : `${origin}${item.path.startsWith("/") ? item.path : `/${item.path}`}`,
+    })),
   };
 }

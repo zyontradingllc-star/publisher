@@ -38,6 +38,8 @@ export type Profile = {
   /** Preferred; falls back to social_whatsapp until migration applied */
   social_tiktok?: string | null;
   social_reddit?: string | null;
+  social_youtube?: string | null;
+  social_pinterest?: string | null;
   is_public: boolean;
   profile_complete: boolean;
   created_at: string;
@@ -102,7 +104,22 @@ export type BookWithRelations = Book & {
   sales_links?: SalesLink[];
   profiles?: Pick<
     Profile,
-    "id" | "display_name" | "slug" | "website_url" | "has_author_website" | "avatar_path"
+    | "id"
+    | "display_name"
+    | "slug"
+    | "website_url"
+    | "has_author_website"
+    | "avatar_path"
+    | "banner_path"
+    | "social_facebook"
+    | "social_instagram"
+    | "social_twitter"
+    | "social_linkedin"
+    | "social_whatsapp"
+    | "social_tiktok"
+    | "social_reddit"
+    | "social_youtube"
+    | "social_pinterest"
   > | null;
 };
 
@@ -134,7 +151,7 @@ export const BOOK_STATUS_LABELS: Record<BookStatus, string> = {
   draft: "Draft",
   pending_review: "Waiting for Approval",
   changes_requested: "Changes Requested",
-  published: "Published",
+  published: "Approved",
   rejected: "Rejected",
   unpublished: "Unpublished",
 };
@@ -146,11 +163,6 @@ export const LANGUAGES = [
   { code: "de", label: "German" },
   { code: "pt", label: "Portuguese" },
   { code: "it", label: "Italian" },
-  { code: "hi", label: "Hindi" },
-  { code: "ar", label: "Arabic" },
-  { code: "zh", label: "Chinese" },
-  { code: "ja", label: "Japanese" },
-  { code: "other", label: "Other" },
 ] as const;
 
 export const SALES_LINK_TYPES: { value: SalesLinkType; label: string }[] = [

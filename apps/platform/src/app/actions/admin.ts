@@ -283,18 +283,6 @@ export async function getManuscriptSignedUrl(
   };
 }
 
-export async function resolveReportAction(
-  _prev: ActionState,
-  _formData: FormData
-): Promise<ActionState> {
-  await requireAdmin();
-  return {
-    ok: false,
-    message:
-      "Content reports are no longer stored in Supabase. Use Payload CMS admin notes until a reports collection is added.",
-  };
-}
-
 export async function setAuthorPublicAction(
   formData: FormData
 ): Promise<ActionState> {

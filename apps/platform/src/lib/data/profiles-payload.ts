@@ -40,6 +40,8 @@ type AuthorDoc = {
   socialWhatsapp?: string | null;
   socialTiktok?: string | null;
   socialReddit?: string | null;
+  socialYoutube?: string | null;
+  socialPinterest?: string | null;
   isPublic?: boolean | null;
   profileComplete?: boolean | null;
   approvalStatus?: string | null;
@@ -99,6 +101,8 @@ function mapAuthorToProfile(doc: AuthorDoc): Profile {
     social_whatsapp: doc.socialWhatsapp || null,
     social_tiktok: doc.socialTiktok || null,
     social_reddit: doc.socialReddit || null,
+    social_youtube: doc.socialYoutube || null,
+    social_pinterest: doc.socialPinterest || null,
     is_public:
       doc.isPublic === true || doc.approvalStatus === "APPROVED",
     profile_complete: Boolean(doc.profileComplete),
@@ -225,6 +229,10 @@ export async function updateProfilePayload(
     data.socialTiktok = patch.social_tiktok;
   if (patch.social_reddit !== undefined)
     data.socialReddit = patch.social_reddit;
+  if (patch.social_youtube !== undefined)
+    data.socialYoutube = patch.social_youtube;
+  if (patch.social_pinterest !== undefined)
+    data.socialPinterest = patch.social_pinterest;
   if (patch.is_public !== undefined) {
     data.isPublic = patch.is_public;
     if (patch.is_public) data.approvalStatus = "APPROVED";
@@ -259,7 +267,7 @@ function pathFromMediaDoc(media: {
   return mediaUrlFromRelation(media, null);
 }
 
-/** Upload avatar to Payload Media and attach it to the author row. */
+/** Upload avatar to Payload Media and attach it to the author row (public profile source of truth). */
 export async function uploadAvatarPayload(
   uid: string,
   file: File
@@ -271,6 +279,7 @@ export async function uploadAvatarPayload(
   }
 
   const bytes = Buffer.from(await file.arrayBuffer());
+  const uniqueName = `avatar-${String(doc.id).slice(-8)}-${Date.now()}.webp`;
   const media = (await payload.create({
     collection: "media",
     data: {
@@ -279,8 +288,7 @@ export async function uploadAvatarPayload(
     file: {
       data: bytes,
       mimetype: file.type || "image/webp",
-      name:
-        file.name.replace(/[^a-zA-Z0-9._-]/g, "_") || "avatar.webp",
+      name: uniqueName,
       size: bytes.length,
     },
     overrideAccess: true,
@@ -299,6 +307,8 @@ export async function uploadAvatarPayload(
       avatar: media.id,
       // Prefer Media relation over legacy Firebase path
       avatarPath: null,
+      // Keep public profile in sync with dashboard media
+      isPublic: true,
     },
     overrideAccess: true,
     depth: 1,
@@ -311,7 +321,7 @@ export async function uploadAvatarPayload(
   return profile;
 }
 
-/** Upload cover banner to Payload Media and attach it to the author row. */
+/** Upload cover banner to Payload Media and attach it to the author row (public profile source of truth). */
 export async function uploadBannerPayload(
   uid: string,
   file: File
@@ -323,6 +333,7 @@ export async function uploadBannerPayload(
   }
 
   const bytes = Buffer.from(await file.arrayBuffer());
+  const uniqueName = `banner-${String(doc.id).slice(-8)}-${Date.now()}.webp`;
   const media = (await payload.create({
     collection: "media",
     data: {
@@ -331,8 +342,7 @@ export async function uploadBannerPayload(
     file: {
       data: bytes,
       mimetype: file.type || "image/webp",
-      name:
-        file.name.replace(/[^a-zA-Z0-9._-]/g, "_") || "banner.webp",
+      name: uniqueName,
       size: bytes.length,
     },
     overrideAccess: true,
@@ -350,6 +360,7 @@ export async function uploadBannerPayload(
     data: {
       banner: media.id,
       bannerPath: null,
+      isPublic: true,
     },
     overrideAccess: true,
     depth: 1,
@@ -360,4 +371,28 @@ export async function uploadBannerPayload(
     profile.banner_path = mediaPath;
   }
   return profile;
+}
+
+/** Published book slugs for an author (for cache revalidation after media upload). */
+export async function listPublishedBookSlugsForAuthor(
+  firebaseUid: string
+): Promise<string[]> {
+  const doc = await findAuthorByFirebaseUid(firebaseUid);
+  if (!doc) return [];
+  const payload = await getPayloadClient();
+  const result = await payload.find({
+    collection: "books",
+    where: {
+      and: [
+        { author: { equals: doc.id } },
+        { status: { equals: "published" } },
+      ],
+    },
+    limit: 50,
+    depth: 0,
+    overrideAccess: true,
+  });
+  return result.docs
+    .map((b) => (b as { slug?: string | null }).slug)
+    .filter((s): s is string => Boolean(s));
 }

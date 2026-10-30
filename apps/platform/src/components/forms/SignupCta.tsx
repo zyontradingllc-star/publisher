@@ -28,7 +28,7 @@ export function SignupCta({
 
   if (!isFirebaseClientConfigured()) {
     return (
-      <Button href="/signup" className={className}>
+      <Button href="/signup/" className={className}>
         {label}
       </Button>
     );

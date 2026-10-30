@@ -1,12 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
+﻿import Link from "next/link";
 import { AuthorCard } from "@/components/AuthorCard";
 import { BookCard } from "@/components/BookCard";
-import { PricingNotice } from "@/components/PricingNotice";
+import { HeroBookFan } from "@/components/HeroBookFan";
 import { Accordion } from "@/components/ui/Accordion";
 import { Button } from "@/components/ui/Button";
 import { VS_BOOKS2READ_POINTS } from "@/lib/seo-content";
-import { MARKETING_HOME_URL, platformPublicPath } from "@/lib/utils";
+import { MARKETING_HOME_URL } from "@/lib/utils";
 import type { BookWithRelations, Profile } from "@/types/database";
 
 /** Featured books + authors stay hidden until catalog reaches this size. */
@@ -78,40 +77,42 @@ export function PublishLanding({
 }: PublishLandingProps) {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-sand bg-[#1a0a0a]">
-        <div className="relative mx-auto w-full max-w-[1400px]">
-          {/* Shorter crop: keep headline + eagle in frame, cut empty forest from bottom */}
-          <div className="relative aspect-[3/1] w-full min-h-[140px] sm:min-h-[200px] lg:min-h-[260px]">
-            <Image
-              src={platformPublicPath("/banners/publish-home-halloween.jpg")}
-              alt="Authors Pilot — Get one link, sell it anywhere. Keep 100% of your book earnings."
-              fill
-              priority
-              unoptimized
-              sizes="100vw"
-              className="object-cover object-[50%_28%]"
-            />
+      <section
+        className="relative overflow-hidden border-b border-[#E08A2A]/25"
+        style={{
+          backgroundColor: "#F6D56A",
+          backgroundImage:
+            "radial-gradient(circle, rgba(224,138,42,0.45) 1.5px, transparent 1.6px)",
+          backgroundSize: "18px 18px",
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#F2C14D]/80 via-transparent to-[#E08A2A]/25"
+        />
+        <div className="relative mx-auto flex max-w-6xl flex-col gap-5 px-4 py-8 sm:px-6 sm:py-14 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <h1 className="heading-section text-balance text-ink">
+              Publish Your Book. Get One Link to Sell It Anywhere. Keep 100% of
+              Your Book Earnings.
+            </h1>
+            <p className="mt-3 text-sm text-ink/75 sm:text-base">
+              List your book, get a free author page and shareable link, and
+              send readers to Amazon or your website.
+            </p>
           </div>
-          <h1 className="sr-only">
-            Publish Your Book. Get One Link to Sell It Anywhere. Keep 100% of
-            Your Book Earnings.
-          </h1>
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 sm:px-6 sm:pb-5 sm:pt-12">
-            <div className="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-3">
-              <p className="max-w-xl text-sm text-white/90 sm:text-base">
-                List your book, get a free author page and shareable link, and
-                send readers to Amazon or your website.
-              </p>
-              <Button href="/signup?google=1">Get Your Link</Button>
-            </div>
-          </div>
+          <Button href="/signup?google=1" className="w-full sm:w-auto">
+            Get Your Free Link
+          </Button>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="heading-section">Keep 100% of Your Book Earnings</h2>
+            <h2 className="heading-section">
+              Publish Your Book. Get One Link to Sell It Anywhere
+            </h2>
             <p className="mt-3 font-display text-xl font-bold text-ink sm:text-2xl">
               Your Books. Your Readers. Your Revenue.
             </p>
@@ -146,7 +147,9 @@ export function PublishLanding({
               You.
             </p>
           </div>
-          <PricingNotice />
+          <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+            <HeroBookFan />
+          </div>
         </div>
       </section>
 
@@ -259,7 +262,7 @@ export function PublishLanding({
           ))}
         </ol>
         <div className="mt-8">
-          <Button href="/how-publishing-works" variant="ghost">
+          <Button href="/how-publishing-works">
             Read the full guide
           </Button>
         </div>
@@ -287,7 +290,7 @@ export function PublishLanding({
             <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <h2 className="heading-section">Featured authors</h2>
-                <Link href="/authors" className="text-sm font-semibold text-coral hover:underline">
+                <Link href="/authors/" className="text-sm font-semibold text-coral hover:underline">
                   Browse authors →
                 </Link>
               </div>
@@ -320,7 +323,7 @@ export function PublishLanding({
             Your Story. Your Books. Your Brand.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/signup?google=1">Get Your Link</Button>
+            <Button href="/signup?google=1">Get Your Free Link</Button>
             <Button href={MARKETING_HOME_URL} variant="ghost">
               Explore Author Services
             </Button>
@@ -328,7 +331,7 @@ export function PublishLanding({
           <p className="mt-6 text-center text-sm text-forest-muted">
             More answers on our{" "}
             <Link
-              href="/faq"
+              href="/faq/"
               className="font-semibold text-coral hover:underline"
             >
               FAQ page
@@ -338,14 +341,6 @@ export function PublishLanding({
         </div>
       </section>
 
-      <section className="border-t border-sand bg-[#E8F4FC]">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <PricingNotice />
-          <div className="mt-8 text-center">
-            <Button href="/signup?google=1">Get Your Link</Button>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

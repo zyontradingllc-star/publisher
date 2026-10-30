@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { getAllBlogPosts } from "@/lib/blog/posts";
 import { getPublicAuthors, getPublishedBooks } from "@/lib/books";
 import { isPayloadConfigured } from "@/lib/payload";
 import { appCanonical } from "@/lib/seo";
@@ -61,17 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const post of getAllBlogPosts()) {
-    const url = appCanonical(`/blog/${post.slug}/`);
-    if (seen.has(url)) continue;
-    seen.add(url);
-    staticEntries.push({
-      url,
-      lastModified: safeDate(post.publishedAt),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    });
-  }
+  // Blog article URLs live in /sitemap-blog.xml only (avoid duplicate listings).
 
   if (!isPayloadConfigured()) return staticEntries;
 

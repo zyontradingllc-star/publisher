@@ -27,8 +27,13 @@ type PageSeo = {
   description: string;
   path: string;
   image?: string | null;
+  imageAlt?: string;
   noIndex?: boolean;
   keywords?: string[];
+  /** Open Graph type — articles use "article". */
+  ogType?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
 };
 
 export function buildAppMetadata({
@@ -36,8 +41,12 @@ export function buildAppMetadata({
   description,
   path,
   image,
+  imageAlt,
   noIndex,
   keywords,
+  ogType = "website",
+  publishedTime,
+  modifiedTime,
 }: PageSeo): Metadata {
   const url = appCanonical(path);
   const ogImage = image || DEFAULT_OG_IMAGE;
@@ -54,10 +63,23 @@ export function buildAppMetadata({
     openGraph: {
       title,
       description,
-      type: "website",
+      type: ogType,
       url,
       siteName: APP_SITE_NAME,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: imageAlt || title,
+        },
+      ],
+      ...(ogType === "article"
+        ? {
+            publishedTime,
+            modifiedTime: modifiedTime || publishedTime,
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",

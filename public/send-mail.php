@@ -15,9 +15,9 @@ if (!is_array($data)) {
 }
 
 $intent = trim((string) ($data['intent'] ?? ''));
-// One-click Create Free Account → straight to no-reply@authorspilot.com
+// One-click Create Free Account → hello@authorspilot.com
 $to = ($intent === 'create-free-account')
-  ? 'no-reply@authorspilot.com'
+  ? 'hello@authorspilot.com'
   : 'info@authorspilot.com';
 $name = trim((string) ($data['name'] ?? 'Website visitor'));
 $email = trim((string) ($data['email'] ?? $data['_replyto'] ?? ''));

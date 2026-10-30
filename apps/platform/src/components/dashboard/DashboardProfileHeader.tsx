@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,17 +9,11 @@ import {
 } from "@/app/actions/profile";
 import type { ActionState } from "@/app/actions/auth";
 import { Button } from "@/components/ui/Button";
+import { DASHBOARD_TABS } from "@/components/dashboard/DashboardTabs";
 import { avatarUrl, bannerUrl, platformPublicPath } from "@/lib/utils";
 import type { Profile } from "@/types/database";
 
 const initialState: ActionState = { ok: false };
-
-const HOME_TABS = [
-  { href: "/dashboard", label: "Dashboard", exact: true },
-  { href: "/dashboard/books", label: "My Books" },
-  { href: "/dashboard/posts", label: "Posts" },
-  { href: "/dashboard/profile", label: "Profile" },
-] as const;
 
 type SocialItem = {
   label: string;
@@ -379,13 +373,13 @@ export function DashboardProfileHeader({
         </div>
       </div>
 
-      {/* Horizontal nav */}
+      {/* Tabs sit under name / profile photo */}
       <nav
         className="overflow-x-auto border-t border-sand px-2 sm:px-4"
         aria-label="Dashboard sections"
       >
         <ul className="flex gap-0.5">
-          {HOME_TABS.map((item) => {
+          {DASHBOARD_TABS.map((item) => {
             const exact = "exact" in item && item.exact;
             const active = exact
               ? pathname === item.href || pathname === `${item.href}/`

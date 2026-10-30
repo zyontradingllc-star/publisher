@@ -19,7 +19,13 @@ import {
   updateAuthorLeadContact,
 } from "@/lib/lead-session";
 import { getPayloadClient, isPayloadConfigured } from "@/lib/payload";
+import { getMyBooks, MAX_BOOKS_PER_AUTHOR } from "@/lib/books";
+import { isAllowedCountryCode } from "@/lib/countries";
+import { isProductTypeId } from "@/lib/product-types";
+import { PLATFORM_LOGO_CHANNELS } from "@/lib/sales-channels";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 import type { ActionState } from "@/app/actions/auth";
+import type { SalesLinkType } from "@/types/database";
 
 function keywordsFromForm(formData: FormData): string[] {
   const out: string[] = [];
@@ -28,6 +34,17 @@ function keywordsFromForm(formData: FormData): string[] {
     if (v) out.push(v);
   }
   return out;
+}
+
+/** Prefer the first non-empty Turnstile token (multiple fields possible). */
+function firstFormToken(formData: FormData, keys: string[]): string {
+  for (const key of keys) {
+    for (const value of formData.getAll(key)) {
+      const token = String(value || "").trim();
+      if (token) return token;
+    }
+  }
+  return "";
 }
 
 /**
@@ -43,11 +60,14 @@ export async function savePublishDetailsAction(
   const title = String(formData.get("title") || "").trim();
   const subtitle = String(formData.get("subtitle") || "").trim();
   const language = String(formData.get("language") || "en").trim();
+  const country = String(formData.get("country") || "").trim().toUpperCase();
   const seriesName = String(formData.get("series_name") || "").trim();
   const edition = String(formData.get("edition_number") || "").trim();
   const authorFirst = String(formData.get("author_first") || "").trim();
   const authorLast = String(formData.get("author_last") || "").trim();
-  const authorEmail = String(formData.get("author_email") || "").trim();
+  const authorEmail =
+    String(formData.get("author_email") || "").trim() ||
+    String(profile.email || "").trim();
   const contributorRole = String(formData.get("contributor_role") || "").trim();
   const contributorFirst = String(formData.get("contributor_first") || "").trim();
   const contributorLast = String(formData.get("contributor_last") || "").trim();
@@ -59,8 +79,10 @@ export async function savePublishDetailsAction(
   const primaryMarketplace = String(
     formData.get("primary_marketplace") || "author_website"
   ).trim();
-  const genreId = String(formData.get("genre_id") || "").trim();
-  const contentPolicy = formData.get("content_policy_accepted") === "on";
+  const productTypeRaw = String(formData.get("product_type") || "").trim();
+  const productType = isProductTypeId(productTypeRaw)
+    ? productTypeRaw
+    : "";
   const keywords = keywordsFromForm(formData);
   const authorDisplayName = `${authorFirst} ${authorLast}`.trim();
 
@@ -71,25 +93,51 @@ export async function savePublishDetailsAction(
     return { ok: false, message: "Author first and last name are required." };
   }
   if (!authorEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(authorEmail)) {
-    return { ok: false, message: "A valid author email is required." };
+    return { ok: false, message: "A valid account email is required." };
   }
-  if (description.length < 40) {
-    return {
-      ok: false,
-      message: "Description must be at least 40 characters.",
-    };
+  if (!productType) {
+    return { ok: false, message: "Select a product type." };
   }
-  if (!genreId) {
-    return { ok: false, message: "Select a category / genre." };
+  if (!isAllowedCountryCode(country)) {
+    return { ok: false, message: "Select a valid country." };
   }
   if (!publishingRights) {
     return { ok: false, message: "Select publishing rights." };
   }
-  if (!contentPolicy) {
-    return { ok: false, message: "Please accept the content policy." };
+
+  const manuscript = formData.get("manuscript");
+  const cover = formData.get("cover");
+  const manuscriptFile =
+    manuscript && typeof manuscript !== "string" && manuscript.size > 0
+      ? manuscript
+      : null;
+  const coverFile =
+    cover && typeof cover !== "string" && cover.size > 0 ? cover : null;
+  if (!manuscriptFile) {
+    return {
+      ok: false,
+      message: "Upload your manuscript to continue.",
+    };
+  }
+  if (!coverFile) {
+    return {
+      ok: false,
+      message: "Upload your book cover to continue.",
+    };
   }
 
   const rightsConfirmed = publishingRights === "own_copyright";
+  const listingDescription =
+    description.trim() || `${title} — listing on Authors Pilot.`;
+
+  // Cap: each author account may upload at most MAX_BOOKS_PER_AUTHOR books.
+  const existingBooks = await getMyBooks(profile.id, authorEmail || profile.email);
+  if (existingBooks.length >= MAX_BOOKS_PER_AUTHOR) {
+    return {
+      ok: false,
+      message: `You can upload a maximum of ${MAX_BOOKS_PER_AUTHOR} books. Remove or finish an existing listing first.`,
+    };
+  }
 
   // No email on this step - confirmation is sent only after final Publish
   // (Pending Review on the dashboard).
@@ -117,6 +165,8 @@ export async function savePublishDetailsAction(
         collection: "book-submissions",
         data: {
           language,
+          country,
+          productType,
           title,
           subtitle: subtitle || undefined,
           seriesName: seriesName || undefined,
@@ -129,7 +179,7 @@ export async function savePublishDetailsAction(
           authorDisplay: authorDisplayName,
           authorEmail,
           contributors,
-          description,
+          description: listingDescription,
           publishingRights:
             publishingRights === "public_domain"
               ? "public_domain"
@@ -138,23 +188,56 @@ export async function savePublishDetailsAction(
           readingAgeMin: ageMin ? Number(ageMin) : undefined,
           readingAgeMax: ageMax ? Number(ageMax) : undefined,
           primarySalesChannel: primaryMarketplace,
-          genreId: genreId || undefined,
           keywords: keywords.map((value) => ({ value })),
           status: "pending",
         },
         overrideAccess: true,
       });
 
+      try {
+        const bytes = Buffer.from(await coverFile.arrayBuffer());
+        const coverMedia = await payload.create({
+          collection: "media",
+          data: { alt: `${title} cover` },
+          file: {
+            data: bytes,
+            mimetype: coverFile.type || "image/jpeg",
+            name:
+              coverFile.name.replace(/[^a-zA-Z0-9._-]/g, "_") || "cover.jpg",
+            size: bytes.length,
+          },
+          overrideAccess: true,
+        });
+        await payload.update({
+          collection: "book-submissions",
+          id: created.id,
+          data: { cover: coverMedia.id },
+          overrideAccess: true,
+          context: { skipApproveHook: true },
+        });
+      } catch (mediaErr) {
+        console.warn(
+          "[publish-details][cover]",
+          mediaErr instanceof Error ? mediaErr.message : mediaErr
+        );
+        return {
+          ok: false,
+          message:
+            mediaErr instanceof Error
+              ? mediaErr.message
+              : "Could not upload book cover. Please try again.",
+        };
+      }
+
       if (intent === "continue") {
         redirect(
-          `/dashboard/books/new/content?submission=${encodeURIComponent(String(created.id))}`
+          `/dashboard/books/new/sales?submission=${encodeURIComponent(String(created.id))}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(productType)}`
         );
       }
 
       return {
         ok: true,
-        message:
-          "Book details saved. Click Save and Continue for the Content step.",
+        message: "Book details saved as draft.",
       };
     } catch (err) {
       if (
@@ -189,12 +272,14 @@ export async function savePublishDetailsAction(
 
   if (leadOnly) {
     if (intent === "continue") {
-      redirect("/dashboard/books/new/content?lead=1");
+      redirect(
+        `/dashboard/books/new/sales?lead=1&title=${encodeURIComponent(title)}&type=${encodeURIComponent(productType)}`
+      );
     }
     return {
       ok: true,
       message:
-        "Draft details saved. Click Save and Continue for the Content step. (Configure DATABASE_URL + PAYLOAD_SECRET, or set USE_PAYLOAD_DATA=true.)",
+        "Draft details saved. (Configure DATABASE_URL + PAYLOAD_SECRET, or set USE_PAYLOAD_DATA=true.)",
     };
   }
 
@@ -203,9 +288,9 @@ export async function savePublishDetailsAction(
       authorId: profile.id,
       title,
       subtitle: subtitle || null,
-      description,
+      description: listingDescription,
       authorDisplayName,
-      genreId: genreId || null,
+      genreId: null,
       language,
     });
 
@@ -216,7 +301,9 @@ export async function savePublishDetailsAction(
     });
 
     if (intent === "continue") {
-      redirect(`/dashboard/books/${book.id}/content`);
+      redirect(
+        `/dashboard/books/new/sales?title=${encodeURIComponent(title)}&type=${encodeURIComponent(productType)}`
+      );
     }
 
     redirect(`/dashboard/books/${book.id}`);
@@ -234,7 +321,9 @@ export async function savePublishDetailsAction(
       err instanceof Error ? err.message : err
     );
     if (intent === "continue") {
-      redirect("/dashboard/books/new/content?lead=1");
+      redirect(
+        `/dashboard/books/new/sales?lead=1&title=${encodeURIComponent(title)}`
+      );
     }
     return {
       ok: false,
@@ -433,16 +522,57 @@ export async function savePublishPricingAction(
   const intent = String(formData.get("intent") || "draft") as "draft" | "publish";
   const bookId = String(formData.get("book_id") || "").trim();
   const bookTitle = String(formData.get("book_title") || "Untitled").trim();
+  const turnstileToken = firstFormToken(formData, [
+    "turnstile_token",
+    "cf-turnstile-response",
+  ]);
+  const captcha = await verifyTurnstileToken(turnstileToken);
+  if (!captcha.success) {
+    return {
+      ok: false,
+      message: captcha.message || "Please complete the security check.",
+    };
+  }
   const catalogEnroll = formData.get("catalog_enroll") === "on";
   const primaryMarketplace = String(
     formData.get("primary_marketplace") || "author_website"
   );
-  const hasAuthorWebsite = formData.get("has_author_website") !== "no";
+  const websiteChoice = String(
+    formData.get("has_author_website") || "yes"
+  ).trim();
+  const hasAuthorWebsite = websiteChoice === "yes";
   const linkAuthor = hasAuthorWebsite
     ? String(formData.get("link_author_website") || "").trim()
     : "";
-  const linkAmazon = String(formData.get("link_amazon") || "").trim();
-  const linkOther = String(formData.get("link_other") || "").trim();
+  const channelLinks: Array<{
+    id: string;
+    label: string;
+    url: string;
+    link_type: SalesLinkType;
+  }> = [];
+  for (const platform of PLATFORM_LOGO_CHANNELS) {
+    const url = String(
+      formData.get(`link_channel_${platform.id}`) || ""
+    ).trim();
+    if (!url) continue;
+    channelLinks.push({
+      id: platform.id,
+      label: platform.label,
+      url,
+      link_type: (platform.id === "amazon" ? "amazon" : "other") as SalesLinkType,
+    });
+  }
+  for (const [key, value] of formData.entries()) {
+    if (!key.startsWith("link_channel_other__")) continue;
+    const url = String(value || "").trim();
+    if (!url) continue;
+    channelLinks.push({
+      id: key,
+      label: "Other retailer",
+      url,
+      link_type: "other",
+    });
+  }
   const termsAccepted = formData.get("terms_accepted") === "on";
 
   if (intent === "publish" && !termsAccepted) {
@@ -452,20 +582,19 @@ export async function savePublishPricingAction(
     };
   }
 
-  if (
-    intent === "publish" &&
-    !linkAuthor &&
-    !linkAmazon &&
-    !linkOther
-  ) {
+  if (intent === "publish" && !linkAuthor && channelLinks.length === 0) {
     return {
       ok: false,
       message:
-        "Add at least one purchase link (author website, Amazon, or other) before publishing.",
+        "Add at least one purchase link (author website or a selected store) before publishing.",
     };
   }
 
-  for (const url of [linkAuthor, linkAmazon, linkOther]) {
+  const urlsToValidate = [
+    linkAuthor,
+    ...channelLinks.map((l) => l.url),
+  ];
+  for (const url of urlsToValidate) {
     if (!url) continue;
     try {
       const u = new URL(url);
@@ -486,38 +615,33 @@ export async function savePublishPricingAction(
   ) {
     try {
       const linkRows = [];
-      const selectAll = primaryMarketplace === "all";
+      const selectedIds = String(primaryMarketplace || "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      let order = 0;
       if (linkAuthor) {
         linkRows.push({
           link_type: "author_website" as const,
           label: "Author Website",
           url: linkAuthor,
-          is_primary:
-            selectAll || primaryMarketplace === "author_website",
+          is_primary: selectedIds.includes("author_website"),
           is_active: true,
-          display_order: 0,
+          display_order: order++,
         });
       }
-      if (linkAmazon) {
+      for (const link of channelLinks) {
         linkRows.push({
-          link_type: "amazon" as const,
-          label: "Amazon",
-          url: linkAmazon,
-          is_primary:
-            selectAll || primaryMarketplace.startsWith("amazon"),
+          link_type: link.link_type,
+          label: link.label,
+          url: link.url,
+          is_primary: selectedIds.includes(link.id),
           is_active: true,
-          display_order: 1,
+          display_order: order++,
         });
       }
-      if (linkOther) {
-        linkRows.push({
-          link_type: "other" as const,
-          label: "Other retailer",
-          url: linkOther,
-          is_primary: selectAll || primaryMarketplace === "other",
-          is_active: true,
-          display_order: 2,
-        });
+      if (linkRows.length && !linkRows.some((r) => r.is_primary)) {
+        linkRows[0].is_primary = true;
       }
 
       if (linkRows.length) await setSalesLinks(bookId, linkRows);

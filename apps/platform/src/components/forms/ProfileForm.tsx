@@ -226,6 +226,32 @@ export function ProfileForm({ profile }: { profile: Profile }) {
               placeholder="https://www.reddit.com/user/username"
             />
           </div>
+          <div>
+            <label className="label-field" htmlFor="social_youtube">
+              YouTube link
+            </label>
+            <input
+              id="social_youtube"
+              name="social_youtube"
+              className="input-field"
+              type="url"
+              defaultValue={profile.social_youtube ?? ""}
+              placeholder="https://www.youtube.com/@channel"
+            />
+          </div>
+          <div>
+            <label className="label-field" htmlFor="social_pinterest">
+              Pinterest link
+            </label>
+            <input
+              id="social_pinterest"
+              name="social_pinterest"
+              className="input-field"
+              type="url"
+              defaultValue={profile.social_pinterest ?? ""}
+              placeholder="https://www.pinterest.com/username"
+            />
+          </div>
         </div>
 
         <label className="flex items-start gap-3">

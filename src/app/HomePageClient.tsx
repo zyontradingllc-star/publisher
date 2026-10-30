@@ -1,30 +1,99 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { LogoMarquee } from "@/components/ui/LogoMarquee";
-import { VideoInsights } from "@/components/ui/VideoInsights";
-import { AmazonSpotlight } from "@/components/ui/AmazonSpotlight";
-import { BookFairMoments } from "@/components/ui/BookFairMoments";
-import { CoversThatSell } from "@/components/ui/CoversThatSell";
-import { BookFairHighlights } from "@/components/ui/BookFairHighlights";
-import { BestSellerCta } from "@/components/ui/BestSellerCta";
-import { HomeFaq } from "@/components/ui/HomeFaq";
-import { FreeCoverOffer } from "@/components/ui/FreeCoverOffer";
-import { RoyalPackages } from "@/components/ui/RoyalPackages";
-import { PublishingJourney } from "@/components/ui/PublishingJourney";
 import { HeroBookFan } from "@/components/ui/HeroBookFan";
-import { ComeToLife } from "@/components/ui/ComeToLife";
-import { ForgeNumbers } from "@/components/ui/ForgeNumbers";
-import { ReliabilityAcrossBorders } from "@/components/ui/ReliabilityAcrossBorders";
-import { HomeServiceLinks } from "@/components/ui/HomeServiceLinks";
 import { HomeWhatWeDo } from "@/components/ui/HomeWhatWeDo";
-import { GoogleReviews } from "@/components/ui/GoogleReviews";
 import { home, portfolio } from "@/content/site";
 import { platformHref } from "@/lib/platform";
+
+/** Below-fold sections — code-split so mobile LCP/JS stay lighter. */
+const VideoInsights = dynamic(
+  () =>
+    import("@/components/ui/VideoInsights").then((m) => m.VideoInsights),
+  { ssr: true }
+);
+const AmazonSpotlight = dynamic(
+  () =>
+    import("@/components/ui/AmazonSpotlight").then((m) => m.AmazonSpotlight),
+  { ssr: true }
+);
+const BookFairMoments = dynamic(
+  () =>
+    import("@/components/ui/BookFairMoments").then((m) => m.BookFairMoments),
+  { ssr: true }
+);
+const PublishingJourney = dynamic(
+  () =>
+    import("@/components/ui/PublishingJourney").then(
+      (m) => m.PublishingJourney
+    ),
+  { ssr: true }
+);
+const GoogleReviews = dynamic(
+  () =>
+    import("@/components/ui/GoogleReviews").then((m) => m.GoogleReviews),
+  { ssr: true }
+);
+const CoversThatSell = dynamic(
+  () =>
+    import("@/components/ui/CoversThatSell").then((m) => m.CoversThatSell),
+  { ssr: true }
+);
+const ForgeNumbers = dynamic(
+  () =>
+    import("@/components/ui/ForgeNumbers").then((m) => m.ForgeNumbers),
+  { ssr: true }
+);
+const ReliabilityAcrossBorders = dynamic(
+  () =>
+    import("@/components/ui/ReliabilityAcrossBorders").then(
+      (m) => m.ReliabilityAcrossBorders
+    ),
+  { ssr: true }
+);
+const ComeToLife = dynamic(
+  () => import("@/components/ui/ComeToLife").then((m) => m.ComeToLife),
+  { ssr: true }
+);
+const RoyalPackages = dynamic(
+  () =>
+    import("@/components/ui/RoyalPackages").then((m) => m.RoyalPackages),
+  { ssr: true }
+);
+const HomeServiceLinks = dynamic(
+  () =>
+    import("@/components/ui/HomeServiceLinks").then(
+      (m) => m.HomeServiceLinks
+    ),
+  { ssr: true }
+);
+const BookFairHighlights = dynamic(
+  () =>
+    import("@/components/ui/BookFairHighlights").then(
+      (m) => m.BookFairHighlights
+    ),
+  { ssr: true }
+);
+const BestSellerCta = dynamic(
+  () =>
+    import("@/components/ui/BestSellerCta").then((m) => m.BestSellerCta),
+  { ssr: true }
+);
+const FreeCoverOffer = dynamic(
+  () =>
+    import("@/components/ui/FreeCoverOffer").then((m) => m.FreeCoverOffer),
+  { ssr: true }
+);
+const HomeFaq = dynamic(
+  () => import("@/components/ui/HomeFaq").then((m) => m.HomeFaq),
+  { ssr: true }
+);
 
 const portfolioTiles = [
   "/books/book3.webp",
@@ -65,15 +134,25 @@ export default function HomePageClient() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.06 }}
-              className="mt-3 heading-hero"
+              className="mt-3 heading-hero text-balance"
             >
-              Book Publishing &amp; Author Website Design Agency
+              Stop Hiding Your Books
+              <br />
+              Start Getting Discovered
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="mt-4 max-w-lg font-display text-lg font-semibold text-ink sm:text-xl"
+            >
+              {home.hero.tagline}
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12 }}
-              className="mt-5 max-w-lg text-base leading-relaxed text-charcoal sm:text-lg"
+              className="mt-4 max-w-lg text-base leading-relaxed text-charcoal sm:text-lg"
             >
               {home.hero.subhead}
             </motion.p>
@@ -84,10 +163,12 @@ export default function HomePageClient() {
               className="mt-8"
             >
               <div className="flex flex-wrap justify-center gap-3 md:justify-start">
-                <Button href={platformHref("/signup?google=1")}>Signup</Button>
+                <Button href={platformHref("/signup?google=1")}>
+                  Get Your Free Link
+                </Button>
               </div>
-              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-charcoal">
-                <span className="inline-flex items-center gap-2">
+              <div className="mt-5 flex flex-col gap-3 text-sm text-charcoal sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
+                <span className="inline-flex items-center justify-center gap-2 sm:justify-start">
                   <span className="inline-flex text-[#E08A2A]" aria-hidden="true">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <svg key={i} viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
@@ -97,28 +178,14 @@ export default function HomePageClient() {
                   </span>
                   4.9/5 average rating
                 </span>
-                <span className="inline-flex items-center gap-2">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 text-[#E08A2A]"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 3l7 3v6c0 4.5-2.8 7.6-7 9-4.2-1.4-7-4.5-7-9V6z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12l2 2 4-4"
-                    />
-                  </svg>
-                  100% rights &amp; royalties stay yours
-                </span>
+                <motion.span
+                  className="inline-flex max-w-full items-center justify-center rounded-full border border-sky-200 bg-[#E8F4FC] px-3 py-1.5 text-center text-xs font-semibold text-ink sm:justify-start sm:px-4 sm:text-sm"
+                  initial={{ opacity: 0.55, y: 4 }}
+                  animate={{ opacity: [0.7, 1, 0.7], y: [0, -2, 0] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  Free Access During Launch · Paid Plans Coming Soon
+                </motion.span>
               </div>
             </motion.div>
           </div>
@@ -139,18 +206,14 @@ export default function HomePageClient() {
 
       <HomeWhatWeDo />
 
-      {/* Behind the pages / author insights */}
-      <VideoInsights />
+      <div className="content-visibility-auto">
+        <VideoInsights />
+        <AmazonSpotlight />
+        <BookFairMoments />
+        <PublishingJourney />
+      </div>
 
-      {/* Amazon spotlight - covers slide left to right */}
-      <AmazonSpotlight />
-
-      {/* Book fair moments */}
-      <BookFairMoments />
-
-      <PublishingJourney />
-
-      <section className="bg-warm-wash py-14 sm:py-16">
+      <section className="content-visibility-auto bg-warm-wash py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="mx-auto max-w-2xl text-center">
@@ -162,20 +225,15 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Covers that sell */}
-      <CoversThatSell />
-
-      {/* Numbers / proof */}
-      <ForgeNumbers />
-
-      {/* Reliability across borders */}
-      <ReliabilityAcrossBorders />
-
-      {/* Watch it come to life */}
-      <ComeToLife />
+      <div className="content-visibility-auto">
+        <CoversThatSell />
+        <ForgeNumbers />
+        <ReliabilityAcrossBorders />
+        <ComeToLife />
+      </div>
 
       {/* Portfolio - collection strip */}
-      <section className="bg-ivory py-14 sm:py-16">
+      <section className="content-visibility-auto bg-ivory py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="flex items-end justify-between gap-4">
@@ -204,6 +262,7 @@ export default function HomePageClient() {
                     alt={item.imageAlt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px"
+                    loading="lazy"
                     className="object-cover object-center transition duration-500 group-hover:scale-105"
                   />
                   <span
@@ -226,23 +285,14 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      {/* Pricing Fit For Royalty */}
-      <RoyalPackages showHeading={false} />
-
-      {/* SEO service links */}
-      <HomeServiceLinks />
-
-      {/* Authors Pilot Book Fair Highlights */}
-      <BookFairHighlights />
-
-      {/* Best-seller CTA */}
-      <BestSellerCta />
-
-      {/* Free cover mockup */}
-      <FreeCoverOffer />
-
-      {/* FAQ */}
-      <HomeFaq />
+      <div className="content-visibility-auto">
+        <RoyalPackages showHeading={false} />
+        <HomeServiceLinks />
+        <BookFairHighlights />
+        <BestSellerCta />
+        <FreeCoverOffer />
+        <HomeFaq />
+      </div>
     </>
   );
 }

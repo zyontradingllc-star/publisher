@@ -111,31 +111,98 @@ export async function approveBookSubmission(args: {
 
   const coverId = relationId(submission.cover);
 
-  const bookSlug = uniqueSlug(submission.title, submission.id);
-  const book = await payload.create({
+  // Reuse a book already created for this submission (e.g. prior partial approve).
+  const existingBySubmission = await payload.find({
     collection: "books",
-    data: {
-      title: submission.title,
-      slug: bookSlug,
-      subtitle: submission.subtitle || undefined,
-      description: submission.description || undefined,
-      language: submission.language || undefined,
-      seriesName: submission.seriesName || undefined,
-      editionNumber: submission.editionNumber || undefined,
-      author: authorId,
-      status: "published",
-      approvalStatus: "APPROVED",
-      publishingRights: submission.publishingRights || undefined,
-      primaryAudience: submission.primaryAudience || undefined,
-      readingAgeMin: submission.readingAgeMin ?? undefined,
-      readingAgeMax: submission.readingAgeMax ?? undefined,
-      primarySalesChannel: submission.primarySalesChannel || undefined,
-      submission: submission.id,
-      publishedAt: new Date().toISOString(),
-      ...(coverId ? { cover: coverId } : {}),
-    },
+    where: { submission: { equals: submission.id } },
+    limit: 1,
     overrideAccess: true,
   });
+
+  let book = existingBySubmission.docs[0];
+  let bookSlug =
+    (book as { slug?: string } | undefined)?.slug ||
+    uniqueSlug(submission.title, submission.id);
+
+  if (!book) {
+    const bySlug = await payload.find({
+      collection: "books",
+      where: { slug: { equals: bookSlug } },
+      limit: 1,
+      overrideAccess: true,
+    });
+    book = bySlug.docs[0];
+  }
+
+  if (!book) {
+    try {
+      book = await payload.create({
+        collection: "books",
+        data: {
+          title: submission.title,
+          slug: bookSlug,
+          subtitle: submission.subtitle || undefined,
+          description: submission.description || undefined,
+          language: submission.language || undefined,
+          seriesName: submission.seriesName || undefined,
+          editionNumber: submission.editionNumber || undefined,
+          author: authorId,
+          status: "published",
+          approvalStatus: "APPROVED",
+          publishingRights: submission.publishingRights || undefined,
+          primaryAudience: submission.primaryAudience || undefined,
+          readingAgeMin: submission.readingAgeMin ?? undefined,
+          readingAgeMax: submission.readingAgeMax ?? undefined,
+          primarySalesChannel: submission.primarySalesChannel || undefined,
+          submission: submission.id,
+          publishedAt: new Date().toISOString(),
+          ...(coverId ? { cover: coverId } : {}),
+        },
+        overrideAccess: true,
+      });
+    } catch {
+      // Unique slug race — attach a longer suffix and retry once.
+      bookSlug = uniqueSlug(submission.title, `${submission.id}-${Date.now()}`);
+      book = await payload.create({
+        collection: "books",
+        data: {
+          title: submission.title,
+          slug: bookSlug,
+          subtitle: submission.subtitle || undefined,
+          description: submission.description || undefined,
+          language: submission.language || undefined,
+          seriesName: submission.seriesName || undefined,
+          editionNumber: submission.editionNumber || undefined,
+          author: authorId,
+          status: "published",
+          approvalStatus: "APPROVED",
+          publishingRights: submission.publishingRights || undefined,
+          primaryAudience: submission.primaryAudience || undefined,
+          readingAgeMin: submission.readingAgeMin ?? undefined,
+          readingAgeMax: submission.readingAgeMax ?? undefined,
+          primarySalesChannel: submission.primarySalesChannel || undefined,
+          submission: submission.id,
+          publishedAt: new Date().toISOString(),
+          ...(coverId ? { cover: coverId } : {}),
+        },
+        overrideAccess: true,
+      });
+    }
+  } else {
+    bookSlug = (book as { slug?: string }).slug || bookSlug;
+    await payload.update({
+      collection: "books",
+      id: book.id,
+      data: {
+        author: authorId,
+        status: "published",
+        approvalStatus: "APPROVED",
+        submission: submission.id,
+        ...(coverId ? { cover: coverId } : {}),
+      },
+      overrideAccess: true,
+    });
+  }
 
   const authorDoc = await payload.findByID({
     collection: "authors",

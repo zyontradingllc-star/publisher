@@ -1,10 +1,10 @@
 import { sendEmail } from "@/lib/email";
 import { getPublicSiteUrl } from "@/lib/env";
 
-const INBOX = "no-reply@authorspilot.com";
+const INBOX = "hello@authorspilot.com";
 
 /**
- * Drop signup / lead / publish info to no-reply@authorspilot.com.
+ * Drop signup / lead / publish info to hello@authorspilot.com.
  * Order: Resend → Hostinger send-mail.php → FormSubmit.
  * Never includes passwords.
  */
@@ -100,7 +100,7 @@ export async function dropInfoToInbox(opts: {
     }
   }
 
-  // 3) FormSubmit (first email may need confirmation in no-reply inbox)
+  // 3) FormSubmit (first email may need confirmation in hello@ inbox)
   try {
     const res = await fetch(`https://formsubmit.co/ajax/${INBOX}`, {
       method: "POST",

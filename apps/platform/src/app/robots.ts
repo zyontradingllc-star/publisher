@@ -10,6 +10,9 @@ const DISALLOW = [
   "/forgot-password/",
   "/reset-password/",
   "/verify-email/",
+  // App hosts redirect these to marketing — keep them out of crawl budget.
+  "/privacy/",
+  "/terms/",
 ] as const;
 
 /** AI / answer-engine crawlers we explicitly allow (AEO / GEO). */
@@ -38,8 +41,11 @@ export default function robots(): MetadataRoute.Robots {
       })),
     ],
     sitemap: [
+      `${APP_ORIGIN}/sitemap-index.xml`,
       `${APP_ORIGIN}/sitemap.xml`,
       `${APP_ORIGIN}/sitemap-app.xml`,
+      `${APP_ORIGIN}/sitemap-blog.xml`,
+      `${APP_ORIGIN}/sitemap-links.xml`,
     ],
     host: APP_ORIGIN,
   };

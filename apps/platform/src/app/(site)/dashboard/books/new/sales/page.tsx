@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireProfile } from "@/lib/auth";
 import { PublishBookPricingForm } from "@/components/forms/PublishBookPricingForm";
 
@@ -14,20 +14,8 @@ export default async function PublishBookSalesPage({
 
   return (
     <div className="space-y-6">
-      <nav
-        aria-label="Publish progress"
-        className="flex flex-wrap gap-2 border-b border-sand pb-4 sm:gap-6"
-      >
-        <StepDone label="Book Details" />
-        <StepDone label="Book Content" />
-        <StepCurrent n={3} label="Sales & Pricing" />
-      </nav>
-
       <header>
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-coral">
-          Publish book · Step 3
-        </p>
-        <h1 className="heading-section mt-1">
+        <h1 className="heading-section">
           {title ?? "Sales links & publish"}
         </h1>
         <p className="mt-2 max-w-2xl text-forest-muted">
@@ -35,6 +23,14 @@ export default async function PublishBookSalesPage({
           payment or takes a royalty percentage.
         </p>
       </header>
+
+      <nav
+        aria-label="Publish progress"
+        className="flex flex-wrap gap-2 border-b border-sand pb-4 sm:gap-6"
+      >
+        <StepDone label="Book Details" />
+        <StepCurrent n={2} label="Sales Links" />
+      </nav>
 
       <PublishBookPricingForm bookTitle={title} />
 

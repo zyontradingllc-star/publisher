@@ -30,55 +30,91 @@ const columns = [
   {
     title: "Publish With Us",
     links: [
-      { href: "/publish", label: "Publish Your Book" },
-      { href: "/signup", label: "Signup" },
-      { href: "/bookstore", label: "BookStore" },
-      { href: "/authors", label: "Browse Authors" },
-      { href: "/pricing", label: "Pricing" },
-      { href: "/author-guidelines", label: "Author Guidelines" },
-    ],
-  },
-  {
-    title: "Our Services",
-    links: [
-      {
-        href: `${MARKETING_URL}/book-writing-services-for-authors/`,
-        label: "Write",
-      },
-      {
-        href: `${MARKETING_URL}/self-publishing-agency-services/`,
-        label: "Prepare",
-      },
-      {
-        href: `${MARKETING_URL}/audiobook-production-services-for-authors/`,
-        label: "Audiobooks",
-      },
-      {
-        href: `${MARKETING_URL}/book-marketing-services-for-authors/`,
-        label: "Promote",
-      },
-      {
-        href: `${MARKETING_URL}/author-website-design-agency-usa/`,
-        label: "Website",
-      },
+      { href: "/publish/", label: "Publish Your Book" },
+      { href: "/signup/", label: "Signup" },
+      { href: "/bookstore/", label: "BookStore" },
+      { href: "/authors/", label: "Browse Authors" },
+      { href: "/pricing/", label: "Pricing" },
+      { href: "/author-guidelines/", label: "Author Guidelines" },
+      { href: "/publish/", label: "Get Your Free Author Page" },
       {
         href: `${MARKETING_URL}/author-publishing-website-price/`,
         label: "Packages",
       },
+      { href: "/community-policy/", label: "Community Policy" },
     ],
   },
   {
-    title: "Let Us Help You",
+    title: "Writing & Design",
     links: [
-      { href: "/dashboard", label: "Your Dashboard" },
-      { href: "/community-policy", label: "Community Policy" },
-      { href: "/copyright", label: "Copyright" },
-      { href: "/privacy", label: "Privacy" },
-      { href: "/terms", label: "Terms" },
+      {
+        href: `${MARKETING_URL}/book-writing-services-for-authors/`,
+        label: "eBook Writing & Publishing",
+      },
+      {
+        href: `${MARKETING_URL}/ghostwriting-services-for-authors/`,
+        label: "Ghostwriting",
+      },
+      {
+        href: `${MARKETING_URL}/professional-book-editing-services/`,
+        label: "Book Editing & Proofreading",
+      },
+      {
+        href: `${MARKETING_URL}/book-formatting-services-for-authors/`,
+        label: "Book Formatting",
+      },
+      {
+        href: `${MARKETING_URL}/book-cover-design-services/`,
+        label: "Book Cover Design",
+      },
+      {
+        href: `${MARKETING_URL}/book-cover-design-services/`,
+        label: "eBook Cover Designing",
+      },
+      {
+        href: `${MARKETING_URL}/book-cover-design-services/`,
+        label: "Book Illustration",
+      },
+      {
+        href: `${MARKETING_URL}/author-website-design-agency-usa/`,
+        label: "Author Website Development",
+      },
       {
         href: `${MARKETING_URL}/contact-author-website-design-agency/`,
         label: "Help & Support",
       },
+    ],
+  },
+  {
+    title: "Publishing & Marketing",
+    links: [
+      {
+        href: `${MARKETING_URL}/book-publishing-services-for-authors/`,
+        label: "Book Publishing",
+      },
+      {
+        href: `${MARKETING_URL}/self-publishing-services-for-authors/`,
+        label: "Self Publishing",
+      },
+      {
+        href: `${MARKETING_URL}/amazon-kdp-publishing-services/`,
+        label: "Global Publishing",
+      },
+      {
+        href: `${MARKETING_URL}/book-publishing-services-for-authors/`,
+        label: "Children Book Publishing",
+      },
+      {
+        href: `${MARKETING_URL}/book-marketing-services-for-authors/`,
+        label: "Book Marketing",
+      },
+      {
+        href: `${MARKETING_URL}/audiobook-production-services-for-authors/`,
+        label: "Audiobook Production",
+      },
+      { href: "/copyright/", label: "Copyright" },
+      { href: `${MARKETING_URL}/privacy/`, label: "Privacy" },
+      { href: `${MARKETING_URL}/terms/`, label: "Terms" },
     ],
   },
 ] as const;
@@ -89,9 +125,9 @@ export function SiteFooter() {
   return (
     <footer className="mt-auto bg-forest-wash text-white">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {columns.map((col) => (
-            <div key={col.title}>
+            <div key={col.title} className="min-w-0">
               <h3 className="text-sm font-bold text-white">{col.title}</h3>
               <ul className="mt-3 space-y-2">
                 {col.links.map((link) => (
@@ -119,10 +155,18 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-white/15">
+      <div
+        className="border-t border-white/15"
+        style={{
+          backgroundColor: "#2a412e",
+          backgroundImage:
+            "radial-gradient(circle, rgba(167,196,171,0.35) 1.5px, transparent 1.6px), linear-gradient(165deg, #304935 0%, #2a412e 48%, #253b29 100%)",
+          backgroundSize: "18px 18px, auto",
+        }}
+      >
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-4 px-4 py-6 sm:gap-6 sm:px-6 lg:px-8">
           <a
-            href={MARKETING_HOME_URL}
+            href="/publish/"
             className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-full border border-white/25 bg-white/10"
             aria-label="Authors Pilot"
           >
@@ -148,8 +192,8 @@ export function SiteFooter() {
         <div className="mx-auto max-w-6xl px-4 pb-4 text-center text-sm text-white/70 sm:px-6 lg:px-8">
           <p>8 The Green B, Dover, DE 19901, USA</p>
           <p className="mt-1">
-            <a href="tel:+12023306521" className="transition hover:text-white hover:underline">
-              +1 (202) 330-6521
+            <a href="tel:+17712210508" className="transition hover:text-white hover:underline">
+              +1 (771) 221-0508
             </a>
             {" · "}
             <a

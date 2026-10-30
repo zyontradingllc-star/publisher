@@ -5,8 +5,8 @@ export const APP_ORG = {
   legalName: "Authors Pilot",
   url: "https://app.authorspilot.com",
   email: "info@authorspilot.com",
-  phone: "+1-346-421-2554",
-  phoneDisplay: "+1 (346) 421-2554",
+  phone: "+1-771-221-0508",
+  phoneDisplay: "+1 (771) 221-0508",
   address: {
     street: "8 The Green B",
     city: "Dover",

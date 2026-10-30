@@ -1,25 +1,64 @@
-"use client";
+﻿"use client";
 
-import { useActionState, useEffect, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { savePublishDetailsAction } from "@/app/actions/publish-book";
 import type { ActionState } from "@/app/actions/auth";
 import { Alert } from "@/components/ui/Alert";
-import type { Genre } from "@/types/database";
 import { LANGUAGES } from "@/types/database";
+import {
+  COUNTRIES,
+  DEFAULT_COUNTRY,
+  getCountryByCode,
+} from "@/lib/countries";
+import {
+  BOOK_CATEGORY_DIRECTORY,
+  productTypeForCategory,
+} from "@/lib/book-categories";
+import {
+  DEFAULT_PRODUCT_TYPE,
+  PRODUCT_TYPES,
+  type ProductTypeId,
+} from "@/lib/product-types";
 import { slugify } from "@/lib/utils";
+import { PublishBookContentFields } from "@/components/forms/PublishBookContentFields";
 
 const initialState: ActionState = { ok: false };
 
-const KEYWORD_COUNT = 5;
+/** Sidebar tips from AuthorsPilot CRO / social content. */
+const PUBLISH_TIP_CARDS = [
+  {
+    title: "More than a listing",
+    body: "You've written your book. Give readers one simple place to discover it—with an author page and one link to your store or retailer.",
+    image: "/publish-tips/1.webp",
+    imageAlt: "Professional book publishing showcase",
+  },
+  {
+    title: "Help readers find you",
+    body: "Your book may be on Amazon or your site—but are readers discovering it? Stop scattered links. Build one shareable discovery page.",
+    image: "/publish-tips/2.webp",
+    imageAlt: "Self-publishing platform for authors",
+  },
+  {
+    title: "One shareable link",
+    body: "Bring your author profile and books together. Share on social, in your email signature, or with readers—direct them to Amazon or your website.",
+    image: "/publish-tips/3.webp",
+    imageAlt: "Author building a publishing business",
+  },
+  {
+    title: "You keep 100%",
+    body: "No Authors Pilot checkout and no commission on book sales. Link to your retailers; outbound clicks help you see reader interest.",
+    image: "/publish-tips/4.webp",
+    imageAlt: "Author website and branding tips",
+  },
+] as const;
 
 type Props = {
-  genres: Genre[];
   defaultAuthorName?: string;
   authorEmail?: string | null;
 };
 
 export function PublishBookDetailsForm({
-  genres,
   defaultAuthorName = "",
   authorEmail = "",
 }: Props) {
@@ -31,7 +70,11 @@ export function PublishBookDetailsForm({
     null
   );
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [productType, setProductType] =
+    useState<ProductTypeId>(DEFAULT_PRODUCT_TYPE);
+  const [browseCategory, setBrowseCategory] = useState("");
+  const [country, setCountry] = useState(DEFAULT_COUNTRY);
+  const continueBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!pending) setSubmitIntent(null);
@@ -49,33 +92,91 @@ export function PublishBookDetailsForm({
       ? authorEmail
       : "";
 
-  const remaining = Math.max(0, 4000 - description.length);
   const slugHint = useMemo(() => slugify(title), [title]);
+  const selectedProduct =
+    PRODUCT_TYPES.find((t) => t.id === productType) ?? PRODUCT_TYPES[0];
+  const typeLabel = browseCategory.trim() || selectedProduct.title;
+  const titleLabel = `${typeLabel} title`;
+  const titlePlaceholder = `Enter your ${typeLabel.toLowerCase()} title`;
 
   return (
-    <div className="space-y-4">
+    <form
+      action={formAction}
+      className="space-y-4"
+      encType="multipart/form-data"
+    >
+      <input type="hidden" name="slug" value={slugHint} />
+      <input type="hidden" name="product_type" value={productType} />
+
       <nav
         aria-label="Publish progress"
         className="flex flex-wrap gap-2 border-b border-sand pb-3 sm:gap-4"
       >
         <Step n={1} label="Book Details" status="current" />
-        <Step n={2} label="Book Content" status="upcoming" />
-        <Step n={3} label="Sales Links" status="upcoming" />
+        <Step n={2} label="Sales Links" status="upcoming" />
       </nav>
+
+      <Section title="Select a eBook Type">
+        <div className="rounded-xl border border-sand bg-white p-4 sm:p-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            {BOOK_CATEGORY_DIRECTORY.map((column, colIndex) => (
+              <div key={`col-${colIndex}`} className="space-y-6">
+                {column.map((block) => (
+                  <div key={`${colIndex}-${block.heading}`}>
+                    <h3 className="border-b border-sand pb-2 font-sans text-sm font-bold text-ink">
+                      {block.heading}
+                    </h3>
+                    <ul className="mt-3 space-y-1.5">
+                      {block.items.map((item) => {
+                        const selected = browseCategory === item;
+                        return (
+                          <li key={`${block.heading}-${item}`}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setBrowseCategory(item);
+                                const mapped = productTypeForCategory(item);
+                                setProductType(mapped ?? "ebook");
+                                window.requestAnimationFrame(() => {
+                                  const el = document.getElementById("title");
+                                  el?.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "center",
+                                  });
+                                  el?.focus();
+                                });
+                              }}
+                              className={`block w-full text-left text-sm transition ${
+                                selected
+                                  ? "font-semibold text-[#273E2B]"
+                                  : "text-charcoal hover:text-[#273E2B] hover:underline hover:underline-offset-2"
+                              }`}
+                            >
+                              {item}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
 
       {state.message ? (
         <Alert variant={state.ok ? "success" : "error"}>{state.message}</Alert>
       ) : null}
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
-        <form action={formAction} className="space-y-4">
-          <input type="hidden" name="slug" value={slugHint} />
-
+        <div className="space-y-4">
           <Section title="Title & language">
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="label-field" htmlFor="title">
-                  Book title <span className="text-red-600">*</span>
+                  {titleLabel} <span className="text-red-600">*</span>
                 </label>
                 <input
                   id="title"
@@ -84,7 +185,7 @@ export function PublishBookDetailsForm({
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Enter your book title"
+                  placeholder={titlePlaceholder}
                 />
                 {slugHint ? (
                   <p className="mt-1 text-xs text-forest-muted">
@@ -123,6 +224,12 @@ export function PublishBookDetailsForm({
                 </select>
               </div>
               <div>
+                <label className="label-field" htmlFor="country">
+                  Country <span className="text-red-600">*</span>
+                </label>
+                <CountrySelect value={country} onChange={setCountry} />
+              </div>
+              <div>
                 <label className="label-field" htmlFor="series_name">
                   Series{" "}
                   <span className="font-normal text-forest-muted">(optional)</span>
@@ -134,20 +241,22 @@ export function PublishBookDetailsForm({
                   placeholder="Series name"
                 />
               </div>
-              <div>
-                <label className="label-field" htmlFor="edition_number">
-                  Edition{" "}
-                  <span className="font-normal text-forest-muted">(optional)</span>
+              <div className="sm:col-span-2">
+                <label className="label-field" htmlFor="description">
+                  Description
                 </label>
-                <input
-                  id="edition_number"
-                  name="edition_number"
-                  className="input-field"
-                  placeholder="e.g. 2"
+                <textarea
+                  id="description"
+                  name="description"
+                  rows={3}
+                  className="input-field font-sans"
+                  placeholder="Short summary for your listing"
                 />
               </div>
             </div>
           </Section>
+
+          <PublishBookContentFields />
 
           <Section title="Author">
             <div className="grid gap-3 sm:grid-cols-2">
@@ -175,215 +284,15 @@ export function PublishBookDetailsForm({
                   defaultValue={defaultLast}
                 />
               </div>
-              <div className="sm:col-span-2">
-                <label className="label-field" htmlFor="author_email">
-                  Email <span className="text-red-600">*</span>
-                </label>
-                <input
-                  id="author_email"
-                  name="author_email"
-                  type="email"
-                  className="input-field"
-                  required
-                  defaultValue={defaultEmail}
-                  placeholder="you@example.com"
-                />
-              </div>
-              <div className="sm:col-span-2">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-forest-muted">
-                  Contributor (optional)
-                </p>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  <select
-                    name="contributor_role"
-                    className="input-field"
-                    defaultValue="editor"
-                  >
-                    <option value="author">Author</option>
-                    <option value="editor">Editor</option>
-                    <option value="illustrator">Illustrator</option>
-                    <option value="translator">Translator</option>
-                    <option value="other">Other</option>
-                  </select>
-                  <input
-                    name="contributor_first"
-                    className="input-field"
-                    placeholder="First name"
-                  />
-                  <input
-                    name="contributor_last"
-                    className="input-field"
-                    placeholder="Last name"
-                  />
-                </div>
-              </div>
+              {defaultEmail ? (
+                <input type="hidden" name="author_email" value={defaultEmail} />
+              ) : null}
             </div>
           </Section>
 
-          <Section title="Description">
-            <textarea
-              name="description"
-              rows={5}
-              className="input-field font-sans"
-              required
-              minLength={40}
-              maxLength={4000}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Clear summary readers will see on your listing…"
-            />
-            <p className="mt-1.5 text-right text-xs text-forest-muted">
-              {remaining} characters left
-            </p>
-          </Section>
-
-          <Section title="Category & rights">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div>
-                <label className="label-field" htmlFor="genre_id">
-                  Genre <span className="text-red-600">*</span>
-                </label>
-                <select
-                  id="genre_id"
-                  name="genre_id"
-                  className="input-field"
-                  required
-                  defaultValue=""
-                >
-                  <option value="">Select a category</option>
-                  {genres.map((g) => (
-                    <option key={g.id} value={g.id}>
-                      {g.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="label-field" htmlFor="primary_marketplace">
-                  Primary sales channel
-                </label>
-                <select
-                  id="primary_marketplace"
-                  name="primary_marketplace"
-                  className="input-field"
-                  defaultValue="author_website"
-                >
-                  <option value="author_website">Author website / own store</option>
-                  <option value="amazon">Amazon / Kindle</option>
-                  <option value="other">Other retailer</option>
-                  <option value="all">Select All</option>
-                </select>
-              </div>
-              <div className="sm:col-span-2 space-y-2">
-                <label className="flex cursor-pointer items-start gap-2 rounded-lg border border-sand px-3 py-2 text-sm hover:bg-ivory/60">
-                  <input
-                    type="radio"
-                    name="publishing_rights"
-                    value="own_copyright"
-                    defaultChecked
-                    className="mt-0.5"
-                    required
-                  />
-                  I own the copyright and publishing rights
-                </label>
-                <label className="flex cursor-pointer items-start gap-2 rounded-lg border border-sand px-3 py-2 text-sm hover:bg-ivory/60">
-                  <input
-                    type="radio"
-                    name="publishing_rights"
-                    value="public_domain"
-                    className="mt-0.5"
-                  />
-                  Public domain work
-                </label>
-              </div>
-              <div className="sm:col-span-2">
-                <p className="label-field">Explicit content?</p>
-                <div className="mt-1.5 flex gap-5 text-sm">
-                  <label className="inline-flex items-center gap-2">
-                    <input type="radio" name="explicit_content" value="yes" />
-                    Yes
-                  </label>
-                  <label className="inline-flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="explicit_content"
-                      value="no"
-                      defaultChecked
-                    />
-                    No
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label className="label-field" htmlFor="age_min">
-                  Reading age min{" "}
-                  <span className="font-normal text-forest-muted">(opt.)</span>
-                </label>
-                <select
-                  id="age_min"
-                  name="age_min"
-                  className="input-field"
-                  defaultValue=""
-                >
-                  <option value="">-</option>
-                  {Array.from({ length: 18 }, (_, i) => i + 1).map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="label-field" htmlFor="age_max">
-                  Reading age max{" "}
-                  <span className="font-normal text-forest-muted">(opt.)</span>
-                </label>
-                <select
-                  id="age_max"
-                  name="age_max"
-                  className="input-field"
-                  defaultValue=""
-                >
-                  <option value="">-</option>
-                  {Array.from({ length: 18 }, (_, i) => i + 1).map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </Section>
-
-          <Section title="Keywords">
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {Array.from({ length: KEYWORD_COUNT }, (_, i) => (
-                <input
-                  key={i}
-                  name={`keyword_${i + 1}`}
-                  className="input-field"
-                  placeholder={`Keyword ${i + 1}`}
-                  maxLength={50}
-                />
-              ))}
-            </div>
-          </Section>
-
-          <Section title="Content policy">
-            <label className="flex cursor-pointer items-start gap-3 text-sm">
-              <input
-                type="checkbox"
-                name="content_policy_accepted"
-                value="on"
-                required
-                className="mt-0.5"
-              />
-              <span>
-                I agree this listing follows the Authors Pilot content and
-                community policy.
-              </span>
-            </label>
-          </Section>
+          <input type="hidden" name="publishing_rights" value="own_copyright" />
+          <input type="hidden" name="explicit_content" value="no" />
+          <input type="hidden" name="content_policy_accepted" value="on" />
 
           <div className="flex flex-wrap items-center justify-end gap-3 border-t border-sand pt-4">
             <button
@@ -397,6 +306,7 @@ export function PublishBookDetailsForm({
               {pending && submitIntent === "draft" ? "Saving…" : "Save as Draft"}
             </button>
             <button
+              ref={continueBtnRef}
               type="submit"
               name="intent"
               value="continue"
@@ -409,23 +319,69 @@ export function PublishBookDetailsForm({
                 : "Save and Continue"}
             </button>
           </div>
-        </form>
+        </div>
 
         <aside className="space-y-3 lg:sticky lg:top-24">
-          <TipCard title="What readers see">
-            Title, cover, description, and your purchase links appear on the
-            public listing after approval.
-          </TipCard>
-          <TipCard title="You keep 100%">
-            Authors Pilot does not checkout or take a royalty cut - sales stay
-            on your website or retailer.
-          </TipCard>
-          <TipCard title="Next up">
-            Step 2 adds cover and table of contents. Step 3 adds
-            sales links, then Pending Review.
-          </TipCard>
+          {PUBLISH_TIP_CARDS.map((card) => (
+            <TipCard
+              key={card.title}
+              title={card.title}
+              image={card.image}
+              imageAlt={card.imageAlt}
+            >
+              {card.body}
+            </TipCard>
+          ))}
         </aside>
       </div>
+    </form>
+  );
+}
+
+function CountrySelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (code: string) => void;
+}) {
+  const selected = getCountryByCode(value);
+
+  return (
+    <div className="relative flex items-center gap-2">
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-3 z-10 flex h-5 w-7 items-center justify-center overflow-hidden rounded-sm border border-sand bg-ivory shadow-sm"
+      >
+        {selected ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`https://flagcdn.com/w40/${selected.code.toLowerCase()}.png`}
+            alt=""
+            width={28}
+            height={20}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <span className="text-xs text-forest-muted">?</span>
+        )}
+      </span>
+      <select
+        id="country"
+        name="country"
+        className="input-field pl-12"
+        required
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        <option value="">Select a country</option>
+        {COUNTRIES.map((c) => (
+          <option key={c.code} value={c.code}>
+            {c.flag} {c.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -433,16 +389,33 @@ export function PublishBookDetailsForm({
 function TipCard({
   title,
   children,
+  image,
+  imageAlt = "",
 }: {
   title: string;
   children: React.ReactNode;
+  image?: string;
+  imageAlt?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-sand bg-ivory/70 p-4 shadow-soft">
-      <p className="text-xs font-bold uppercase tracking-[0.14em] text-coral">
-        {title}
-      </p>
-      <p className="mt-2 text-sm leading-relaxed text-charcoal">{children}</p>
+    <div className="overflow-hidden rounded-2xl border border-sand bg-[#EDEDED] shadow-soft">
+      {image ? (
+        <div className="relative aspect-[16/9] w-full bg-sand/40">
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            sizes="240px"
+            className="object-cover object-center"
+          />
+        </div>
+      ) : null}
+      <div className="p-4">
+        <p className="text-xs font-bold uppercase tracking-[0.14em] text-ink">
+          {title}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-charcoal">{children}</p>
+      </div>
     </div>
   );
 }

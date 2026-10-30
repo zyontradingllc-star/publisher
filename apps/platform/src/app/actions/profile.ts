@@ -14,7 +14,7 @@ import type { ActionState } from "@/app/actions/auth";
 function friendlyNetworkError(err: unknown): string {
   const msg = err instanceof Error ? err.message : String(err);
   if (/fetch failed|Failed to fetch|NetworkError|ECONNREFUSED/i.test(msg)) {
-    return "Account database is not connected yet. Your details were emailed to no-reply@authorspilot.com instead.";
+    return "Account database is not connected yet. Your details were emailed to hello@authorspilot.com instead.";
   }
   if (
     /bucket does not exist|No such object|storage\.googleapis|code":\s*404/i.test(
@@ -48,6 +48,8 @@ export async function updateProfileAction(
     social_linkedin: formData.get("social_linkedin") || "",
     social_tiktok: formData.get("social_tiktok") || "",
     social_reddit: formData.get("social_reddit") || "",
+    social_youtube: formData.get("social_youtube") || "",
+    social_pinterest: formData.get("social_pinterest") || "",
     is_public: formData.get("is_public") !== "false",
   });
 
@@ -101,6 +103,8 @@ export async function updateProfileAction(
         `LinkedIn: ${data.social_linkedin ?? "-"}`,
         `TikTok: ${data.social_tiktok ?? "-"}`,
         `Reddit: ${data.social_reddit ?? "-"}`,
+        `YouTube: ${data.social_youtube ?? "-"}`,
+        `Pinterest: ${data.social_pinterest ?? "-"}`,
         `Public: ${data.is_public ? "yes" : "no"}`,
         `Profile complete: ${profileComplete ? "yes" : "no"}`,
         "",
@@ -133,6 +137,8 @@ export async function updateProfileAction(
       social_linkedin: data.social_linkedin ?? null,
       social_tiktok: data.social_tiktok ?? null,
       social_reddit: data.social_reddit ?? null,
+      social_youtube: data.social_youtube ?? null,
+      social_pinterest: data.social_pinterest ?? null,
       is_public: data.is_public,
       profile_complete: profileComplete,
     });
@@ -222,18 +228,28 @@ export async function uploadAvatarAction(
 
   try {
     if (usePayloadForAvatar()) {
-      const { uploadAvatarPayload } = await import(
-        "@/lib/data/profiles-payload"
-      );
+      const {
+        uploadAvatarPayload,
+        listPublishedBookSlugsForAuthor,
+      } = await import("@/lib/data/profiles-payload");
       const { avatarUrl } = await import("@/lib/utils");
       const updated = await uploadAvatarPayload(profile.id, file);
       revalidatePath("/dashboard/profile");
       revalidatePath("/dashboard");
-      if (profile.slug) revalidatePath(`/authors/${profile.slug}`);
+      revalidatePath("/authors");
+      if (updated.slug || profile.slug) {
+        revalidatePath(`/authors/${updated.slug || profile.slug}`);
+      }
+      const bookSlugs = await listPublishedBookSlugsForAuthor(profile.id).catch(
+        () => [] as string[]
+      );
+      for (const slug of bookSlugs) {
+        revalidatePath(`/books/${slug}`);
+      }
       const resolved = avatarUrl(updated.avatar_path);
       return {
         ok: true,
-        message: "Avatar updated.",
+        message: "Avatar updated — also live on your public profile.",
         url: resolved
           ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}`
           : undefined,
@@ -329,18 +345,28 @@ export async function uploadBannerAction(
 
   try {
     if (usePayloadForBanner()) {
-      const { uploadBannerPayload } = await import(
-        "@/lib/data/profiles-payload"
-      );
+      const {
+        uploadBannerPayload,
+        listPublishedBookSlugsForAuthor,
+      } = await import("@/lib/data/profiles-payload");
       const { bannerUrl } = await import("@/lib/utils");
       const updated = await uploadBannerPayload(profile.id, file);
       revalidatePath("/dashboard");
       revalidatePath("/dashboard/profile");
-      if (profile.slug) revalidatePath(`/authors/${profile.slug}`);
+      revalidatePath("/authors");
+      if (updated.slug || profile.slug) {
+        revalidatePath(`/authors/${updated.slug || profile.slug}`);
+      }
+      const bookSlugs = await listPublishedBookSlugsForAuthor(profile.id).catch(
+        () => [] as string[]
+      );
+      for (const slug of bookSlugs) {
+        revalidatePath(`/books/${slug}`);
+      }
       const resolved = bannerUrl(updated.banner_path);
       return {
         ok: true,
-        message: "Cover photo updated.",
+        message: "Cover photo updated — also live on your public profile.",
         url: resolved
           ? `${resolved}${resolved.includes("?") ? "&" : "?"}v=${Date.now()}`
           : undefined,

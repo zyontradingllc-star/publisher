@@ -1,3 +1,4 @@
+﻿import { marketingLinksForCategory } from "./marketing-cross-links";
 import { GENERATED_BLOG_POSTS } from "./posts-generated";
 
 export const BLOG_FILTERS = [
@@ -59,9 +60,20 @@ export const CATEGORY_BADGE: Record<BlogCategory, string> = {
   "Author Mindset": "bg-[#A7C4AB]/25 text-coral-deep",
 };
 
-/** 50 SEO blogs from spreadsheet + full content doc. */
-export const BLOG_POSTS: BlogPost[] =
-  GENERATED_BLOG_POSTS as unknown as BlogPost[];
+/** 50 SEO blogs from spreadsheet + marketing cross-links. */
+export const BLOG_POSTS: BlogPost[] = (
+  GENERATED_BLOG_POSTS as unknown as BlogPost[]
+).map((post) => {
+  const extra = marketingLinksForCategory(post.category);
+  if (!extra.length) return post;
+  const existing = post.interlinks ?? [];
+  const seen = new Set(existing.map((l) => l.href));
+  const merged = [
+    ...existing,
+    ...extra.filter((l) => !seen.has(l.href)),
+  ].slice(0, 8);
+  return { ...post, interlinks: merged };
+});
 
 export function getAllBlogPosts(): BlogPost[] {
   return [...BLOG_POSTS].sort(
@@ -93,4 +105,54 @@ export function formatBlogDate(iso: string): string {
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+const GENERIC_AEO_MARKER =
+  /means you get a free branded author page and one shareable link/i;
+
+/** Prefer a concrete how-to opener when the stored AEO answer is templated. */
+export function resolveBlogAeoAnswer(post: BlogPost): string {
+  const stored = post.aeoAnswer?.trim();
+  if (stored && !GENERIC_AEO_MARKER.test(stored)) return stored;
+
+  const howTo = post.body.find(
+    (block) =>
+      block.length > 80 &&
+      !GENERIC_AEO_MARKER.test(block.slice(0, 120)) &&
+      !/^Q\d+:/m.test(block)
+  );
+  if (howTo) {
+    const first = howTo.split(/\n{2,}/)[0]?.trim() ?? "";
+    if (first.length >= 40 && first.length <= 360) return first;
+    if (first.length > 360) return `${first.slice(0, 357).trim()}…`;
+  }
+
+  return stored || post.metaDescription || post.excerpt;
+}
+
+/** Pull Q/A pairs from article body for FAQPage schema (AEO / GEO). */
+export function parseBlogFaqs(
+  post: BlogPost
+): Array<{ question: string; answer: string }> {
+  const faqs: Array<{ question: string; answer: string }> = [
+    {
+      question: post.headings[0] || post.h1,
+      answer: resolveBlogAeoAnswer(post),
+    },
+  ];
+
+  const blob = post.body.join("\n\n");
+  const re = /Q\d+:\s*(.+?)\s*\nA:\s*([\s\S]*?)(?=\nQ\d+:|$)/gi;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(blob)) !== null && faqs.length < 6) {
+    const question = match[1].trim().replace(/\?*$/, "?");
+    const answer = match[2].trim().replace(/\s+/g, " ");
+    if (question.length < 8 || answer.length < 20) continue;
+    if (faqs.some((f) => f.question.toLowerCase() === question.toLowerCase())) {
+      continue;
+    }
+    faqs.push({ question, answer: answer.slice(0, 500) });
+  }
+
+  return faqs;
 }

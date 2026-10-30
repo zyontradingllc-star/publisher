@@ -4,6 +4,9 @@ import { isPayloadConfigured, getPayloadClient } from "@/lib/payload";
 import { mapPayloadAuthor, mapPayloadBook } from "@/lib/payload/map-public";
 import { slugify } from "@/lib/utils";
 
+/** Max books one author account can create / upload. */
+export const MAX_BOOKS_PER_AUTHOR = 5;
+
 export async function getPublishedBooks(opts?: {
   q?: string;
   genre?: string;
@@ -66,7 +69,8 @@ export async function getBookBySlug(slug: string) {
             { status: { equals: "published" } },
           ],
         },
-        depth: 1,
+        // depth 2 so author.avatar / author.banner media URLs resolve for public share
+        depth: 2,
         limit: 1,
         overrideAccess: true,
       });
@@ -108,7 +112,7 @@ export async function getAuthorBooks(authorId: string, excludeBookId?: string) {
     const result = await payload.find({
       collection: "books",
       where: { and },
-      depth: 1,
+      depth: 2,
       limit: 24,
       sort: "-publishedAt",
       overrideAccess: true,
@@ -360,6 +364,55 @@ export async function getMyBooks(
   }
 
   if (authorId && authorId !== "lead-session") {
+    // Published Payload books (created on admin approve) — source of truth for Approved.
+    if (isPayloadConfigured()) {
+      try {
+        const { getBooksByAuthorPayload } = await import(
+          "@/lib/data/books-payload"
+        );
+        let payloadBooks = await getBooksByAuthorPayload(authorId);
+        // Fallback: resolve author by email when firebaseUid is not linked yet.
+        if (payloadBooks.length === 0 && authorEmail?.trim()) {
+          const payload = await getPayloadClient();
+          const authors = await payload.find({
+            collection: "authors",
+            where: {
+              email: { equals: authorEmail.trim().toLowerCase() },
+            },
+            limit: 1,
+            overrideAccess: true,
+          });
+          const authorDoc = authors.docs[0] as
+            | { id?: string | number }
+            | undefined;
+          if (authorDoc?.id) {
+            const result = await payload.find({
+              collection: "books",
+              where: { author: { equals: authorDoc.id } },
+              depth: 1,
+              limit: 100,
+              sort: "-updatedAt",
+              overrideAccess: true,
+            });
+            const { mapPayloadBook } = await import("@/lib/payload/map-public");
+            payloadBooks = result.docs.map((d) =>
+              mapPayloadBook(d as never)
+            ) as Book[];
+          }
+        }
+        for (const book of payloadBooks) {
+          if (seen.has(book.id)) continue;
+          if (books.some((b) => b.slug === book.slug && b.is_public)) {
+            continue;
+          }
+          seen.add(book.id);
+          books.push(book);
+        }
+      } catch {
+        // ignore
+      }
+    }
+
     try {
       const { usePayloadData } = await import("@/lib/data/flags");
       const { isFirebaseConfigured } = await import("@/lib/firebase/config");

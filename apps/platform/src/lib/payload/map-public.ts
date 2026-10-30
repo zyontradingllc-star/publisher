@@ -32,6 +32,8 @@ type PayloadAuthor = {
   socialWhatsapp?: string | null;
   socialTiktok?: string | null;
   socialReddit?: string | null;
+  socialYoutube?: string | null;
+  socialPinterest?: string | null;
   isPublic?: boolean | null;
   profileComplete?: boolean | null;
   createdAt?: string;
@@ -114,6 +116,8 @@ export function mapPayloadAuthor(doc: PayloadAuthor): Profile {
     social_whatsapp: doc.socialWhatsapp || null,
     social_tiktok: doc.socialTiktok || null,
     social_reddit: doc.socialReddit || null,
+    social_youtube: doc.socialYoutube || null,
+    social_pinterest: doc.socialPinterest || null,
     is_public: doc.isPublic !== false,
     profile_complete: Boolean(doc.profileComplete),
     created_at: doc.createdAt || new Date().toISOString(),
@@ -171,9 +175,26 @@ export function mapPayloadBook(doc: PayloadBook): BookWithRelations {
           id: String(authorDoc.id),
           display_name: authorName || "Author",
           slug: authorDoc.slug || null,
-          website_url: null,
-          has_author_website: false,
-          avatar_path: mediaUrl(authorDoc.avatar, "thumbnail"),
+          website_url: authorDoc.websiteUrl || null,
+          has_author_website: Boolean(authorDoc.hasAuthorWebsite),
+          avatar_path:
+            mediaUrl(authorDoc.avatar, "original") ||
+            mediaUrl(authorDoc.avatar, "thumbnail") ||
+            authorDoc.avatarPath ||
+            null,
+          banner_path:
+            mediaUrl(authorDoc.banner, "original") ||
+            authorDoc.bannerPath ||
+            null,
+          social_facebook: authorDoc.socialFacebook || null,
+          social_instagram: authorDoc.socialInstagram || null,
+          social_twitter: authorDoc.socialTwitter || null,
+          social_linkedin: authorDoc.socialLinkedin || null,
+          social_whatsapp: authorDoc.socialWhatsapp || null,
+          social_tiktok: authorDoc.socialTiktok || null,
+          social_reddit: authorDoc.socialReddit || null,
+          social_youtube: authorDoc.socialYoutube || null,
+          social_pinterest: authorDoc.socialPinterest || null,
         }
       : null,
   };

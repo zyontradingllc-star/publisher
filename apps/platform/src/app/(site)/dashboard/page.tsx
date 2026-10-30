@@ -2,11 +2,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { requireProfile } from "@/lib/auth";
 import { getAuthorLead } from "@/lib/lead-session";
-import { getMyBooks } from "@/lib/books";
+import { getMyBooks, MAX_BOOKS_PER_AUTHOR } from "@/lib/books";
 import { Button } from "@/components/ui/Button";
 import { Alert } from "@/components/ui/Alert";
 import { DashboardProfileHeader } from "@/components/dashboard/DashboardProfileHeader";
-import { DashboardBookPreview } from "@/components/dashboard/DashboardBookPreview";
+import {
+  DashboardBookPreview,
+  MAX_DASHBOARD_PREVIEWS,
+} from "@/components/dashboard/DashboardBookPreview";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { DashboardRightRail } from "@/components/dashboard/DashboardRightRail";
 
@@ -26,15 +29,18 @@ export default async function DashboardPage({
   const books = await getMyBooks(profile.id, profile.email);
   const lead = await getAuthorLead();
 
-  const publishedCount = books.filter((b) => b.status === "published").length;
+  // One row per listing (prefer public/published over duplicate submission).
+  const uniqueBooks = dedupeBooks(books).slice(0, MAX_DASHBOARD_PREVIEWS);
+  const publishedCount = uniqueBooks.filter(
+    (b) => b.status === "published" || b.is_public
+  ).length;
   const draftOrPending =
-    books.find(
+    uniqueBooks.find(
       (b) => b.status === "draft" || b.status === "pending_review"
     ) ?? null;
-  const pendingBook =
-    books.find((b) => b.status === "pending_review") ?? null;
-  const previewBook = pendingBook ?? books[0] ?? null;
-  const showInReview = Boolean(pendingBook);
+  const atBookLimit = books.length >= MAX_BOOKS_PER_AUTHOR;
+  const hasPreview =
+    uniqueBooks.length > 0 || Boolean(lead?.lastBookTitle);
 
   return (
     <DashboardShell books={books} variant="home" showRightRail={false}>
@@ -52,7 +58,7 @@ export default async function DashboardPage({
 
       <DashboardProfileHeader
         profile={profile}
-        booksCount={books.length}
+        booksCount={Math.min(books.length, MAX_BOOKS_PER_AUTHOR)}
         publishedCount={publishedCount}
         draftTitle={
           draftOrPending?.title ?? lead?.lastBookTitle ?? null
@@ -61,11 +67,10 @@ export default async function DashboardPage({
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="min-w-0 flex-1 space-y-4">
-          {previewBook || showInReview ? (
+          {hasPreview ? (
             <DashboardBookPreview
-              book={previewBook}
+              books={uniqueBooks}
               fallbackTitle={lead?.lastBookTitle ?? "Your book submission"}
-              showInReview={showInReview}
             />
           ) : (
             <section className="rounded-none border border-sand bg-white p-5 shadow-soft">
@@ -74,10 +79,17 @@ export default async function DashboardPage({
               </h2>
               <p className="mt-2 text-sm text-forest-muted">
                 Start a book project or polish your author profile so readers
-                can find you.
+                can find you. You can upload up to {MAX_BOOKS_PER_AUTHOR}{" "}
+                books.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <Button href="/dashboard/books/new">+ New Book Project</Button>
+                {atBookLimit ? (
+                  <p className="text-sm font-semibold text-amber-800">
+                    Book limit reached ({MAX_BOOKS_PER_AUTHOR}/{MAX_BOOKS_PER_AUTHOR}).
+                  </p>
+                ) : (
+                  <Button href="/dashboard/books/new">+ New Book Project</Button>
+                )}
                 <Button href="/dashboard/profile" variant="ghost">
                   Edit Author Profile
                 </Button>
@@ -96,9 +108,27 @@ export default async function DashboardPage({
         </div>
 
         <div className="w-full shrink-0 lg:w-[260px]">
-          <DashboardRightRail books={books} forceVisible />
+          <DashboardRightRail books={uniqueBooks} forceVisible />
         </div>
       </div>
     </DashboardShell>
   );
+}
+
+function dedupeBooks(books: Awaited<ReturnType<typeof getMyBooks>>) {
+  const bySlug = new Map<string, (typeof books)[number]>();
+  for (const book of books) {
+    const key = book.slug || book.id;
+    const existing = bySlug.get(key);
+    if (!existing) {
+      bySlug.set(key, book);
+      continue;
+    }
+    // Prefer approved / public listing when duplicates exist.
+    const preferNew =
+      (book.status === "published" || book.is_public) &&
+      !(existing.status === "published" || existing.is_public);
+    if (preferNew) bySlug.set(key, book);
+  }
+  return Array.from(bySlug.values());
 }

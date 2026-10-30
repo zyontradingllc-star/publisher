@@ -1,38 +1,56 @@
 import { appCanonical } from "@/lib/seo";
-import { APP_SITEMAP_STATIC_PATHS } from "@/lib/seo-app-pages";
-import { getAllBlogPosts } from "@/lib/blog/posts";
+import {
+  APP_SITEMAP_STATIC_PATHS,
+  SELL_ON_SITEMAP_PATHS,
+} from "@/lib/seo-app-pages";
+import {
+  SITEMAP_XML_HEADERS,
+  xmlUrlEntry,
+} from "@/lib/sitemap-xml";
+
+/**
+ * Public indexable app pages not already in APP_SITEMAP_STATIC_PATHS.
+ * Do NOT list /privacy/ or /terms/ — those 307 to authorspilot.com (GSC "Page with redirect").
+ */
+const EXTRA_PUBLIC_PATHS = [
+  "/blog/",
+  "/books/",
+  "/how-it-works/",
+  "/vs-books2read/",
+  "/vs-booklinker/",
+  "/about/",
+  "/contact/",
+  "/community-policy/",
+  "/copyright/",
+] as const;
 
 /**
  * Dedicated sitemap for app.authorspilot.com SEO landings.
- * Does not replace authorspilot.com/sitemap.xml (marketing site).
+ * Blog articles are listed only in /sitemap-blog.xml.
  */
 export async function GET() {
-  const lastmod = new Date().toISOString();
-
-  const paths = new Set<string>(["/", ...APP_SITEMAP_STATIC_PATHS]);
-  for (const post of getAllBlogPosts()) {
-    paths.add(`/blog/${post.slug}/`);
-  }
-  paths.add("/blog/");
-  paths.add("/books/");
-  paths.add("/how-it-works/");
-  paths.add("/vs-books2read/");
-  paths.add("/vs-booklinker/");
+  const paths = new Set<string>([
+    "/",
+    ...APP_SITEMAP_STATIC_PATHS,
+    ...SELL_ON_SITEMAP_PATHS,
+    ...EXTRA_PUBLIC_PATHS,
+  ]);
 
   const urls = [...paths].map((path) => {
     const loc = path.startsWith("http") ? path : appCanonical(path);
     const priority =
       path === "/" || path === "/publish/" || path === "/blog/"
         ? "1.0"
-        : path.startsWith("/guides/") || path.startsWith("/compare/")
+        : path.startsWith("/guides/") ||
+            path.startsWith("/compare/") ||
+            path.startsWith("/sell-on/")
           ? "0.8"
           : "0.7";
-    return `  <url>
-    <loc>${loc}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${priority}</priority>
-  </url>`;
+    return xmlUrlEntry({
+      loc,
+      changefreq: "weekly",
+      priority,
+    });
   });
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -40,10 +58,5 @@ export async function GET() {
 ${urls.join("\n")}
 </urlset>`;
 
-  return new Response(sitemap, {
-    headers: {
-      "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
-    },
-  });
+  return new Response(sitemap, { headers: SITEMAP_XML_HEADERS });
 }

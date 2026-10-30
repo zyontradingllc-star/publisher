@@ -90,6 +90,35 @@ export const BookSubmissions: CollectionConfig = {
       required: true,
     },
     {
+      name: "country",
+      type: "text",
+      required: true,
+      index: true,
+      admin: {
+        description: "ISO country code from Publish → Book Details (IR/PK excluded).",
+      },
+    },
+    {
+      name: "productType",
+      type: "select",
+      required: true,
+      defaultValue: "ebook",
+      index: true,
+      options: [
+        { label: "Print Book", value: "print_book" },
+        { label: "Ebook", value: "ebook" },
+        { label: "Photo Book", value: "photo_book" },
+        { label: "Comic Book", value: "comic_book" },
+        { label: "Magazine", value: "magazine" },
+        { label: "Yearbook", value: "yearbook" },
+        { label: "Calendar", value: "calendar" },
+      ],
+      admin: {
+        description:
+          "Category for this listing (replaces genre). Drives later publish steps.",
+      },
+    },
+    {
       name: "title",
       type: "text",
       required: true,
@@ -169,7 +198,7 @@ export const BookSubmissions: CollectionConfig = {
     {
       name: "description",
       type: "textarea",
-      required: true,
+      required: false,
     },
     {
       name: "cover",
@@ -219,6 +248,10 @@ export const BookSubmissions: CollectionConfig = {
     {
       name: "genreId",
       type: "text",
+      admin: {
+        description: "Legacy field — use productType as the listing category.",
+        condition: (_, siblingData) => Boolean(siblingData?.genreId),
+      },
     },
     {
       name: "keywords",

@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import {
   JsonLd,
+  breadcrumbListSchema,
+  faqPageSchema,
   organizationSchema,
 } from "@/components/seo/JsonLd";
 import {
@@ -12,8 +14,10 @@ import {
   formatBlogDate,
   getAllBlogPosts,
   getBlogPost,
+  parseBlogFaqs,
+  resolveBlogAeoAnswer,
 } from "@/lib/blog/posts";
-import { APP_ORIGIN, buildAppMetadata } from "@/lib/seo";
+import { APP_ORIGIN, appCanonical, buildAppMetadata } from "@/lib/seo";
 import { platformPublicPath } from "@/lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -26,11 +30,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return {};
+  const imageUrl = post.image.startsWith("http")
+    ? post.image
+    : `${APP_ORIGIN}${post.image.startsWith("/") ? post.image : `/${post.image}`}`;
+
   return buildAppMetadata({
-    title: `${post.h1} | Authors Pilot Blog`,
+    title: `${post.h1} | Authors Pilot`,
     description: post.metaDescription,
     path: `/blog/${post.slug}/`,
     keywords: post.primaryKeyword ? [post.primaryKeyword] : undefined,
+    image: imageUrl,
+    imageAlt: post.imageAlt,
+    ogType: "article",
+    publishedTime: post.publishedAt,
+    modifiedTime: post.publishedAt,
   });
 }
 
@@ -50,43 +63,106 @@ export default async function BlogPostPage({ params }: Props) {
     .filter((p) => p.slug !== post.slug && p.category === post.category)
     .slice(0, 4);
 
-  const aeo =
-    post.aeoAnswer ||
-    post.body[0] ||
-    post.metaDescription;
+  const aeo = resolveBlogAeoAnswer(post);
+  const faqs = parseBlogFaqs(post);
+
+  const guideLinks = post.interlinks ?? [];
+  const blogLinks = related.slice(0, 3).map((item) => ({
+    href: `/blog/${item.slug}/`,
+    label: item.title,
+  }));
+  const interlinks = [
+    ...guideLinks,
+    ...blogLinks.filter(
+      (b) => !guideLinks.some((g) => g.href === b.href)
+    ),
+  ];
+
+  const canonical = appCanonical(`/blog/${post.slug}/`);
+  const imageUrl = post.image.startsWith("http")
+    ? post.image
+    : `${APP_ORIGIN}${post.image.startsWith("/") ? post.image : `/${post.image}`}`;
+
+  const h1 = post.h1.replace(/:\s*/g, " ").replace(/\s+/g, " ").trim();
 
   return (
     <>
       <JsonLd
         data={[
           organizationSchema(APP_ORIGIN),
+          breadcrumbListSchema(APP_ORIGIN, [
+            { name: "Home", path: "/publish/" },
+            { name: "Blog", path: "/blog/" },
+            { name: h1, path: `/blog/${post.slug}/` },
+          ]),
+          faqPageSchema(faqs),
           {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            headline: post.h1,
+            headline: h1,
             description: post.metaDescription,
             datePublished: post.publishedAt,
-            author: { "@type": "Organization", name: post.author },
-            image: `${APP_ORIGIN}${post.image}`,
-            mainEntityOfPage: `${APP_ORIGIN}/blog/${post.slug}/`,
+            dateModified: post.publishedAt,
+            author: {
+              "@type": "Person",
+              name: post.author,
+            },
+            image: [imageUrl],
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": canonical,
+            },
             publisher: { "@id": `${APP_ORIGIN}/#organization` },
+            keywords: post.primaryKeyword || undefined,
+            about: post.primaryKeyword
+              ? { "@type": "Thing", name: post.primaryKeyword }
+              : undefined,
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: [".aeo-short-answer", "h1"],
+            },
+            isPartOf: {
+              "@type": "Blog",
+              name: "Authors Pilot Blog",
+              url: `${APP_ORIGIN}/blog/`,
+            },
           },
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <p className="text-sm text-forest-muted">
-          <Link href="/blog/" className="font-semibold text-coral hover:underline">
-            Blog
-          </Link>
-          {" / "}
-          {post.category}
-        </p>
+        <nav aria-label="Breadcrumb" className="text-sm text-forest-muted">
+          <ol className="flex flex-wrap items-center gap-1">
+            <li>
+              <Link
+                href="/publish/"
+                className="font-semibold text-coral hover:underline"
+              >
+                Home
+              </Link>
+            </li>
+            <li aria-hidden className="px-1">
+              /
+            </li>
+            <li>
+              <Link
+                href="/blog/"
+                className="font-semibold text-coral hover:underline"
+              >
+                Blog
+              </Link>
+            </li>
+            <li aria-hidden className="px-1">
+              /
+            </li>
+            <li className="text-ink">{post.category}</li>
+          </ol>
+        </nav>
         <p className="mt-4 text-xs text-forest-muted">
-          {formatBlogDate(post.publishedAt)}
+          <time dateTime={post.publishedAt}>{formatBlogDate(post.publishedAt)}</time>
+          {" · "}
+          {post.readTimeMinutes} min read
         </p>
-        <h1 className="mt-4 heading-section">
-          {post.h1.replace(/:\s*/g, " ").replace(/\s+/g, " ").trim()}
-        </h1>
+        <h1 className="mt-4 heading-section">{h1}</h1>
         <div className="mt-5 flex items-center gap-3">
           <span
             className="flex h-10 w-10 items-center justify-center rounded-full bg-coral text-xs font-bold text-white"
@@ -119,9 +195,12 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
 
-        {/* AEO direct answer */}
-        <div className="mt-8 rounded-2xl border border-sand bg-white p-5 shadow-soft">
-          <h2 className="font-display text-lg font-bold text-ink sm:text-xl">
+        {/* AEO / GEO direct answer — visible short answer for answer engines */}
+        <div className="aeo-short-answer mt-8 rounded-2xl border border-sand bg-white p-5 shadow-soft">
+          <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#E08A2A]">
+            Short answer
+          </p>
+          <h2 className="mt-2 font-display text-lg font-bold text-ink sm:text-xl">
             {post.headings[0]}
           </h2>
           <p className="mt-3 text-base leading-relaxed text-charcoal">{aeo}</p>
@@ -129,7 +208,9 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-10 space-y-10">
           {post.headings.slice(1).map((heading, i) => {
-            const block = post.body[i + 1] ?? post.body[Math.min(i + 1, post.body.length - 1)];
+            const block =
+              post.body[i + 1] ??
+              post.body[Math.min(i + 1, post.body.length - 1)];
             const paras = splitParas(block || "");
             return (
               <section key={heading}>
@@ -147,7 +228,6 @@ export default async function BlogPostPage({ params }: Props) {
             );
           })}
 
-          {/* Remaining body beyond first 3 mapped blocks */}
           {post.body.slice(3).map((block, i) => (
             <div
               key={`extra-${i}`}
@@ -162,22 +242,35 @@ export default async function BlogPostPage({ params }: Props) {
           ))}
         </div>
 
-        {post.interlinks && post.interlinks.length > 0 ? (
+        {interlinks.length > 0 ? (
           <nav className="mt-12 rounded-2xl border border-sand bg-warm-wash p-6">
             <h2 className="font-display text-xl font-bold text-ink">
-              Related guides
+              Related guides & articles
             </h2>
             <ul className="mt-4 space-y-2">
-              {post.interlinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm font-semibold text-coral hover:underline"
-                  >
-                    {link.label} →
-                  </Link>
-                </li>
-              ))}
+              {interlinks.map((link) => {
+                const external = /^https?:\/\//i.test(link.href);
+                return (
+                  <li key={link.href}>
+                    {external ? (
+                      <a
+                        href={link.href}
+                        className="text-sm font-semibold text-coral hover:underline"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label} →
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm font-semibold text-coral hover:underline"
+                      >
+                        {link.label} →
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         ) : null}

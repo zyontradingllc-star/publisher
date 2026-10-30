@@ -39,7 +39,7 @@ export function BlogPostCard({
             alt={post.imageAlt}
             fill
             sizes="(max-width: 1024px) 100vw, 66vw"
-            className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+            className="object-cover object-[center_48%] transition duration-500 group-hover:scale-[1.03]"
             priority
             unoptimized
           />
@@ -101,7 +101,7 @@ export function BlogPostCard({
           alt={post.imageAlt}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+          className="object-cover object-[center_48%] transition duration-500 group-hover:scale-[1.03]"
           unoptimized
         />
         {showNew ? (

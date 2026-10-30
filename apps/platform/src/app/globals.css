@@ -47,12 +47,8 @@ body {
 
   /* Explicit washes — Tailwind config HMR often skips backgroundImage keys */
   .bg-page-wash {
-    background-image: linear-gradient(
-      165deg,
-      #e8eee9 0%,
-      #d5dfd7 42%,
-      #c5d1c8 100%
-    );
+    background-color: #ffffff;
+    background-image: none;
   }
 
   .bg-warm-wash {
@@ -106,6 +102,12 @@ body {
     @apply w-full rounded-none border border-sand bg-white px-4 py-2.5 text-ink shadow-sm transition placeholder:text-forest-muted focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/30;
   }
 
+  /* Keep country <select> and text <input> the same height */
+  input.input-field,
+  select.input-field {
+    @apply h-11 box-border leading-normal;
+  }
+
   .label-field {
     @apply mb-1.5 block text-sm font-semibold text-ink;
   }
@@ -120,5 +122,46 @@ body {
 
   .card-surface {
     @apply rounded-none border border-sand bg-white p-5 shadow-soft;
+  }
+
+  .image-ken-burns {
+    animation: image-ken-burns 13s ease-in-out infinite alternate;
+  }
+
+  .image-bob {
+    animation: image-bob 5s ease-in-out infinite;
+  }
+
+  @keyframes image-ken-burns {
+    from {
+      transform: scale(1) translate(0, 0);
+    }
+    to {
+      transform: scale(1.035) translate(-0.8%, -0.5%);
+    }
+  }
+
+  @keyframes image-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .image-ken-burns,
+  .image-bob {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-ken-burns,
+  .image-bob {
+    animation: none !important;
   }
 }

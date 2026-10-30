@@ -34,7 +34,7 @@ export type ActionState = {
 
 /**
  * Signup As Author (Firebase):
- * 1) Notify no-reply inbox (never password)
+ * 1) Notify hello@ inbox (never password)
  * 2) Create Firebase Auth user + Firestore profile
  * 3) Sign in + session cookie → dashboard
  */

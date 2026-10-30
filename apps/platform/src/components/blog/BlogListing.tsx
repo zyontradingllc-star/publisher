@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
@@ -59,23 +59,16 @@ export function BlogListing({ posts, trending }: Props) {
               <span className="h-2 w-2 animate-pulse rounded-full bg-[#22C55E]" />
               New — free author page + one shareable book link
             </div>
-            <h1 className="mt-6 font-display text-[2.1rem] font-extrabold leading-[0.98] tracking-tight text-ink sm:text-5xl lg:text-[3.75rem]">
-              Marketing secrets
+            <h1 className="mt-6 font-display text-[1.85rem] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.75rem] lg:leading-[0.98]">
+              Book marketing tips
               <span className="mt-1 block font-bold italic text-coral">
-                for authors who
+                &amp; author guides
               </span>
-              <span className="relative mt-1 inline-block">
-                <span className="relative z-10">want to sell</span>
-                <span
-                  aria-hidden
-                  className="absolute bottom-[0.12em] left-0 z-0 h-[0.35em] w-full -rotate-1 bg-gradient-to-r from-[#E08A2A]/80 to-[#F2C14D]"
-                />
-              </span>{" "}
-              more books
             </h1>
-            <p className="mt-5 max-w-lg text-[17px] leading-relaxed text-charcoal">
-              Real launch, ads, and swap strategies for indie authors. No fluff —
-              keep 100% royalties with a branded author page and one link.
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-charcoal sm:text-[17px]">
+              Practical launch strategies, author page guides, and promotion
+              ideas to help independent authors reach more readers—with a free
+              author page and one shareable book link.
             </p>
             <div className="mt-6 flex items-center gap-3 text-[13px] text-forest-muted">
               <div className="flex -space-x-2" aria-hidden>

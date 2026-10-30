@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookCard } from "@/components/BookCard";
 import { AuthorShareBar } from "@/components/AuthorShareBar";
+import { PublicShareHeader } from "@/components/PublicShareHeader";
 import { PurchaseButtons } from "@/components/PurchaseButtons";
 import { RecordAuthorView } from "@/components/RecordView";
 import { Button } from "@/components/ui/Button";
@@ -12,7 +13,6 @@ import { isPayloadConfigured } from "@/lib/payload";
 import { appCanonical, buildAppMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo";
 import {
   avatarUrl,
-  bannerUrl,
   coverUrl,
   formatDate,
   platformPublicPath,
@@ -72,7 +72,6 @@ export default async function AuthorProfilePage({ params }: PageProps) {
   const featured = books[0] ?? null;
   const moreBooks = books.slice(1);
   const avatar = avatarUrl(author.avatar_path);
-  const banner = bannerUrl(author.banner_path);
   const name = author.display_name ?? "Author";
   const featuredCover = featured ? coverUrl(featured.cover_path) : null;
 
@@ -109,91 +108,49 @@ export default async function AuthorProfilePage({ params }: PageProps) {
   };
 
   return (
-    <div className="bg-[#F7F3EA]">
+    <div className="bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
       />
       <RecordAuthorView profileId={author.id} />
 
-      {/* Atmosphere hero */}
-      <div className="relative overflow-hidden border-b border-sand">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#E8D4A8]/50 via-[#F7F3EA] to-[#A7C4AB]/25" />
-        {banner ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={platformPublicPath(banner)}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover opacity-35"
-          />
-        ) : null}
-        <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-8 sm:px-6 sm:pb-12 sm:pt-10 lg:px-8">
-          <nav className="text-sm text-forest-muted">
-            <Link href="/authors" className="hover:text-coral">
-              Authors
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-ink">{name}</span>
-          </nav>
+      <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
+        <nav className="text-sm text-forest-muted">
+          <Link href="/authors" className="hover:text-coral">
+            Authors
+          </Link>
+          <span className="mx-2">/</span>
+          <span className="text-ink">{name}</span>
+        </nav>
 
-          <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end">
-            <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border-[5px] border-white bg-[#1A1A1A] shadow-lift sm:h-36 sm:w-36">
-              {avatar ? (
-                <Image
-                  src={platformPublicPath(avatar)}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  sizes="144px"
-                  priority
-                />
-              ) : (
-                <span className="flex h-full w-full items-center justify-center font-display text-4xl font-bold text-white">
-                  {name.charAt(0).toUpperCase()}
-                </span>
-              )}
-            </div>
-            <div className="min-w-0 flex-1 pb-1">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E08A2A]">
-                Public author page
-              </p>
-              <h1 className="mt-1 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-                {name}
-              </h1>
-              <p className="mt-2 text-sm text-forest-muted">
-                {books.length} published book
-                {books.length === 1 ? "" : "s"}
-                {author.slug ? (
-                  <>
-                    {" "}
-                    ·{" "}
-                    <span className="font-mono text-xs">
-                      /authors/{author.slug}
-                    </span>
-                  </>
-                ) : null}
-              </p>
-              {socials.length > 0 ? (
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {socials.map((s) => (
-                    <li key={s.label}>
-                      <a
-                        href={s.href!}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={s.label}
-                        className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-bold text-white shadow-soft transition hover:scale-105 ${s.color}`}
-                      >
-                        <span className="sr-only">{s.label}</span>
-                        {s.label.slice(0, 1)}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          </div>
+        <div className="mt-6">
+          <PublicShareHeader
+            name={name}
+            avatarPath={author.avatar_path}
+            bannerPath={author.banner_path}
+            meta={`${books.length} published book${books.length === 1 ? "" : "s"}`}
+          />
         </div>
+
+        {socials.length > 0 ? (
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={s.label}
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-bold text-white shadow-soft transition hover:scale-105 ${s.color}`}
+                >
+                  <span className="sr-only">{s.label}</span>
+                  {s.label.slice(0, 1)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
 
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">

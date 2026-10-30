@@ -195,7 +195,7 @@ export function AuthForm({
             </p>
             <p>
               New here?{" "}
-              <Link href="/signup" className="font-semibold text-coral hover:underline">
+              <Link href="/signup/" className="font-semibold text-coral hover:underline">
                 Signup As Author
               </Link>
             </p>
@@ -204,21 +204,21 @@ export function AuthForm({
         {mode === "signup" ? (
           <p>
             Already have an account?{" "}
-            <Link href="/login" className="font-semibold text-coral hover:underline">
+            <Link href="/login/" className="font-semibold text-coral hover:underline">
               Log in
             </Link>
           </p>
         ) : null}
         {mode === "forgot" ? (
           <p>
-            <Link href="/login" className="font-semibold text-coral hover:underline">
+            <Link href="/login/" className="font-semibold text-coral hover:underline">
               Back to log in
             </Link>
           </p>
         ) : null}
         {mode === "reset" ? (
           <p>
-            <Link href="/login" className="font-semibold text-coral hover:underline">
+            <Link href="/login/" className="font-semibold text-coral hover:underline">
               Log in with new password
             </Link>
           </p>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { requireProfile } from "@/lib/auth";
 import { PublishBookContentForm } from "@/components/forms/PublishBookContentForm";
 
@@ -14,30 +14,22 @@ export default async function PublishBookContentPage({
 
   return (
     <div className="space-y-6">
+      <header>
+        <h1 className="heading-section">Book Content</h1>
+        <p className="mt-2 text-forest-muted">
+          {title
+            ? title
+            : "Manuscript, cover, ISBN, and accessibility - like a KDP content step, for Authors Pilot."}
+        </p>
+      </header>
+
       <nav
         aria-label="Publish progress"
         className="flex flex-wrap gap-2 border-b border-sand pb-4 sm:gap-6"
       >
-        <Step
-          n={1}
-          label="Book Details"
-          status="complete"
-        />
-        <Step n={2} label="Book Content" status="current" />
-        <Step n={3} label="Sales Links" status="upcoming" />
+        <Step n={1} label="Book Details" status="complete" />
+        <Step n={2} label="Sales Links" status="upcoming" />
       </nav>
-
-      <header>
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-coral">
-          Publish book · Step 2
-        </p>
-        <h1 className="heading-section mt-1">Book Content</h1>
-        <p className="mt-2 text-forest-muted">
-          {title
-            ? title
-            : "Table of contents, cover, ISBN, and accessibility - like a KDP content step, for Authors Pilot."}
-        </p>
-      </header>
 
       <PublishBookContentForm bookTitle={title} submissionId={submission} />
 

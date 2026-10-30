@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { requireProfile } from "@/lib/auth";
-import { getMyBooks } from "@/lib/books";
+import { getMyBooks, MAX_BOOKS_PER_AUTHOR } from "@/lib/books";
 import { Button } from "@/components/ui/Button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -33,6 +33,7 @@ export default async function DashboardBooksPage({
     waiting[0]?.title ??
     books.find((b) => b.status === "draft")?.title ??
     null;
+  const atBookLimit = books.length >= MAX_BOOKS_PER_AUTHOR;
 
   return (
     <DashboardShell books={books} variant="home" showRightRail={false}>
@@ -62,12 +63,21 @@ export default async function DashboardBooksPage({
         <div>
           <h2 className="font-display text-xl font-bold text-ink">My Books</h2>
           <p className="mt-1 text-sm text-forest-muted">
-            Drafts, submissions waiting for approval, and published listings.
+            Drafts, submissions waiting for approval, and approved listings.
+            Limit: {MAX_BOOKS_PER_AUTHOR} books per account (
+            {Math.min(books.length, MAX_BOOKS_PER_AUTHOR)}/
+            {MAX_BOOKS_PER_AUTHOR}).
           </p>
         </div>
-        <Button href="/dashboard/books/new" className="!px-4 !py-2.5 text-xs">
-          + New Book Project
-        </Button>
+        {atBookLimit ? (
+          <p className="text-xs font-bold uppercase tracking-wide text-amber-800">
+            Limit reached
+          </p>
+        ) : (
+          <Button href="/dashboard/books/new" className="!px-4 !py-2.5 text-xs">
+            + New Book Project
+          </Button>
+        )}
       </div>
 
       {books.length === 0 && !justSubmitted ? (

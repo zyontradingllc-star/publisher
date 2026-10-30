@@ -7,7 +7,6 @@ const nav = [
   { href: "/admin", label: "Overview" },
   { href: "/admin/books", label: "Books" },
   { href: "/admin/authors", label: "Authors" },
-  { href: "/admin/reports", label: "Reports" },
   { href: "/admin/audit", label: "Audit log" },
 ];
 

@@ -154,6 +154,16 @@ export const Authors: CollectionConfig = {
       validate: optionalHttpsUrl,
     },
     {
+      name: "socialYoutube",
+      type: "text",
+      validate: optionalHttpsUrl,
+    },
+    {
+      name: "socialPinterest",
+      type: "text",
+      validate: optionalHttpsUrl,
+    },
+    {
       name: "isPublic",
       type: "checkbox",
       defaultValue: false,

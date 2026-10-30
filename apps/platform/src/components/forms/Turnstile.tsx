@@ -21,11 +21,14 @@ type TurnstileApi = {
       "error-callback"?: () => void;
       theme?: "light" | "dark" | "auto";
       action?: string;
-      size?: "normal" | "flexible" | "compact";
+      size?: "normal" | "flexible" | "compact" | "invisible";
+      appearance?: "always" | "execute" | "interaction-only";
+      execution?: "render" | "execute";
     }
   ) => TurnstileWidgetId;
   reset: (widgetId?: TurnstileWidgetId) => void;
   remove: (widgetId?: TurnstileWidgetId) => void;
+  execute: (container?: HTMLElement | string, parameters?: object) => void;
 };
 
 declare global {
@@ -36,6 +39,8 @@ declare global {
 
 export type TurnstileHandle = {
   reset: () => void;
+  /** Runs the challenge (on-demand / Verify click). */
+  execute: () => void;
 };
 
 const DUMMY_SITE_KEYS = new Set([
@@ -60,17 +65,27 @@ type TurnstileProps = {
   onChange: (token: string | null) => void;
   action?: string;
   className?: string;
+  /**
+   * When true, challenge waits for `ref.execute()` (e.g. Verify click).
+   * Default: run automatically on render (signup-style).
+   */
+  executeOnDemand?: boolean;
 };
 
 export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
-  function Turnstile({ onChange, action = "signup", className = "" }, ref) {
+  function Turnstile(
+    { onChange, action = "signup", className = "", executeOnDemand = false },
+    ref
+  ) {
     const siteKey = getTurnstileSiteKey();
     const containerId = useId().replace(/:/g, "");
     const widgetId = useRef<TurnstileWidgetId | null>(null);
     const onChangeRef = useRef(onChange);
     const actionRef = useRef(action);
+    const executeOnDemandRef = useRef(executeOnDemand);
     onChangeRef.current = onChange;
     actionRef.current = action;
+    executeOnDemandRef.current = executeOnDemand;
 
     function renderWidget() {
       if (!siteKey || !window.turnstile || widgetId.current !== null) return;
@@ -81,7 +96,9 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
         sitekey: siteKey,
         action: actionRef.current,
         theme: "light",
-        size: "flexible",
+        size: executeOnDemandRef.current ? "invisible" : "normal",
+        appearance: executeOnDemandRef.current ? "execute" : "always",
+        execution: executeOnDemandRef.current ? "execute" : "render",
         callback: (token) => onChangeRef.current(token),
         "expired-callback": () => onChangeRef.current(null),
         "error-callback": () => onChangeRef.current(null),
@@ -94,6 +111,16 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
           window.turnstile.reset(widgetId.current);
         }
         onChangeRef.current(null);
+      },
+      execute() {
+        if (!siteKey || !window.turnstile) return;
+        if (widgetId.current === null) {
+          renderWidget();
+        }
+        const el = document.getElementById(containerId);
+        if (el && window.turnstile.execute) {
+          window.turnstile.execute(el);
+        }
       },
     }));
 
@@ -111,7 +138,7 @@ export const Turnstile = forwardRef<TurnstileHandle, TurnstileProps>(
         widgetId.current = null;
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [containerId, siteKey]);
+    }, [containerId, siteKey, executeOnDemand]);
 
     if (!siteKey) return null;
 

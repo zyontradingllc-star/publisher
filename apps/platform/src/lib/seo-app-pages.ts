@@ -129,6 +129,9 @@ export const APP_SITEMAP_STATIC_PATHS: readonly string[] = [
   ...BOOKSTORE_SLUGS.map((s) => `/bookstore/${s}/`),
 ];
 
+/** Re-exported for sitemap-app (platform sell-on hubs for GSC). */
+export { SELL_ON_SITEMAP_PATHS } from "@/lib/sales-channels";
+
 function humanize(slug: string): string {
   return slug
     .split("-")

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
-import { PricingNotice } from "@/components/PricingNotice";
-
 export const metadata: Metadata = {
   title: "How Publishing Works",
 };
@@ -41,10 +39,6 @@ export default function HowPublishingWorksPage() {
           </li>
         ))}
       </ol>
-
-      <div className="mt-10">
-        <PricingNotice />
-      </div>
 
       <div className="mt-8">
         <Button href="/signup?google=1">Signup</Button>

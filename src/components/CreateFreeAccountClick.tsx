@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 /**
- * One click → email goes straight to no-reply@authorspilot.com
+ * One click → email goes straight to hello@authorspilot.com
  * No form fields, no captcha.
  */
 export function CreateFreeAccountClick() {
@@ -32,9 +32,9 @@ export function CreateFreeAccountClick() {
       if (!res.ok) throw new Error("send failed");
       setStatus("sent");
     } catch {
-      // Fallback: open mail client straight to no-reply@
+      // Fallback: open mail client straight to hello@
       window.location.href =
-        "mailto:no-reply@authorspilot.com?subject=" +
+        "mailto:hello@authorspilot.com?subject=" +
         encodeURIComponent("Create A Free Account") +
         "&body=" +
         encodeURIComponent(
@@ -61,16 +61,16 @@ export function CreateFreeAccountClick() {
 
       {status === "sent" ? (
         <p className="mt-3 text-sm text-green-800" role="status">
-          Sent to no-reply@authorspilot.com. We will follow up soon.
+          Sent to hello@authorspilot.com. We will follow up soon.
         </p>
       ) : status === "error" ? (
         <p className="mt-3 text-sm text-red-700" role="alert">
-          Could not send. Try again or email no-reply@authorspilot.com.
+          Could not send. Try again or email hello@authorspilot.com.
         </p>
       ) : (
         <p className="mt-4 text-xs text-forest-muted">
           One click - no form, no captcha. Goes straight to
-          no-reply@authorspilot.com.
+          hello@authorspilot.com.
         </p>
       )}
     </div>

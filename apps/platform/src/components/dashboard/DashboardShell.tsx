@@ -1,5 +1,6 @@
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { DashboardRightRail } from "@/components/dashboard/DashboardRightRail";
+import { DashboardTabs } from "@/components/dashboard/DashboardTabs";
 import type { Book } from "@/types/database";
 
 type Props = {
@@ -9,6 +10,8 @@ type Props = {
   showRightRail?: boolean;
   /** Home layout: full-width header (no left sidebar) */
   variant?: "default" | "home";
+  /** Show Dashboard / My Books / Approved / Profile tabs (default on). */
+  showTabs?: boolean;
 };
 
 export function DashboardShell({
@@ -16,8 +19,11 @@ export function DashboardShell({
   books = [],
   showRightRail = true,
   variant = "default",
+  showTabs,
 }: Props) {
   const isHome = variant === "home";
+  // Home pages already put tabs under the profile photo/name.
+  const tabsVisible = showTabs ?? !isHome;
 
   return (
     <div className="border-t border-sand bg-[#F4F1EA]">
@@ -27,7 +33,10 @@ export function DashboardShell({
         }`}
       >
         {isHome ? null : <DashboardSidebar />}
-        <div className="min-w-0 flex-1 space-y-4">{children}</div>
+        <div className="min-w-0 flex-1 space-y-4">
+          {tabsVisible ? <DashboardTabs /> : null}
+          {children}
+        </div>
         {!isHome && showRightRail ? (
           <DashboardRightRail books={books} />
         ) : null}

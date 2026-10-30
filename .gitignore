@@ -39,6 +39,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local Payload media dumps (not for deploy)
+apps/platform/_media_sync/
+
 # local build dumps / archives
 *.zip
 /out3/
